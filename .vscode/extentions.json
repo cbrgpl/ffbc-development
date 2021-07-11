@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+      "dbaeumer.vscode-eslint",
+      "wooodhead.disable-eslint-rule",
+      "drknoxy.eslint-disable-snippets",
+      "jcbuisson.vue",
+      "stylelint.vscode-stylelint",
+      "editorconfig.editorconfig",
+      "mikestead.dotenv"
+    ]
+  }

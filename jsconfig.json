@@ -1,0 +1,59 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "allowSyntheticDefaultImports": false,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "@images/*": [
+        "src/assets/images/*"
+      ],
+      "@icons/*": [
+        "src/assets/icons/*"
+      ],
+      "@scss/*": [
+        "src/assets/scss/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@enums/*": [
+        "src/enums/*"
+      ],
+      "@classes/*": [
+        "src/helpers/classes/*",
+      ],
+      "@directives/*": [
+        "src/helpers/directives/*"
+      ],
+      "@filters/*": [
+        "src/helpers/filters/*"
+      ],
+      "@functions/*": [
+        "src/helpers/functions/*"
+      ],
+      "@mixins/*": [
+        "src/helpers/mixins/*"
+      ],
+      "@validators/*": [
+        "src/helpers/validators/*"
+      ],
+      "@layouts/*": [
+        "src/layouts/*"
+      ],
+      "@services/*": [
+        "src/services/*"
+      ],
+      "@views/*": [
+        "src/views/*"
+      ],
+
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
