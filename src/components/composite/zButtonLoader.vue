@@ -1,0 +1,37 @@
+<template >
+  <zButton
+    class="relative"
+    :disabled="loader"
+    v-bind="$attrs" >
+
+    <div class="flex absolute w-full h-full bg-black-lighten bg-opacity-50 top-0 left-0" >
+      <zLoader
+        class="m-auto"
+        :height="40"
+        :width="40" />
+
+    </div>
+  </zButton>
+</template>
+
+<script>
+import { defineAsyncComponent } from 'vue'
+
+import zButton from '@components/atomic/zButton.vue'
+
+export default {
+  components: {
+    zButton,
+    zLoader: defineAsyncComponent( () => import( '@components/atomic/zLoader.vue' ) )
+  },
+  props: {
+    loader: {
+      type: Boolean,
+      required: true
+    },
+  },
+}
+</script>
+
+<style lang="scss">
+</style>

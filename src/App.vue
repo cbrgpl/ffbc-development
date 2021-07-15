@@ -1,24 +1,26 @@
 <template >
-  <div >
-    <component :is="layout" >
+  <div class="h-screen bg-black " >
+    <component
+      class="h-full"
+      :is="layout" >
       <router-view />
     </component>
   </div>
 </template>
 
 <script>
-import LayoutMain from '@layouts/LayoutMain/LayoutMain.vue'
-import LayoutEmpty from '@layouts/LayoutEmpty/LayoutEmpty.vue'
+import MainLayout from '@layouts/MainLayout/MainLayout.vue'
+import EmptyLayout from '@layouts/EmptyLayout/EmptyLayout.vue'
 
 export default {
   name: 'App',
   components: {
-    LayoutMain,
-    LayoutEmpty
+    MainLayout,
+    EmptyLayout
   },
   computed: {
     layout () {
-      return 'layout-' + this.$route.meta.layout
+      return this.$route.meta.layout + '-layout'
     }
   },
 }

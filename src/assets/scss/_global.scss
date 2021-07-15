@@ -20,7 +20,7 @@
   scrollbar-width: thin;
 
   &::selection {
-    background: $selectable;
+    @apply bg-primary-lighten;
   }
 }
 
@@ -29,53 +29,6 @@ html {
   scrollbar-width: thin;
 }
 
-body {
-  font-family: $font-family-base;
-  overflow: overlay;
-}
-
-.link {
-  color: $link-color;
-  cursor: pointer;
-  transition: 0.15s;
-
-  &:hover {
-    color: $link-hover-color;
-  }
-}
-
-.h6,
-h6 {
-  font-size: rem(12px);
-  line-height: 1.25;
-}
-
-.h5,
-h5 {
-  font-size: rem(14px);
-  line-height: 1.25;
-}
-
-.h4,
-h4 {
-  font-size: rem(16px);
-  line-height: 1.25;
-}
-
-.h3,
-h3 {
-  font-size: rem(18px);
-  line-height: 1.25;
-}
-
-.h2,
-h2 {
-  font-size: rem(24px);
-  line-height: 1.25;
-}
-
-.h1,
-h1 {
-  font-size: 0;
-  line-height: 0;
+.absolute-center {
+  @include absolute-center;
 }

@@ -26,7 +26,6 @@ function processErrorResponse ( response, validErrors = {} ) {
 
   for ( const validErrorKey of validErrorKeys ) {
     // Ищется подстрока, потому что содержание ошибки может быть динамическим
-    // Например как в passportSerivce/uploadDocumentsImages
     if ( response.message.includes( validErrorKey ) ) {
       return {
         errorCondition: 'valid',

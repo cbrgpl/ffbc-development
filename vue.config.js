@@ -40,7 +40,7 @@ module.exports = {
   css: {
     loaderOptions: {
       sass: {
-        prependData: '@import "@/assets/scss/_variables.scss";',
+        prependData: '@import "@/assets/scss/_variables.scss";@import "@/assets/scss/_mixins.scss";',
       },
     },
   },
@@ -55,6 +55,7 @@ module.exports = {
         '@components': path.resolve( __dirname, 'src', 'components' ),
         '@enums': path.resolve( __dirname, 'src', 'enums' ),
         '@classes': path.resolve( __dirname, 'src', 'helpers', 'classes' ),
+        '@composable': path.resolve( __dirname, 'src', 'helpers', 'composable' ),
         '@directives': path.resolve( __dirname, 'src', 'helpers', 'directives' ),
         '@filters': path.resolve( __dirname, 'src', 'helpers', 'filters' ),
         '@functions': path.resolve( __dirname, 'src', 'helpers', 'functions' ),

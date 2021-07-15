@@ -25,6 +25,9 @@
       "@classes/*": [
         "src/helpers/classes/*",
       ],
+      "@composable/*": [
+        "src/helpers/composable/*",
+      ],
       "@directives/*": [
         "src/helpers/directives/*"
       ],
