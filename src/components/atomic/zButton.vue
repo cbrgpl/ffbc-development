@@ -3,7 +3,8 @@
     v-bind="$attrs"
     :class="['z-button', variantClass]" >
     {{ text }}
-    <slot ></slot>
+    <slot >
+    </slot>
   </button>
 </template>
 
@@ -13,7 +14,7 @@ export default {
   props: {
     text: {
       type: String,
-      required: true
+      default: ''
     },
     variant: {
       type: String,
@@ -39,7 +40,7 @@ export default {
 
 <style lang="scss" scope>
 .z-button {
-  @apply rounded-md transition-colors;
+  @apply rounded-md transition-colors whitespace-nowrap;
 
   &:disabled {
     @apply bg-opacity-70 pointer-events-none cursor-default;
@@ -85,7 +86,7 @@ export default {
 
       @include absolute-center;
 
-      @apply block w-full h-28 origin-center bg-primary-lightest bg-opacity-10 -skew-y-6 -rotate-12 scale-x-0 transition-transform duration-300;
+      @apply block w-full h-48 origin-center bg-primary-lightest bg-opacity-10 -skew-y-6 -rotate-12 scale-x-0 transition-transform duration-300;
     }
 
     &:hover {

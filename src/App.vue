@@ -1,7 +1,7 @@
 <template >
   <div class="h-screen bg-black " >
     <component
-      class="h-full"
+      class="h-full overflow-y-auto px-4"
       :is="layout" >
       <router-view />
     </component>

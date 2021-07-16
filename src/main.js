@@ -1,6 +1,8 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 
+import './helpers/zExtendBaseTypes'
+
 import '@scss/_predefined.scss'
 import lazyImage from '@directives/lazyImage.directive'
 

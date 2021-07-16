@@ -10,14 +10,14 @@
       "@images/*": [
         "src/assets/images/*"
       ],
-      "@icons/*": [
-        "src/assets/icons/*"
-      ],
       "@scss/*": [
         "src/assets/scss/*"
       ],
       "@components/*": [
         "src/components/*"
+      ],
+      "@icons/*": [
+        "src/components/icons/*"
       ],
       "@enums/*": [
         "src/enums/*"
@@ -52,7 +52,7 @@
       "@views/*": [
         "src/views/*"
       ],
-
+      "TailwindColors": []
     }
   },
   "exclude": [

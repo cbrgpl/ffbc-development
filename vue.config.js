@@ -50,9 +50,9 @@ module.exports = {
       alias: {
         '@': path.resolve( __dirname, 'src' ),
         '@images': path.resolve( __dirname, 'src', 'assets', 'images' ),
-        '@icons': path.resolve( __dirname, 'src', 'assets', 'icons' ),
         '@scss': path.resolve( __dirname, 'src', 'assets', 'scss' ),
         '@components': path.resolve( __dirname, 'src', 'components' ),
+        '@icons': path.resolve( __dirname, 'src', 'components', 'icons' ),
         '@enums': path.resolve( __dirname, 'src', 'enums' ),
         '@classes': path.resolve( __dirname, 'src', 'helpers', 'classes' ),
         '@composable': path.resolve( __dirname, 'src', 'helpers', 'composable' ),
@@ -64,6 +64,7 @@ module.exports = {
         '@layouts': path.resolve( __dirname, 'src', 'layouts' ),
         '@services': path.resolve( __dirname, 'src', 'services' ),
         '@views': path.resolve( __dirname, 'src', 'views' ),
+        TailwindColors: path.resolve( __dirname, 'src', 'enums', 'tailwind.colors.js' )
       },
     },
     plugins,
