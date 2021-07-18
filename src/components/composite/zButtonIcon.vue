@@ -15,6 +15,7 @@ import { defineAsyncComponent } from 'vue'
 import zButton from '@components/atomic/zButton.vue'
 
 export default {
+  name: 'zButtonIcon',
   props: {
     shrink: {
       type: Boolean,

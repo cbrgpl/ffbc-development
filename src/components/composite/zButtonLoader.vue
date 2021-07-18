@@ -20,15 +20,16 @@ import { defineAsyncComponent } from 'vue'
 import zButton from '@components/atomic/zButton.vue'
 
 export default {
-  components: {
-    zButton,
-    zLoader: defineAsyncComponent( () => import( '@components/atomic/zLoader.vue' ) )
-  },
+  name: 'zButtonLoader',
   props: {
     loader: {
       type: Boolean,
       required: true
     },
+  },
+  components: {
+    zButton,
+    zLoader: defineAsyncComponent( () => import( '@components/atomic/zLoader.vue' ) )
   },
 }
 </script>

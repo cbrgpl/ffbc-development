@@ -5,18 +5,38 @@ import capitalize from './extenders/capitalize'
 // Array
 // Object
 
-// TODO Переработать и сделать на основе объектав как писал Данил
-function extendPrototype ( prototyObject, extender ) {
-  if ( !extender.name ) {
-    console.warn( 'Extender function name was not provided; Extend operation was interrupted' )
-    console.warn( 'Extender function is:\n\n', extender.toString() )
-    return
-  }
-  if ( !prototyObject[ extender.name ] ) {
-    prototyObject[ extender.name ] = extender
+function extendPrototype ( prototyObject, extendersObj ) {
+  for ( const [ name, extender ] of Object.entries( extendersObj ) ) {
+    if ( !prototyObject[ name ] ) {
+      prototyObject[ name ] = extender
+    }
   }
 }
 
-( function () {
-  extendPrototype( String.prototype, capitalize )
-} )()
+const extendModule = {
+  String: {
+    capitalize,
+  },
+  Number: {
+
+  },
+  Boolean: {
+
+  },
+  Array: {
+
+  },
+  Object: {
+
+  }
+}
+
+function extendAll () {
+  extendPrototype( String.prototype, extendModule.String )
+  extendPrototype( Number.prototype, extendModule.Number )
+  extendPrototype( Boolean.prototype, extendModule.Boolean )
+  extendPrototype( Array.prototype, extendModule.Array )
+  extendPrototype( Object.prototype, extendModule.Object )
+}
+
+extendAll()

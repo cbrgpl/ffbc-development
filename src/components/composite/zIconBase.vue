@@ -49,6 +49,7 @@ const ableIcons = [
 ]
 
 export default {
+  name: 'zIconBase',
   data () {
     return {
       viewBox: '0 0 18 18'

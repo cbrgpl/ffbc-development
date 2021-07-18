@@ -1,6 +1,5 @@
 <template >
   <button
-    v-bind="$attrs"
     :class="['z-button', variantClass]" >
     {{ text }}
     <slot >
@@ -10,7 +9,7 @@
 
 <script>
 export default {
-  inheritAttrs: false,
+  name: 'zButton',
   props: {
     text: {
       type: String,

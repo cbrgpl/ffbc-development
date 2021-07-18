@@ -161,15 +161,18 @@
       </div>
     </div>
 
-    <div class=" bg-black-lighten rounded-lg py-8 px-4" >
+    <div class=" bg-black-lighten rounded-lg py-8 px-4 mb-6" >
       <h2 class="text-white font-medium mb-4" >
         Buttons with icon:
       </h2>
-      <div class="inline-flex w-full pb-6 overflow-x-auto pb-6 w-full" >
-        <zButtonIcon class="main__button mr-4" >
+      <div class="inline-flex  overflow-x-auto py-6 px-2 w-full" >
+        <zButtonIcon
+          @click="isError1 = !isError1"
+          class="main__button mr-4" >
           Press me press
         </zButtonIcon>
         <zButtonIcon
+          @click="isError2 = !isError2"
           shrink
           shrink-breakpoint="sm"
           variant="ghost"
@@ -193,10 +196,100 @@
         </zButtonIcon>
       </div>
     </div>
+
+    <div class=" bg-black-lighten rounded-lg py-8 px-4 mb-6" >
+      <h2 class="text-white font-medium mb-4" >
+        Form elements:
+      </h2>
+      <div class="inline-flex flex-col overflow-x-auto pb-6 w-full py-6 px-4" >
+        <h2 class="text-white font-medium mb-4" >
+          Inputs:
+        </h2>
+        <div class="flex" >
+          <zInput
+            v-model="dynamicVar"
+            class="mr-4"
+            label="Input email"
+            :error-state="isError1"
+            on-error="Wrong email format" />
+          <zInput
+            label="Input email"
+            :error-state="isError2"
+            icon
+            on-error="Wrong email format" />
+        </div>
+      </div>
+
+      <div class="inline-flex flex-col overflow-x-auto pb-6 w-full py-6 px-4" >
+        <h2 class="text-white font-medium mb-4" >
+          Checkboxes:
+        </h2>
+        <div class="flex justify-around" >
+          <zCheckbox label="Make me checked" />
+          <div class="flex space-x-6" >
+            <zCheckboxMulti
+              v-model="checkboxesArray"
+              value="1"
+              name="uou" />
+            <zCheckboxMulti
+              v-model="checkboxesArray"
+              value="2"
+              name="uou" />
+            <zCheckboxMulti
+              v-model="checkboxesArray"
+              :value="3"
+              name="uou" />
+          </div>
+        </div>
+
+        <div
+          @submit="testSubmit"
+          class="inline-flex flex-col overflow-x-auto pb-6 w-full py-6 px-4" >
+          <h2 class="text-white font-medium mb-4" >
+            Form:
+          </h2>
+          <zForm
+            :enterable="false"
+            :validation-object="v$.form"
+            @submit="testForm" >
+
+            <h1 class="mb-6 text-white" >
+              Hey, can you identify urself?
+            </h1>
+            <zInput
+              v-model.trim="form.name"
+              class="mr-4 mb-10"
+              label="Input Name"
+              :error-state="v$.form.name.$error"
+              on-error="Name is required" />
+            <zInput
+              v-model.trim="form.email"
+              class="mr-4 mb-10"
+              label="Email"
+              icon
+              :error-state="v$.form.email.$error"
+              on-error="Wrong email format" />
+            <zCheckboxSingle
+              v-model="form.checkbox"
+              class="mb-2"
+              :error-state="v$.form.checkbox.$error"
+              label="Make me checked" />
+            <zButton
+              type="submit"
+              class="main__button" >
+              Authentificate
+            </zButton>
+          </zForm>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import useValidate from '@vuelidate/core'
+import { minLength, email, required } from '@vuelidate/validators'
+// Components
 import zButton from '@components/atomic/zButton.vue'
 
 import zLoader from '@components/atomic/zLoader.vue'
@@ -207,6 +300,12 @@ import zBrandIcon from '@components/composite/zBrandIcon.vue'
 
 import zButtonIcon from '@components/composite/zButtonIcon.vue'
 
+import zInput from '@components/composite/zInput.vue'
+import zCheckbox from '@components/atomic/zCheckbox.vue'
+import zCheckboxMulti from '@components/composite/zCheckboxMulti.vue'
+import zCheckboxSingle from '@components/composite/zCheckboxSingle.vue'
+
+import zForm from '@components/atomic/zForm.vue'
 export default {
   name: 'Main',
   components: {
@@ -219,22 +318,65 @@ export default {
     zBrandIcon,
 
     zButtonIcon,
+
+    zInput,
+    zCheckbox,
+    zCheckboxMulti,
+    zCheckboxSingle,
+    zForm,
   },
   data () {
     return {
       title: true,
       buttonLoader: false,
+      isError1: false,
+      isError2: false,
+      dynamicVar: '',
+      checkboxesArray: [ ],
+      form: {
+        email: '',
+        name: '',
+        checkbox: false,
+      }
+    }
+  },
+  setup () {
+    return {
+      v$: useValidate()
+    }
+  },
+  validations: {
+    form: {
+      name: {
+        required,
+        minLength: minLength( 4 )
+      },
+      email: {
+        required,
+        email
+      },
+      checkbox: {
+        truth: ( val ) => val
+      }
     }
   },
   methods: {
     setButtonLoaderTimer () {
-      console.log( 'click' )
       this.buttonLoader = true
 
       setTimeout( () => {
         this.buttonLoader = false
       }, 3000 )
-    }
+    },
+    testForm () {
+      // @keydown.enter.prevent="() => false"
+      console.log( this.v$ )
+      if ( this.v$.$error ) {
+        return
+      }
+
+      console.log( 'Form is ok' )
+    },
   },
 }
 </script>
