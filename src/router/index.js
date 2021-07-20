@@ -7,10 +7,41 @@ const routes = [
     component: Main,
     name: 'Main',
     meta: {
-      layout: 'empty'
+      layout: 'main'
     }
   },
-
+  {
+    path: '/home',
+    component: Main,
+    name: 'Home',
+    meta: {
+      layout: 'main'
+    }
+  },
+  {
+    path: '/settings',
+    component: Main,
+    name: 'Settings',
+    meta: {
+      layout: 'main'
+    }
+  },
+  {
+    path: '/competitions',
+    component: Main,
+    name: 'Competitions',
+    meta: {
+      layout: 'main'
+    }
+  },
+  {
+    path: '/gallery',
+    component: Main,
+    name: 'Gallery',
+    meta: {
+      layout: 'main'
+    }
+  },
 ]
 
 // TODO need to make permissions system

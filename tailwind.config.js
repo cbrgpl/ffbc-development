@@ -15,7 +15,8 @@ const textShadowUtility = plugin( function ( { addUtilities } ) {
     },
     '.text-shadow-none': {
       'text-shadow': 'none'
-    }
+    },
+
   }
 
   addUtilities( newUtilities )
@@ -54,22 +55,25 @@ module.exports = {
       },
 
       primary: {
-        darken: '#b80b0f',
+        darkest: '#8c1313',
+        darken: '#c41d1e',
         DEFAULT: '#d12525',
         lighten: '#d32625',
         lightest: '#f43c2a'
       },
       secondary: {
-        darkest: '#005f55',
-        darken: '#00aba6',
-        DEFAULT: '#1dc6c6',
-        lighten: '#74d7d8'
+        darken: '#003c8f',
+        DEFAULT: '#1565c0',
+        lighten: '#5e92f3'
       },
     },
     extend: {
       fontFamily: {
         sans: [ '\'Ubuntu\'', defaultTheme.fontFamily.sans ],
       },
+      zIndex: {
+        '-10': '-10'
+      }
     }
   },
   variants: {

@@ -1,7 +1,8 @@
 <template >
   <div class="h-screen bg-black " >
+    <!-- TODO Нужно реализовать лоадер в template.html, присвоить ему ID и когда убирать тогда, когда закнчат рендериться все вью компоненты -->
     <component
-      class="h-full overflow-y-auto px-4"
+      class="h-full overflow-y-auto"
       :is="layout" >
       <router-view />
     </component>

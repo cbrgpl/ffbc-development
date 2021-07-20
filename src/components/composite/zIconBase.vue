@@ -9,7 +9,7 @@
     role="presentation" >
     <title
       :id="iconName"
-      lang="en" >{{ iconName }} icon</title>
+      lang="en" >{{ getTitle }}</title>
     <g :fill="iconColor" >
       <component
         @icon-before-mount="viewBox = $event"
@@ -32,6 +32,8 @@ import IconError from '@icons/IconError.vue'
 import IconEvent from '@icons/IconEvent.vue'
 import IconGallery from '@icons/IconGallery.vue'
 import IconLogin from '@icons/IconLogin.vue'
+import IconClose from '@icons/IconClose.vue'
+import IconDoubleArrow from '@icons/IconDoubleArrow.vue'
 
 const ableIcons = [
   'fitness',
@@ -46,6 +48,8 @@ const ableIcons = [
   'event',
   'gallery',
   'login',
+  'close',
+  'doubleArrow',
 ]
 
 export default {
@@ -60,6 +64,10 @@ export default {
       type: String,
       default: 'fitness',
       validator: ( value ) => ableIcons.includes( value )
+    },
+    title: {
+      type: String,
+      default: '',
     },
     width: {
       type: [ Number, String ],
@@ -77,6 +85,9 @@ export default {
   computed: {
     iconComponentName () {
       return 'Icon' + this.iconName.capitalize()
+    },
+    getTitle () {
+      return this.title || ( this.iconName + ' icon' )
     }
   },
   components: {
@@ -91,7 +102,9 @@ export default {
     IconError,
     IconEvent,
     IconGallery,
-    IconLogin
+    IconLogin,
+    IconClose,
+    IconDoubleArrow
   },
 }
 </script>
