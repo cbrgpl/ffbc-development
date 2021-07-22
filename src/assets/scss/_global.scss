@@ -27,6 +27,8 @@
 html {
   scrollbar-color: rgba(#f0f1f2, 0.9) rgba(0, 0, 0, 0.2);
   scrollbar-width: thin;
+
+  scroll-behavior: smooth;
 }
 
 .absolute-center {

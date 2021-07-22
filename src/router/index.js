@@ -1,18 +1,35 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Main from '@views/Main.vue'
+import Preview from '@views/Preview.vue'
 
 const routes = [
   {
     path: '/',
-    component: Main,
+    component: Preview,
+    name: 'Preview',
+    meta: {
+      layout: 'main'
+    }
+  },
+  {
+    path: '/main',
+    component: () => import( '@views/Main.vue' ),
     name: 'Main',
     meta: {
       layout: 'main'
     }
   },
   {
+    path: '/library',
+    component: () => import( '@views/Main.vue' ),
+    name: 'Library',
+    meta: {
+      layout: 'main'
+    }
+  },
+  {
     path: '/home',
-    component: Main,
+    component: () => import( '@views/Main.vue' ),
     name: 'Home',
     meta: {
       layout: 'main'
@@ -20,7 +37,7 @@ const routes = [
   },
   {
     path: '/settings',
-    component: Main,
+    component: () => import( '@views/Main.vue' ),
     name: 'Settings',
     meta: {
       layout: 'main'
@@ -28,7 +45,7 @@ const routes = [
   },
   {
     path: '/competitions',
-    component: Main,
+    component: () => import( '@views/Main.vue' ),
     name: 'Competitions',
     meta: {
       layout: 'main'
@@ -36,7 +53,7 @@ const routes = [
   },
   {
     path: '/gallery',
-    component: Main,
+    component: () => import( '@views/Main.vue' ),
     name: 'Gallery',
     meta: {
       layout: 'main'

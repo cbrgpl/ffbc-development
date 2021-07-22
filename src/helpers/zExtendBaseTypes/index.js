@@ -1,8 +1,10 @@
 // String
-import capitalize from './extenders/capitalize'
+import capitalize from './extenders/string.capitalize'
 // Number
 // Boolean
 // Array
+import remove from './extenders/array.removeByValue'
+import removeCallback from './extenders/array.removeByCallback'
 // Object
 
 function extendPrototype ( prototyObject, extendersObj ) {
@@ -24,7 +26,8 @@ const extendModule = {
 
   },
   Array: {
-
+    remove,
+    removeCallback
   },
   Object: {
 

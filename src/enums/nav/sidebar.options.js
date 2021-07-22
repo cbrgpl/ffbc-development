@@ -1,11 +1,11 @@
 export default {
   site: [
     {
-      name: 'Main',
+      name: 'Preview',
       iconName: 'manageAccount'
     },
     {
-      name: 'Home',
+      name: 'Main',
       iconName: 'fitness'
     },
     {
