@@ -55,6 +55,7 @@ export default class {
   }
 
   effect ( $el, $nodes ) {
+    // TODO Простая правка. controller можно убрать, заменив функцию на стрелочну. this для стрелочной функции определяется значением родительского контекста
     const controller = this
 
     $el.zEffectFunction = function ( event ) {

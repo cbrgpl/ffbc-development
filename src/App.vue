@@ -19,6 +19,19 @@ export default {
     MainLayout,
     EmptyLayout
   },
+  mounted () {
+    this.removeTemplatePreloader()
+  },
+  methods: {
+    async removeTemplatePreloader () {
+      setTimeout( () => {
+        setTimeout( () => {
+          document.body.removeChild( document.body.querySelector( '#template-preloader' ) )
+          document.body.classList.remove( 'body-template-preloader' )
+        }, 0 )
+      }, 35 )
+    }
+  },
   computed: {
     layout () {
       return this.$route.meta.layout + '-layout'
