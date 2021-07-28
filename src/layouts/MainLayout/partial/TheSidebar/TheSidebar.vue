@@ -11,6 +11,7 @@
         @update:sidebarMode="$emit('update:sidebarMode', $event)" />
 
       <div class="sidebar__logo-placement sidebar__child-part" >
+        <!-- TODO Сделать user-select: none; -->
         <img
           class="sidebar__logo-image"
           width="32px"
@@ -22,6 +23,7 @@
       <ul
         class="sidebar__site-navigation sidebar__child-part"
         type="none" >
+        <!-- TODO Сделать, чтобы при наведении на иконку показывался tooltip с пояснением -->
         <router-link
           class="sidebar__site-option"
           v-for="option of options.site"

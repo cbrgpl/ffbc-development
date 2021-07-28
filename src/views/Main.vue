@@ -9,7 +9,8 @@
       <zButton
         @click="title = !title"
         class="main__button mr-4"
-        text="Authentificate thorugh ur location to perk g fmgk kkgkk fkfkdkf" />
+        text="Authentificate thorugh ur location to perk g fmgk kkgkk fkfkdkf"
+        v-tooltip.top.8="'Focus it and dont blur'" />
 
       <zButton
         variant="ghost"
@@ -209,14 +210,18 @@
           <zInput
             v-model="dynamicVar"
             class="mr-4"
-            label="Input email"
+            label="Tooltip test"
             :error-state="isError1"
-            on-error="Wrong email format" />
+            on-error="Wrong email format"
+            id="tooltiptest"
+            v-tooltip.top.focus.8="'Focus it and dont blur'" />
           <zInput
             label="Input email"
             :error-state="isError2"
             icon
-            on-error="Wrong email format" />
+            on-error="Wrong email format"
+            v-tooltip.top.8="'Focus it and dont blur'" />
+          />
         </div>
       </div>
 

@@ -1,5 +1,6 @@
 <template >
-  <div class="flex overflow-x-hidden" >
+  <div
+    class="flex overflow-x-hidden" >
     <TheSidebar
       v-model:sidebarMode="sidebarMode"
       :sidebar-visible-mobile="mobileMenuVisible"
@@ -8,7 +9,8 @@
       <TheMobileHeader
         @toggleMobileMenu="mobileMenuVisible = !mobileMenuVisible"
         class="px-3" />
-      <div class="h-full w-full overflow-y-auto" >
+      <div
+        class="h-full w-full overflow-y-auto" >
         <router-view class="px-3" />
       </div>
     </div>
@@ -23,8 +25,8 @@ export default {
   name: 'main-layout',
   data () {
     return {
-      sidebarMode: 'alwaysOpen',
-      mobileMenuVisible: true,
+      sidebarMode: 'alwaysCollapsed',
+      mobileMenuVisible: false,
     }
   },
   mounted () {

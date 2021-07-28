@@ -1,13 +1,12 @@
 // parses all data-obs-option-* attrs
 function parseOptions ( $el ) {
   const elDataAttrsArray = Object.entries( $el.dataset )
-
   const elObsAttrs = elDataAttrsArray
     .filter( ( dataAttr ) => dataAttr[ 0 ].includes( 'obsOption' ) )
 
   elObsAttrs.forEach( function ( attr ) {
     attr[ 0 ] = attr[ 0 ].replace( 'obsOption', '' )
-    attr[ 0 ][ 0 ].toLowerCase()
+    attr[ 0 ] = attr[ 0 ][ 0 ].toLowerCase() + attr[ 0 ].slice( 1 )
   } )
 
   return elObsAttrs.reduce( ( accumulator, attr ) => {

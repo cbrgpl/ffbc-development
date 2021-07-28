@@ -3,7 +3,7 @@ import ObserverableController from '@/helpers/classes/observerableController.cla
 /*
     Works with effect controllers with such Interface
 
-    ClassController {
+    EffectController {
       effect($bindingEl, $observableNodes)
       preproccess($bindingEl, $singleObservableNode) - apply to every observableNode just after mounted
     }
@@ -11,7 +11,7 @@ import ObserverableController from '@/helpers/classes/observerableController.cla
     $observableNodes struct is
     {
       $node: Element,
-      params: {}, - Object with 'data-obs-option-*' data attributies;
+      params: {}, - Object with 'data-obs-option-*' data attributies as props;
     }
 
     For Expamle data-obs-option-speed-mov transforms to ...params.speedMov

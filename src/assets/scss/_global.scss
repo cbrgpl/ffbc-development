@@ -34,3 +34,14 @@ html {
 .absolute-center {
   @include absolute-center;
 }
+
+.z-tooltip {
+  position: fixed;
+
+  background: theme('colors.black.lightest');
+  color: theme('colors.white');
+
+  max-width: rem(160px);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}

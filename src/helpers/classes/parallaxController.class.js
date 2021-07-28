@@ -55,28 +55,25 @@ export default class {
   }
 
   effect ( $el, $nodes ) {
-    // TODO Простая правка. controller можно убрать, заменив функцию на стрелочну. this для стрелочной функции определяется значением родительского контекста
-    const controller = this
-
-    $el.zEffectFunction = function ( event ) {
-      if ( !controller.ticking ) {
-        window.requestAnimationFrame( function () {
-          const scrollTop = controller.scrollingParent.scrollTop
+    $el.zEffectFunction = ( event ) => {
+      if ( !this.ticking ) {
+        window.requestAnimationFrame( () => {
+          const scrollTop = this.scrollingParent.scrollTop
 
           // Расчитываю сколько было прокручено с прошлого ивента
-          const scrollingShift = scrollTop - controller.oldScrollTop
+          const scrollingShift = scrollTop - this.oldScrollTop
 
-          $nodes.forEach( nodeParams => controller._updateElement( nodeParams, scrollingShift ) )
+          $nodes.forEach( nodeParams => this._updateElement( nodeParams, scrollingShift ) )
 
-          controller.oldScrollTop = scrollTop
-          controller.ticking = false
+          this.oldScrollTop = scrollTop
+          this.ticking = false
         } )
 
-        controller.ticking = true
+        this.ticking = true
       }
     }
 
-    controller.scrollingParent.addEventListener( 'scroll', $el.zEffectFunction )
+    this.scrollingParent.addEventListener( 'scroll', $el.zEffectFunction )
   }
 
   _updateElement ( nodeParams, scrollingShift ) {
@@ -96,6 +93,7 @@ export default class {
 
   preproccess ( $el, $image ) {
     if ( this.scrollingParent === null ) {
+      // TODO Заменить на использование DomHandler
       this.scrollingParent = getParent( $el, node => {
         const overflowY = window.getComputedStyle( node ).overflowY
         const isScrollable = overflowY !== 'visible' && overflowY !== 'hidden'

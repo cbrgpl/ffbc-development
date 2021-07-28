@@ -38,6 +38,7 @@ module.exports = {
       current: 'currentColor',
 
       black: {
+        lightest: '#686c67',
         lighten: '#242320',
         DEFAULT: '#1a1916'
       },
