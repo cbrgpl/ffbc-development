@@ -8,6 +8,7 @@
     :aria-labelledby="iconName"
     role="presentation" >
     <title
+      v-if="isTitle"
       :id="iconName"
       lang="en" >{{ getTitle }}</title>
     <g :fill="iconColor" >
@@ -68,6 +69,10 @@ export default {
     title: {
       type: String,
       default: '',
+    },
+    isTitle: {
+      type: Boolean,
+      default: false,
     },
     width: {
       type: [ Number, String ],

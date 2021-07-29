@@ -34,7 +34,7 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     colors: {
-      tranparent: 'transparent',
+      transparent: 'transparent',
       current: 'currentColor',
 
       black: {
@@ -74,11 +74,13 @@ module.exports = {
       },
       zIndex: {
         '-10': '-10'
-      }
+      },
     }
   },
   variants: {
-    extend: {},
+    extend: {
+      margin: [ 'last' ]
+    }
   },
   plugins: [ textShadowUtility ],
 }

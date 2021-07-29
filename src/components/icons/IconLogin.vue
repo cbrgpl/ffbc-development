@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: 'IconMenu',
+  name: 'IconLogin',
   beforeMount () {
     this.$emit( 'icon-before-mount', '0 0 24 24' )
   },

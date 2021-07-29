@@ -73,26 +73,34 @@ export default {
     }
 
     &:active {
-      @apply bg-primary-darken border-primary-lighten;
+      @apply bg-primary-darken border-primary-lighten text-white duration-150;
     }
   }
 
   &--sky {
-    @apply text-primary transition-colors overflow-hidden relative;
+    @apply text-primary transition-colors overflow-hidden relative z-10;
 
     &::after {
       content: '';
 
       @include absolute-center;
 
-      @apply block w-full h-48 origin-center bg-primary-lightest bg-opacity-10 -skew-y-6 -rotate-12 scale-x-0 transition-transform duration-300;
+      @apply block w-full h-48 origin-center bg-primary-lightest bg-opacity-10 -skew-y-6 -rotate-12 scale-x-0 transition-all duration-300 -z-10;
     }
 
     &:hover {
-      @apply text-white ;
+      @apply text-white;
 
       &::after {
         @apply scale-x-105;
+      }
+    }
+
+    &:active {
+      @apply text-white;
+
+      &::after {
+        @apply scale-x-105 bg-opacity-50;
       }
     }
 

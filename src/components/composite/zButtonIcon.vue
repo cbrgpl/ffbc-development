@@ -1,9 +1,10 @@
 <template >
   <zButton class="flex items-center min-w-min" >
     <zIconBrand
+      :icon-name="iconName"
       :class="shrinkIconClasses"
-      width="30"
-      height="30" ></zIconBrand>
+      :width="iconSize"
+      :height="iconSize" ></zIconBrand>
     <div :class="shinkContentClasses" >
       <slot />
     </div>
@@ -25,6 +26,14 @@ export default {
       type: String,
       default: 'sm'
     },
+    iconName: {
+      type: String,
+      default: 'fitness',
+    },
+    iconSize: {
+      type: Number,
+      default: 25,
+    }
   },
   computed: {
     shrinkIconClasses () {

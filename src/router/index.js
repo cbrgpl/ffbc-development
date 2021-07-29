@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Main from '@views/Main.vue'
 import Preview from '@views/Preview.vue'
 
 const routes = [
+  // General
   {
     path: '/',
     component: Preview,
@@ -20,13 +20,46 @@ const routes = [
     }
   },
   {
-    path: '/library',
+    path: '/sponsors',
     component: () => import( '@views/Main.vue' ),
-    name: 'Library',
+    name: 'Sponsors',
     meta: {
       layout: 'main'
     }
   },
+  {
+    path: '/shows',
+    component: () => import( '@views/Main.vue' ),
+    name: 'Shows',
+    meta: {
+      layout: 'main'
+    }
+  },
+  {
+    path: '/developers',
+    component: () => import( '@views/Main.vue' ),
+    name: 'Developers',
+    meta: {
+      layout: 'main'
+    }
+  },
+  {
+    path: '/gallery',
+    component: () => import( '@views/Main.vue' ),
+    name: 'Gallery',
+    meta: {
+      layout: 'main'
+    }
+  },
+  {
+    path: '/shop',
+    component: () => import( '@views/Main.vue' ),
+    name: 'Shop',
+    meta: {
+      layout: 'main'
+    }
+  },
+  // USER
   {
     path: '/home',
     component: () => import( '@views/Main.vue' ),
@@ -44,17 +77,17 @@ const routes = [
     }
   },
   {
-    path: '/competitions',
+    path: '/purchase',
     component: () => import( '@views/Main.vue' ),
-    name: 'Competitions',
+    name: 'Purchase',
     meta: {
       layout: 'main'
     }
   },
   {
-    path: '/gallery',
+    path: '/services',
     component: () => import( '@views/Main.vue' ),
-    name: 'Gallery',
+    name: 'Services',
     meta: {
       layout: 'main'
     }

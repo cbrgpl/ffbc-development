@@ -66,7 +66,7 @@ export default {
 
 <style lang="scss" scoped>
 .z-input {
-  @apply bg-tranparent border-2  border-primary-lighten border-solid  text-white rounded-md cursor-pointer pl-4 py-3 pr-2;
+  @apply bg-transparent border-2  border-primary-lighten border-solid  text-white rounded-md cursor-pointer pl-4 py-3 pr-2;
 
   &:hover + .z-input__label {
     @apply text-primary-darken text-opacity-60;
