@@ -60,6 +60,7 @@ module.exports = {
         '@filters': path.resolve( __dirname, 'src', 'helpers', 'filters' ),
         '@functions': path.resolve( __dirname, 'src', 'helpers', 'functions' ),
         '@mixins': path.resolve( __dirname, 'src', 'helpers', 'mixins' ),
+        '@plugins': path.resolve( __dirname, 'src', 'helpers', 'plugins' ),
         '@validators': path.resolve( __dirname, 'src', 'helpers', 'validators' ),
         '@layouts': path.resolve( __dirname, 'src', 'layouts' ),
         '@services': path.resolve( __dirname, 'src', 'services' ),

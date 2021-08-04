@@ -10,16 +10,16 @@ import tooltip from '@directives/tooltip.directive.js'
 import router from './router'
 import store from './store'
 
-import handleFetch from '@functions/handleFetch.function'
+import dialogPlugin from '@plugins/dialog.plugin'
 
 const app = createApp( App )
-
-app.config.globalProperties.$handleFetch = handleFetch
 
 app.use( store )
   .use( router )
 
 app.directive( 'lazy-image', lazyImage )
   .directive( 'tooltip', tooltip )
+
+app.use( dialogPlugin )
 
 app.mount( '#app' )

@@ -40,6 +40,9 @@
       "@mixins/*": [
         "src/helpers/mixins/*"
       ],
+      "@plugins/*": [
+        "src/helpers/plugins/*"
+      ],
       "@validators/*": [
         "src/helpers/validators/*"
       ],

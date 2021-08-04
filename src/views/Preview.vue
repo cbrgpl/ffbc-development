@@ -1,7 +1,7 @@
 <template >
   <div >
 
-    <zButton @click="visible = !visible" >
+    <zButton @click="test" >
       Turn on
     </zButton>
 
@@ -23,7 +23,6 @@
 
 <script>
 import observer from '@directives/observer.directive.js'
-import ParallaxController from '@classes/parallaxController.class.js'
 
 import zButton from '@/components/atomic/zButton.vue'
 import zDialog from '@/components/composite/zDialog/zDialog.vue'
@@ -39,7 +38,7 @@ export default {
   },
   methods: {
     test ( $ev ) {
-      console.log( $ev )
+      this.dialog$.show( 'auth' )
     }
   },
   components: {

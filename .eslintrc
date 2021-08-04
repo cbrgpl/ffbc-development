@@ -40,7 +40,8 @@
       2
     ],
     "no-console": [
-      "warn"
+      "warn",
+       { "allow": ["warn", "error"] }
     ],
     "no-debugger": [
       "error"
