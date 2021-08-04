@@ -11,20 +11,20 @@
       type="text"
       :data-error-state="errorState" >
 
-    <h1 class="z-input__label" >
+    <h5 class="z-input__label" >
       <zIconBrand
         v-if="icon"
         class="mr-2"
         width="25"
         height="25" />
       {{ label }}
-    </h1>
+    </h5>
 
-    <h2
+    <h5
       v-show="errorState"
       class="z-input__error" >
       {{ onError }}
-    </h2>
+    </h5>
   </label>
 </template>
 

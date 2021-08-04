@@ -11,9 +11,9 @@
       :class="['z-checkbox__fiction', ...checkboxSize]"
       :data-error-state="errorState" >
     </div>
-    <h2 class="z-checkbox__label" >
+    <h5 class="z-checkbox__label" >
       {{ label }}
-    </h2>
+    </h5>
   </label>
 </template>
 
