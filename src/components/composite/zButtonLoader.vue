@@ -4,12 +4,15 @@
     :disabled="loader"
     v-bind="$attrs" >
 
-    <div class="flex absolute w-full h-full bg-black-lighten bg-opacity-50 top-0 left-0" >
+    <slot ></slot>
+
+    <div
+      v-if="loader"
+      class="flex absolute w-full h-full bg-black-lighten bg-opacity-50 top-0 left-0" >
       <zLoader
         class="m-auto"
         :height="40"
         :width="40" />
-
     </div>
   </zButton>
 </template>

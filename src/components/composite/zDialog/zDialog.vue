@@ -13,20 +13,23 @@
         @after-leave="containerVisible = false"
         appear >
         <span
+          role='dialog'
+          @click.stop
           v-if="visible"
-          :class="windowClasses" >
+          class="dialog__window"
+          v-bind="$attrs" >
 
           <div class="relative w-full h-full" >
             <div
-              v-bind="$attrs"
-              class="flex flex-col px-4 py-5 w-full h-full" >
-              <div class="flex relative w-full mb-2" >
+              class="flex flex-col w-full h-full" >
+              <div
+                class="flex relative w-full mb-2" >
                 <slot name="header" >
                 </slot>
                 <DialogClose @click="close" />
               </div>
 
-              <div class="flex-grow" >
+              <div class="flex-grow flex flex-col justify-center items-center" >
                 <slot name="default" ></slot>
               </div>
 
@@ -48,6 +51,8 @@
 import DialogClose from './partial/DialogClose.vue'
 
 export default {
+  name: 'Dialog',
+  inheritAttrs: false,
   emits: [ 'update:visible' ],
   props: {
     visible: {
@@ -86,15 +91,10 @@ export default {
   computed: {
     maskClasses () {
       return [
-        'overflow-y-auto fixed left-0 top-0 flex w-screen h-screen bg-black bg-opacity-0 transition-all duration-300',
+        'overflow-y-auto fixed z-30 left-0 top-0 flex w-screen h-screen bg-black bg-opacity-0 transition-all duration-300',
         { 'pointer-events-none': !this.modal },
       ]
     },
-    windowClasses () {
-      return [
-        'fixed right-2/4 bottom-2/4 transform translate-x-2/4 translate-y-2/4 m-auto w-5/12 h-2/4 bg-black-lighten text-white rounded-xl',
-      ]
-    }
   },
   components: {
     DialogClose,
@@ -103,6 +103,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.dialog__window {
+  @apply fixed right-2/4 bottom-2/4 transform translate-x-2/4 translate-y-2/4 m-auto bg-black-lighten text-white rounded-xl px-4 py-5;
+}
 
 .dialog-appear {
   &-enter-from,

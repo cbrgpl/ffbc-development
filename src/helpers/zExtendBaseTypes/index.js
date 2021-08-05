@@ -17,29 +17,39 @@ function extendPrototype ( prototyObject, extendersObj ) {
 
 const extendModule = {
   String: {
-    capitalize,
+    proto: String.prototype,
+    extends: {
+      capitalize,
+    }
   },
   Number: {
-
+    proto: Number.prototype,
+    extends: {
+    }
   },
   Boolean: {
-
+    proto: Boolean.prototype,
+    extends: {
+    }
   },
   Array: {
-    remove,
-    removeCallback
+    proto: Array.prototype,
+    extends: {
+      remove,
+      removeCallback
+    }
   },
   Object: {
-
+    proto: Object.prototype,
+    extends: {
+    }
   }
 }
 
 function extendAll () {
-  extendPrototype( String.prototype, extendModule.String )
-  extendPrototype( Number.prototype, extendModule.Number )
-  extendPrototype( Boolean.prototype, extendModule.Boolean )
-  extendPrototype( Array.prototype, extendModule.Array )
-  extendPrototype( Object.prototype, extendModule.Object )
+  for ( const type of Object.keys( extendModule ) ) {
+    extendPrototype( extendModule[ type ].proto, extendModule[ type ].extends )
+  }
 }
 
 extendAll()

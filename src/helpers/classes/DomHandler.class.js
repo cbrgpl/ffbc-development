@@ -120,23 +120,6 @@ export default class {
     tick()
   }
 
-  static _getParents ( element, callback, accumulator = [] ) {
-    if ( element === null || !callback ) {
-      return accumulator
-    }
-    let currentElement = element
-
-    do {
-      if ( callback( currentElement ) ) {
-        accumulator.push( currentElement )
-      }
-
-      currentElement = currentElement.parentNode
-    } while ( currentElement !== document.body )
-
-    return accumulator
-  }
-
   static getScrollableParents ( element ) {
     return this._getParents( element, ( node ) => {
       const overflowY = window.getComputedStyle( node ).overflowY
@@ -155,5 +138,30 @@ export default class {
         el.classList.add( style )
       }
     } )
+  }
+
+  static removeMultipleClass ( el, styles ) {
+    styles.split( ' ' ).forEach( style => {
+      if ( el.classList.contains( style ) ) {
+        el.classList.remove( style )
+      }
+    } )
+  }
+
+  static _getParents ( element, callback, accumulator = [] ) {
+    if ( element === null || !callback ) {
+      return accumulator
+    }
+    let currentElement = element
+
+    do {
+      if ( callback( currentElement ) ) {
+        accumulator.push( currentElement )
+      }
+
+      currentElement = currentElement.parentNode
+    } while ( currentElement !== document.body )
+
+    return accumulator
   }
 }

@@ -4,22 +4,25 @@ import App from './App.vue'
 import './helpers/zExtendBaseTypes'
 import '@scss/_predefined.scss'
 
-import lazyImage from '@directives/lazyImage.directive.js'
-import tooltip from '@directives/tooltip.directive.js'
+import globalFunctional from './globalFunctional.js'
 
 import router from './router'
 import store from './store'
 
-import dialogPlugin from '@plugins/dialog.plugin'
-
 const app = createApp( App )
 
-app.use( store )
-  .use( router )
+app.use( store ).use( router )
 
-app.directive( 'lazy-image', lazyImage )
-  .directive( 'tooltip', tooltip )
+for ( const component of Object.keys( globalFunctional.components ) ) {
+  app.component( component, globalFunctional.components[ component ] )
+}
 
-app.use( dialogPlugin )
+for ( const directive of Object.keys( globalFunctional.directives ) ) {
+  app.directive( directive, globalFunctional.directives[ directive ] )
+}
+
+for ( const plugin of Object.keys( globalFunctional.plugins ) ) {
+  app.use( globalFunctional.plugins[ plugin ] )
+}
 
 app.mount( '#app' )

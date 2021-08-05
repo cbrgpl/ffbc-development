@@ -1,7 +1,7 @@
 <template >
   <div class="absolute" >
-    <TheAuthDialog v-model:visible="dialogue.auth" ></TheAuthDialog>
-
+    <TheLoginDialog v-model:visible="dialogue.login" />
+    <TheRegistrationDialog v-model:visible="dialogue.registration" />
   </div>
 </template>
 
@@ -29,7 +29,8 @@ export default {
     }
   },
   components: {
-    TheAuthDialog: defineAsyncComponent( () => import( './partial/TheAuthDialog.vue' ) ),
+    TheLoginDialog: defineAsyncComponent( () => import( './partial/TheLoginDialog.vue' ) ),
+    TheRegistrationDialog: defineAsyncComponent( () => import( './partial/TheRegistrationDialog.vue' ) )
   },
 
 }

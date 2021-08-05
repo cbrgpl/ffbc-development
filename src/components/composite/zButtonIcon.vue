@@ -5,7 +5,7 @@
       :class="shrinkIconClasses"
       :width="iconSize"
       :height="iconSize" ></zIconBrand>
-    <div :class="shrinkContentClasses" >
+    <div >
       <slot />
     </div>
   </zButton>
@@ -38,12 +38,7 @@ export default {
   computed: {
     shrinkIconClasses () {
       return [
-        this.shrink ? 'mr-0' : 'mr-2',
-        this.shrink ? this.getResponsiveClass( 'mr-2' ) : ''
-      ]
-    },
-    shrinkContentClasses () {
-      return [
+        'mr-2',
         this.shrink ? 'hidden' : '',
         this.shrink ? this.getResponsiveClass( 'block' ) : '',
       ]

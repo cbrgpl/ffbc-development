@@ -1,15 +1,17 @@
 <template >
   <label
-    class="block relative"
+    class="block relative mb-5"
     v-bind="styles" >
+    <!-- TODO Создать отдельный инпут Password с кнопочкой для переделывания пароля в текст -->
     <input
       placeholder=" "
       class="z-input"
-      v-bind="attrs"
       :value="modelValue"
       @input="$emit( 'update:modelValue', $event.target.value )"
+      v-mask="mask"
       type="text"
-      :data-error-state="errorState" >
+      :data-error-state="errorState"
+      v-bind="attrs" >
 
     <h5 class="z-input__label" >
       <zIconBrand
@@ -20,20 +22,22 @@
       {{ label }}
     </h5>
 
-    <h5
+    <small
       v-show="errorState"
       class="z-input__error" >
       {{ onError }}
-    </h5>
+    </small>
   </label>
 </template>
 
 <script>
 import { defineAsyncComponent } from 'vue'
+import { mask } from '@directives/index.js'
 import extenderMixin from '@mixins/extender.mixin.js'
 
 export default {
   name: 'zInput',
+  emits: [ 'update:modelValue' ],
   mixins: [ extenderMixin ],
   props: {
     modelValue: {
@@ -48,6 +52,10 @@ export default {
       type: String,
       default: ''
     },
+    mask: {
+      type: [ String, Array ],
+      default: ''
+    },
     errorState: {
       type: Boolean,
       default: false,
@@ -57,7 +65,9 @@ export default {
       default: false,
     }
   },
-  emits: [ 'update:modelValue' ],
+  directives: {
+    mask
+  },
   components: {
     zIconBrand: defineAsyncComponent( () => import( '@components/composite/zBrandIcon.vue' ) ),
   },
@@ -66,14 +76,14 @@ export default {
 
 <style lang="scss" scoped>
 .z-input {
-  @apply bg-transparent border-2  border-primary-lighten border-solid  text-white rounded-md cursor-pointer pl-4 py-3 pr-2;
+  @apply bg-transparent border-2  border-primary-lighten border-solid  text-white rounded-md cursor-pointer pl-4 py-3 pr-2 w-full;
 
   &:hover + .z-input__label {
     @apply text-primary-darken text-opacity-60;
   }
 
   &:focus {
-    @apply ring-4 ring-primary ring-opacity-10;
+    @apply ring-4 ring-primary ring-opacity-20;
 
     & + .z-input__label {
       @apply text-primary;
@@ -94,6 +104,6 @@ export default {
 }
 
 .z-input__error {
-  @apply text-danger absolute top-full left-0 transform translate-y-1;
+  @apply text-danger text-sm absolute top-full left-0 transform translate-y-0.5;
 }
 </style>

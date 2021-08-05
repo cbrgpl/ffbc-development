@@ -35,6 +35,7 @@ import IconGallery from '@icons/IconGallery.vue'
 import IconLogin from '@icons/IconLogin.vue'
 import IconClose from '@icons/IconClose.vue'
 import IconDoubleArrow from '@icons/IconDoubleArrow.vue'
+import IconSignUp from '@icons/IconSignUp.vue'
 
 const ableIcons = [
   'fitness',
@@ -51,6 +52,7 @@ const ableIcons = [
   'login',
   'close',
   'doubleArrow',
+  'signUp'
 ]
 
 export default {
@@ -109,7 +111,8 @@ export default {
     IconGallery,
     IconLogin,
     IconClose,
-    IconDoubleArrow
+    IconDoubleArrow,
+    IconSignUp
   },
 }
 </script>
