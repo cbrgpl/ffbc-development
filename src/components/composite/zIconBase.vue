@@ -36,6 +36,8 @@ import IconLogin from '@icons/IconLogin.vue'
 import IconClose from '@icons/IconClose.vue'
 import IconDoubleArrow from '@icons/IconDoubleArrow.vue'
 import IconSignUp from '@icons/IconSignUp.vue'
+import IconMessage from '@icons/IconMessage.vue'
+import IconSuccess from '@icons/IconSuccess.vue'
 
 const ableIcons = [
   'fitness',
@@ -47,6 +49,8 @@ const ableIcons = [
   'visibility',
   'warning',
   'error',
+  'message',
+  'success',
   'event',
   'gallery',
   'login',
@@ -112,7 +116,9 @@ export default {
     IconLogin,
     IconClose,
     IconDoubleArrow,
-    IconSignUp
+    IconSignUp,
+    IconMessage,
+    IconSuccess
   },
 }
 </script>

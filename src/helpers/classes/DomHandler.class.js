@@ -15,7 +15,7 @@ export default class {
       if ( margin ) {
         const style = element.style
 
-        height += style.marginTop + style.marginBottom
+        height += this._parseNumber( style.marginTop ) + this._parseNumber( style.marginBottom )
       }
 
       return height
@@ -163,5 +163,9 @@ export default class {
     } while ( currentElement !== document.body )
 
     return accumulator
+  }
+
+  static _parseNumber ( value ) {
+    return Number( value.replace( /[A-Za-z]/g, '' ) )
   }
 }

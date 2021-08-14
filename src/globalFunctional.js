@@ -16,6 +16,7 @@ import tooltip from '@directives/tooltip.directive.js'
 
 // plugins
 import dialogPlugin from '@plugins/dialog.plugin'
+import toastPlugin from '@plugins/toast.plugin'
 
 export default {
   components: {
@@ -34,6 +35,7 @@ export default {
     tooltip,
   },
   plugins: {
-    dialogPlugin
+    dialogPlugin,
+    toastPlugin
   },
 }

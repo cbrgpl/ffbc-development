@@ -1,8 +1,20 @@
 <template >
   <div >
 
-    <zButton @click="test" >
-      Turn on
+    <zButton @click="info" >
+      info
+    </zButton>
+
+    <zButton @click="error" >
+      error
+    </zButton>
+
+    <zButton @click="success" >
+      success
+    </zButton>
+
+    <zButton @click="warning" >
+      warning
     </zButton>
 
     <zDialog
@@ -37,9 +49,18 @@ export default {
     }
   },
   methods: {
-    test ( $ev ) {
-      this.dialog$.show( 'auth' )
-    }
+    info () {
+      this.toast$.info( { detail: 'Yuo have been completed that shift', summary: 'Completed!' } )
+    },
+    success () {
+      this.toast$.success( { detail: 'Succes status was gotten from the server', summary: 'Success completed!' } )
+    },
+    error () {
+      this.toast$.error( { detail: 'Error while handling', summary: 'Oh, something went wrong' } )
+    },
+    warning () {
+      this.toast$.warn( { detail: 'Be careful', summary: 'Oh, be careful with that shit it is not looks like' } )
+    },
   },
   components: {
     zDialog,

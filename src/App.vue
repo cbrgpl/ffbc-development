@@ -6,6 +6,7 @@
       <router-view />
     </component>
 
+    <TheToast />
     <DialogLayout />
   </div>
 </template>
@@ -15,11 +16,13 @@ import MainLayout from '@layouts/MainLayout/MainLayout.vue'
 import EmptyLayout from '@layouts/EmptyLayout/EmptyLayout.vue'
 
 import DialogLayout from '@layouts/DialogLayout/DialogLayout.vue'
+import TheToast from '@components/composite/TheToast/TheToast.vue'
 
 export default {
   name: 'App',
   mounted () {
     this.removeTemplatePreloader()
+    this.toast$.warn( { summary: 'Заголовок', detail: ' wqeqe qwe q qweqe qweq qeq eqwqwe qwe ewqe qwe wqeqwe qweqw eqw ewqeqw qweqweq eqweqweqweqeqeqeqweqeqweqeqe qweq eqw eqwe qwe qw qeqweqwe qweq wq eqw qw' } )
   },
   methods: {
     async removeTemplatePreloader () {
@@ -39,7 +42,8 @@ export default {
   components: {
     MainLayout,
     EmptyLayout,
-    DialogLayout
+    DialogLayout,
+    TheToast,
   },
 }
 </script>
