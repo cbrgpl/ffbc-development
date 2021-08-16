@@ -11,6 +11,7 @@ import zIconBase from '@components/composite/zIconBase.vue'
 import zInput from '@components/composite/zInput.vue'
 
 // directives
+import autofocus from '@directives/autofucs.directive.js'
 import lazyImage from '@directives/lazyImage.directive.js'
 import tooltip from '@directives/tooltip.directive.js'
 
@@ -33,6 +34,7 @@ export default {
   directives: {
     lazyImage,
     tooltip,
+    autofocus
   },
   plugins: {
     dialogPlugin,

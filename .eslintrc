@@ -39,6 +39,7 @@
       "error",
       2
     ],
+    "no-throw-literal": "off",
     "no-console": [
       "warn",
        { "allow": ["warn", "error"] }
@@ -98,6 +99,7 @@
         ]
       }
     ],
+    "vue/no-multiple-template-root": "off",
     "vue/html-closing-bracket-newline": [
       "error",
       {

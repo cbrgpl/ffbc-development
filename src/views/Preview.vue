@@ -17,19 +17,10 @@
       warning
     </zButton>
 
-    <zDialog
-      @update:visible="test"
-      v-model:visible="visible" >
-      <template #header >
-        header
-      </template>
+    <zButton @click="dialog$.show('registration', false)" >
+      warning
+    </zButton>
 
-      default
-
-      <template #footer >
-        footer
-      </template>
-    </zDialog>
   </div>
 </template>
 

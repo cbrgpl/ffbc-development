@@ -39,7 +39,7 @@ export default {
 
 <style lang="scss" scope>
 .z-button {
-  @apply rounded-md transition-colors whitespace-nowrap;
+  @apply rounded-md transition-colors whitespace-nowrap select-none;
 
   &:disabled {
     @apply bg-opacity-70 pointer-events-none cursor-default;
@@ -61,7 +61,7 @@ export default {
     }
 
     &:disabled {
-      @apply bg-primary-lightest text-black-lighten;
+      @apply filter grayscale text-black-lighten;
     }
   }
 

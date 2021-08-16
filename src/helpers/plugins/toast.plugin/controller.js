@@ -16,19 +16,23 @@ export default class ToastController {
   }
 
   warn ( { summary, detail, life } ) {
-    this._add( arguments[ 0 ], this._SEVERITY.WARN )
+    return this._add( arguments[ 0 ], this._SEVERITY.WARN )
   }
 
   success ( { summary, detail, life } ) {
-    this._add( arguments[ 0 ], this._SEVERITY.SUCC )
+    return this._add( arguments[ 0 ], this._SEVERITY.SUCC )
   }
 
   error ( { summary, detail, life } ) {
-    this._add( arguments[ 0 ], this._SEVERITY.ERR )
+    return this._add( arguments[ 0 ], this._SEVERITY.ERR )
   }
 
   info ( { summary, detail, life } ) {
-    this._add( arguments[ 0 ], this._SEVERITY.INFO )
+    return this._add( arguments[ 0 ], this._SEVERITY.INFO )
+  }
+
+  remove ( id ) {
+    this._toastList.removeCallback( ( el ) => el.id === id )
   }
 
   _add ( toastParams, severity ) {
@@ -45,10 +49,6 @@ export default class ToastController {
     }
     userParams.severity = severity
     userParams.id = this._getUniqueID()
-  }
-
-  remove ( id ) {
-    this._toastList.removeCallback( ( el ) => el.id === id )
   }
 
   _getUniqueID () {

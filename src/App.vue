@@ -1,5 +1,5 @@
 <template >
-  <div class="h-screen bg-black " >
+  <div class="h-screen  bg-black " >
     <component
       class="h-full overflow-y-auto"
       :is="layout" >
@@ -21,17 +21,46 @@ import TheToast from '@components/composite/TheToast/TheToast.vue'
 export default {
   name: 'App',
   mounted () {
-    this.removeTemplatePreloader()
-    this.toast$.warn( { summary: 'Заголовок', detail: ' wqeqe qwe q qweqe qweq qeq eqwqwe qwe ewqe qwe wqeqwe qweqw eqw ewqeqw qweqweq eqweqweqweqeqeqeqweqeqweqeqe qweq eqw eqwe qwe qw qeqweqwe qweq wq eqw qw' } )
+    this.handleLoading()
+  },
+  data () {
+    return {
+      errorsNumber: 0,
+    }
+  },
+
+  errorCaptured ( errorObject, vnode, info ) {
+    if ( errorObject.error ) {
+      console.group( `Error number ${ this.errorsNumber++ }` )
+      this.log$.error( errorObject.error.message, 'Error with message//was captured' )
+      this.log$.object( info, 'info: ' )
+      this.log$.object( errorObject, 'errorObject: ' )
+      this.log$.object( vnode, 'vnode: ' )
+      console.groupEnd()
+
+      if ( this.CONST$.ERROR_HANDLER_STATUSES.some( ( statusesGroup ) => statusesGroup.test( errorObject.error.message ) ) ) {
+        this.toast$.error( { summary: 'Server Problems', detail: 'The attempt to connect to the server is successful, but there are some problems with the server. <strong><u>Try again later.</u></strong><br>If you can’t connect, ask for technical support', life: 4000 } )
+        return false
+      }
+    }
   },
   methods: {
-    async removeTemplatePreloader () {
-      setTimeout( () => {
+    async handleLoading () {
+      const isVerificate = location.href.includes( 'verificate' )
+
+      if ( isVerificate ) {
+        window.addEventListener( 'storage', this.removeTemplateLoader(), { once: true } )
+      } else {
         setTimeout( () => {
-          document.body.removeChild( document.body.querySelector( '#template-preloader' ) )
-          document.body.classList.remove( 'body-template-preloader' )
-        }, 0 )
-      }, 35 )
+          setTimeout( () => {
+            this.removeTemplateLoader()
+          }, 0 )
+        }, 35 )
+      }
+    },
+    removeTemplateLoader () {
+      document.body.removeChild( document.body.querySelector( '#template-preloader' ) )
+      document.body.classList.remove( 'body-template-preloader' )
     }
   },
   computed: {

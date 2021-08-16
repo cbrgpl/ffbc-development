@@ -1,8 +1,11 @@
 <template >
-  <div class="absolute" >
-    <TheLoginDialog v-model:visible="dialogue.login" />
-    <TheRegistrationDialog v-model:visible="dialogue.registration" />
-  </div>
+  <component
+    v-for="name of shownDialogue"
+    :key="name"
+    :is="getComponentName(name)"
+    v-model:visible="dialogue[name].visible"
+    :modal="dialogue[name].modal" >
+  </component>
 </template>
 
 <script>
@@ -10,6 +13,7 @@ import { defineAsyncComponent } from 'vue'
 
 export default {
   name: 'DialogLayout',
+  inheritAttrs: false,
   data () {
     return {
       dialogue: this.dialog$._dialogue
@@ -17,6 +21,11 @@ export default {
   },
   created () {
     this.registerComponents()
+  },
+  computed: {
+    shownDialogue () {
+      return Object.keys( this.dialogue ).filter( ( name ) => this.dialogue[ name ].visible )
+    }
   },
   methods: {
     registerComponents () {
@@ -26,11 +35,15 @@ export default {
     },
     getDialogName ( tag ) {
       return tag.replace( 'The', '' ).replace( 'Dialog', '' ).toLowerCase()
-    }
+    },
+    getComponentName ( dialog ) {
+      return 'The' + dialog.capitalize() + 'Dialog'
+    },
   },
   components: {
     TheLoginDialog: defineAsyncComponent( () => import( './partial/TheLoginDialog.vue' ) ),
-    TheRegistrationDialog: defineAsyncComponent( () => import( './partial/TheRegistrationDialog.vue' ) )
+    TheRegistrationDialog: defineAsyncComponent( () => import( './partial/TheRegistrationDialog.vue' ) ),
+    TheVerificationDialog: defineAsyncComponent( () => import( './partial/TheVerificationDialog.vue' ) )
   },
 
 }

@@ -6,6 +6,7 @@
 
 <script>
 export default {
+  name: 'zSpacer',
   props: {
     space: {
       type: [ Number, String ],

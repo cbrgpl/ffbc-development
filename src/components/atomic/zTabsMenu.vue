@@ -23,7 +23,7 @@
 import DomHandler from '@classes/DomHandler.class.js'
 
 export default {
-  name: 'TabsMenu',
+  name: 'zTabsMenu',
   props: {
     modelValue: {},
     tabs: {

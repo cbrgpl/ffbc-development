@@ -75,3 +75,11 @@ h6 {
 .input-field {
   @apply mb-8;
 }
+
+strong {
+  @apply text-primary;
+}
+
+.default-button {
+  @apply p-4;
+}

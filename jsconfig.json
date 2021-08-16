@@ -55,7 +55,12 @@
       "@views/*": [
         "src/views/*"
       ],
-      "TailwindColors": []
+      "#TailwindColors": [
+        "src/enums/tailwind.colors.js"
+      ],
+      "#CONST": [
+        "src/enums/CONST.js"
+      ]
     }
   },
   "exclude": [

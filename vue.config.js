@@ -65,7 +65,8 @@ module.exports = {
         '@layouts': path.resolve( __dirname, 'src', 'layouts' ),
         '@services': path.resolve( __dirname, 'src', 'services' ),
         '@views': path.resolve( __dirname, 'src', 'views' ),
-        TailwindColors: path.resolve( __dirname, 'src', 'enums', 'tailwind.colors.js' )
+        '#TailwindColors': path.resolve( __dirname, 'src', 'enums', 'tailwind.colors.js' ),
+        '#CONST': path.resolve( __dirname, 'src', 'enums', 'CONST.js' )
       },
     },
     plugins,

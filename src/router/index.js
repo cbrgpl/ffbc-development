@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Preview from '@views/Preview.vue'
+import { verifyEmail } from './helpers/index'
 
 const routes = [
   // General
@@ -92,6 +93,11 @@ const routes = [
       layout: 'main'
     }
   },
+  {
+    path: '/verificate',
+    component: () => import( '@layouts/EmptyLayout/EmptyLayout.vue' ),
+    beforeEnter: verifyEmail
+  }
 ]
 
 // TODO need to make permissions system

@@ -19,7 +19,7 @@
 <script>
 export default {
   name: 'zForm',
-  emits: [ 'submit' ],
+  emits: [ 'validate' ],
   props: {
     vuelidateObject: {
       type: Object,
@@ -32,6 +32,14 @@ export default {
     onFormError: {
       type: String,
       default: '',
+    }
+  },
+  data () {
+    return {
+      statuses: {
+        valid: 'VALID',
+        invalid: 'INVALID'
+      }
     }
   },
   computed: {
@@ -54,6 +62,10 @@ export default {
 
       this.vuelidateObject.$reset()
       this.vuelidateObject.$touch()
+
+      if ( this.vuelidateObject.$invalid ) {
+        this.$emit( 'validate', this.statuses.invalid )
+      } else this.$emit( 'validate', this.statuses.valid )
     },
     controlFocus ( event ) {
       if ( !this.enterable ) {
@@ -68,7 +80,6 @@ export default {
         this.childInputs[ emitterIndex + 1 ].focus()
       } else {
         this.validateFields()
-        this.$emit( 'submit' )
       }
     },
     formRef ( el ) {

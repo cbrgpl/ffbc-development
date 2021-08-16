@@ -2,21 +2,22 @@
   <teleport to="body" >
     <div
       :ref="maskRef"
+      :style="maskStyles"
       :class="maskClasses"
-      @click="close"
-      v-if="containerVisible" >
+      @click="disappear"
+      @keyup.esc="disappear" >
 
       <transition
         name="dialog-appear"
         @enter="onEnter"
         @leave="mask.classList.remove('bg-opacity-60')"
-        @after-leave="containerVisible = false"
+        @after-leave="closeDialog"
         appear >
         <span
+          v-if="dialogVisible"
           role='dialog'
           @click.stop
-          v-if="visible"
-          class="dialog__window"
+          :class="['dialog__window', {'border border-white border-opacity-20 border-solid': !modal}]"
           v-bind="$attrs" >
 
           <div class="relative w-full h-full" >
@@ -26,7 +27,7 @@
                 class="flex relative w-full mb-2" >
                 <slot name="header" >
                 </slot>
-                <DialogClose @click="close" />
+                <DialogClose @click="disappear" />
               </div>
 
               <div class="flex-grow flex flex-col justify-center items-center" >
@@ -49,11 +50,13 @@
 
 <script>
 import DialogClose from './partial/DialogClose.vue'
+import getZIndex from '@functions/getZIndex.function.js'
 
 export default {
   name: 'Dialog',
   inheritAttrs: false,
   emits: [ 'update:visible' ],
+  mask: null,
   props: {
     visible: {
       type: Boolean,
@@ -66,26 +69,8 @@ export default {
   },
   data () {
     return {
-      containerVisible: this.visible
-    }
-  },
-  mask: null,
-  methods: {
-    maskRef ( el ) {
-      this.mask = el
-    },
-    onEnter () {
-      setTimeout( () => {
-        this.mask.classList.add( 'bg-opacity-60' )
-      }, 0 )
-    },
-    close () {
-      this.$emit( 'update:visible', false )
-    }
-  },
-  updated () {
-    if ( this.visible ) {
-      this.containerVisible = true
+      dialogVisible: this.visible,
+      zIndex: getZIndex(),
     }
   },
   computed: {
@@ -95,7 +80,29 @@ export default {
         { 'pointer-events-none': !this.modal },
       ]
     },
+    maskStyles () {
+      return {
+        background: !this.modal ? 'transparent' : ''
+      }
+    }
   },
+  methods: {
+    maskRef ( el ) {
+      this.mask = el
+    },
+    onEnter () {
+      setTimeout( () => {
+        this.mask.classList.add( 'bg-opacity-60' )
+      }, 0 )
+    },
+    disappear () {
+      this.dialogVisible = false
+    },
+    closeDialog () {
+      this.$emit( 'update:visible', false )
+    }
+  },
+
   components: {
     DialogClose,
   },
@@ -105,7 +112,7 @@ export default {
 <style lang="scss" scoped>
 
 .dialog__window {
-  @apply fixed right-2/4 bottom-2/4 transform translate-x-2/4 translate-y-2/4 m-auto bg-black-lighten text-white rounded-xl px-4 py-5;
+  @apply fixed right-2/4 bottom-2/4 transform translate-x-2/4 translate-y-2/4 m-auto pointer-events-auto bg-black-lighten text-white rounded-xl px-4 py-5;
 }
 
 .dialog-appear {

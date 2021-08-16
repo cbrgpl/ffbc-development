@@ -9,6 +9,7 @@
       <zForm
         :vuelidate-object="v$" >
         <zInput
+          v-autofocus
           class="input-field"
           v-model="logData.email"
           label="Email"

@@ -17,8 +17,9 @@
           </h5>
 
         </div>
-        <p class="text-white text-xs leading-tight" >
-          {{ data.detail }}
+        <p
+          v-html="data.detail"
+          class="text-white text-md font-medium sm:font-normal sm:text-sm leading-tight" >
         </p>
       </div>
     </div>

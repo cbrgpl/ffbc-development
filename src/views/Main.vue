@@ -255,8 +255,12 @@
           </h2>
           <zForm
             :enterable="false"
-            :validation-object="v$.form"
+            :vuelidate-object="v$.form"
             @submit="testForm" >
+
+            <zToggle
+              :model-value="true"
+              value="qwewe" ></zToggle>
 
             <h1 class="mb-6 text-white" >
               Hey, can you identify urself?
@@ -310,7 +314,9 @@ import zCheckbox from '@components/atomic/zCheckbox.vue'
 import zCheckboxMulti from '@components/composite/zCheckboxMulti.vue'
 import zCheckboxSingle from '@components/composite/zCheckboxSingle.vue'
 
+import zToggle from '@components/atomic/zToggle.vue'
 import zForm from '@components/atomic/zForm.vue'
+
 export default {
   name: 'Main',
   components: {
@@ -329,6 +335,7 @@ export default {
     zCheckboxMulti,
     zCheckboxSingle,
     zForm,
+    zToggle,
   },
   data () {
     return {

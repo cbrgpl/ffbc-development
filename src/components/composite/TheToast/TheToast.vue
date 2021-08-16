@@ -1,17 +1,19 @@
 <template >
   <teleport to='body' >
-    <div class="toast-container w-72 h-full fixed top-2 right-3 pointer-events-none" >
-      <transition-group name="toast-animation" >
-        <ToastInstance
-          :style="toastCusomStyles"
+    <div class="toast-container w-full sm:w-80 px-3 sm:px-0 h-full fixed top-2 right-0 sm:right-3 pointer-events-none" >
+      <div class="w-full relative" >
+        <transition-group name="toast-animation" >
+          <ToastInstance
+            :style="toastCusomStyles"
 
-          v-for="toast of toastList"
-          :key="toast.id"
+            v-for="toast of toastList"
+            :key="toast.id"
 
-          :data="toast"
+            :data="toast"
 
-          @remove="removeToast" />
-      </transition-group>
+            @remove="removeToast" />
+        </transition-group>
+      </div>
     </div>
   </teleport>
 

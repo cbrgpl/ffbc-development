@@ -35,6 +35,10 @@ export default {
     errorState: {
       type: Boolean,
       default: false,
+    },
+    onError: {
+      type: String,
+      default: '',
     }
   },
   computed: {

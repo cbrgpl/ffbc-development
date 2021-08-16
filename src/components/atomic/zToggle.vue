@@ -6,6 +6,7 @@
       v-bind="attrs"
       ref="checkbox"
       class="hidden"
+      :checked="modelValue"
       @change="$emit('update:modelValue', $event.target.checked, value)"
       type="checkbox" >
     <span
@@ -18,6 +19,7 @@ import extender from '@mixins/extender.mixin.js'
 
 export default {
   mixins: [ extender ],
+  name: 'zToggle',
   props: {
     modelValue: {
       type: [ Boolean, String ],
@@ -26,25 +28,6 @@ export default {
     value: {
       type: [ String, Number, Boolean ],
       default: null
-    }
-  },
-
-  // TODO Я знаю, что тут можно более изящно сделать, но не помню как. watcher+mounted соединить в одно
-  watch: {
-    modelValue () {
-      this.updateView()
-    }
-  },
-  mounted () {
-    this.updateView()
-  },
-  methods: {
-    updateView () {
-      const refs = this.$refs
-
-      if ( refs.checkbox ) {
-        refs.checkbox.checked = this.modelValue
-      }
     }
   },
 }

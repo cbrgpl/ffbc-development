@@ -1,5 +1,7 @@
-import { reactive, computed } from 'vue'
+import { reactive, computed, ref, watch } from 'vue'
+import consoleLogger from '@classes/consoleLogger.class.js'
 
+// TODO прокинуть app и взаимодействовать через него со всем остальным
 export default class {
   constructor () {
     this._dialogue = reactive( {} )
@@ -7,28 +9,45 @@ export default class {
 
   register ( name ) {
     if ( this._exists( name ) ) {
-      console.error( `Dialog with name "${ name }" already exists` )
+      consoleLogger.error( `"${ name }"`, 'Dialog with name//already exists' )
       return
     }
 
-    this._dialogue[ name ] = false
+    this._dialogue[ name ] = {
+      visible: false,
+      modal: true,
+    }
   }
 
-  show ( name ) {
+  show ( name, modal = true ) {
     this._existWithLog( name )
+    const oldVisible = this._dialogue[ name ].visible
 
-    this._dialogue[ name ] = true
+    this._dialogue[ name ].modal = !oldVisible && modal
+    this._dialogue[ name ].visible = true
   }
 
   hide ( name ) {
-    this._existWithLog( name )
+    if ( !this._existWithLog( name ) ) return
 
-    this._dialogue[ name ] = false
+    this._dialogue[ name ].visible = false
+  }
+
+  addWatcher ( dialogName, callback = ( unwatch ) => unwatch(), watcherOptions = {} ) {
+    if ( !this._existWithLog( dialogName ) ) return
+
+    const unwatch = ref( null )
+
+    unwatch.value = watch(
+      () => this._dialogue[ dialogName ].visible,
+      ( newValue, oldValue ) => callback( newValue, unwatch.value ),
+      watcherOptions
+    )
   }
 
   _existWithLog ( name ) {
     if ( !this._exists( name ) ) {
-      console.warn( `Dialog with name "${ name }" was added dynamicly` )
+      consoleLogger.warn( `"${ name }"`, 'Dialog with name//is not exists' )
       return false
     }
 
