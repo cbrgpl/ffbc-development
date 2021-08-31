@@ -52,7 +52,7 @@ export default {
 
       this.buttonLoader = true
 
-      const response = await authService.resendVerificationLink( { email: this.email } )
+      const response = await authService.resendVerificationLink( { email: this.email, redirectUrl: 'verificate' } )
       this.buttonLoader = false
 
       if ( response.response.status === 200 ) {

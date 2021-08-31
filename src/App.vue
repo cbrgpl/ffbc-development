@@ -38,17 +38,22 @@ export default {
       this.log$.object( vnode, 'vnode: ' )
       console.groupEnd()
 
-      if ( this.CONST$.ERROR_HANDLER_STATUSES.some( ( statusesGroup ) => statusesGroup.test( errorObject.error.message ) ) ) {
-        this.toast$.error( { summary: 'Server Problems', detail: 'The attempt to connect to the server is successful, but there are some problems with the server. <strong><u>Try again later.</u></strong><br>If you can’t connect, ask for technical support', life: 4000 } )
-        return false
+      if ( /429/.test( errorObject.error.message ) ) {
+        this.toast$.warn( { summary: 'Too many server requests', detail: 'You send requests to the server too often.</br><strong>Please wait a while and try again.</strong>' } )
+      } else if ( this.CONST$.ERROR_HANDLER_STATUSES.some( ( statusesGroup ) => statusesGroup.test( errorObject.error.message ) ) ) {
+        this.toast$.error( { summary: 'Server Problems', detail: 'The attempt to connect to the server is successful, but there are some problems with the server. <strong><u>Try again later.</u></strong><br>If you can’t connect, ask for technical support', life: 8000 } )
+      } else {
+        this.toast$.error( { summary: 'Site problem', detail: 'A problem occurred during the operation of the site. We are already in the process of solving it', life: 8000 } )
       }
+
+      return false
     }
   },
   methods: {
     async handleLoading () {
-      const isVerificate = location.href.includes( 'verificate' )
+      const isVerificateRoute = location.href.includes( 'verificate' )
 
-      if ( isVerificate ) {
+      if ( isVerificateRoute ) {
         window.addEventListener( 'storage', this.removeTemplateLoader(), { once: true } )
       } else {
         setTimeout( () => {

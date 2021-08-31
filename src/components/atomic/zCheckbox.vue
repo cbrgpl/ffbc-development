@@ -3,6 +3,7 @@
     class="flex items-center relative cursor-pointer"
     v-bind="styles" >
     <input
+      :checked="checked"
       @change="$emit( 'update:modelValue', $event)"
       class="z-checkbox"
       v-bind="attrs"
@@ -24,6 +25,10 @@ export default {
   name: 'zCheckbox',
   mixins: [ extenderMixin ],
   props: {
+    checked: {
+      type: Boolean,
+      required: true,
+    },
     label: {
       type: String,
       default: ''

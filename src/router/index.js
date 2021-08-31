@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Preview from '@views/Preview.vue'
-import { verifyEmail } from './helpers/index'
+import { verifyEmail, checkRoles } from './helpers/index'
 
 const routes = [
   // General
@@ -97,6 +97,18 @@ const routes = [
     path: '/verificate',
     component: () => import( '@layouts/EmptyLayout/EmptyLayout.vue' ),
     beforeEnter: verifyEmail
+  },
+  {
+    path: '/reset-password',
+    component: () => import( '@layouts/EmptyLayout/EmptyLayout.vue' ),
+    beforeEnter ( to, from, next ) {
+      if ( localStorage.getItem( 'var_passwordResetRequested' ) === 'true' ) {
+        next()
+        return
+      }
+
+      next( { name: 'Main' } )
+    }
   }
 ]
 
@@ -105,5 +117,7 @@ const router = createRouter( {
   history: createWebHistory( process.env.BASE_URL ),
   routes
 } )
+
+router.beforeEach( checkRoles )
 
 export default router

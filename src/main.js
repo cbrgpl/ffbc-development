@@ -7,6 +7,7 @@ import '@scss/_predefined.scss'
 import CONST from '#CONST'
 import globalFunctional from './globalFunctional.js'
 import consoleLogger from '@classes/consoleLogger.class.js'
+import { throwError } from '@/helpers/appConfig'
 
 import router from './router'
 import store from './store'
@@ -29,6 +30,8 @@ for ( const directive of Object.keys( globalFunctional.directives ) ) {
 
 app.config.globalProperties.CONST$ = CONST
 app.config.globalProperties.log$ = consoleLogger
+
+app.config.globalProperties.throw$ = throwError
 
 app.mount( '#app' )
 

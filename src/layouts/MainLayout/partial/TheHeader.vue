@@ -18,7 +18,18 @@
         alt="" >
     </div>
 
-    <div class="flex" >
+    <div v-if="isAuth" >
+      <img
+        class="header__avatar"
+        width="32"
+        height="32"
+        :src="avatar"
+        alt="" >
+    </div>
+
+    <div
+      v-else
+      class="flex" >
       <zButtonIcon
         shrink
         @click="dialog$.show('login')"
@@ -42,9 +53,18 @@
 </template>
 
 <script>
-
+import { mapGetters } from 'vuex'
 export default {
-
+  data ( ) {
+    return {
+      avatar: require( '@images/avatar.jpg' )
+    }
+  },
+  computed: {
+    ...mapGetters( {
+      isAuth: 'auth/isAuth'
+    } )
+  }
 }
 </script>
 
@@ -54,5 +74,9 @@ export default {
   aspect-ratio: 5 / 3;
 
   @apply w-auto h-full cursor-pointer;
+}
+
+.header__avatar {
+  @apply w-16 h-16 border-2 border-solid border-white rounded-full cursor-pointer;
 }
 </style>

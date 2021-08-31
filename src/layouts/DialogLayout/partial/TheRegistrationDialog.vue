@@ -54,7 +54,7 @@
               class="w-full py-4 md:w-56 lg:w-44"
               type="submit"
               :disabled="v$.$error || buttonDisabled"
-              :loader="buttonLoader" >
+              :loader="formLoader" >
               Registration
             </zButtonLoader>
           </div>
@@ -89,7 +89,7 @@ export default {
         redirectUrl: '',
       },
       consent: false,
-      buttonLoader: false,
+      formLoader: false,
       buttonDisabled: false,
       storageEmailVar: 'var_regEmail'
     }
@@ -115,11 +115,11 @@ export default {
         return
       }
 
-      this.buttonLoader = true
+      this.formLoader = true
       const dataClone = Object.assign( {}, this.regData )
       dataClone.phoneNumber = '+' + onlyDigits( dataClone.phoneNumber )
       const response = await authService.register( dataClone )
-      this.buttonLoader = false
+      this.formLoader = false
 
       if ( response.response.status === 200 ) {
         localStorage.setItem( this.storageEmailVar, this.regData.email )
@@ -135,7 +135,7 @@ export default {
       } else if ( response.data.errors[ 0 ].message === 'Incorrect phone number' ) {
         this.toast$.warn( { summary: 'Registration error', detail: 'Invalid phone number entered' } )
       } else if ( response.data.errors[ 0 ]?.code === 'invalid' ) {
-        this.toast$.warn( { summary: 'Registration error', detail: 'The inputted mail or email is already occupied' } )
+        this.toast$.warn( { summary: 'Registration error', detail: 'The inputted phone or email is already occupied' } )
       }
     }
   },

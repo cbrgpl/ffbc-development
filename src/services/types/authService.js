@@ -2,10 +2,9 @@ import CONST from '#CONST'
 import BaseService from './_baseService'
 
 export default class AuthService extends BaseService {
-  constructor ( redirectUrl ) {
+  constructor () {
     super()
 
-    this._redirectUrl = CONST.CLIENT_URL + CONST.REDIRECT_URL
     this._endpoint = 'auth'
   }
 
@@ -45,7 +44,7 @@ export default class AuthService extends BaseService {
     } )
   }
 
-  resendVerificationLink ( { email }, key = 'resendVereficationLink' ) {
+  resendVerificationLink ( { email, redirectUrl }, key = 'resendVereficationLink' ) {
     const options = {
       method: 'POST',
       headers: {
@@ -55,7 +54,7 @@ export default class AuthService extends BaseService {
       body: arguments[ 0 ]
     }
 
-    options.body.redirectUrl = options.body.redirectUrl ? options.body.redirectUrl : this._redirectUrl
+    options.body.redirectUrl = CONST.CLIENT_URL + options.body.redirectUrl
 
     return this._request( {
       options,
@@ -81,7 +80,25 @@ export default class AuthService extends BaseService {
     } )
   }
 
-  logout ( { refresh }, key = 'logout' ) {
+  logout ( { refresh, access }, key = 'logout' ) {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${ access }`
+      },
+      body: { refresh }
+    }
+
+    return this._request( {
+      options,
+      key,
+      expectType: this.responseTypes.native
+    } )
+  }
+
+  requestResetPassword ( { email, redirectUrl }, key = 'requestPasswordReset' ) {
     const options = {
       method: 'POST',
       headers: {

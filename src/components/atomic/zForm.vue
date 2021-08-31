@@ -1,14 +1,17 @@
 <template >
   <form
+    class="w-full"
     :ref="formRef"
     @submit.prevent="validateFields"
     @keydown.enter.prevent="controlFocus" >
     <slot />
-    <small
-      v-if="vuelidateObject.$error"
-      class="text-danger font-semibold text-xl" >
-      {{ onFormError }}
-    </small>
+    <div class="mb-5" >
+      <small
+        v-if="vuelidateObject.$error || formError"
+        class="text-danger font-semibold text-base leading-tight" >
+        {{ onFormError }}
+      </small>
+    </div>
 
     <slot name="button" >
 
@@ -28,6 +31,10 @@ export default {
     enterable: {
       type: Boolean,
       default: true,
+    },
+    formError: {
+      type: Boolean,
+      default: false,
     },
     onFormError: {
       type: String,

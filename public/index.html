@@ -7,14 +7,14 @@
     <link rel="icon" href="<%= BASE_URL %>favicon.jpg">
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
-  <body class="body-template-preloader">
+  <body style="margin: 0;">
     <style>
 .body-template-preloader {
   margin: 0;
 }
 
 #template-preloader {
-  position: fixed;
+  position: absolute;
   z-index: 99999;
 
   width: 100vw;
@@ -26,6 +26,11 @@
   justify-content: center;
 
   background: #1a1916;
+}
+
+#template-preloader * {
+  line-height: 1.15;
+  box-sizing: border-box;
 }
 
 .template-preloader__title {

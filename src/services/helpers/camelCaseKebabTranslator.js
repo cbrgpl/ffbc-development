@@ -13,6 +13,22 @@ export default class CamelKebabTranslator {
     return this._translateString( key, MODS.KEBAB_CAMEL )
   }
 
+  static camelKebabArray ( foreignArray ) {
+    for ( const elem of foreignArray ) {
+      if ( elem instanceof Object ) {
+        this.camelKebabObj( elem )
+      }
+    }
+  }
+
+  static kebabCamelArray ( foreignArray ) {
+    for ( const elem of foreignArray ) {
+      if ( elem instanceof Object ) {
+        this.kebabCamelObj( elem )
+      }
+    }
+  }
+
   static camelKebabObj ( foreignObj ) {
     const translatedObject = {}
 
@@ -20,6 +36,12 @@ export default class CamelKebabTranslator {
       const kebabedKey = this._translateString( key, MODS.CAMEL_KEBAB )
 
       translatedObject[ kebabedKey ] = foreignObj[ key ]
+
+      if ( translatedObject[ kebabedKey ] instanceof Object ) {
+        this.camelKebabObj( translatedObject[ kebabedKey ] )
+      } else if ( Array.isArray( translatedObject[ kebabedKey ] ) ) {
+        this.camelKebabArray( translatedObject[ kebabedKey ] )
+      }
     }
 
     return translatedObject
@@ -32,6 +54,12 @@ export default class CamelKebabTranslator {
       const cameledKey = this._translateString( key, MODS.KEBAB_CAMEL )
 
       translatedObject[ cameledKey ] = foreignObj[ key ]
+
+      if ( translatedObject[ cameledKey ] instanceof Object ) {
+        this.camelKebabObj( translatedObject[ cameledKey ] )
+      } else if ( Array.isArray( translatedObject[ cameledKey ] ) ) {
+        this.camelKebabArray( translatedObject[ cameledKey ] )
+      }
     }
 
     return translatedObject

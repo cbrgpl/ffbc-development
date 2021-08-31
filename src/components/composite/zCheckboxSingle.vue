@@ -1,6 +1,7 @@
 <template >
   <zCheckbox
     @update:modelValue="handleValue"
+    :checked="modelValue"
     v-bind="attrs" />
 </template>
 

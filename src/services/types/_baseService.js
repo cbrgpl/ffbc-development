@@ -1,44 +1,9 @@
 import CONST from '#CONST'
-import CamelKebabTranslator from '@services/camelCaseKebabTranslator'
+import CamelKebabTranslator from '@/services/helpers/camelCaseKebabTranslator'
+import ResponseHandler from '@/services/helpers/responseHandler'
 import endpoints from '@services/endpoints'
 
-const ERROR_STATUSES = {
-  SHOULD_BE_HANDLED: [ /[1-4]\d{2}/ ]
-}
-
-async function parseSuccessResponse ( response, type ) {
-  switch ( type ) {
-  case 'json':
-    return await response.json()
-  case 'blob':
-    return await response.blob()
-  case 'text':
-    return ( await response.text() ).replace( /"||'/g, '' )
-  case 'native':
-    return response
-  }
-}
-
-async function handleResponse ( response, expectType ) {
-  const handledResponse = {
-    data: null,
-    error: null,
-    response: null,
-  }
-
-  const statusTesting = ERROR_STATUSES.SHOULD_BE_HANDLED
-    .some( ( statusesGroup ) => statusesGroup.test( response.status ) )
-
-  if ( statusTesting ) {
-    handledResponse.data = CamelKebabTranslator.kebabCamelObj( await parseSuccessResponse( response, expectType ) )
-  } else {
-    handledResponse.error = new Error( 'status is ' + response.status )
-  }
-
-  handledResponse.response = response
-
-  return handledResponse
-}
+const responseHandler = new ResponseHandler()
 
 export default class BaseService {
   constructor ( endpointName ) {
@@ -64,16 +29,17 @@ export default class BaseService {
     }, options )
 
     this._prepareBody( fetchOptions )
-
     const url = this._prepareUrl( endpoints[ this._endpoint ][ key ], props )
 
     const response = await fetch( url, fetchOptions )
 
-    const handledResponse = await handleResponse( response, expectType )
-
-    if ( handledResponse.error ) throw handledResponse
-
-    return handledResponse
+    if ( await responseHandler.reactToStatus( response ) === CONST.STATUS_WORDS.SUCCESS ) {
+      return responseHandler.handleResponse( response, expectType )
+    } else {
+      const response = await fetch( url, fetchOptions )
+      await responseHandler.reactToStatus( response )
+      return responseHandler.handleResponse( response, expectType, false )
+    }
   }
 
   _prepareBody ( options ) {
