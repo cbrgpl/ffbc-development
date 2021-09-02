@@ -108,6 +108,8 @@ export default {
 
       if ( loginningResponse.response.status === 200 ) {
         if ( this.rememberMe ) localStorage.setItem( 'var_refreshToken', loginningResponse.data.tokens.refresh )
+        else sessionStorage.setItem( 'var_refreshToken', loginningResponse.data.tokens.refresh )
+
         this.$store.commit( 'token/setTokens', loginningResponse.data.tokens )
         await this.requestUserData()
       } else if ( loginningResponse.response.status === 400 ) {
@@ -125,6 +127,7 @@ export default {
       if ( userDataResponse.response.status === 200 ) {
         this.$store.commit( 'auth/setIsAuth', true )
         this.$store.commit( 'user/setUserData', userDataResponse.data )
+
         this.toast$.success( { summary: 'Authorization successful' } )
         this.dialog$.hide( 'login' )
       } else {

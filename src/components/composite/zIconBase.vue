@@ -35,6 +35,7 @@ import IconGallery from '@icons/IconGallery.vue'
 import IconLogin from '@icons/IconLogin.vue'
 import IconClose from '@icons/IconClose.vue'
 import IconDoubleArrow from '@icons/IconDoubleArrow.vue'
+import IconDoubleArrowUp from '@icons/IconDoubleArrowUp.vue'
 import IconSignUp from '@icons/IconSignUp.vue'
 import IconMessage from '@icons/IconMessage.vue'
 import IconSuccess from '@icons/IconSuccess.vue'
@@ -56,6 +57,7 @@ const ableIcons = [
   'login',
   'close',
   'doubleArrow',
+  'doubleArrowUp',
   'signUp'
 ]
 
@@ -116,6 +118,7 @@ export default {
     IconLogin,
     IconClose,
     IconDoubleArrow,
+    IconDoubleArrowUp,
     IconSignUp,
     IconMessage,
     IconSuccess

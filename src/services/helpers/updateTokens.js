@@ -2,6 +2,14 @@ import endpoints from '@services/endpoints'
 import $store from '@/store'
 import $router from '@/router'
 
+function updateRefreshToken ( token ) {
+  if ( localStorage.getItem( 'var_refreshToken' ) ) {
+    localStorage.setItem( 'var_refreshToken', token )
+  } else if ( sessionStorage.getItem( 'var_refreshToken' ) ) {
+    sessionStorage.setItem( 'var_refreshToken', token )
+  }
+}
+
 export default async function () {
   const options = {
     method: 'POST',
@@ -22,6 +30,7 @@ export default async function () {
   }
 
   $store.commit( 'token/setTokens', responseData )
+  updateRefreshToken( responseData.refresh )
 
   return response
 }

@@ -1,5 +1,5 @@
 <template >
-  <div class="flex items-center justify-between h-16 md:h-20 w-full bg-black-lighten pr-3 sm:pr-8 pl-3 py-2.5" >
+  <div class="flex items-center justify-between h-16 md:h-20 w-full bg-black-primary pr-3 sm:pr-8 pl-3 py-2.5" >
     <div class="flex items-center h-full" >
       <div class="w-10 h-10 sm:h-12 sm:w-12 p-1 mr-4" >
         <zIconBase
@@ -77,6 +77,6 @@ export default {
 }
 
 .header__avatar {
-  @apply w-16 h-16 border-2 border-solid border-white rounded-full cursor-pointer;
+  @apply w-12 h-12 md:w-16 md:h-16 border-2 border-solid border-white rounded-full cursor-pointer;
 }
 </style>

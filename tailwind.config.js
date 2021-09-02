@@ -40,7 +40,9 @@ module.exports = {
       black: {
         lightest: '#686c67',
         lighten: '#242320',
-        DEFAULT: '#1a1916'
+        DEFAULT: '#1a1916',
+
+        primary: '#383030',
       },
       white: '#e4e4e4',
       placeholder: '#b2b2b2',
