@@ -1,5 +1,6 @@
 // String
 import capitalize from './extenders/string.capitalize'
+import lookbehindAlter from './extenders/string.lookbehindAlter'
 // Number
 // Boolean
 // Array
@@ -20,6 +21,7 @@ const extendModule = {
     proto: String.prototype,
     extends: {
       capitalize,
+      lookbehindAlter,
     }
   },
   Number: {

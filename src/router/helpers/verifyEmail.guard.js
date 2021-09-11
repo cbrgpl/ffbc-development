@@ -1,11 +1,10 @@
 import { authService } from '@services'
 import { app } from '@/main.js'
+
 import CONST from '#CONST'
 
 export default async function ( to, from, next ) {
-  const tokenRegexp = /(?<=token=).*$/g
-  const matches = to.href.match( tokenRegexp )
-  const token = matches ? matches[ 0 ] : ''
+  const token = to.href.lookbehindAlter( /(?:token=).*(&||$)/, [ 'token=', /&.*/ ] )
 
   const response = await authService.verifyEmail( token )
 

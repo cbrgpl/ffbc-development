@@ -1,6 +1,6 @@
-const remark = require( 'remark' )
 const defaultTheme = require( 'tailwindcss/defaultTheme' )
 const plugin = require( 'tailwindcss/plugin' )
+const purgeSafelist = require( './tailwind.config.safelist' )
 
 const textShadowUtility = plugin( function ( { addUtilities } ) {
   const newUtilities = {
@@ -23,13 +23,13 @@ const textShadowUtility = plugin( function ( { addUtilities } ) {
 } )
 
 module.exports = {
+  mode: process.env.NODE_ENV === 'production' ? 'jit' : '',
   purge: {
-    transform: {
-      content: [ './index.html', './src/**/*.{vue,js,ts,jsx,tsx}' ],
-      md: ( content ) => {
-        return remark().process( content )
-      }
-    }
+    content: [
+      './index.html',
+      './src/**/*.{vue,js,ts,jsx,tsx}'
+    ],
+    safelist: purgeSafelist
   },
   darkMode: false, // or 'media' or 'class'
   theme: {
