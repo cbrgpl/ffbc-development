@@ -9,7 +9,7 @@ const routes = [
     component: Preview,
     name: 'Preview',
     meta: {
-      layout: 'main'
+      layout: 'main',
     }
   },
   {
@@ -17,7 +17,7 @@ const routes = [
     component: () => import( '@views/Main.vue' ),
     name: 'Main',
     meta: {
-      layout: 'main'
+      layout: 'main',
     }
   },
   {
@@ -25,7 +25,7 @@ const routes = [
     component: () => import( '@views/Main.vue' ),
     name: 'Sponsors',
     meta: {
-      layout: 'main'
+      layout: 'main',
     }
   },
   {
@@ -33,7 +33,7 @@ const routes = [
     component: () => import( '@views/Main.vue' ),
     name: 'Shows',
     meta: {
-      layout: 'main'
+      layout: 'main',
     }
   },
   {
@@ -41,7 +41,7 @@ const routes = [
     component: () => import( '@views/Main.vue' ),
     name: 'Developers',
     meta: {
-      layout: 'main'
+      layout: 'main',
     }
   },
   {
@@ -49,7 +49,7 @@ const routes = [
     component: () => import( '@views/Main.vue' ),
     name: 'Gallery',
     meta: {
-      layout: 'main'
+      layout: 'main',
     }
   },
   {
@@ -57,7 +57,7 @@ const routes = [
     component: () => import( '@views/Main.vue' ),
     name: 'Shop',
     meta: {
-      layout: 'main'
+      layout: 'main',
     }
   },
   // USER
@@ -66,7 +66,8 @@ const routes = [
     component: () => import( '@views/Main.vue' ),
     name: 'Home',
     meta: {
-      layout: 'main'
+      layout: 'main',
+      hiddenElems: [ 'TheStaticSidebar', 'TheStaticSidebarMobile' ]
     }
   },
   {
@@ -74,7 +75,7 @@ const routes = [
     component: () => import( '@views/Main.vue' ),
     name: 'Settings',
     meta: {
-      layout: 'main'
+      layout: 'main',
     }
   },
   {
@@ -82,7 +83,7 @@ const routes = [
     component: () => import( '@views/Main.vue' ),
     name: 'Purchase',
     meta: {
-      layout: 'main'
+      layout: 'main',
     }
   },
   {
@@ -90,7 +91,7 @@ const routes = [
     component: () => import( '@views/Main.vue' ),
     name: 'Services',
     meta: {
-      layout: 'main'
+      layout: 'main',
     }
   },
   {

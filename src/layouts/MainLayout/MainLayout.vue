@@ -2,17 +2,23 @@
   <div
     class="flex flex-col overflow-x-hidden" >
     <TheHeader
+      v-if="!hidden['TheHeader']"
       @toggleSidebar="isSidebarVisible = !isSidebarVisible"
       class="flex-shrink-0" />
     <teleport to="body" >
       <TheSidebar
+        v-if="!hidden['TheSidebar']"
         v-model:isSidebarVisible="isSidebarVisible"
         :sidebar-visible-mobile="isSidebarVisible"
         class="flex flex-col flex-shrink-0 relative lg:fixed left-0 h-full z-20" />
     </teleport>
     <div class="flex flex-grow flex-col lg:flex-row overflow-hidden max-w-full"  >
-      <TheStaticSidebar class="hidden lg:flex" />
-      <TheStaticSidebarMobile class="lg:hidden order-2" />
+      <TheStaticSidebar
+        v-if="!hidden['TheStaticSidebar']"
+        class="hidden lg:flex" />
+      <TheStaticSidebarMobile
+        v-if="!hidden['TheStaticSidebarMobile']"
+        class="lg:hidden order-2" />
       <div
         class="h-full w-full overflow-y-auto border-t border-white border-solid border-opacity-25 order-1 lg:order-none" >
         <router-view class="px-3" />
@@ -27,8 +33,11 @@ import TheStaticSidebar from './partial/TheStaticSidebar/TheStaticSidebar.vue'
 import TheStaticSidebarMobile from './partial/TheStaticSidebarMobile/TheStaticSidebarMobile.vue'
 import TheHeader from './partial/TheHeader.vue'
 
+import { baseLayoutMix } from '@mixins'
+
 export default {
   name: 'main-layout',
+  mixins: [ baseLayoutMix ],
   data () {
     return {
       isSidebarVisible: false,

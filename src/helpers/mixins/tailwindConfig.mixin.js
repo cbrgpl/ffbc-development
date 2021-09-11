@@ -1,4 +1,4 @@
-import tailwindColors from 'TailwindColors'
+import tailwindColors from '#TailwindColors'
 
 export default {
   data () {

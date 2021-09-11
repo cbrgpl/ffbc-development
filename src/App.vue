@@ -2,7 +2,8 @@
   <div class="h-screen  bg-black " >
     <component
       class="h-full overflow-y-auto"
-      :is="layout" >
+      :is="layout"
+      :hidden-elems="hiddenElements" >
       <router-view />
     </component>
 
@@ -71,6 +72,9 @@ export default {
   computed: {
     layout () {
       return this.$route.meta.layout + '-layout'
+    },
+    hiddenElements () {
+      return this.$route.meta.hiddenElems ? this.$route.meta.hiddenElems : []
     }
   },
   components: {
