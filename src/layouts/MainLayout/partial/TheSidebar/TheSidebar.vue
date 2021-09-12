@@ -50,6 +50,7 @@ import zIconBase from '@components/composite/zIconBase.vue'
 import Profile from './partial/Profile.vue'
 
 export default {
+  name: 'TheSidebar',
   emits: [ 'update:isSidebarVisible' ],
   props: {
     isSidebarVisible: {

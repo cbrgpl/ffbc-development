@@ -1,5 +1,5 @@
 <template >
-  <div class="h-screen  bg-black " >
+  <div class="h-screen  bg-black text-white" >
     <component
       class="h-full overflow-y-auto"
       :is="layout"

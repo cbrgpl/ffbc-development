@@ -32,11 +32,15 @@ import IconWarning from '@icons/IconWarning.vue'
 import IconError from '@icons/IconError.vue'
 import IconEvent from '@icons/IconEvent.vue'
 import IconGallery from '@icons/IconGallery.vue'
+import IconHistory from '@icons/IconHistory.vue'
+import IconHome from '@icons/IconHome.vue'
+import IconInventory from '@icons/IconInventory'
 import IconLogin from '@icons/IconLogin.vue'
 import IconClose from '@icons/IconClose.vue'
 import IconDoubleArrow from '@icons/IconDoubleArrow.vue'
 import IconDoubleArrowUp from '@icons/IconDoubleArrowUp.vue'
 import IconSignUp from '@icons/IconSignUp.vue'
+import IconStorefront from '@icons/IconStorefront.vue'
 import IconMessage from '@icons/IconMessage.vue'
 import IconSuccess from '@icons/IconSuccess.vue'
 
@@ -50,15 +54,19 @@ const ableIcons = [
   'visibility',
   'warning',
   'error',
-  'message',
-  'success',
   'event',
   'gallery',
+  'history',
+  'home',
+  'inventory',
   'login',
   'close',
   'doubleArrow',
   'doubleArrowUp',
-  'signUp'
+  'signUp',
+  'storefront',
+  'message',
+  'success',
 ]
 
 export default {
@@ -115,11 +123,15 @@ export default {
     IconError,
     IconEvent,
     IconGallery,
+    IconHistory,
+    IconHome,
+    IconInventory,
     IconLogin,
     IconClose,
     IconDoubleArrow,
     IconDoubleArrowUp,
     IconSignUp,
+    IconStorefront,
     IconMessage,
     IconSuccess
   },

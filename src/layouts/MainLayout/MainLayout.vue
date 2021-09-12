@@ -21,7 +21,7 @@
         class="lg:hidden order-2" />
       <div
         class="h-full w-full overflow-y-auto border-t border-white border-solid border-opacity-25 order-1 lg:order-none" >
-        <router-view class="px-3" />
+        <router-view class="w-full h-full" />
       </div>
     </div>
   </div>

@@ -43,6 +43,7 @@ import zIconBase from '@components/composite/zIconBase.vue'
 import { mapGetters } from 'vuex'
 
 export default {
+  name: 'TheStaticSidebar',
   data () {
     return {
       siteNav: siteNavOptions,

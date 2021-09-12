@@ -63,14 +63,49 @@ const routes = [
   // USER
   {
     path: '/home',
-    component: () => import( '@views/Main.vue' ),
+    component: () => import( '@layouts/HomeLayout/HomeLayout.vue' ),
     name: 'Home',
     meta: {
       layout: 'main',
       hiddenElems: [ 'TheStaticSidebar', 'TheStaticSidebarMobile' ]
-    }
+    },
+    props: {
+      hiddenElems: [],
+    },
+    children: [
+      {
+        path: 'main',
+        component: () => import( '@views/HomeMain.vue' ),
+        name: 'HomeMain',
+      },
+      {
+        path: 'update-data',
+        component: () => import( '@views/HomeMain.vue' ),
+        name: 'HomeUpdateData',
+      },
+      {
+        path: 'competetions-history',
+        component: () => import( '@views/HomeMain.vue' ),
+        name: 'HomeCompetitionsHistory',
+      },
+      {
+        path: 'services',
+        component: () => import( '@views/HomeMain.vue' ),
+        name: 'HomeServices',
+      },
+      {
+        path: 'purchases',
+        component: () => import( '@views/HomeMain.vue' ),
+        name: 'HomePurchasedServices',
+      },
+      {
+        path: 'settings',
+        component: () => import( '@views/HomeMain.vue' ),
+        name: 'HomeSettings',
+      },
+    ]
   },
-  {
+  { // TODO удалить роут
     path: '/settings',
     component: () => import( '@views/Main.vue' ),
     name: 'Settings',
@@ -78,7 +113,7 @@ const routes = [
       layout: 'main',
     }
   },
-  {
+  { // TODO удалить роут
     path: '/purchase',
     component: () => import( '@views/Main.vue' ),
     name: 'Purchase',
@@ -86,7 +121,7 @@ const routes = [
       layout: 'main',
     }
   },
-  {
+  { // TODO удалить роут
     path: '/services',
     component: () => import( '@views/Main.vue' ),
     name: 'Services',
@@ -113,7 +148,6 @@ const routes = [
   }
 ]
 
-// TODO need to make permissions system
 const router = createRouter( {
   history: createWebHistory( process.env.BASE_URL ),
   routes
