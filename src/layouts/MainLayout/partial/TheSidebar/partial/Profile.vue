@@ -6,7 +6,7 @@
       width="65"
       :src="getUserData.avatar"
       alt="" >
-    <div class="flex justify-between" >
+    <div class="flex items-center justify-between" >
       <span >
         <h4 >{{ getUserData.callsign }}</h4>
         <h6 class="inline-block border-b border-current b-solid" >

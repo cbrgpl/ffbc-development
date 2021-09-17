@@ -10,25 +10,33 @@
 
           icon-name="menu" />
       </div>
-      <img
-        class="header__logo"
-        height="150"
-        width="250"
-        :src="require( '@images/logo.png' )"
-        alt="" >
+      <router-link
+        class="h-full"
+        :to="{name: 'Main'}" >
+        <img
+          class="header__logo"
+          height="150"
+          width="250"
+          :src="require( '@images/logo.png' )"
+          alt="" >
+      </router-link>
     </div>
 
-    <div v-if="isAuth" >
+    <!-- <div  > -->
+    <router-link
+      v-if="isAuth && $route.name !== 'HomeMain'"
+      :to="{name: 'HomeMain'}" >
       <img
         class="header__avatar"
         width="32"
         height="32"
         :src="avatar"
         alt="" >
-    </div>
+    </router-link>
+    <!-- </div> -->
 
     <div
-      v-else
+      v-else-if="!isAuth"
       class="flex" >
       <zButtonIcon
         shrink

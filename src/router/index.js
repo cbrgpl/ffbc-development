@@ -52,7 +52,7 @@ const routes = [
       layout: 'main',
     }
   },
-  {
+  { // * РОУТ ДЛЯ МАГАЗИНА КОТОРЫЙ БУДЕТ ОЧЕНЬ НЕ СКОРО
     path: '/shop',
     component: () => import( '@views/Main.vue' ),
     name: 'Shop',
@@ -65,6 +65,7 @@ const routes = [
     path: '/home',
     component: () => import( '@layouts/HomeLayout/HomeLayout.vue' ),
     name: 'Home',
+    redirect: { name: 'HomeMain' },
     meta: {
       layout: 'main',
       hiddenElems: [ 'TheStaticSidebar', 'TheStaticSidebarMobile' ]
@@ -75,59 +76,30 @@ const routes = [
     children: [
       {
         path: 'main',
-        component: () => import( '@views/HomeMain.vue' ),
+        component: () => import( '@/views/HomeMain/HomeMain.vue' ),
         name: 'HomeMain',
       },
       {
         path: 'update-data',
-        component: () => import( '@views/HomeMain.vue' ),
+        component: () => import( '@/views/HomeMain/HomeMain.vue' ),
         name: 'HomeUpdateData',
       },
       {
         path: 'competetions-history',
-        component: () => import( '@views/HomeMain.vue' ),
+        component: () => import( '@/views/HomeMain/HomeMain.vue' ),
         name: 'HomeCompetitionsHistory',
       },
       {
         path: 'services',
-        component: () => import( '@views/HomeMain.vue' ),
+        component: () => import( '@/views/HomeMain/HomeMain.vue' ),
         name: 'HomeServices',
       },
       {
-        path: 'purchases',
-        component: () => import( '@views/HomeMain.vue' ),
-        name: 'HomePurchasedServices',
-      },
-      {
         path: 'settings',
-        component: () => import( '@views/HomeMain.vue' ),
+        component: () => import( '@/views/HomeMain/HomeMain.vue' ),
         name: 'HomeSettings',
       },
     ]
-  },
-  { // TODO удалить роут
-    path: '/settings',
-    component: () => import( '@views/Main.vue' ),
-    name: 'Settings',
-    meta: {
-      layout: 'main',
-    }
-  },
-  { // TODO удалить роут
-    path: '/purchase',
-    component: () => import( '@views/Main.vue' ),
-    name: 'Purchase',
-    meta: {
-      layout: 'main',
-    }
-  },
-  { // TODO удалить роут
-    path: '/services',
-    component: () => import( '@views/Main.vue' ),
-    name: 'Services',
-    meta: {
-      layout: 'main',
-    }
   },
   {
     path: '/verificate',

@@ -42,7 +42,7 @@ export default {
       document.body.addEventListener( 'click', this.hideContainer )
     },
     hideContainer ( event ) {
-      if ( !this.$refs.centralButton.contains( event.target ) ) {
+      if ( this.$refs.centralButton && !this.$refs.centralButton.contains( event.target ) ) {
         this.isIconsVisible = false
       }
     }

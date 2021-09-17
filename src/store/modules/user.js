@@ -22,8 +22,11 @@ export default {
     userData ( state ) {
       return state.userData
     },
+    avatar ( state ) {
+      return state.userData.avatar
+    },
     fullName ( state ) {
-      return `${ state.userData.firstName } ${ state.userData.lastName }`
+      return !state.userData.name && !state.userData.surname ? 'Name is not specified' : `${ state.userData.name } ${ state.userData.surname }`
     }
   },
 }

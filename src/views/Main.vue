@@ -230,17 +230,22 @@
           Checkboxes:
         </h2>
         <div class="flex justify-around" >
-          <zCheckbox label="Make me checked" />
+          <zCheckbox
+            :checked="true"
+            label="Make me checked" />
           <div class="flex space-x-6" >
             <zCheckboxMulti
+              :checked="true"
               v-model="checkboxesArray"
               value="1"
               name="uou" />
             <zCheckboxMulti
+              :checked="true"
               v-model="checkboxesArray"
               value="2"
               name="uou" />
             <zCheckboxMulti
+              :checked="true"
               v-model="checkboxesArray"
               :value="3"
               name="uou" />

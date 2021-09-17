@@ -15,14 +15,9 @@ export default [
     iconName: 'history',
   },
   {
-    text: 'Buy Service',
+    text: 'Buy',
     routeName: 'HomeServices',
     iconName: 'storefront',
-  },
-  {
-    text: 'Purchased Services',
-    routeName: 'HomePurchasedServices',
-    iconName: 'inventory',
   },
   {
     text: 'Settings',

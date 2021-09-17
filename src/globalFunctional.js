@@ -3,6 +3,8 @@ import zButton from '@components/atomic/zButton.vue'
 import zForm from '@components/atomic/zForm.vue'
 import zSpacer from '@components/atomic/zSpacer.vue'
 import zLink from '@components/atomic/zLink.vue'
+import zChip from '@components/atomic/zChip.vue'
+import zTape from '@components/atomic/zTape.vue'
 
 import zButtonIcon from '@components/composite/zButtonIcon.vue'
 import zButtonLoader from '@components/composite/zButtonLoader.vue'
@@ -31,7 +33,9 @@ export default {
     zCheckboxSingle,
     zIconBase,
     zInput,
-    zLink
+    zLink,
+    zChip,
+    zTape,
   },
   directives: {
     lazyImage,

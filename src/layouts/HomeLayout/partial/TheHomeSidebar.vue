@@ -49,7 +49,9 @@ export default {
   },
   methods: {
     addToLinksList ( routerLink ) {
-      this.linksList.push( routerLink.$el )
+      if ( routerLink ) {
+        this.linksList.push( routerLink.$el )
+      }
     },
     setIndicatorDefaultPos () {
       for ( const linkElem of this.linksList ) {

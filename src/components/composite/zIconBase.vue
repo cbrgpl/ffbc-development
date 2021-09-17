@@ -21,20 +21,25 @@
 
 <script>
 // TODO Протестировать вариант с динамичной подгрузкой иконок, сравнить результаты с этим
+import IconCatchingPokemon from '@icons/IconCatchingPokemon.vue'
+import IconCleaningService from '@icons/IconCleaningService.vue'
 import IconFitness from '@icons/IconFitness.vue'
 import IconLogout from '@icons/IconLogout.vue'
 import IconManageAccount from '@icons/IconManageAccount.vue'
 import IconMenu from '@icons/IconMenu.vue'
 import IconSettings from '@icons/IconSettings.vue'
+import IconShare from '@icons/IconShare.vue'
 import IconTicket from '@icons/IconTicket.vue'
 import IconVisibility from '@icons/IconVisibility.vue'
 import IconWarning from '@icons/IconWarning.vue'
 import IconError from '@icons/IconError.vue'
 import IconEvent from '@icons/IconEvent.vue'
+import IconFire from '@icons/IconFire.vue'
 import IconGallery from '@icons/IconGallery.vue'
 import IconHistory from '@icons/IconHistory.vue'
 import IconHome from '@icons/IconHome.vue'
 import IconInventory from '@icons/IconInventory'
+import IconLocation from '@icons/IconLocation'
 import IconLogin from '@icons/IconLogin.vue'
 import IconClose from '@icons/IconClose.vue'
 import IconDoubleArrow from '@icons/IconDoubleArrow.vue'
@@ -42,23 +47,29 @@ import IconDoubleArrowUp from '@icons/IconDoubleArrowUp.vue'
 import IconSignUp from '@icons/IconSignUp.vue'
 import IconStorefront from '@icons/IconStorefront.vue'
 import IconMessage from '@icons/IconMessage.vue'
+import IconMicrowave from '@/components/icons/IconMicrowave.vue'
 import IconSuccess from '@icons/IconSuccess.vue'
 
 const ableIcons = [
+  'catchingPokemon',
+  'cleaningSerivce',
   'fitness',
   'logout',
   'manageAccount',
   'menu',
   'settings',
+  'share',
   'ticket',
   'visibility',
   'warning',
   'error',
   'event',
+  'fire',
   'gallery',
   'history',
   'home',
   'inventory',
+  'location',
   'login',
   'close',
   'doubleArrow',
@@ -66,6 +77,7 @@ const ableIcons = [
   'signUp',
   'storefront',
   'message',
+  'microwave',
   'success',
 ]
 
@@ -112,20 +124,25 @@ export default {
     }
   },
   components: {
+    IconCatchingPokemon,
+    IconCleaningService,
     IconFitness,
     IconLogout,
     IconManageAccount,
     IconMenu,
     IconSettings,
+    IconShare,
     IconTicket,
     IconVisibility,
     IconWarning,
     IconError,
     IconEvent,
+    IconFire,
     IconGallery,
     IconHistory,
     IconHome,
     IconInventory,
+    IconLocation,
     IconLogin,
     IconClose,
     IconDoubleArrow,
@@ -133,6 +150,7 @@ export default {
     IconSignUp,
     IconStorefront,
     IconMessage,
+    IconMicrowave,
     IconSuccess
   },
 }

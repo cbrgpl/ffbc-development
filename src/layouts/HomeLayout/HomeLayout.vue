@@ -32,7 +32,7 @@ export default {
   computed: {
     tapeClasses () {
       return [
-        'transform transition-transform duration-300',
+        'transform transition-transform duration-300 z-50',
         this.tapeHidden ? '-translate-y-full' : ''
       ]
     },

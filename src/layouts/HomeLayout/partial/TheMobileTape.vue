@@ -1,7 +1,7 @@
 <template >
-  <div
-    ref="tape"
-    class="sticky top-0 flex md:hidden items-center w-full h-14 bg-black-primary border-b border-solid border-white overflow-x-auto border-opacity-60 px-2" >
+  <zTape
+    :scrollable="true"
+    class="sticky top-0 inline-flex md:hidden items-center w-full h-16 bg-black-primary border-b border-solid border-white border-opacity-60 px-2" >
     <router-link
       active-class="text-black"
       class="flex items-center bg-primary-darkest rounded-md whitespace-nowrap py-2.5 px-4 mr-1.5"
@@ -14,19 +14,23 @@
         class="mr-1"
         :icon-name="option.iconName" />
       {{ option.text }} </router-link>
-  </div>
+  </zTape>
 </template>
 
 <script>
 import homeNavigation from '@enums/nav/homeNavigation.options.js'
+import zTape from '@components/atomic/zTape.vue'
 
 export default {
-  name: 'TheMobileLenta',
+  name: 'TheMobileTape',
   data () {
     return {
       homeNavigation
     }
   },
+  components: {
+    zTape
+  }
 }
 </script>
 

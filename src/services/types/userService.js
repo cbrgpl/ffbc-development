@@ -1,4 +1,6 @@
+import UserDataProcessor from '@services/helpers/userDataProcessor'
 import BaseService from './_baseService'
+
 export default class UserService extends BaseService {
   constructor () {
     super()
@@ -6,17 +8,20 @@ export default class UserService extends BaseService {
     this._endpoint = 'user'
   }
 
-  me ( accessToken, key = 'me' ) {
+  async me ( accessToken, key = 'me' ) {
     const options = {
       headers: {
         Authorization: `Bearer ${ accessToken }`
       }
     }
 
-    return this._request( {
+    const userData = await this._request( {
       key,
       expectType: this.responseTypes.json,
       options
     } )
+
+    UserDataProcessor.fromBackend( userData.data )
+    return userData
   }
 }
