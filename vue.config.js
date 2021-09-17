@@ -32,7 +32,9 @@ const plugins = ( () => {
 } )()
 
 module.exports = {
-  publicPath: '/',
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/lena-fitness-competition/'
+    : '/',
   lintOnSave: true,
   productionSourceMap: false,
   runtimeCompiler: true,
