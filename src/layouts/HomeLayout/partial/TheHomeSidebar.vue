@@ -1,5 +1,5 @@
 <template >
-  <div class="hidden md:flex flex-col flex-shrink-0 bg-black-primary pl-2 md:w-52 lg:w-72 border-r border-solid border-white border-opacity-25" >
+  <div class="hidden md:flex flex-col flex-shrink-0 bg-black-primary pl-2 md:w-52 lg:w-72 border-r border-solid border-white border-opacity-25 select-none" >
     <div
       :style="indicatorStyles"
       v-if="indicatorParams.top !== 0"

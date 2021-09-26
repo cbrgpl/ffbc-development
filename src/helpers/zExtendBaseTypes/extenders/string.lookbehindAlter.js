@@ -1,4 +1,4 @@
-export default function lookbehindAlter ( keyword, unnecesarryPart ) {
+export default function lookbehindAlter ( keyword, unnecesarryPart = '' ) {
   const regexp = new RegExp( `(?:${ keyword }).*($||&)` )
   const matches = this.match( regexp )
 

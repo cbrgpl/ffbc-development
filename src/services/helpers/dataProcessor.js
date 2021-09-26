@@ -1,10 +1,28 @@
-const translatableKeys = {
-  firstName: 'name',
-  lastName: 'surname',
-  phoneNumber: 'phone',
-}
 
 export default class UserDataProcessor {
+  constructor ( fieldsFilters ) {
+    this.fieldsFilters = fieldsFilters
+  }
+
+  applyFilters ( data ) {
+    for ( const field of Object.keys( this.fieldsFilters ) ) {
+      data[ field ] = this._applyFiltersToField( field, data[ field ] )
+    }
+  }
+
+  _applyFiltersToField ( field, initialValue ) {
+    let value = initialValue
+
+    for ( const filter of this.fieldsFilters[ field ] ) {
+      value = filter( value )
+    }
+
+    return value
+  }
+}
+
+/*
+
   // left to right
   static fromBackend ( userData ) {
     const backendKeys = Object.keys( translatableKeys )
@@ -27,4 +45,5 @@ export default class UserDataProcessor {
       UserDataProcessor._replacePair( userData, translatableKeys[ backendKey ], backendKey )
     }
   }
-}
+
+*/

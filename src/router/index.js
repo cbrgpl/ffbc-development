@@ -81,7 +81,7 @@ const routes = [
       },
       {
         path: 'update-data',
-        component: () => import( '@/views/HomeMain/HomeMain.vue' ),
+        component: () => import( '@/views/HomeUpdateData/HomeUpdateData.vue' ),
         name: 'HomeUpdateData',
       },
       {

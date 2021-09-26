@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import ableIcons from '@enums/custom/icons.js'
+
 // TODO Протестировать вариант с динамичной подгрузкой иконок, сравнить результаты с этим
 import IconCatchingPokemon from '@icons/IconCatchingPokemon.vue'
 import IconCleaningService from '@icons/IconCleaningService.vue'
@@ -38,6 +40,7 @@ import IconFire from '@icons/IconFire.vue'
 import IconGallery from '@icons/IconGallery.vue'
 import IconHistory from '@icons/IconHistory.vue'
 import IconHome from '@icons/IconHome.vue'
+import IconInterests from '@icons/IconInterests.vue'
 import IconInventory from '@icons/IconInventory'
 import IconLocation from '@icons/IconLocation'
 import IconLogin from '@icons/IconLogin.vue'
@@ -49,37 +52,7 @@ import IconStorefront from '@icons/IconStorefront.vue'
 import IconMessage from '@icons/IconMessage.vue'
 import IconMicrowave from '@/components/icons/IconMicrowave.vue'
 import IconSuccess from '@icons/IconSuccess.vue'
-
-const ableIcons = [
-  'catchingPokemon',
-  'cleaningSerivce',
-  'fitness',
-  'logout',
-  'manageAccount',
-  'menu',
-  'settings',
-  'share',
-  'ticket',
-  'visibility',
-  'warning',
-  'error',
-  'event',
-  'fire',
-  'gallery',
-  'history',
-  'home',
-  'inventory',
-  'location',
-  'login',
-  'close',
-  'doubleArrow',
-  'doubleArrowUp',
-  'signUp',
-  'storefront',
-  'message',
-  'microwave',
-  'success',
-]
+import IconFileUpload from '@icons/IconFileUpload.vue'
 
 export default {
   name: 'zIconBase',
@@ -137,10 +110,12 @@ export default {
     IconWarning,
     IconError,
     IconEvent,
+    IconFileUpload,
     IconFire,
     IconGallery,
     IconHistory,
     IconHome,
+    IconInterests,
     IconInventory,
     IconLocation,
     IconLogin,

@@ -24,7 +24,7 @@ export default {
   name: 'ServiceSection',
   props: {
     competitionId: {
-      type: String,
+      type: [ String, Number ],
       required: true,
     },
     title: {

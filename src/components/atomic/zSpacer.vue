@@ -15,7 +15,7 @@ export default {
   },
   computed: {
     spaceClass () {
-      return 'mb-' + this.space
+      return [ 'block', 'mb-' + this.space ]
     }
   },
 }

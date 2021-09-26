@@ -5,6 +5,12 @@ import zSpacer from '@components/atomic/zSpacer.vue'
 import zLink from '@components/atomic/zLink.vue'
 import zChip from '@components/atomic/zChip.vue'
 import zTape from '@components/atomic/zTape.vue'
+import zTabsNav from '@components/atomic/zTabsNav.vue'
+import zTimer from '@components/atomic/zTimer.vue'
+import zToggle from '@components/atomic/zToggle.vue'
+import zDivider from '@components/atomic/zDivider.vue'
+import zActionButton from '@components/atomic/zActionButton.vue'
+import zInputFile from '@/components/composite/zInputFile.vue'
 
 import zButtonIcon from '@components/composite/zButtonIcon.vue'
 import zButtonLoader from '@components/composite/zButtonLoader.vue'
@@ -36,6 +42,12 @@ export default {
     zLink,
     zChip,
     zTape,
+    zTabsNav,
+    zTimer,
+    zToggle,
+    zDivider,
+    zInputFile,
+    zActionButton,
   },
   directives: {
     lazyImage,

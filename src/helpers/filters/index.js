@@ -4,6 +4,8 @@ import hide from './hide.filter'
 import onlyDigits from './onlyDigits.filter'
 import prettyPhone from './prettyPhone.filter'
 import truncate from './truncate.filter'
+import backendPhone from './backendPhone.filter'
+import backendDate from './backendDate.filter'
 
 export {
   dateTime,
@@ -11,5 +13,7 @@ export {
   hide,
   onlyDigits,
   prettyPhone,
-  truncate
+  truncate,
+  backendPhone,
+  backendDate
 }

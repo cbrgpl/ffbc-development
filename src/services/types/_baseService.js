@@ -6,6 +6,13 @@ import endpoints from '@services/endpoints'
 const responseHandler = new ResponseHandler()
 
 export default class BaseService {
+  static generateReqData ( fields, externalData ) {
+    return fields.reduce( ( accum, field ) => {
+      accum[ field ] = externalData[ field ]
+      return accum
+    }, {} )
+  }
+
   constructor ( endpointName ) {
     this._endpoint = endpointName
 
@@ -32,7 +39,6 @@ export default class BaseService {
     const url = this._prepareUrl( endpoints[ this._endpoint ][ key ], props )
 
     const response = await fetch( url, fetchOptions )
-
     if ( await responseHandler.reactToStatus( response ) === CONST.STATUS_WORDS.SUCCESS ) {
       return responseHandler.handleResponse( response, expectType )
     } else {
@@ -43,7 +49,7 @@ export default class BaseService {
   }
 
   _prepareBody ( options ) {
-    if ( options.body ) {
+    if ( options.headers[ 'Content-Type' ] === 'application/json' && options.body ) {
       options.body = CamelKebabTranslator.camelKebabObj( options.body )
       options.body = JSON.stringify( options.body )
     }

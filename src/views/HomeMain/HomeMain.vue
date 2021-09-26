@@ -20,15 +20,24 @@
       <h1 class="mb-8" >
         My competitions:
       </h1>
+      <!-- <h3 class="home-main__empty-title" >
+        <zIconBase
+          class="mr-2"
+          :width="36"
+          :height="36"
+          icon-name="interests" /> There is nothing yet...
+      </h3> -->
       <div class="flex items-center justify-around flex-wrap w-full" >
-        <zCompetetionCard class="mb-8 lg:mb-0" >
+        <zCompetetionCard
+          class="mb-8 lg:mb-0" >
 
           <template #actions >
             <CompetitionCardActions />
           </template>
         </zCompetetionCard>
 
-        <zCompetetionCard class="mb-8 lg:mb-0" >
+        <zCompetetionCard
+          class="mb-8 lg:mb-0" >
 
           <template #actions >
             <CompetitionCardActions />
@@ -41,6 +50,14 @@
       <h1 class="mb-8" >
         My Tickets:
       </h1>
+
+      <!-- <h3 class="home-main__empty-title" >
+        <zIconBase
+          class="mr-2"
+          :width="36"
+          :height="36"
+          icon-name="ticket" /> There is nothing yet...
+      </h3> -->
 
       <div class="home-main__tickets-grid" >
         <Ticket
@@ -56,9 +73,21 @@
         My beauty services:
       </h1>
 
+      <h3 class="home-main__empty-title" >
+        <zIconBase
+          class="mr-2"
+          :width="36"
+          :height="36"
+          icon-name="catchingPokemon" /> There is nothing yet...
+      </h3>
+
       <div class="home-main__services-grid" >
-        <ServiceSection title="Competition 1" />
-        <ServiceSection title="Competition 2" />
+        <ServiceSection
+          :competition-id="1"
+          title="Competition 1" />
+        <ServiceSection
+          :competition-id="1"
+          title="Competition 2" />
       </div>
 
     </section>
@@ -109,6 +138,10 @@ section {
   &:nth-child(n + 2) {
     @apply mb-32;
   }
+}
+
+.home-main__empty-title {
+  @apply text-placeholder font-semibold tracking-wider pl-3 mb-9 flex items-center;
 }
 
 .home-main__bg-gradient {

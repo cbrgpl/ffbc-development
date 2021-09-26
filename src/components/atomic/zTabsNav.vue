@@ -7,15 +7,15 @@
       :ref="selectedRef"
       v-for="tab in tabs"
       :key="tab"
-      @click="tabClick($event, tab)"
+      @click="$emit( 'update:modelValue', tab )"
       :class="['z-tabs-menu__tab', {'z-tabs-menu__tab--selected': tab === modelValue}]"
       role="tab" >
-      {{ tab }}
+      <slot > {{ tab }} </slot>
     </li>
 
     <li
       :ref="indicatorRef"
-      class="z-tabs-menu__indicator" ></li>
+      :class="indicatorClasses" ></li>
   </ul>
 </template>
 
@@ -40,24 +40,37 @@ export default {
     return {
       indicatorParams: {
         transitionClasses: 'transition-all duration-300'
-      }
+      },
+      tabRefs: []
     }
   },
   list: null,
-  selectedTab: null,
   indicator: null,
   mounted () {
-    this.updateIndicator( this.selectedTab )
-
-    if ( this.indicatorMovement ) {
-      this.addIndicatorDuration()
+    this.startTabWatch()
+  },
+  computed: {
+    indicatorClasses () {
+      return [
+        'z-tabs-menu__indicator',
+        { 'transition-all duration-300': this.indicatorMovement }
+      ]
     }
   },
   methods: {
-    tabClick ( event, tab ) {
-      this.$emit( 'update:modelValue', tab )
-
-      this.updateIndicator( event.target )
+    startTabWatch () {
+      this.$watch(
+        () => this.modelValue,
+        function ( newTab ) {
+          setTimeout( () => {
+            // из-за скролла немного криво позиционируется, ждем пока появится скорлл, потом выполняем обновление
+            this.updateIndicator( this.searchElem( newTab ) )
+          }, 0 )
+        },
+        {
+          immediate: true,
+        }
+      )
     },
     updateIndicator ( $selectedTab ) {
       if ( !$selectedTab ) {
@@ -72,18 +85,18 @@ export default {
       $l.style.setProperty( '--indicator-shift', $selectedTab.offsetLeft + 'px' )
       $l.style.setProperty( '--indicator-width', DomHandler.getOuterWidth( $selectedTab ) + 'px' )
     },
-    addIndicatorDuration () {
-      const $i = this.indicator
-
-      DomHandler.addMultipleClass( $i, this.indicatorParams.transitionClasses )
-    },
     listRef ( el ) {
       this.list = el
     },
     selectedRef ( el ) {
       if ( el ) {
-        if ( el.innerText === this.modelValue ) {
-          this.selectedTab = el
+        this.tabRefs.push( el )
+      }
+    },
+    searchElem ( modelValue ) {
+      for ( const el of this.tabRefs ) {
+        if ( el.innerText === modelValue ) {
+          return el
         }
       }
     },
@@ -99,11 +112,11 @@ export default {
   --indicator-shift: 0;
   --indicator-width: 0;
 
-  @apply flex items-center relative font-semibold text-xl pb-0.5;
+  @apply flex items-center justify-between relative font-semibold pb-0.5 overflow-x-hidden;
 }
 
 .z-tabs-menu__tab {
-  @apply cursor-pointer mr-2 select-none transition-colors duration-300;
+  @apply cursor-pointer mr-2 select-none transition-colors duration-300 pb-1;
 
   &--selected {
     @apply text-primary-lighten;

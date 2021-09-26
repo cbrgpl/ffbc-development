@@ -22,7 +22,7 @@ const textShadowUtility = plugin( function ( { addUtilities } ) {
   addUtilities( newUtilities )
 } )
 
-module.exports = {
+const tailwindConfig = {
   mode: process.env.NODE_ENV === 'production' ? 'jit' : '',
   purge: {
     content: [
@@ -98,3 +98,5 @@ module.exports = {
   },
   plugins: [ textShadowUtility ],
 }
+
+module.exports = tailwindConfig

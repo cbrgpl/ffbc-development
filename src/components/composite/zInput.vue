@@ -41,7 +41,7 @@ export default {
   mixins: [ extenderMixin ],
   props: {
     modelValue: {
-      type: String,
+      type: [ String, Number ],
       default: '',
     },
     label: {
@@ -63,7 +63,7 @@ export default {
     icon: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   directives: {
     mask

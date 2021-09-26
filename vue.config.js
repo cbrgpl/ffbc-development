@@ -1,3 +1,4 @@
+const tailwindConfig = require( './tailwind.config' )
 const webpack = require( 'webpack' )
 const path = require( 'path' )
 const BundleAnalyzerPlugin = require( 'webpack-bundle-analyzer' ).BundleAnalyzerPlugin
@@ -31,6 +32,24 @@ const plugins = ( () => {
   return plugins
 } )()
 
+function generateSCSSVars ( themeColors ) {
+  let SCSSVars = ''
+  const varName = ( string, key ) => string.length > 0 ? string + '-' + key : key
+
+  const proccess = ( themeColors, string = '' ) => {
+    for ( const key of Object.keys( themeColors ) ) {
+      if ( typeof themeColors[ key ] === 'string' ) {
+        SCSSVars += `$${ varName( string, key ) }:${ themeColors[ key ] };`
+      } else proccess( themeColors[ key ], varName( string, key ) )
+    }
+  }
+
+  proccess( themeColors, '' )
+
+  console.log( '\n\n\n\n' + SCSSVars + '\n\n\n\n  ' )
+  return SCSSVars
+}
+
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production'
     ? '/lena-fitness-competition/'
@@ -42,7 +61,7 @@ module.exports = {
   css: {
     loaderOptions: {
       sass: {
-        prependData: '@import "@/assets/scss/_variables.scss";@import "@/assets/scss/_mixins.scss";',
+        prependData: '@import "@/assets/scss/_variables.scss";@import "@/assets/scss/_mixins.scss";' + generateSCSSVars( tailwindConfig.theme.colors ),
       },
     },
   },
