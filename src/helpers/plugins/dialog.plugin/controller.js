@@ -1,57 +1,51 @@
 import { reactive, computed, ref, watch } from 'vue'
-import consoleLogger from '@classes/consoleLogger.class.js'
+import { ArgError } from '@errors/argError'
 
-// TODO прокинуть app и взаимодействовать через него со всем остальным
 export default class {
   constructor () {
-    this._dialogue = reactive( {} )
+    this._dialogs = reactive( {} )
   }
 
   register ( name ) {
     if ( this._exists( name ) ) {
-      consoleLogger.error( `"${ name }"`, 'Dialog with name//already exists' )
-      return
+      throw new ArgError( name, 'Dialog already exists' )
     }
 
-    this._dialogue[ name ] = {
+    this._dialogs[ name ] = {
       visible: false,
       modal: true,
     }
   }
 
-  show ( name, modal = true ) {
-    this._existWithLog( name )
-    const oldVisible = this._dialogue[ name ].visible
+  show ( dialogName, modal = true ) {
+    if ( !this._exists( dialogName ) ) {
+      throw new ArgError( dialogName, 'Dialog does not exists' )
+    }
 
-    this._dialogue[ name ].modal = !oldVisible && modal
-    this._dialogue[ name ].visible = true
+    const oldVisible = this._dialogs[ dialogName ].visible
+
+    this._dialogs[ dialogName ].modal = !oldVisible && modal
+    this._dialogs[ dialogName ].visible = true
   }
 
-  hide ( name ) {
-    if ( !this._existWithLog( name ) ) return
+  hide ( dialogName ) {
+    if ( !this._exists( dialogName ) ) {
+      throw new ArgError( dialogName, 'Dialog does not exists' )
+    }
 
-    this._dialogue[ name ].visible = false
+    this._dialogs[ dialogName ].visible = false
   }
 
-  addWatcher ( dialogName, callback = ( unwatch ) => unwatch(), watcherOptions = {} ) {
-    if ( !this._existWithLog( dialogName ) ) return
+  addWatcher ( dialogName, watcher = ( unwatch ) => unwatch(), watcherOptions = {} ) {
+    this._exists( dialogName )
 
     const unwatch = ref( null )
 
     unwatch.value = watch(
-      () => this._dialogue[ dialogName ].visible,
-      ( newValue, oldValue ) => callback( newValue, unwatch.value ),
+      () => this._dialogs[ dialogName ].visible,
+      ( newValue, oldValue ) => watcher( newValue, oldValue ),
       watcherOptions
     )
-  }
-
-  _existWithLog ( name ) {
-    if ( !this._exists( name ) ) {
-      consoleLogger.warn( `"${ name }"`, 'Dialog with name//is not exists' )
-      return false
-    }
-
-    return true
   }
 
   _exists ( name ) {
@@ -61,6 +55,6 @@ export default class {
   }
 
   _getDialogNames () {
-    return computed( () => Object.keys( this._dialogue ) )
+    return computed( () => Object.keys( this._dialogs ) )
   }
 }

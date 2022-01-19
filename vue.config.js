@@ -78,6 +78,7 @@ module.exports = {
         '@classes': path.resolve( __dirname, 'src', 'helpers', 'classes' ),
         '@composable': path.resolve( __dirname, 'src', 'helpers', 'composable' ),
         '@directives': path.resolve( __dirname, 'src', 'helpers', 'directives' ),
+        '@errors': path.resolve( __dirname, 'src', 'helpers', 'errors' ),
         '@filters': path.resolve( __dirname, 'src', 'helpers', 'filters' ),
         '@functions': path.resolve( __dirname, 'src', 'helpers', 'functions' ),
         '@mixins': path.resolve( __dirname, 'src', 'helpers', 'mixins' ),
@@ -87,7 +88,7 @@ module.exports = {
         '@services': path.resolve( __dirname, 'src', 'services' ),
         '@views': path.resolve( __dirname, 'src', 'views' ),
         '#TailwindColors': path.resolve( __dirname, 'src', 'enums', 'tailwind.colors.js' ),
-        '#CONST': path.resolve( __dirname, 'src', 'enums', 'CONST.js' )
+        consts: path.resolve( __dirname, 'src', 'enums', 'consts.js' )
       },
     },
     plugins,

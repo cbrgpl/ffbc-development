@@ -4,7 +4,6 @@ import App from './App.vue'
 import './helpers/zExtendBaseTypes'
 import '@scss/_predefined.scss'
 
-import CONST from '#CONST'
 import globalFunctional from './globalFunctional.js'
 import consoleLogger from '@classes/consoleLogger.class.js'
 import { throwError } from '@/helpers/appConfig'
@@ -28,7 +27,6 @@ for ( const directive of Object.keys( globalFunctional.directives ) ) {
   app.directive( directive, globalFunctional.directives[ directive ] )
 }
 
-app.config.globalProperties.CONST$ = CONST
 app.config.globalProperties.log$ = consoleLogger
 
 app.config.globalProperties.throw$ = throwError

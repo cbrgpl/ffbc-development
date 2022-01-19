@@ -19,6 +19,8 @@ import EmptyLayout from '@layouts/EmptyLayout/EmptyLayout.vue'
 import DialogLayout from '@layouts/DialogLayout/DialogLayout.vue'
 import TheToast from '@components/composite/TheToast/TheToast.vue'
 
+import { ERROR_HANDLER_STATUSES } from 'consts'
+
 export default {
   name: 'App',
   mounted () {
@@ -41,7 +43,7 @@ export default {
 
       if ( /429/.test( errorObject.error.message ) ) {
         this.toast$.warn( { summary: 'Too many server requests', detail: 'You send requests to the server too often.</br><strong>Please wait a while and try again.</strong>' } )
-      } else if ( this.CONST$.ERROR_HANDLER_STATUSES.some( ( statusesGroup ) => statusesGroup.test( errorObject.error.message ) ) ) {
+      } else if ( ERROR_HANDLER_STATUSES.some( ( statusesGroup ) => statusesGroup.test( errorObject.error.message ) ) ) {
         this.toast$.error( { summary: 'Server Problems', detail: 'The attempt to connect to the server is successful, but there are some problems with the server. <strong><u>Try again later.</u></strong><br>If you can’t connect, ask for technical support', life: 8000 } )
       } else {
         this.toast$.error( { summary: 'Site problem', detail: 'A problem occurred during the operation of the site. We are already in the process of solving it', life: 8000 } )

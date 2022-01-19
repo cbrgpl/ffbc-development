@@ -1,4 +1,4 @@
-import CONST from '#CONST'
+import { CLIENT_URL } from '@/enums/consts'
 import BaseService from './_baseService'
 
 export default class AuthService extends BaseService {
@@ -54,7 +54,7 @@ export default class AuthService extends BaseService {
       body: arguments[ 0 ]
     }
 
-    options.body.redirectUrl = CONST.CLIENT_URL + options.body.redirectUrl
+    options.body.redirectUrl = CLIENT_URL + options.body.redirectUrl
 
     return this._request( {
       options,

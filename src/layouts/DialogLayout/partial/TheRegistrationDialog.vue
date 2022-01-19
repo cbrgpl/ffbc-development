@@ -68,6 +68,8 @@
 <script>
 import zDialog from '@components/composite/zDialog/zDialog.vue'
 
+import { VERIFICATION_STORAGE_VAR } from 'consts'
+
 import useVuelidate from '@vuelidate/core'
 import { onlyDigits } from '@filters'
 import { email, required, password, sameAs } from '@validators'
@@ -101,7 +103,7 @@ export default {
         localStorage.removeItem( key )
         localStorage.removeItem( this.storageEmailVar )
 
-        if ( key === this.CONST$.VERIFICATION_STORAGE_VAR ) {
+        if ( key === VERIFICATION_STORAGE_VAR ) {
           this.dialog$.hide( 'verification' )
           this.dialog$.hide( 'registration' )
           this.toast$.success( { detail: 'Your mail was successfully confirmed!', life: 7000 } )

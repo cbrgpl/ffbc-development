@@ -1,4 +1,4 @@
-import CONST from '#CONST'
+import { STATUS_WORDS } from '@/enums/consts'
 import CamelKebabTranslator from '@/services/helpers/camelCaseKebabTranslator'
 import ResponseHandler from '@/services/helpers/responseHandler'
 import endpoints from '@services/endpoints'
@@ -39,7 +39,8 @@ export default class BaseService {
     const url = this._prepareUrl( endpoints[ this._endpoint ][ key ], props )
 
     const response = await fetch( url, fetchOptions )
-    if ( await responseHandler.reactToStatus( response ) === CONST.STATUS_WORDS.SUCCESS ) {
+
+    if ( await responseHandler.reactToStatus( response ) === STATUS_WORDS.SUCCESS ) {
       return responseHandler.handleResponse( response, expectType )
     } else {
       const response = await fetch( url, fetchOptions )

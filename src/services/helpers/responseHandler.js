@@ -1,4 +1,4 @@
-import CONST from '#CONST'
+import { STATUS_WORDS } from '@/enums/consts'
 import updateTokens from './updateTokens.js'
 import CamelKebabTranslator from './camelCaseKebabTranslator.js'
 
@@ -46,8 +46,8 @@ export default class ResponseHandler {
       throw error
     } else if ( response.status === 401 && checkUnauth ) {
       await updateTokens()
-    } else return CONST.STATUS_WORDS.SUCCESS
+    } else return STATUS_WORDS.SUCCESS
 
-    return CONST.STATUS_WORDS.ERROR
+    return STATUS_WORDS.ERROR
   }
 }
