@@ -36,6 +36,10 @@ export default class {
     this._dialogs[ dialogName ].visible = false
   }
 
+  getDialogs () {
+    return this._dialogs
+  }
+
   addWatcher ( dialogName, watcher = ( unwatch ) => unwatch(), watcherOptions = {} ) {
     this._exists( dialogName )
 

@@ -1,10 +1,10 @@
 <template >
   <component
-    v-for="name of shownDialog"
+    v-for="name of shownDialogs"
     :key="name"
     :is="getComponentName(name)"
-    v-model:visible="dialogue[name].visible"
-    :modal="dialogue[name].modal" >
+    v-model:visible="dialogs[name].visible"
+    :modal="dialogs[name].modal" >
   </component>
 </template>
 
@@ -16,15 +16,15 @@ export default {
   inheritAttrs: false,
   data () {
     return {
-      dialog: this.dialog$._dialogue
+      dialogs: this.dialog$.getDialogs()
     }
   },
   created () {
     this.registerComponents()
   },
   computed: {
-    shownDialog () {
-      return Object.keys( this.dialog ).filter( ( name ) => this.dialog[ name ].visible )
+    shownDialogs () {
+      return Object.keys( this.dialogs ).filter( ( name ) => this.dialogs[ name ].visible )
     }
   },
   methods: {
