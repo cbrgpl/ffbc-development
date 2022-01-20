@@ -77,11 +77,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .header__logo {
-  aspect-ratio: 5 / 3;
-
   @apply w-auto h-full cursor-pointer;
+  aspect-ratio: 5 / 3;
 }
 
 .header__avatar {

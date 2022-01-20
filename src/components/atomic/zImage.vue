@@ -71,8 +71,8 @@ export default {
 
 .z-image__actions {
   position: absolute;
-  right: rem(5px);
   top: rem(5px);
+  right: rem(5px);
 
   pointer-events: none;
 }

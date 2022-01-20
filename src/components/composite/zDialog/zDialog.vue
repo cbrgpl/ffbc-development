@@ -110,9 +110,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .dialog__window {
-  @apply fixed right-2/4 bottom-2/4 transform translate-x-2/4 translate-y-2/4 m-auto pointer-events-auto bg-black-lighten text-white rounded-xl px-4 py-5;
+  @apply fixed right-2/4 bottom-2/4 transform translate-x-2/4 translate-y-2/4 m-auto pointer-events-auto
+    bg-black-lighten text-white rounded-xl px-4 py-5;
 }
 
 .dialog-appear {

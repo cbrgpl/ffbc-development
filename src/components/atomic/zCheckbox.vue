@@ -62,7 +62,7 @@ export default {
   @apply absolute opacity-0 z-0;
 
   &:checked {
-    & + .z-checkbox__fiction {
+    + .z-checkbox__fiction {
       &::after {
         @apply opacity-100;
       }
@@ -82,9 +82,9 @@ export default {
   }
 
   &::after {
-    content: '';
-
-    @apply block w-full h-full border-b-4 border-l-4 border-white rounded-bl-sm transform skew-y-6 -rotate-45 -translate-y-px opacity-0 transition-opacity;
+    @apply block w-full h-full border-b-4 border-l-4 border-white rounded-bl-sm
+      transform skew-y-6 -rotate-45 -translate-y-px opacity-0 transition-opacity;
+    content: "";
   }
 }
 

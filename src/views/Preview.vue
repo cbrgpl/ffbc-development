@@ -61,16 +61,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .image-wrapper {
+  @apply h-64 w-full relative;
   clip-path: inset(0);
 
-  @apply h-64 w-full relative;
-
   &::after {
-    content: '';
-
     @apply absolute z-20 w-full h-full;
+    content: "";
   }
 }
 

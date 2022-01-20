@@ -77,7 +77,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// .auto-scrolling {
+@keyframes auto-scrolling {
+  0% {
+    transform: translateX(var(--positive-translate));
+  }
+
+  100% {
+    transform: translateX(calc(-100% - 10vw));
+  }
+}
 //   animation-play-state: var(--play-state-no-hover);
 
 //   &:hover {
@@ -97,15 +105,5 @@ export default {
 
 .auto-scrolling--automated {
   animation: auto-scrolling var(--auto-scrolling-duration) linear infinite;
-}
-
-@keyframes auto-scrolling {
-  0% {
-    transform: translateX(var(--positive-translate));
-  }
-
-  100% {
-    transform: translateX(calc(-100% - 10vw));
-  }
-}
+}// .auto-scrolling {
 </style>

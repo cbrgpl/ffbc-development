@@ -148,11 +148,10 @@ section {
   @apply relative z-10;
 
   &::after {
-    content: '';
-
     @apply block w-full h-full top-0 left-0 absolute -z-10;
+    content: "";
 
-    background: linear-gradient(to bottom, rgba(140, 19, 19, 0.89) 0%, rgba(26, 25, 22, 0.29) 100%);
+    background: linear-gradient(to bottom, rgba(140, 19, 19, 89%) 0%, rgba(26, 25, 22, 29%) 100%);
     filter: blur(50px) brightness(0.85);
   }
 }
@@ -168,7 +167,7 @@ section {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(#{rem(360px)}, 1fr));
   grid-gap: rem(25px) rem(15px);
-  justify-items: center;
   justify-content: space-around;
+  justify-items: center;
 }
 </style>

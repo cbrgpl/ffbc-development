@@ -122,69 +122,69 @@ export default {
 
 .z-images-collection__wrapper {
   position: relative;
+  overflow: hidden;
   min-height: rem(80px);
   padding: rem(15px) 0;
-  overflow: hidden;
 }
 
 .z-images-collection__loader {
-  width: 100%;
-  height: 100%;
 
   position: absolute;
-  left: 0;
   top: 0;
+  left: 0;
   z-index: 10;
 
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  height: 100%;
 
   background: rgba($black-DEFAULT, 0.8);
 }
 
 .z-images-collection__viewer {
   position: fixed;
-  left: 0;
   top: 0;
+  left: 0;
 
   z-index: 100;
 
+  display: flex;
+
   width: 100%;
   height: 100%;
-
-  display: flex;
 
   background: rgba($black-lighten, 0.8);
 }
 
 .z-images-collection__viewer-inner {
-  margin: auto;
+
+  position: relative;
 
   display: flex;
   align-items: stretch;
-
-  position: relative;
+  margin: auto;
 }
 
 .z-images-collection__view-image {
-  max-height: 80vh;
   max-width: rem(320px);
+  max-height: 80vh;
 
   font-size: rem(52px);
 }
 
 .z-images-collection__button {
-  font-size: rem(64px);
-
-  height: 100%;
-  width: 33%;
-  min-width: rem(35px);
-
-  color: transparent;
 
   position: absolute;
   z-index: 1;
+  width: 33%;
+  min-width: rem(35px);
+
+  height: 100%;
+
+  color: transparent;
+  font-size: rem(64px);
 
   transition: background 0.15s;
 
@@ -202,24 +202,24 @@ export default {
 }
 
 .z-images-collection__viewer-wrapper {
-  max-width: 90vw;
   overflow-x: auto;
+  max-width: 90vw;
 }
 
 .z-images-collection__counter {
+  position: absolute;
+  top: 5px;
+  right: 25px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
 
   width: 100%;
-  position: absolute;
-  top: 5px;
-  right: 25px;
+
+  text-shadow: $black-DEFAULT 0 0 4px;
 
   pointer-events: none;
   user-select: none;
-
-  text-shadow: $black-DEFAULT 0 0 4px;
 }
 
 @media screen and (min-width: 900px) {
@@ -232,14 +232,14 @@ export default {
   }
 
   .z-images-collection__button {
-    height: auto;
     width: auto;
-
-    font-size: rem(72px);
-    background: rgba($placeholder, 0.8);
-    color: $black-DEFAULT;
+    height: auto;
     border: 1px solid $white;
     border-radius: 100%;
+    background: rgba($placeholder, 0.8);
+    color: $black-DEFAULT;
+
+    font-size: rem(72px);
 
     &:active {
       background: rgba($placeholder, 0.8);

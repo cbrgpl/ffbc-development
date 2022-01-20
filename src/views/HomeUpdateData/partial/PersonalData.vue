@@ -112,7 +112,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .personal-data__input {
   @apply mb-14;
 }

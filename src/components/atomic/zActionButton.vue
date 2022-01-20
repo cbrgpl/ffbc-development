@@ -20,14 +20,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .z-action-button {
-  background: rgba($black-primary, 0.5);
   margin-right: rem(10px);
   padding: 4px;
   border-radius: 100%;
-  pointer-events: auto;
+  background: rgba($black-primary, 0.5);
   cursor: pointer;
+  pointer-events: auto;
 
   transition: background 200ms;
 

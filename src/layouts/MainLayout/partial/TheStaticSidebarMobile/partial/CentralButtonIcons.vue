@@ -51,6 +51,7 @@ export default {
 
 <style>
 .CentralButtonIcons__button {
-  @apply bg-primary text-white rounded-full border-2 border-solid border-white border-opacity-60 p-3 pointer-events-auto ;
+  @apply bg-primary text-white rounded-full border-2
+    border-solid border-white border-opacity-60 p-3 pointer-events-auto;
 }
 </style>

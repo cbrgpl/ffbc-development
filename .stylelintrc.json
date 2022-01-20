@@ -1,13 +1,25 @@
 {
-    "extends": "stylelint-config-standard",
-    "plugins": ["stylelint-scss"],
+    "overrides": [
+        {
+            "files": ["**/*.(scss|css|html|vue)"],
+            "customSyntax": "postcss-scss"
+        },
+        {
+            "files": ["**/*.(html|vue)"],
+            "customSyntax": "postcss-html"
+        }
+    ],
+    "extends": [
+        "stylelint-config-recommended-vue/scss",
+        "stylelint-config-sass-guidelines",
+        "stylelint-config-standard",
+        "stylelint-config-hudochenkov/order"
+    ],
     "rules": {
-        "at-rule-no-unknown": null,
+        "order/properties-alphabetical-order": null,
         "no-empty-source": null,
-        "scss/at-rule-no-unknown": true,
-
         "max-nesting-depth": 4,
-        "no-descending-specificity": null,
+        "color-function-notation": "legacy",
         "property-no-unknown": [
             true,
             {
@@ -25,6 +37,24 @@
                 ]
             }
         ],
-        "declaration-empty-line-before": null
+        "declaration-empty-line-before": null,
+        "selector-class-pattern": null,
+        "declaration-block-trailing-semicolon": null,
+        "no-descending-specificity": null,
+        "at-rule-no-unknown": null,
+        "no-invalid-position-at-import-rule": null,
+        "scss/at-rule-no-unknown": [
+            true,
+            {
+                "ignoreAtRules": [
+                  "tailwind",
+                  "layer",
+                  "apply",
+                  "variants",
+                  "responsive",
+                  "screen"
+                ]
+              }
+        ]
     }
 }

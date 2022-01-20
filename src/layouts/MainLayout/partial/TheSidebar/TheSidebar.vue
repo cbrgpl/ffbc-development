@@ -77,25 +77,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .sidebar__wrapper {
   @apply fixed left-0 top-0 w-screen h-screen invisible;
 
   &::after {
-    content: '';
-
-    @apply absolute left-0 top-0 w-screen h-screen bg-black bg-opacity-70 -z-10 invisible opacity-0 transition-all duration-300;
+    @apply absolute left-0 top-0 w-screen h-screen bg-black bg-opacity-70
+      -z-10 invisible opacity-0 transition-all duration-300;
+    content: "";
   }
 }
 
 .sidebar {
-  @apply absolute z-30 h-full w-9/12 md:w-5/12 bg-black-lighten overflow-hidden transform-gpu -translate-x-full transition-all duration-300 border-r border-placeholder border-solid border-opacity-25;
+  @apply absolute z-30 h-full w-9/12 md:w-5/12 bg-black-lighten overflow-hidden transform-gpu -translate-x-full
+    transition-all duration-300 border-r border-placeholder border-solid border-opacity-25;
 }
 
 .sidebar--visible {
   @apply visible;
 
-  & > .sidebar {
+  > .sidebar {
     @apply translate-x-0;
   }
 
@@ -108,9 +108,8 @@ export default {
   @apply h-full w-full flex flex-col py-6;
 
   &::before {
-    content: '';
-
     @apply block w-full h-full absolute left-0 top-0 bg-primary-darkest opacity-20 filter blur-lg -z-10;
+    content: "";
   }
 }
 
@@ -122,9 +121,8 @@ export default {
   @apply flex items-center text-white text-lg py-3 mt-3 pl-4 transition-colors duration-200 select-none relative ;
 
   &::after {
-    content: '';
-
     @apply block w-10/12 absolute left-0 bottom-0 border-b border-white border-solid border-opacity-30;
+    content: "";
   }
 
   &--selected {

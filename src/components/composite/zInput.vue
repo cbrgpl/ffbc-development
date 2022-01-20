@@ -76,7 +76,8 @@ export default {
 
 <style lang="scss" scoped>
 .z-input {
-  @apply bg-transparent border-2  border-primary-lighten border-solid  text-white rounded-md cursor-pointer pl-4 py-3 pr-2 w-full;
+  @apply bg-transparent border-2  border-primary-lighten border-solid
+    text-white rounded-md cursor-pointer pl-4 py-3 pr-2 w-full;
 
   &:hover + .z-input__label {
     @apply text-primary-darken text-opacity-60;
@@ -85,7 +86,7 @@ export default {
   &:focus {
     @apply ring-4 ring-primary ring-opacity-20;
 
-    & + .z-input__label {
+    + .z-input__label {
       @apply text-primary;
     }
   }
@@ -100,7 +101,8 @@ export default {
 }
 
 .z-input__label {
-  @apply flex items-center text-placeholder bg-black-lighten cursor-pointer select-none leading-5 absolute transform left-4 top-0 -translate-y-2/4 px-1 transition-all;
+  @apply flex items-center text-placeholder bg-black-lighten cursor-pointer select-none leading-5
+    absolute transform left-4 top-0 -translate-y-2/4 px-1 transition-all;
 }
 
 .z-input__error {

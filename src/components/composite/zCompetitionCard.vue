@@ -121,7 +121,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .competition-card__inner {
   transform: translateY(calc(-1 * var(--content-height)));
 }
@@ -138,7 +137,7 @@ export default {
   height: rem(560px);
 
   &:hover {
-    & .competition-card__inner {
+    .competition-card__inner {
       transform: translateY(-100%);
     }
   }

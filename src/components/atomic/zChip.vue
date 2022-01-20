@@ -12,7 +12,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .chip {
   min-width: rem(128px);
 }

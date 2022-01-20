@@ -81,11 +81,11 @@ export default {
     @apply text-primary transition-colors overflow-hidden relative z-10;
 
     &::after {
-      content: '';
-
       @include absolute-center;
 
-      @apply block w-full h-48 origin-center bg-primary-lightest bg-opacity-10 -skew-y-6 -rotate-12 scale-x-0 transition-all duration-300 -z-10;
+      @apply block w-full h-48 origin-center bg-primary-lightest bg-opacity-10
+        -skew-y-6 -rotate-12 scale-x-0 transition-all duration-300 -z-10;
+      content: "";
     }
 
     &:hover {
