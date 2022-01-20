@@ -3,19 +3,6 @@ import { app } from '@/main.js'
 import { userService } from '@services'
 import updateTokens from '@/services/helpers/updateTokens'
 
-function getRouteRoles ( to ) {
-  const matched = to.matched
-  const roles = []
-
-  for ( const match of matched.filter( ( match ) => match.meta.roles ) ) {
-    roles.push( ...match.meta.roles )
-  }
-
-  return [ ...new Set( roles ) ]
-}
-
-const checkAccess = ( roles, routeRoles ) => !routeRoles.some( ( role ) => !roles.includes( role ) )
-
 async function checkUserAtInit () {
   if ( $store.getters[ 'token/refresh' ] === null ) {
     return
@@ -34,18 +21,30 @@ async function checkUserAtInit () {
   }
 }
 
+/*
+
+  * There is 3 posibility variants of route.meta.auth
+
+  - false - route requires only not authentificated users
+  - undefined - user authentification is not matter
+  - true - route requires only authtificated users
+
+*/
+
 export default async function ( to, from, next ) {
-  if ( $store.getters[ 'auth/isAuth' ] === null ) {
+  const userAuth = $store.getters[ 'auth/isAuth' ]
+
+  if ( userAuth === null ) {
     await checkUserAtInit()
   }
 
-  const routeRoles = getRouteRoles( to )
-  const roles = $store.getters[ 'user/roles' ]
+  const routeRequireAuth = to.meta.auth
 
-  if ( !checkAccess( roles, routeRoles ) && !$store.getters[ 'user/isAuth' ] ) {
-    next( { name: 'Preview' } )
-  } else if ( !checkAccess( roles, routeRoles ) && $store.getters[ 'user/isAuth' ] ) {
-    // TODO Заменить на личный кабинет
+  if ( routeRequireAuth === false && userAuth ) {
+    next( { name: 'Home' } )
+  } else if ( routeRequireAuth === true && !userAuth ) {
     next( { name: 'Main' } )
-  } else next()
+  } else {
+    next()
+  }
 }

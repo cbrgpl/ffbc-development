@@ -1,6 +1,6 @@
-export default function lookbehindAlter ( keyword, unnecesarryPart = '' ) {
+export default function lookbehind ( string, keyword, unnecesarryPart = '' ) {
   const regexp = new RegExp( `(?:${ keyword }).*($||&)` )
-  const matches = this.match( regexp )
+  const matches = string.match( regexp )
 
   const match = matches ? matches[ 0 ] : ''
 

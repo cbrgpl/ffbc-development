@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Preview from '@views/Preview.vue'
-import { verifyEmail, checkRoles } from './helpers/index'
+import { verifyEmail, rolesGuard, routeAuthGuard } from './helpers/index'
 
 const routes = [
   // General
@@ -26,6 +26,7 @@ const routes = [
     name: 'Sponsors',
     meta: {
       layout: 'main',
+      roles: [ 'qwe' ]
     }
   },
   {
@@ -34,6 +35,7 @@ const routes = [
     name: 'Shows',
     meta: {
       layout: 'main',
+      auth: false
     }
   },
   {
@@ -68,6 +70,7 @@ const routes = [
     redirect: { name: 'HomeMain' },
     meta: {
       layout: 'main',
+      auth: true,
       hiddenElems: [ 'TheStaticSidebar', 'TheStaticSidebarMobile' ]
     },
     props: {
@@ -109,13 +112,13 @@ const routes = [
   {
     path: '/reset-password',
     component: () => import( '@layouts/EmptyLayout/EmptyLayout.vue' ),
+    // TODO Лучше убрать этот костыль. На уровне роута проверять значения квери параметров, если они невалидные - редирект; пытаться сделать запрос, запрос неверный - ридерект
     beforeEnter ( to, from, next ) {
       if ( localStorage.getItem( 'var_passwordResetRequested' ) === 'true' ) {
         next()
-        return
+      } else {
+        next( { name: 'Main' } )
       }
-
-      next( { name: 'Main' } )
     }
   }
 ]
@@ -125,6 +128,7 @@ const router = createRouter( {
   routes
 } )
 
-router.beforeEach( checkRoles )
+router.beforeEach( routeAuthGuard )
+router.beforeEach( rolesGuard )
 
 export default router

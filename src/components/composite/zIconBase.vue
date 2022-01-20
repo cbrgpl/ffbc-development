@@ -54,6 +54,8 @@ import IconMicrowave from '@/components/icons/IconMicrowave.vue'
 import IconSuccess from '@icons/IconSuccess.vue'
 import IconFileUpload from '@icons/IconFileUpload.vue'
 
+import { stringUtils } from '@js_utils'
+
 export default {
   name: 'zIconBase',
   data () {
@@ -90,7 +92,7 @@ export default {
   },
   computed: {
     iconComponentName () {
-      return 'Icon' + this.iconName.capitalize()
+      return 'Icon' + stringUtils.capitalize( this.iconName )
     },
     getTitle () {
       return this.title || ( this.iconName + ' icon' )

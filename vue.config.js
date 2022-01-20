@@ -81,6 +81,7 @@ module.exports = {
         '@errors': path.resolve( __dirname, 'src', 'helpers', 'errors' ),
         '@filters': path.resolve( __dirname, 'src', 'helpers', 'filters' ),
         '@functions': path.resolve( __dirname, 'src', 'helpers', 'functions' ),
+        '@js_utils': path.resolve( __dirname, 'src', 'helpers', 'js_utils' ),
         '@mixins': path.resolve( __dirname, 'src', 'helpers', 'mixins' ),
         '@plugins': path.resolve( __dirname, 'src', 'helpers', 'plugins' ),
         '@validators': path.resolve( __dirname, 'src', 'helpers', 'validators' ),

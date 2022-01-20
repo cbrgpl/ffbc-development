@@ -1,3 +1,5 @@
+import { arrayUtils } from '@js_utils'
+
 // parses all data-obs-option-* attrs
 function parseOptions ( $el ) {
   const elDataAttrsArray = Object.entries( $el.dataset )
@@ -32,8 +34,8 @@ export default class {
   }
 
   removeTarget ( target ) {
-    this._accumulator.removeCallback( ( nodeParams ) => nodeParams.$node === target )
+    arrayUtils.removeCallback( this._accumulator, ( nodeParams ) => nodeParams.$node === target )
 
-    this._accumulator.remove( target )
+    arrayUtils.remove( this._accumulator, target )
   }
 }

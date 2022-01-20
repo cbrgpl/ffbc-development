@@ -61,6 +61,9 @@
       "#TailwindColors": [
         "src/enums/tailwind.colors.js"
       ],
+      "@js_utils": [
+        "src/helpers/js_utils/index.js"
+      ],
       "consts": [
         "src/enums/consts.js"
       ]

@@ -1,7 +1,9 @@
 import verifyEmail from './verifyEmail.guard'
-import checkRoles from './checkRoles.guard'
+import rolesGuard from './roles.guard'
+import routeAuthGuard from './routeAuth.guard'
 
 export {
   verifyEmail,
-  checkRoles
+  rolesGuard,
+  routeAuthGuard
 }

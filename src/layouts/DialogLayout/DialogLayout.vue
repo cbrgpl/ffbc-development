@@ -10,6 +10,7 @@
 
 <script>
 import { defineAsyncComponent } from 'vue'
+import { stringUtils } from '@js_utils'
 
 export default {
   name: 'DialogLayout',
@@ -38,7 +39,7 @@ export default {
       return dialogName[ 0 ].toLowerCase() + dialogName.slice( 1 )
     },
     getComponentName ( dialog ) {
-      return 'The' + dialog.capitalize() + 'Dialog'
+      return 'The' + stringUtils.capitalize( dialog ) + 'Dialog'
     },
   },
   components: {

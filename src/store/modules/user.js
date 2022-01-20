@@ -1,3 +1,5 @@
+import { arrayUtils } from '@js_utils'
+
 export default {
   namespaced: true,
   state: {
@@ -11,16 +13,25 @@ export default {
     clearUserData ( state ) {
       state.userData = {}
     },
-    addRole ( state, role ) {
-      state.roles.push( role )
+    addRole ( state, roles = [] ) {
+      if ( Array.isArray( roles ) ) {
+        for ( const role of roles ) {
+          state.roles.push( role )
+        }
+      } else {
+        state.roles.push( roles )
+      }
     },
     removeRole ( state, role ) {
-      state.roles.remove( role )
+      arrayUtils.remove( state.roles, role )
     }
   },
   getters: {
     userData ( state ) {
       return state.userData
+    },
+    roles ( state ) {
+      return state.roles
     },
     userDataClone ( state ) {
       return Object.assign( state.userData )

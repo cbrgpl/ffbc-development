@@ -1,4 +1,5 @@
 import { reactive } from 'vue'
+import { arrayUtils } from '@js_utils'
 
 const severity = {
   INFO: 'info',
@@ -32,7 +33,7 @@ export default class ToastController {
   }
 
   remove ( id ) {
-    this._toastList.removeCallback( ( el ) => el.id === id )
+    arrayUtils.removeCallback( this._toastList, ( el ) => el.id === id )
   }
 
   _add ( toastParams, severity ) {

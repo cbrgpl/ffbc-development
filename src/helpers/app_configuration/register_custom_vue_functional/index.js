@@ -28,34 +28,55 @@ import tooltip from '@directives/tooltip.directive.js'
 import dialogPlugin from '@plugins/dialog.plugin'
 import toastPlugin from '@plugins/toast.plugin'
 
-export default {
+const customFunctional = {
   components: {
-    zButton,
-    zForm,
-    zSpacer,
-    zButtonIcon,
-    zButtonLoader,
-    zCheckboxMulti,
-    zCheckboxSingle,
-    zIconBase,
-    zInput,
-    zLink,
-    zChip,
-    zTape,
-    zTabsNav,
-    zTimer,
-    zToggle,
-    zDivider,
-    zInputFile,
-    zActionButton,
+    registrator: ( app, component, componentName ) => app.component( componentName, component ),
+    elements: {
+      zButton,
+      zForm,
+      zSpacer,
+      zButtonIcon,
+      zButtonLoader,
+      zCheckboxMulti,
+      zCheckboxSingle,
+      zIconBase,
+      zInput,
+      zLink,
+      zChip,
+      zTape,
+      zTabsNav,
+      zTimer,
+      zToggle,
+      zDivider,
+      zInputFile,
+      zActionButton,
+    }
   },
   directives: {
-    lazyImage,
-    tooltip,
-    autofocus
+    registrator: ( app, directive, directiveName ) => app.directive( directiveName, directive ),
+    elements: {
+      lazyImage,
+      tooltip,
+      autofocus
+    }
+
   },
   plugins: {
-    dialogPlugin,
-    toastPlugin
-  },
+    registrator: ( app, plugin ) => app.use( plugin ),
+    elements: {
+      dialogPlugin,
+      toastPlugin
+    }
+  }
+}
+
+export default ( app ) => {
+  for ( const functionalType in customFunctional ) {
+    const functionalInner = customFunctional[ functionalType ]
+
+    for ( const elementName in functionalInner.elements ) {
+      const element = functionalInner.elements[ elementName ]
+      functionalInner.registrator( app, element, elementName )
+    }
+  }
 }
