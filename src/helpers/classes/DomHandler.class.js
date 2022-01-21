@@ -1,4 +1,4 @@
-export default class {
+export default class DomHandler {
   static getCenter ( element ) {
     const elRect = element.getBoundingClientRect()
 
@@ -121,7 +121,7 @@ export default class {
   }
 
   static getScrollableParents ( element ) {
-    return this._getParents( element, ( node ) => {
+    return DomHandler.getParents( element, ( node ) => {
       const overflowY = window.getComputedStyle( node ).overflowY
       const isScrollable = overflowY !== 'visible' && overflowY !== 'hidden'
       return isScrollable & node.scrollHeight > node.clientHeight
@@ -148,7 +148,7 @@ export default class {
     } )
   }
 
-  static _getParents ( element, callback, accumulator = [] ) {
+  static getParents ( element, callback, accumulator = [] ) {
     if ( element === null || !callback ) {
       return accumulator
     }

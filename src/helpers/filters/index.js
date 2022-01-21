@@ -1,19 +1,19 @@
-import dateTime from './dateTime.filter'
-import dateTimeParts from './dateTimeParts.filter'
-import hide from './hide.filter'
-import onlyDigits from './onlyDigits.filter'
-import prettyPhone from './prettyPhone.filter'
-import truncate from './truncate.filter'
-import backendPhone from './backendPhone.filter'
-import backendDate from './backendDate.filter'
+import getIntlFormatFunction from './getIntlFormatFunction.filter'
+import getIntlPartFormatFunction from './getIntlPartFormatFunction.filter'
+import hideSymbols from './hideSymbols.filter'
+import getOnlyDigits from './getOnlyDigits.filter'
+import getPrettyPhone from './getPrettyPhone.filter'
+import truncateString from './truncateString.filter'
+import getBackendFormatPhone from './getBackendFormatPhone.filter'
+import getBackendFormatDate from './getBackendFormatDate.filter'
 
 export {
-  dateTime,
-  dateTimeParts,
-  hide,
-  onlyDigits,
-  prettyPhone,
-  truncate,
-  backendPhone,
-  backendDate
+  getIntlFormatFunction,
+  getIntlPartFormatFunction,
+  hideSymbols,
+  getOnlyDigits,
+  getPrettyPhone,
+  truncateString,
+  getBackendFormatPhone,
+  getBackendFormatDate
 }

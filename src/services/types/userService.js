@@ -1,13 +1,13 @@
 import BaseService from './_baseService'
 import DataProcessor from '@services/helpers/dataProcessor'
-import { backendPhone, backendDate } from '@filters'
+import { getBackendFormatPhone, getBackendFormatDate } from '@filters'
 
 const fieldsFilters = {
   email: [],
   firstName: [],
   lastName: [],
-  phoneNumber: [ backendPhone ],
-  birthDate: [ backendDate ],
+  phoneNumber: [ getBackendFormatPhone ],
+  birthDate: [ getBackendFormatDate ],
 }
 
 export default class UserService extends BaseService {

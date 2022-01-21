@@ -34,7 +34,7 @@ export default class {
   }
 
   removeTarget ( target ) {
-    arrayUtils.removeCallback( this._accumulator, ( nodeParams ) => nodeParams.$node === target )
+    arrayUtils.remove( this._accumulator, ( nodeParams ) => nodeParams.$node === target )
 
     arrayUtils.remove( this._accumulator, target )
   }

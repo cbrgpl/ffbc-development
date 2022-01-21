@@ -4,8 +4,7 @@ import lookbehind from './extenders/string.lookbehindAlter'
 // Number
 // Boolean
 // Array
-import remove from './extenders/array.removeByValue'
-import removeCallback from './extenders/array.removeByCallback'
+import remove from './extenders/array.remove'
 // Object
 import isIterable from './extenders/object.isIterable'
 
@@ -20,7 +19,6 @@ const extendModule = {
   },
   array: {
     remove,
-    removeCallback
   },
   object: {
     isIterable,

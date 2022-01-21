@@ -71,7 +71,7 @@ import zDialog from '@components/composite/zDialog/zDialog.vue'
 import { VERIFICATION_STORAGE_VAR } from 'consts'
 
 import useVuelidate from '@vuelidate/core'
-import { onlyDigits } from '@filters'
+import { getOnlyDigits } from '@filters'
 import { email, required, password, sameAs } from '@validators'
 
 import { authService } from '@services'
@@ -119,7 +119,7 @@ export default {
 
       this.formLoader = true
       const dataClone = Object.assign( {}, this.regData )
-      dataClone.phoneNumber = '+' + onlyDigits( dataClone.phoneNumber )
+      dataClone.phoneNumber = '+' + getOnlyDigits( dataClone.phoneNumber )
       const response = await authService.register( dataClone )
       this.formLoader = false
 
@@ -157,7 +157,7 @@ export default {
           sameAs: sameAs( this.regData.password )
         },
         phoneNumber: {
-          phoneLength: val => onlyDigits( val ).length === 11
+          phoneLength: val => getOnlyDigits( val ).length === 11
         }
       },
       consent: {

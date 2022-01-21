@@ -33,7 +33,7 @@ export default class ToastController {
   }
 
   remove ( id ) {
-    arrayUtils.removeCallback( this._toastList, ( el ) => el.id === id )
+    arrayUtils.remove( this._toastList, ( el ) => el.id === id )
   }
 
   _add ( toastParams, severity ) {

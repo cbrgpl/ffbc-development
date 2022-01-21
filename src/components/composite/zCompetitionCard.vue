@@ -73,7 +73,7 @@
 
 <script>
 import { DomHandler } from '@classes'
-import { dateTimeParts } from '@filters'
+import { getIntlPartFormatFunction } from '@filters'
 
 // TODO Доделать навигацию сверху и сделать чтобы на телефонах при клике карточка становилась открыта или закрыта
 export default {
@@ -105,7 +105,7 @@ export default {
     },
   },
   methods: {
-    dateTimeFormat: dateTimeParts( { day: 'numeric', month: 'long', year: 'numeric' } ),
+    dateTimeFormat: getIntlPartFormatFunction( { day: 'numeric', month: 'long', year: 'numeric' } ),
     setContentHeight ( $el ) {
       if ( $el ) {
         const innerPB = 12

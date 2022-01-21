@@ -1,7 +1,7 @@
 const styles = {
-  error: [ 'color:#d32625', 'font-weight:500' ].join( ';' ),
-  message: [ 'color:#00aba6' ].join( ';' ),
-  warn: [ 'color:#fd9726' ].join( ';' ),
+  error: 'color:#d32625;font-weight:500',
+  message: 'color:#00aba6',
+  warn: 'color:#fd9726',
 }
 
 export default class {

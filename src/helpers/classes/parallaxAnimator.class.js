@@ -1,4 +1,4 @@
-import getParent from '@functions/getParentCallback.function'
+import DomHandler from '@classes/DomHandler.class'
 // Я пожалуй этот пиздец нормально закоменчу, авось потом что-то доработать захочется
 // Если хочешь стереть комменты, подумай об этом 10 раз! Если стираешь комменты без моего ведома - акстись
 
@@ -93,8 +93,7 @@ export default class {
 
   preproccess ( $el, $image ) {
     if ( this.scrollingParent === null ) {
-      // TODO Заменить на использование DomHandler
-      this.scrollingParent = getParent( $el, node => {
+      this.scrollingParent = DomHandler.getParent( $el, node => {
         const overflowY = window.getComputedStyle( node ).overflowY
         const isScrollable = overflowY !== 'visible' && overflowY !== 'hidden'
         return isScrollable & node.scrollHeight > node.clientHeight
