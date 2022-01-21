@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import ableIcons from '@enums/custom/icons.js'
+import ableIcons from '@/enums/info/icons.js'
 
 // TODO Протестировать вариант с динамичной подгрузкой иконок, сравнить результаты с этим
 import IconCatchingPokemon from '@icons/IconCatchingPokemon.vue'

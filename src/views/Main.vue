@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import icons from '@enums/custom/icons.js'
+import icons from '@/enums/info/icons.js'
 
 export default {
   name: 'Main',
