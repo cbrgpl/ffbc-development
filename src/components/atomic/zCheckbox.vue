@@ -9,7 +9,7 @@
       v-bind="attrs"
       type="checkbox" >
     <div
-      :class="['z-checkbox__fiction', ...checkboxSize]"
+      class="z-checkbox__fiction"
       :data-error-state="errorState" >
     </div>
     <h5 class="z-checkbox__label" >
@@ -33,10 +33,6 @@ export default {
       type: String,
       default: ''
     },
-    size: {
-      type: [ Number, String ],
-      default: 6
-    },
     errorState: {
       type: Boolean,
       default: false,
@@ -44,14 +40,6 @@ export default {
     onError: {
       type: String,
       default: '',
-    }
-  },
-  computed: {
-    checkboxSize () {
-      return [
-        `w-${ this.size }`,
-        `h-${ this.size }`
-      ]
     }
   },
 }

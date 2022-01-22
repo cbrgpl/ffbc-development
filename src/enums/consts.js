@@ -3,6 +3,7 @@ const CLIENT_URL = location.href
 
 const STATUS_WORDS = {
   SUCCESS: 'SUCCESS',
+  NOT_ERROR: 'NOT_ERROR',
   ERROR: 'ERROR',
 }
 const NOT_ERROR = 'NOT_ERROR'

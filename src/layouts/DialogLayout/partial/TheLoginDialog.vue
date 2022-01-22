@@ -63,7 +63,7 @@ import useVuelidate from '@vuelidate/core'
 import { email, required } from '@validators'
 
 import { authService, userService } from '@services'
-import { STORAGE_NAMES } from 'consts'
+import { STORAGE_NAMES, STATUS_WORDS } from 'consts'
 
 export default {
   name: 'login-dialog',
@@ -99,7 +99,7 @@ export default {
       this.dialog$.show( 'resetPassword' )
     },
     async login ( status ) {
-      if ( status === 'INVALID' ) {
+      if ( status === STATUS_WORDS.ERROR ) {
         return
       }
 

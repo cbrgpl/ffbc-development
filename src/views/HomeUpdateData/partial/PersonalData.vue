@@ -55,6 +55,7 @@
 import useVuelidate from '@vuelidate/core'
 import { minLength, phone, date, adultDate, minValue } from '@validators'
 import { userService } from '@services'
+import { STATUS_WORDS } from 'consts'
 
 export default {
   name: 'PersonalData',
@@ -89,8 +90,8 @@ export default {
     }
   },
   methods: {
-    async updateData ( ) {
-      if ( this.v$.$error ) {
+    async updateData ( status ) {
+      if ( status === STATUS_WORDS.ERROR ) {
         return
       }
 

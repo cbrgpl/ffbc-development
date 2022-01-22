@@ -68,7 +68,7 @@
 <script>
 import zDialog from '@components/composite/zDialog/zDialog.vue'
 
-import { STORAGE_NAMES } from 'consts'
+import { STORAGE_NAMES, STATUS_WORDS } from 'consts'
 
 import useVuelidate from '@vuelidate/core'
 import { getOnlyDigits } from '@filters'
@@ -115,7 +115,7 @@ export default {
       window.addEventListener( 'storage', storageHandler, { once: true } )
     },
     async registrate ( status ) {
-      if ( status === 'INVALID' ) {
+      if ( status === STATUS_WORDS.ERROR ) {
         return
       }
 

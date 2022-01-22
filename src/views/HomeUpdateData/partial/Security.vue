@@ -5,7 +5,8 @@
     </h3>
     <zForm
       class="flex flex-col"
-      :vuelidate-object="v$" >
+      :vuelidate-object="v$"
+      @validate="updatePassword" >
       <div class="flex flex-col sm:flex-row justify-around mb-5" >
         <zInput
           v-model="password"
@@ -28,6 +29,7 @@
 <script>
 import useVuelidate from '@vuelidate/core'
 import { required, password } from '@validators'
+import { STATUS_WORDS } from 'consts'
 
 export default {
   name: 'Security',
@@ -48,7 +50,7 @@ export default {
   },
   methods: {
     updatePassword ( status ) {
-      if ( status === 'INVALID' ) {
+      if ( status === STATUS_WORDS.ERROR ) {
         return
       }
 
