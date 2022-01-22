@@ -114,7 +114,6 @@ export default {
         this.$store.commit( 'token/setTokens', loginningResponse.data.tokens )
         await this.requestUserData()
       } else if ( loginningResponse.response.status === 400 ) {
-        this.formLoader = false
         this.formError = true
       } else {
         this.formLoader = false

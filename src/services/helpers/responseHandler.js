@@ -1,5 +1,5 @@
 import { STATUS_WORDS } from '@/enums/consts'
-import updateTokens from './checkAuthToken.js'
+import updateTokens from '../../router/helpers/checkAuthToken.js'
 import CamelKebabTranslator from './camelCaseKebabTranslator.js'
 
 const ERROR_STATUSES = {

@@ -1,5 +1,5 @@
 import $store from '@/store'
-import checkAuthToken from '@/services/helpers/checkAuthToken'
+import checkAuthToken from '@/router/helpers/checkAuthToken'
 
 /*
 
@@ -13,8 +13,9 @@ import checkAuthToken from '@/services/helpers/checkAuthToken'
 
 export default async function ( to, from, next ) {
   const userAuth = $store.getters[ 'auth/isAuth' ]
+  const refreshToken = $store.getters[ 'token/refresh' ]
 
-  if ( userAuth === null ) {
+  if ( userAuth === null && refreshToken !== null ) {
     await checkAuthToken()
   }
 
