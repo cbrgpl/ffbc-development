@@ -18,12 +18,12 @@
 
       <template #button >
 
-        <zButtonLoader
+        <zLoaderButton
           class="w-full py-4 md:w-48 self-start"
           type="submit"
           :loader="formLoader" >
           Send mail
-        </zButtonLoader>
+        </zLoaderButton>
 
       </template>
     </zForm>

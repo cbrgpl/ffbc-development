@@ -3,6 +3,7 @@ import zButton from '@components/atomic/zButton.vue'
 import zForm from '@components/atomic/zForm.vue'
 import zSpacer from '@components/atomic/zSpacer.vue'
 import zLink from '@components/atomic/zLink.vue'
+import zLoader from '@components/atomic/zLoader.vue'
 import zChip from '@components/atomic/zChip.vue'
 import zTape from '@components/atomic/zTape.vue'
 import zTabsNav from '@components/atomic/zTabsNav.vue'
@@ -12,8 +13,8 @@ import zDivider from '@components/atomic/zDivider.vue'
 import zActionButton from '@components/atomic/zActionButton.vue'
 import zInputFile from '@/components/composite/zInputFile.vue'
 
-import zButtonIcon from '@components/composite/zButtonIcon.vue'
-import zButtonLoader from '@components/composite/zButtonLoader.vue'
+import zIconButton from '@components/composite/zIconButton.vue'
+import zLoaderButton from '@components/composite/zLoaderButton.vue'
 import zCheckboxMulti from '@components/composite/zCheckboxMulti.vue'
 import zCheckboxSingle from '@components/composite/zCheckboxSingle.vue'
 import zIconBase from '@components/composite/zIconBase.vue'
@@ -35,13 +36,14 @@ const customFunctional = {
       zButton,
       zForm,
       zSpacer,
-      zButtonIcon,
-      zButtonLoader,
+      zIconButton,
+      zLoaderButton,
       zCheckboxMulti,
       zCheckboxSingle,
       zIconBase,
       zInput,
       zLink,
+      zLoader,
       zChip,
       zTape,
       zTabsNav,

@@ -10,7 +10,6 @@
       v-if="loader"
       class="flex absolute w-full h-full bg-black-lighten bg-opacity-50 top-0 left-0" >
       <zLoader
-        class="m-auto"
         :height="40"
         :width="40" />
     </div>
@@ -23,7 +22,7 @@ import { defineAsyncComponent } from 'vue'
 import zButton from '@components/atomic/zButton.vue'
 
 export default {
-  name: 'zButtonLoader',
+  name: 'zLoaderButton',
   props: {
     loader: {
       type: Boolean,

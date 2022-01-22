@@ -17,7 +17,7 @@
           v-model="password"
           label="Confirm Password" />
       </div>
-      <zButtonLoader
+      <zLoaderButton
         class="w-44 py-3.5 ml-auto"
         :loader="formLoader"
         variant="ghost"

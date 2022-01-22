@@ -38,15 +38,15 @@
     <div
       v-else-if="!isAuth"
       class="flex" >
-      <zButtonIcon
+      <zIconButton
         shrink
         @click="dialog$.show('login')"
         class="py-2 px-2 sm:px-3 md:py-2.5 text-sm uppercase font-semibold mr-2"
         :icon-size="20"
         icon-name="login" >
         Log In
-      </zButtonIcon>
-      <zButtonIcon
+      </zIconButton>
+      <zIconButton
         shrink
         @click="dialog$.show('registration')"
         variant="ghost"
@@ -54,7 +54,7 @@
         :icon-size="20"
         icon-name="signUp" >
         Sign up
-      </zButtonIcon>
+      </zIconButton>
 
     </div>
   </div>

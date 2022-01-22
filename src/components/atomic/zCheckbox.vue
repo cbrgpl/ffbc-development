@@ -9,7 +9,7 @@
       v-bind="attrs"
       type="checkbox" >
     <div
-      class="z-checkbox__fiction"
+      class="z-checkbox__fiction w-6 h-6"
       :data-error-state="errorState" >
     </div>
     <h5 class="z-checkbox__label" >

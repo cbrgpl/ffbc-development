@@ -50,13 +50,13 @@
 
         <template #button >
           <div class="w-full flex justify-center lg:justify-start" >
-            <zButtonLoader
+            <zLoaderButton
               class="w-full py-4 md:w-56 lg:w-44"
               type="submit"
               :disabled="v$.$error || buttonDisabled"
               :loader="formLoader" >
               Registration
-            </zButtonLoader>
+            </zLoaderButton>
           </div>
         </template>
       </zForm>

@@ -1,6 +1,5 @@
 <template >
-  <div >
-
+  <div class="relative" >
     <zButton @click="info" >
       info
     </zButton>
@@ -20,6 +19,17 @@
     <zButton @click="dialog$.show('registration', false)" >
       warning
     </zButton>
+
+    <zLoader
+      title
+      background
+      size="42" ></zLoader>
+
+    <zLoaderButton
+      class="px-6 py-3.5 mt-3"
+      :loader="true" >
+      Dimochka
+    </zLoaderButton>
 
   </div>
 </template>

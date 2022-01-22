@@ -41,7 +41,7 @@
           v-model.number="userData.age"
           label="age" />
 
-        <zButtonLoader
+        <zLoaderButton
           type="submit"
           :loader="formLoader"
           class="mt-14 lg:mt-0 py-4 flex-grow"

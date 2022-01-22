@@ -42,12 +42,12 @@
               </zLink>
             </div>
 
-            <zButtonLoader
+            <zLoaderButton
               class="w-full py-4 mb-3.5 md:w-48"
               type="submit"
               :loader="formLoader" >
               Log in
-            </zButtonLoader>
+            </zLoaderButton>
 
           </div>
         </template>
