@@ -9,15 +9,16 @@ const STATUS_WORDS = {
 }
 const NOT_ERROR = 'NOT_ERROR'
 
-// TODO Сделать специальный объект STORAGE_VARIABLES, чтобы не мешать все подряд со всеми константами
-const STORAGE_VARIABLES = {
-  EMAIL_VERIFICATION: 'var_emailVerified'
+const STORAGE_NAMES = {
+  EMAIL_VERIFICATED: 'flag_emailVerified',
+  REGISTRATED_EMAIL: 'var_regEmail'
 }
+
 export {
   NOT_ERROR,
   API_URL,
   CLIENT_URL,
   REDIRECT_URL,
-  STORAGE_VARIABLES,
+  STORAGE_NAMES,
   STATUS_WORDS
 }
