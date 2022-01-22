@@ -1,9 +1,11 @@
+import { STORAGE_NAMES } from 'consts'
 
 export default {
   namespaced: true,
+  clearable: true,
   state: {
     access: null,
-    refresh: localStorage.getItem( 'var_refreshToken' ) || sessionStorage.getItem( 'var_refreshToken' ),
+    refresh: localStorage.getItem( STORAGE_NAMES.REFRESH_TOKEN ) || sessionStorage.getItem( STORAGE_NAMES.REFRESH_TOKEN ),
   },
   getters: {
     access ( state ) {
@@ -20,6 +22,10 @@ export default {
     }
   },
   mutations: {
+    clearModule ( state ) {
+      state.access = null
+      state.refresh = null
+    },
     setTokens ( state, tokens ) {
       state.access = tokens.access
       state.refresh = tokens.refresh

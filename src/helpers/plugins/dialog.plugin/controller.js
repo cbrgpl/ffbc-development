@@ -1,5 +1,5 @@
 import { reactive, computed, ref, watch } from 'vue'
-import { ArgError } from '@errors/argError'
+import { ArgError } from '@errors'
 
 export default class {
   constructor () {
@@ -7,7 +7,9 @@ export default class {
   }
 
   register ( dialogName ) {
-    this.checkDialogName( dialogName, 'Dialog already exists' )
+    if ( this._exists( dialogName ) ) {
+      throw new ArgError( dialogName, 'Dialog already exists' )
+    }
 
     this._dialogs[ dialogName ] = {
       visible: false,

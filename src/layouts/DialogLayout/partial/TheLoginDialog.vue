@@ -63,6 +63,7 @@ import useVuelidate from '@vuelidate/core'
 import { email, required } from '@validators'
 
 import { authService, userService } from '@services'
+import { STORAGE_NAMES } from 'consts'
 
 export default {
   name: 'login-dialog',
@@ -107,8 +108,8 @@ export default {
       const loginningResponse = await authService.login( requestData )
 
       if ( loginningResponse.response.status === 200 ) {
-        if ( this.rememberMe ) localStorage.setItem( 'var_refreshToken', loginningResponse.data.tokens.refresh )
-        else sessionStorage.setItem( 'var_refreshToken', loginningResponse.data.tokens.refresh )
+        if ( this.rememberMe ) localStorage.setItem( STORAGE_NAMES.REFRESH_TOKEN, loginningResponse.data.tokens.refresh )
+        else sessionStorage.setItem( STORAGE_NAMES.REFRESH_TOKEN, loginningResponse.data.tokens.refresh )
 
         this.$store.commit( 'token/setTokens', loginningResponse.data.tokens )
         await this.requestUserData()

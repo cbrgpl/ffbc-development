@@ -1,25 +1,5 @@
 import $store from '@/store'
-import { app } from '@/main.js'
-import { userService } from '@services'
-import updateTokens from '@/services/helpers/updateTokens'
-
-async function checkUserAtInit () {
-  if ( $store.getters[ 'token/refresh' ] === null ) {
-    return
-  }
-
-  const tokensResponse = await updateTokens()
-  if ( tokensResponse.status === 200 ) {
-    const userDataResponse = await userService.me( $store.getters[ 'token/access' ] )
-    $store.commit( 'user/setUserData', userDataResponse.data )
-    $store.commit( 'user/addRole', 'authorized' )
-    $store.commit( 'auth/setIsAuth', true )
-  } else {
-    localStorage.removeItem( 'var_refreshToken' )
-    $store.commit( 'auth/setIsAuth', false )
-    app.config.globalProperties.toast$.info( { summary: 'You are no longer authorized', detail: 'It seems you’ve been off the site too long, now you need to re-authorise' } )
-  }
-}
+import checkAuthToken from '@/services/helpers/checkAuthToken'
 
 /*
 
@@ -35,7 +15,7 @@ export default async function ( to, from, next ) {
   const userAuth = $store.getters[ 'auth/isAuth' ]
 
   if ( userAuth === null ) {
-    await checkUserAtInit()
+    await checkAuthToken()
   }
 
   const routeRequireAuth = to.meta.auth

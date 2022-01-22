@@ -3,9 +3,9 @@ import InternalClientLogicError from '@errors/internalClientLogicError'
 import NetworkAttemptError from '@/helpers/errors/networkAttemptError'
 import RouteAccessError from '@errors/routeAccessError'
 
-export default [
+export {
   ArgError,
   InternalClientLogicError,
   NetworkAttemptError,
   RouteAccessError
-]
+}

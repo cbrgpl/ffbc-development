@@ -27,6 +27,7 @@ export default {
   name: 'App',
   mounted () {
     this.handleLoading()
+    this.$store.commit( 'clearModules' )
   },
   data () {
     return {
