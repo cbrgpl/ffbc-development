@@ -1,4 +1,4 @@
-import ConstructorNamedError from './constructorNamedError'
+import ConstructorNamedError from './pseudoAbstractErrors/constructorNamedError'
 
 export default class ArgError extends ConstructorNamedError {
   constructor ( argValue, argErrorMessage, ...params ) {

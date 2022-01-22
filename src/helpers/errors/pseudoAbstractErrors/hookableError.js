@@ -1,9 +1,10 @@
 import ConstructorNamedError from './constructorNamedError'
 
 export default class HookableError extends ConstructorNamedError {
-  constructor ( ...params ) {
+  constructor ( useHook = true, ...params ) {
     super( ...params )
 
+    this.useHook = useHook
     this.onErrorCallback = null
   }
 

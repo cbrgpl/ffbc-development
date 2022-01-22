@@ -1,4 +1,4 @@
-import HookableError from './hookableError'
+import HookableError from './pseudoAbstractErrors/hookableError'
 import networkAttemptCallback from './onErrorCallbacks/networkAttemptCallback'
 
 export default class NetworkAttemptError extends HookableError {

@@ -76,7 +76,6 @@ import { email, required, password, sameAs } from '@validators'
 
 import { authService } from '@services'
 
-import NetworkPayloadalidationError from '@errors/networkPayloadValidationError'
 import NetworkAttemptError from '@/helpers/errors/networkAttemptError'
 
 export default {
@@ -141,7 +140,6 @@ export default {
           unwatch()
         } )
       } else if ( response.response.status === 400 ) {
-        throw new NetworkPayloadalidationError( 'Error during registration', response )
       } else {
         throw new NetworkAttemptError( response )
       }

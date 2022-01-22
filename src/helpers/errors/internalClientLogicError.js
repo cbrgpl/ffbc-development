@@ -1,4 +1,4 @@
-import HookableError from './hookableError'
+import HookableError from './pseudoAbstractErrors/hookableError'
 import internalClientLogicCallback from './onErrorCallbacks/internalClientLogicCallback'
 
 export default class InternalClientLogicError extends HookableError {

@@ -1,4 +1,4 @@
-import HookableError from './hookableError'
+import HookableError from './pseudoAbstractErrors/hookableError'
 import routeAccessCallback from './onErrorCallbacks/routeAccessCallback'
 
 export default class RouteAccessError extends HookableError {

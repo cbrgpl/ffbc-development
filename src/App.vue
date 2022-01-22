@@ -21,11 +21,9 @@ import TheToast from '@components/composite/TheToast/TheToast.vue'
 
 import consoleLogger from '@classes/consoleLogger.class'
 
-import HookableError from '@errors/hookableError'
-
 export default {
   name: 'App',
-  mounted () {
+  async mounted () {
     this.handleLoading()
     this.$store.commit( 'clearModules' )
   },
@@ -34,9 +32,8 @@ export default {
       errorsNumber: 0,
     }
   },
-
   errorCaptured ( error, vnode, info ) {
-    if ( !this.isHookableError( error ) ) {
+    if ( !error.useHook ) {
       console.group( `Not hookable error number ${ this.errorsNumber++ }` )
       consoleLogger.object( info, 'info: ' )
       consoleLogger.object( error, 'error: ' )
@@ -50,11 +47,6 @@ export default {
     return false
   },
   methods: {
-    isHookableError ( error ) {
-      if ( error instanceof HookableError ) {
-        return true
-      }
-    },
     async handleLoading () {
       const isVerificateRoute = location.href.includes( 'verificate' )
 
