@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Preview from '@views/Preview.vue'
-import { verifyEmail, rolesGuard, routeAuthGuard } from './helpers/index'
+import { verifyEmail, rolesGuard, authGuard } from './helpers/index'
 
 const routes = [
   // General
@@ -54,7 +54,7 @@ const routes = [
       layout: 'main',
     }
   },
-  { // * РОУТ ДЛЯ МАГАЗИНА КОТОРЫЙ БУДЕТ ОЧЕНЬ НЕ СКОРО
+  { // * РОУТ ДЛЯ МАГАЗИНА КОТОРЫЙ БУДЕТ ОЧЕНЬ НЕ СКОРО PS Врунишка...
     path: '/shop',
     component: () => import( '@views/Main.vue' ),
     name: 'Shop',
@@ -128,7 +128,7 @@ const router = createRouter( {
   routes
 } )
 
-router.beforeEach( routeAuthGuard )
+router.beforeEach( authGuard )
 router.beforeEach( rolesGuard )
 
 export default router

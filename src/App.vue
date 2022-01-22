@@ -15,11 +15,13 @@
 <script>
 import MainLayout from '@layouts/MainLayout/MainLayout.vue'
 import EmptyLayout from '@layouts/EmptyLayout/EmptyLayout.vue'
-
 import DialogLayout from '@layouts/DialogLayout/DialogLayout.vue'
+
 import TheToast from '@components/composite/TheToast/TheToast.vue'
 
-import { ERROR_HANDLER_STATUSES } from 'consts'
+import consoleLogger from '@classes/consoleLogger.class'
+
+import HookableError from '@errors/hookableError'
 
 export default {
   name: 'App',
@@ -32,27 +34,26 @@ export default {
     }
   },
 
-  errorCaptured ( errorObject, vnode, info ) {
-    if ( errorObject.error ) {
-      console.group( `Error number ${ this.errorsNumber++ }` )
-      this.log$.error( errorObject.error.message, 'Error with message//was captured' )
-      this.log$.object( info, 'info: ' )
-      this.log$.object( errorObject, 'errorObject: ' )
-      this.log$.object( vnode, 'vnode: ' )
+  errorCaptured ( error, vnode, info ) {
+    if ( !this.isHookableError( error ) ) {
+      console.group( `Not hookable error number ${ this.errorsNumber++ }` )
+      consoleLogger.object( info, 'info: ' )
+      consoleLogger.object( error, 'error: ' )
+      consoleLogger.object( vnode, 'vnode: ' )
       console.groupEnd()
 
-      if ( /429/.test( errorObject.error.message ) ) {
-        this.toast$.warn( { summary: 'Too many server requests', detail: 'You send requests to the server too often.</br><strong>Please wait a while and try again.</strong>' } )
-      } else if ( ERROR_HANDLER_STATUSES.some( ( statusesGroup ) => statusesGroup.test( errorObject.error.message ) ) ) {
-        this.toast$.error( { summary: 'Server Problems', detail: 'The attempt to connect to the server is successful, but there are some problems with the server. <strong><u>Try again later.</u></strong><br>If you can’t connect, ask for technical support', life: 8000 } )
-      } else {
-        this.toast$.error( { summary: 'Site problem', detail: 'A problem occurred during the operation of the site. We are already in the process of solving it', life: 8000 } )
-      }
-
-      return false
+      throw error
     }
+
+    error.onErrorHook( error )
+    return false
   },
   methods: {
+    isHookableError ( error ) {
+      if ( error instanceof HookableError ) {
+        return true
+      }
+    },
     async handleLoading () {
       const isVerificateRoute = location.href.includes( 'verificate' )
 

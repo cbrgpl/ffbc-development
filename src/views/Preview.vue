@@ -30,6 +30,8 @@ import observer from '@directives/observer.directive.js'
 import zButton from '@/components/atomic/zButton.vue'
 import zDialog from '@/components/composite/zDialog/zDialog.vue'
 
+import NetworkAttemptErorr from '@errors/networkAttemptError'
+
 export default {
   directives: {
     observer,
@@ -48,6 +50,7 @@ export default {
     },
     error () {
       this.toast$.error( { detail: 'Error while handling', summary: 'Oh, something went wrong' } )
+      throw new NetworkAttemptErorr( 'api/url', { body: 1, attempt: 1 }, 501 )
     },
     warning () {
       this.toast$.warn( { detail: 'Be careful', summary: 'Oh, be careful with that shit it is not looks like' } )
