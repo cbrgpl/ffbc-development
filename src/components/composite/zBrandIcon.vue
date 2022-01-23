@@ -2,7 +2,6 @@
   <zIconBase
     height="25"
     width="25" >
-
   </zIconBase>
 </template>
 

@@ -6,7 +6,7 @@
       width="65"
       :src="getUserData.avatar"
       alt="" >
-    <div class="flex justify-between" >
+    <div class="flex items-center justify-between" >
       <span >
         <h4 >{{ getUserData.callsign }}</h4>
         <h6 class="inline-block border-b border-current b-solid" >
@@ -35,6 +35,8 @@ import zIconBase from '@components/composite/zIconBase.vue'
 import { mapGetters } from 'vuex'
 import { authService } from '@services'
 
+import { STORAGE_NAMES } from 'consts'
+
 export default {
   computed: {
     ...mapGetters( {
@@ -59,7 +61,7 @@ export default {
       if ( logoutResponse.response.status === 204 ) {
         this.$store.commit( 'auth/setIsAuth', false )
         this.$store.commit( 'user/clearUserData' )
-        localStorage.removeItem( 'var_refreshToken' )
+        localStorage.removeItem( STORAGE_NAMES.REFRESH_TOKEN )
         this.toast$.info( { summary: 'You left your account' } )
       } else {
         this.toast$.error( { summary: 'Something went wrong', detail: 'When trying to log out of the account, something went wrong. Please reload the page or try again later' } )

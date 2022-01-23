@@ -42,12 +42,12 @@
               </zLink>
             </div>
 
-            <zButtonLoader
+            <zLoaderButton
               class="w-full py-4 mb-3.5 md:w-48"
               type="submit"
               :loader="formLoader" >
               Log in
-            </zButtonLoader>
+            </zLoaderButton>
 
           </div>
         </template>
@@ -63,6 +63,7 @@ import useVuelidate from '@vuelidate/core'
 import { email, required } from '@validators'
 
 import { authService, userService } from '@services'
+import { STORAGE_NAMES, STATUS_WORDS } from 'consts'
 
 export default {
   name: 'login-dialog',
@@ -98,7 +99,8 @@ export default {
       this.dialog$.show( 'resetPassword' )
     },
     async login ( status ) {
-      if ( status === 'INVALID' ) {
+      console.log( this.v$ )
+      if ( status === STATUS_WORDS.ERROR ) {
         return
       }
 
@@ -107,13 +109,12 @@ export default {
       const loginningResponse = await authService.login( requestData )
 
       if ( loginningResponse.response.status === 200 ) {
-        if ( this.rememberMe ) localStorage.setItem( 'var_refreshToken', loginningResponse.data.tokens.refresh )
-        else sessionStorage.setItem( 'var_refreshToken', loginningResponse.data.tokens.refresh )
+        if ( this.rememberMe ) localStorage.setItem( STORAGE_NAMES.REFRESH_TOKEN, loginningResponse.data.tokens.refresh )
+        else sessionStorage.setItem( STORAGE_NAMES.REFRESH_TOKEN, loginningResponse.data.tokens.refresh )
 
         this.$store.commit( 'token/setTokens', loginningResponse.data.tokens )
         await this.requestUserData()
       } else if ( loginningResponse.response.status === 400 ) {
-        this.formLoader = false
         this.formError = true
       } else {
         this.formLoader = false

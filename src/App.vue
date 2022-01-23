@@ -1,8 +1,9 @@
 <template >
-  <div class="h-screen  bg-black " >
+  <div class="h-screen  bg-black text-white" >
     <component
       class="h-full overflow-y-auto"
-      :is="layout" >
+      :is="layout"
+      :hidden-elems="hiddenElements" >
       <router-view />
     </component>
 
@@ -14,40 +15,36 @@
 <script>
 import MainLayout from '@layouts/MainLayout/MainLayout.vue'
 import EmptyLayout from '@layouts/EmptyLayout/EmptyLayout.vue'
-
 import DialogLayout from '@layouts/DialogLayout/DialogLayout.vue'
+
 import TheToast from '@components/composite/TheToast/TheToast.vue'
+
+import consoleLogger from '@classes/consoleLogger.class'
 
 export default {
   name: 'App',
-  mounted () {
+  async mounted () {
     this.handleLoading()
+    this.$store.commit( 'clearModules' )
   },
   data () {
     return {
       errorsNumber: 0,
     }
   },
-
-  errorCaptured ( errorObject, vnode, info ) {
-    if ( errorObject.error ) {
-      console.group( `Error number ${ this.errorsNumber++ }` )
-      this.log$.error( errorObject.error.message, 'Error with message//was captured' )
-      this.log$.object( info, 'info: ' )
-      this.log$.object( errorObject, 'errorObject: ' )
-      this.log$.object( vnode, 'vnode: ' )
+  errorCaptured ( error, vnode, info ) {
+    if ( !error.useHook ) {
+      console.group( `Not hookable error number ${ this.errorsNumber++ }` )
+      consoleLogger.object( info, 'info: ' )
+      consoleLogger.object( error, 'error: ' )
+      consoleLogger.object( vnode, 'vnode: ' )
       console.groupEnd()
 
-      if ( /429/.test( errorObject.error.message ) ) {
-        this.toast$.warn( { summary: 'Too many server requests', detail: 'You send requests to the server too often.</br><strong>Please wait a while and try again.</strong>' } )
-      } else if ( this.CONST$.ERROR_HANDLER_STATUSES.some( ( statusesGroup ) => statusesGroup.test( errorObject.error.message ) ) ) {
-        this.toast$.error( { summary: 'Server Problems', detail: 'The attempt to connect to the server is successful, but there are some problems with the server. <strong><u>Try again later.</u></strong><br>If you can’t connect, ask for technical support', life: 8000 } )
-      } else {
-        this.toast$.error( { summary: 'Site problem', detail: 'A problem occurred during the operation of the site. We are already in the process of solving it', life: 8000 } )
-      }
-
-      return false
+      throw error
     }
+
+    error.onErrorHook( error )
+    return false
   },
   methods: {
     async handleLoading () {
@@ -71,6 +68,9 @@ export default {
   computed: {
     layout () {
       return this.$route.meta.layout + '-layout'
+    },
+    hiddenElements () {
+      return this.$route.meta.hiddenElems ? this.$route.meta.hiddenElems : []
     }
   },
   components: {

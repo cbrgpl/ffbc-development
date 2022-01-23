@@ -1,6 +1,5 @@
-import CONST from '#CONST'
-
-const API_URL = CONST.API_URL
+// TODO Вынести в .env
+import { API_URL } from '@/enums/consts'
 
 export default {
   auth: {

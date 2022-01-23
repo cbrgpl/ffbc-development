@@ -31,6 +31,9 @@
       "@directives/*": [
         "src/helpers/directives/*"
       ],
+      "@errors/*": [
+        "src/helpers/errors/*"
+      ],
       "@filters/*": [
         "src/helpers/filters/*"
       ],
@@ -58,8 +61,11 @@
       "#TailwindColors": [
         "src/enums/tailwind.colors.js"
       ],
-      "#CONST": [
-        "src/enums/CONST.js"
+      "@js_utils": [
+        "src/helpers/js_utils/index.js"
+      ],
+      "consts": [
+        "src/enums/consts.js"
       ]
     }
   },

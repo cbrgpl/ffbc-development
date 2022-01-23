@@ -50,13 +50,13 @@
 
         <template #button >
           <div class="w-full flex justify-center lg:justify-start" >
-            <zButtonLoader
+            <zLoaderButton
               class="w-full py-4 md:w-56 lg:w-44"
               type="submit"
               :disabled="v$.$error || buttonDisabled"
               :loader="formLoader" >
               Registration
-            </zButtonLoader>
+            </zLoaderButton>
           </div>
         </template>
       </zForm>
@@ -68,11 +68,15 @@
 <script>
 import zDialog from '@components/composite/zDialog/zDialog.vue'
 
+import { STORAGE_NAMES, STATUS_WORDS } from 'consts'
+
 import useVuelidate from '@vuelidate/core'
-import { onlyDigits } from '@filters'
+import { getOnlyDigits } from '@filters'
 import { email, required, password, sameAs } from '@validators'
 
 import { authService } from '@services'
+
+import NetworkAttemptError from '@/helpers/errors/networkAttemptError'
 
 export default {
   name: 'reg-dialog',
@@ -91,17 +95,17 @@ export default {
       consent: false,
       formLoader: false,
       buttonDisabled: false,
-      storageEmailVar: 'var_regEmail'
     }
   },
   methods: {
     setLocalStorageWatcher () {
       const storageHandler = ( event ) => {
-        const key = event.key
-        localStorage.removeItem( key )
-        localStorage.removeItem( this.storageEmailVar )
+        const storageName = event.key
 
-        if ( key === this.CONST$.VERIFICATION_STORAGE_VAR ) {
+        if ( storageName === STORAGE_NAMES.EMAIL_VERIFICATED ) {
+          localStorage.removeItem( storageName )
+          localStorage.removeItem( STORAGE_NAMES.REGISTRATED_EMAIL )
+
           this.dialog$.hide( 'verification' )
           this.dialog$.hide( 'registration' )
           this.toast$.success( { detail: 'Your mail was successfully confirmed!', life: 7000 } )
@@ -111,31 +115,33 @@ export default {
       window.addEventListener( 'storage', storageHandler, { once: true } )
     },
     async registrate ( status ) {
-      if ( status === 'INVALID' ) {
+      if ( status === STATUS_WORDS.ERROR ) {
         return
       }
 
       this.formLoader = true
       const dataClone = Object.assign( {}, this.regData )
-      dataClone.phoneNumber = '+' + onlyDigits( dataClone.phoneNumber )
+      dataClone.phoneNumber = '+' + getOnlyDigits( dataClone.phoneNumber )
       const response = await authService.register( dataClone )
       this.formLoader = false
 
       if ( response.response.status === 200 ) {
-        localStorage.setItem( this.storageEmailVar, this.regData.email )
+        localStorage.setItem( STORAGE_NAMES.REGISTRATED_EMAIL, this.regData.email )
         this.setLocalStorageWatcher()
+
         this.toast$.success( { summary: 'Successfully sent', detail: 'A confirmation letter was sent to you. Please confirm your account to continue' } )
         this.dialog$.show( 'verification', false )
+
         this.buttonDisabled = true
 
-        this.dialog$.addWatcher( 'verification', ( newValue, unwatch ) => {
+        // TODO Проверить что навешивание ватчера нормально работает
+        this.dialog$.addWatcher( 'verification', ( { unwatch } ) => {
           this.buttonDisabled = false
           unwatch()
         } )
-      } else if ( response.data.errors[ 0 ].message === 'Incorrect phone number' ) {
-        this.toast$.warn( { summary: 'Registration error', detail: 'Invalid phone number entered' } )
-      } else if ( response.data.errors[ 0 ]?.code === 'invalid' ) {
-        this.toast$.warn( { summary: 'Registration error', detail: 'The inputted phone or email is already occupied' } )
+      } else if ( response.response.status === 400 ) {
+      } else {
+        throw new NetworkAttemptError( response )
       }
     }
   },
@@ -155,7 +161,7 @@ export default {
           sameAs: sameAs( this.regData.password )
         },
         phoneNumber: {
-          phoneLength: val => onlyDigits( val ).length === 11
+          phoneLength: val => getOnlyDigits( val ).length === 11
         }
       },
       consent: {

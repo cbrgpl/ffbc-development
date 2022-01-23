@@ -61,7 +61,6 @@ export default {
 </script>
 
 <style lang="scss">
-
 .static-sidebar-mobile__center-button {
   @apply w-20 h-20 bg-primary-darkest rounded-full flex cursor-pointer;
 }

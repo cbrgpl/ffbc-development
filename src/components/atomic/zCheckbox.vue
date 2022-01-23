@@ -9,7 +9,7 @@
       v-bind="attrs"
       type="checkbox" >
     <div
-      :class="['z-checkbox__fiction', ...checkboxSize]"
+      class="z-checkbox__fiction w-6 h-6"
       :data-error-state="errorState" >
     </div>
     <h5 class="z-checkbox__label" >
@@ -33,10 +33,6 @@ export default {
       type: String,
       default: ''
     },
-    size: {
-      type: [ Number, String ],
-      default: 6
-    },
     errorState: {
       type: Boolean,
       default: false,
@@ -44,14 +40,6 @@ export default {
     onError: {
       type: String,
       default: '',
-    }
-  },
-  computed: {
-    checkboxSize () {
-      return [
-        `w-${ this.size }`,
-        `h-${ this.size }`
-      ]
     }
   },
 }
@@ -62,7 +50,7 @@ export default {
   @apply absolute opacity-0 z-0;
 
   &:checked {
-    & + .z-checkbox__fiction {
+    + .z-checkbox__fiction {
       &::after {
         @apply opacity-100;
       }
@@ -82,9 +70,9 @@ export default {
   }
 
   &::after {
-    content: '';
-
-    @apply block w-full h-full border-b-4 border-l-4 border-white rounded-bl-sm transform skew-y-6 -rotate-45 -translate-y-px opacity-0 transition-opacity;
+    @apply block w-full h-full border-b-4 border-l-4 border-white rounded-bl-sm
+      transform skew-y-6 -rotate-45 -translate-y-px opacity-0 transition-opacity;
+    content: "";
   }
 }
 

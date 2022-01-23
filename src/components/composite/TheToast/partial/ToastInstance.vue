@@ -113,7 +113,8 @@ export default {
 
 <style lang="scss" scoped>
 .toast {
-  @apply flex flex-col bg-black w-full border-2 border-b-0 border-solid border-white border-opacity-20 rounded-md overflow-hidden pointer-events-auto select-none cursor-pointer;
+  @apply flex flex-col bg-black w-full border-2 border-b-0 border-solid border-white border-opacity-20
+    rounded-md overflow-hidden pointer-events-auto select-none cursor-pointer;
 
   &--info {
     @apply text-primary-lightest;

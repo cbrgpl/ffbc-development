@@ -1,5 +1,6 @@
 export default {
   namespaced: true,
+  clearable: true,
   state: {
     isAuth: null,
   },
@@ -11,6 +12,9 @@ export default {
   mutations: {
     setIsAuth ( state, payload ) {
       state.isAuth = payload
+    },
+    clearModule ( state ) {
+      state.isAuth = null
     }
   },
 }

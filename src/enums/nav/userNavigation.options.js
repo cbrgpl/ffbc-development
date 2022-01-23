@@ -1,21 +1,16 @@
 export default [
   {
-    name: 'Home',
+    name: 'HomeMain',
     label: 'To home',
     iconName: 'fitness'
   },
   {
-    name: 'Settings',
+    name: 'HomeSettings',
     label: 'To Settings',
     iconName: 'settings'
   },
   {
-    name: 'Purchase',
-    label: 'To the purchases',
-    iconName: 'event'
-  },
-  {
-    name: 'Services',
+    name: 'HomeServices',
     label: 'To buyed services',
     iconName: 'gallery'
   },

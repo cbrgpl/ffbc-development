@@ -18,12 +18,12 @@
 
       <template #button >
 
-        <zButtonLoader
+        <zLoaderButton
           class="w-full py-4 md:w-48 self-start"
           type="submit"
           :loader="formLoader" >
           Send mail
-        </zButtonLoader>
+        </zLoaderButton>
 
       </template>
     </zForm>
@@ -31,9 +31,13 @@
 </template>
 <script>
 import zDialog from '@components/composite/zDialog/zDialog.vue'
+
 import useVuelidate from '@vuelidate/core'
 import { email, required } from '@validators'
+
 import { authService } from '@services'
+import { STATUS_WORDS } from 'consts'
+
 export default {
   name: 'TheResetPasswordDialog',
   data () {
@@ -53,7 +57,9 @@ export default {
   },
   methods: {
     async sendCode ( status ) {
-      if ( status === 'INVALID' ) return
+      if ( status === STATUS_WORDS.ERROR ) {
+        return
+      }
 
       this.formLoader = true
       const requestResponse = await authService.requestResetPassword( {

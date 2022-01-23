@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Preview from '@views/Preview.vue'
-import { verifyEmail, checkRoles } from './helpers/index'
+import { verifyEmail, rolesGuard, authGuard } from './helpers/index'
 
 const routes = [
   // General
@@ -9,7 +9,7 @@ const routes = [
     component: Preview,
     name: 'Preview',
     meta: {
-      layout: 'main'
+      layout: 'main',
     }
   },
   {
@@ -17,7 +17,7 @@ const routes = [
     component: () => import( '@views/Main.vue' ),
     name: 'Main',
     meta: {
-      layout: 'main'
+      layout: 'main',
     }
   },
   {
@@ -25,7 +25,8 @@ const routes = [
     component: () => import( '@views/Main.vue' ),
     name: 'Sponsors',
     meta: {
-      layout: 'main'
+      layout: 'main',
+      roles: [ 'qwe' ]
     }
   },
   {
@@ -33,7 +34,8 @@ const routes = [
     component: () => import( '@views/Main.vue' ),
     name: 'Shows',
     meta: {
-      layout: 'main'
+      layout: 'main',
+      auth: false
     }
   },
   {
@@ -41,7 +43,7 @@ const routes = [
     component: () => import( '@views/Main.vue' ),
     name: 'Developers',
     meta: {
-      layout: 'main'
+      layout: 'main',
     }
   },
   {
@@ -49,49 +51,58 @@ const routes = [
     component: () => import( '@views/Main.vue' ),
     name: 'Gallery',
     meta: {
-      layout: 'main'
+      layout: 'main',
     }
   },
-  {
+  { // * РОУТ ДЛЯ МАГАЗИНА КОТОРЫЙ БУДЕТ ОЧЕНЬ НЕ СКОРО PS Врунишка...
     path: '/shop',
     component: () => import( '@views/Main.vue' ),
     name: 'Shop',
     meta: {
-      layout: 'main'
+      layout: 'main',
     }
   },
   // USER
   {
     path: '/home',
-    component: () => import( '@views/Main.vue' ),
+    component: () => import( '@layouts/HomeLayout/HomeLayout.vue' ),
     name: 'Home',
+    redirect: { name: 'HomeMain' },
     meta: {
-      layout: 'main'
-    }
-  },
-  {
-    path: '/settings',
-    component: () => import( '@views/Main.vue' ),
-    name: 'Settings',
-    meta: {
-      layout: 'main'
-    }
-  },
-  {
-    path: '/purchase',
-    component: () => import( '@views/Main.vue' ),
-    name: 'Purchase',
-    meta: {
-      layout: 'main'
-    }
-  },
-  {
-    path: '/services',
-    component: () => import( '@views/Main.vue' ),
-    name: 'Services',
-    meta: {
-      layout: 'main'
-    }
+      layout: 'main',
+      auth: true,
+      hiddenElems: [ 'TheStaticSidebar', 'TheStaticSidebarMobile' ]
+    },
+    props: {
+      hiddenElems: [],
+    },
+    children: [
+      {
+        path: 'main',
+        component: () => import( '@/views/HomeMain/HomeMain.vue' ),
+        name: 'HomeMain',
+      },
+      {
+        path: 'update-data',
+        component: () => import( '@/views/HomeUpdateData/HomeUpdateData.vue' ),
+        name: 'HomeUpdateData',
+      },
+      {
+        path: 'competetions-history',
+        component: () => import( '@/views/HomeMain/HomeMain.vue' ),
+        name: 'HomeCompetitionsHistory',
+      },
+      {
+        path: 'services',
+        component: () => import( '@/views/HomeMain/HomeMain.vue' ),
+        name: 'HomeServices',
+      },
+      {
+        path: 'settings',
+        component: () => import( '@/views/HomeMain/HomeMain.vue' ),
+        name: 'HomeSettings',
+      },
+    ]
   },
   {
     path: '/verificate',
@@ -101,23 +112,23 @@ const routes = [
   {
     path: '/reset-password',
     component: () => import( '@layouts/EmptyLayout/EmptyLayout.vue' ),
+    // TODO Лучше убрать этот костыль. На уровне роута проверять значения квери параметров, если они невалидные - редирект; пытаться сделать запрос, запрос неверный - ридерект
     beforeEnter ( to, from, next ) {
       if ( localStorage.getItem( 'var_passwordResetRequested' ) === 'true' ) {
         next()
-        return
+      } else {
+        next( { name: 'Main' } )
       }
-
-      next( { name: 'Main' } )
     }
   }
 ]
 
-// TODO need to make permissions system
 const router = createRouter( {
   history: createWebHistory( process.env.BASE_URL ),
   routes
 } )
 
-router.beforeEach( checkRoles )
+router.beforeEach( authGuard )
+router.beforeEach( rolesGuard )
 
 export default router

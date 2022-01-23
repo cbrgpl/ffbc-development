@@ -1,45 +1,45 @@
 <template >
   <component
-    v-for="name of shownDialogue"
+    v-for="name of shownDialogs"
     :key="name"
     :is="getComponentName(name)"
-    v-model:visible="dialogue[name].visible"
-    :modal="dialogue[name].modal" >
+    v-model:visible="dialogs[name].visible"
+    :modal="dialogs[name].modal" >
   </component>
 </template>
 
 <script>
 import { defineAsyncComponent } from 'vue'
+import { stringUtils } from '@js_utils'
 
 export default {
   name: 'DialogLayout',
   inheritAttrs: false,
   data () {
     return {
-      dialogue: this.dialog$._dialogue
+      dialogs: this.dialog$.getDialogs()
     }
   },
   created () {
     this.registerComponents()
   },
   computed: {
-    shownDialogue () {
-      return Object.keys( this.dialogue ).filter( ( name ) => this.dialogue[ name ].visible )
+    shownDialogs () {
+      return Object.keys( this.dialogs ).filter( ( name ) => this.dialogs[ name ].visible )
     }
   },
   methods: {
     registerComponents () {
-      for ( const component of Object.keys( this.$options.components ) ) {
-        this.dialog$.register( this.getDialogName( component ) )
+      for ( const componentName of Object.keys( this.$options.components ) ) {
+        this.dialog$.register( this.getDialogName( componentName ) )
       }
     },
-    getDialogName ( tag ) {
-      const dialogName = tag.replace( 'The', '' ).replace( 'Dialog', '' )
-
+    getDialogName ( componentName ) {
+      const dialogName = componentName.replace( 'The', '' ).replace( 'Dialog', '' )
       return dialogName[ 0 ].toLowerCase() + dialogName.slice( 1 )
     },
     getComponentName ( dialog ) {
-      return 'The' + dialog.capitalize() + 'Dialog'
+      return 'The' + stringUtils.capitalize( dialog ) + 'Dialog'
     },
   },
   components: {

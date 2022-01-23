@@ -1,26 +1,29 @@
 <template >
   <label
-    class="block relative mb-5"
+    class="block"
     v-bind="styles" >
-    <!-- TODO Создать отдельный инпут Password с кнопочкой для переделывания пароля в текст -->
-    <input
-      placeholder=" "
-      class="z-input"
-      :value="modelValue"
-      @input="$emit( 'update:modelValue', $event.target.value )"
-      v-mask="mask"
-      type="text"
-      :data-error-state="errorState"
-      v-bind="attrs" >
+    <div :class="['relative', ...inputWrapperMargin] " >
+      <input
+        placeholder=" "
+        class="z-input"
+        :value="modelValue"
+        @input="$emit( 'update:modelValue', $event.target.value )"
+        v-mask="mask"
+        type="text"
+        :data-error-state="errorState"
+        v-bind="attrs" >
 
-    <h5 class="z-input__label" >
-      <zIconBrand
-        v-if="icon"
-        class="mr-2"
-        width="25"
-        height="25" />
-      {{ label }}
-    </h5>
+      <h5
+        :ref="setLabelBackground"
+        class="z-input__label" >
+        <zIconBrand
+          v-if="icon"
+          class="mr-2"
+          width="25"
+          height="25" />
+        {{ label }}
+      </h5>
+    </div>
 
     <small
       v-show="errorState"
@@ -35,13 +38,16 @@ import { defineAsyncComponent } from 'vue'
 import { mask } from '@directives/index.js'
 import extenderMixin from '@mixins/extender.mixin.js'
 
+import DomHandler from '@classes/DomHandler.class'
+
 export default {
   name: 'zInput',
   emits: [ 'update:modelValue' ],
   mixins: [ extenderMixin ],
+  inheritAttrs: false,
   props: {
     modelValue: {
-      type: String,
+      type: [ String, Number ],
       default: '',
     },
     label: {
@@ -63,6 +69,30 @@ export default {
     icon: {
       type: Boolean,
       default: false,
+    },
+  },
+  computed: {
+    inputWrapperMargin () {
+      return this.errorState ? 'mb-1.5' : ''
+    }
+  },
+  methods: {
+    setLabelBackground ( $label ) {
+      if ( !$label ) {
+        return
+      }
+
+      setTimeout( () => {
+        const defaultBackgroundColor = 'rgba(0, 0, 0, 0)'
+
+        const backgroundedParentsList = DomHandler.getParents( $label, ( $node ) => {
+          return window.getComputedStyle( $node ).backgroundColor !== defaultBackgroundColor
+        } )
+
+        const $closestBackgroundedParent = backgroundedParentsList.shift()
+
+        $label.style.backgroundColor = window.getComputedStyle( $closestBackgroundedParent ).backgroundColor
+      }, 0 )
     }
   },
   directives: {
@@ -76,7 +106,8 @@ export default {
 
 <style lang="scss" scoped>
 .z-input {
-  @apply bg-transparent border-2  border-primary-lighten border-solid  text-white rounded-md cursor-pointer pl-4 py-3 pr-2 w-full;
+  @apply bg-transparent border-2  border-primary-lighten border-solid
+    text-white rounded-md cursor-pointer pl-4 py-3 pr-2 w-full;
 
   &:hover + .z-input__label {
     @apply text-primary-darken text-opacity-60;
@@ -85,7 +116,7 @@ export default {
   &:focus {
     @apply ring-4 ring-primary ring-opacity-20;
 
-    & + .z-input__label {
+    + .z-input__label {
       @apply text-primary;
     }
   }
@@ -100,10 +131,11 @@ export default {
 }
 
 .z-input__label {
-  @apply flex items-center text-placeholder bg-black-lighten cursor-pointer select-none leading-5 absolute transform left-4 top-0 -translate-y-2/4 px-1 transition-all;
+  @apply flex items-center text-placeholder bg-black-lighten cursor-pointer select-none leading-5
+    absolute transform left-4 top-0 -translate-y-2/4 px-1 transition-all;
 }
 
 .z-input__error {
-  @apply text-danger text-sm absolute top-full left-0 transform translate-y-0.5;
+  @apply text-danger text-sm;
 }
 </style>

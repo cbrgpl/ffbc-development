@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import { STATUS_WORDS } from 'consts'
+
 export default {
   name: 'zForm',
   emits: [ 'validate' ],
@@ -39,14 +41,6 @@ export default {
     onFormError: {
       type: String,
       default: '',
-    }
-  },
-  data () {
-    return {
-      statuses: {
-        valid: 'VALID',
-        invalid: 'INVALID'
-      }
     }
   },
   computed: {
@@ -71,8 +65,8 @@ export default {
       this.vuelidateObject.$touch()
 
       if ( this.vuelidateObject.$invalid ) {
-        this.$emit( 'validate', this.statuses.invalid )
-      } else this.$emit( 'validate', this.statuses.valid )
+        this.$emit( 'validate', STATUS_WORDS.ERROR )
+      } else this.$emit( 'validate', STATUS_WORDS.SUCCESS )
     },
     controlFocus ( event ) {
       if ( !this.enterable ) {

@@ -1,4 +1,4 @@
-import CONST from '#CONST'
+import { STATUS_WORDS } from '@/enums/consts'
 import CamelKebabTranslator from '@/services/helpers/camelCaseKebabTranslator'
 import ResponseHandler from '@/services/helpers/responseHandler'
 import endpoints from '@services/endpoints'
@@ -6,6 +6,13 @@ import endpoints from '@services/endpoints'
 const responseHandler = new ResponseHandler()
 
 export default class BaseService {
+  static generateReqData ( fields, externalData ) {
+    return fields.reduce( ( accum, field ) => {
+      accum[ field ] = externalData[ field ]
+      return accum
+    }, {} )
+  }
+
   constructor ( endpointName ) {
     this._endpoint = endpointName
 
@@ -33,7 +40,7 @@ export default class BaseService {
 
     const response = await fetch( url, fetchOptions )
 
-    if ( await responseHandler.reactToStatus( response ) === CONST.STATUS_WORDS.SUCCESS ) {
+    if ( await responseHandler.reactToStatus( response ) === STATUS_WORDS.SUCCESS ) {
       return responseHandler.handleResponse( response, expectType )
     } else {
       const response = await fetch( url, fetchOptions )
@@ -43,7 +50,7 @@ export default class BaseService {
   }
 
   _prepareBody ( options ) {
-    if ( options.body ) {
+    if ( options.headers[ 'Content-Type' ] === 'application/json' && options.body ) {
       options.body = CamelKebabTranslator.camelKebabObj( options.body )
       options.body = JSON.stringify( options.body )
     }

@@ -1,9 +1,9 @@
 import DomHandler from './DomHandler.class'
-import ObserverableController from './observerableController.class'
-import ParallaxController from './parallaxController.class'
+import EffectObserver from './effectObserver'
+import ParallaxAnimator from './parallaxAnimator.class'
 
 export {
   DomHandler,
-  ObserverableController,
-  ParallaxController
+  EffectObserver,
+  ParallaxAnimator
 }

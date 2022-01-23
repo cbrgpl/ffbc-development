@@ -43,6 +43,7 @@ import zIconBase from '@components/composite/zIconBase.vue'
 import { mapGetters } from 'vuex'
 
 export default {
+  name: 'TheStaticSidebar',
   data () {
     return {
       siteNav: siteNavOptions,
@@ -66,9 +67,9 @@ export default {
   @apply flex relative text-white hover:text-secondary-lighten transition-colors;
 
   &::before {
-    content: '';
-
-    @apply block w-1 h-full absolute left-0 top-0 transform-gpu scale-x-0 origin-left transition-transform duration-200 ease-in-out bg-current;
+    @apply block w-1 h-full absolute left-0 top-0 transform-gpu scale-x-0 origin-left
+      transition-transform duration-200 ease-in-out bg-current;
+    content: "";
   }
 
   &--selected {
