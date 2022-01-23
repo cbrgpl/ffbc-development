@@ -99,6 +99,7 @@ export default {
       this.dialog$.show( 'resetPassword' )
     },
     async login ( status ) {
+      console.log( this.v$ )
       if ( status === STATUS_WORDS.ERROR ) {
         return
       }

@@ -152,7 +152,7 @@ export default class DomHandler {
     if ( element === null || !callback ) {
       return accumulator
     }
-    let currentElement = element
+    let currentElement = element.parentNode
 
     do {
       if ( callback( currentElement ) ) {

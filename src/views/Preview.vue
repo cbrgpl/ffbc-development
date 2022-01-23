@@ -1,16 +1,5 @@
 <template >
   <div class="relative" >
-    <zButton @click="info" >
-      info
-    </zButton>
-
-    <zButton @click="error" >
-      error
-    </zButton>
-
-    <zButton @click="success" >
-      success
-    </zButton>
 
     <zButton @click="warning" >
       warning
@@ -20,16 +9,13 @@
       warning
     </zButton>
 
-    <zLoader
-      title
-      background
-      size="42" ></zLoader>
-
     <zLoaderButton
       class="px-6 py-3.5 mt-3"
       :loader="true" >
       Dimochka
     </zLoaderButton>
+
+    <zValidationInput :validations="['Email is required', 'Use email valid format', 'validate3 was not passed']" />
 
   </div>
 </template>
@@ -38,9 +24,12 @@
 import observer from '@directives/observer.directive.js'
 
 import zButton from '@/components/atomic/zButton.vue'
-import zDialog from '@/components/composite/zDialog/zDialog.vue'
+
+import zTooltipInput from '@/components/composite/zTooltipInput/zTooltipInput.vue'
+import zValidationInput from '@/components/composite/zValidationInput/zValidationInput.vue'
 
 import NetworkAttemptErorr from '@errors/networkAttemptError'
+import passwordRequirements from '@enums/info/passwordRequirements'
 
 export default {
   directives: {
@@ -48,7 +37,8 @@ export default {
   },
   data () {
     return {
-      visible: false
+      visible: false,
+      passwordRequirements,
     }
   },
   methods: {
@@ -67,8 +57,9 @@ export default {
     },
   },
   components: {
-    zDialog,
-    zButton
+    zButton,
+    zTooltipInput,
+    zValidationInput
   },
 }
 </script>

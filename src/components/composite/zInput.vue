@@ -1,26 +1,29 @@
 <template >
   <label
-    class="block relative mb-5"
+    class="block"
     v-bind="styles" >
-    <!-- TODO Создать отдельный инпут Password с кнопочкой для переделывания пароля в текст -->
-    <input
-      placeholder=" "
-      class="z-input"
-      :value="modelValue"
-      @input="$emit( 'update:modelValue', $event.target.value )"
-      v-mask="mask"
-      type="text"
-      :data-error-state="errorState"
-      v-bind="attrs" >
+    <div :class="['relative', ...inputWrapperMargin] " >
+      <input
+        placeholder=" "
+        class="z-input"
+        :value="modelValue"
+        @input="$emit( 'update:modelValue', $event.target.value )"
+        v-mask="mask"
+        type="text"
+        :data-error-state="errorState"
+        v-bind="attrs" >
 
-    <h5 class="z-input__label" >
-      <zIconBrand
-        v-if="icon"
-        class="mr-2"
-        width="25"
-        height="25" />
-      {{ label }}
-    </h5>
+      <h5
+        :ref="setLabelBackground"
+        class="z-input__label" >
+        <zIconBrand
+          v-if="icon"
+          class="mr-2"
+          width="25"
+          height="25" />
+        {{ label }}
+      </h5>
+    </div>
 
     <small
       v-show="errorState"
@@ -35,10 +38,13 @@ import { defineAsyncComponent } from 'vue'
 import { mask } from '@directives/index.js'
 import extenderMixin from '@mixins/extender.mixin.js'
 
+import DomHandler from '@classes/DomHandler.class'
+
 export default {
   name: 'zInput',
   emits: [ 'update:modelValue' ],
   mixins: [ extenderMixin ],
+  inheritAttrs: false,
   props: {
     modelValue: {
       type: [ String, Number ],
@@ -64,6 +70,30 @@ export default {
       type: Boolean,
       default: false,
     },
+  },
+  computed: {
+    inputWrapperMargin () {
+      return this.errorState ? 'mb-1.5' : ''
+    }
+  },
+  methods: {
+    setLabelBackground ( $label ) {
+      if ( !$label ) {
+        return
+      }
+
+      setTimeout( () => {
+        const defaultBackgroundColor = 'rgba(0, 0, 0, 0)'
+
+        const backgroundedParentsList = DomHandler.getParents( $label, ( $node ) => {
+          return window.getComputedStyle( $node ).backgroundColor !== defaultBackgroundColor
+        } )
+
+        const $closestBackgroundedParent = backgroundedParentsList.shift()
+
+        $label.style.backgroundColor = window.getComputedStyle( $closestBackgroundedParent ).backgroundColor
+      }, 0 )
+    }
   },
   directives: {
     mask
@@ -106,6 +136,6 @@ export default {
 }
 
 .z-input__error {
-  @apply text-danger text-sm absolute top-full left-0 transform translate-y-0.5;
+  @apply text-danger text-sm;
 }
 </style>
