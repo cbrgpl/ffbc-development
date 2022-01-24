@@ -2,8 +2,6 @@
   <svg
     class="inline-block align-middle"
     xmlns="http://www.w3.org/2000/svg"
-    :width="width"
-    :height="height"
     :viewBox="viewBox"
     :aria-labelledby="iconName"
     role="presentation" >
@@ -53,6 +51,7 @@ import IconMessage from '@icons/IconMessage.vue'
 import IconMicrowave from '@/components/icons/IconMicrowave.vue'
 import IconSuccess from '@icons/IconSuccess.vue'
 import IconFileUpload from '@icons/IconFileUpload.vue'
+import IconCart from '@icons/IconCart.vue'
 
 import { stringUtils } from '@js_utils'
 
@@ -73,24 +72,15 @@ export default {
       type: String,
       default: '',
     },
-    isTitle: {
-      type: Boolean,
-      default: false,
-    },
-    width: {
-      type: [ Number, String ],
-      default: 18
-    },
-    height: {
-      type: [ Number, String ],
-      default: 18
-    },
     iconColor: {
       type: String,
       default: 'currentColor'
     }
   },
   computed: {
+    isTitle () {
+      return this.title !== ''
+    },
     iconComponentName () {
       return 'Icon' + stringUtils.capitalize( this.iconName )
     },
@@ -128,7 +118,8 @@ export default {
     IconStorefront,
     IconMessage,
     IconMicrowave,
-    IconSuccess
+    IconSuccess,
+    IconCart
   },
 }
 </script>

@@ -124,11 +124,9 @@ export default {
 }
 
 .z-tabs-menu__indicator {
-  --tw-translate-x: var(--indicator-shift);
-
-  @apply absolute transform ease-out bottom-0 w-5 h-0.5 rounded-lg bg-current;
-
+  @apply absolute ease-in-out bottom-0 w-5 h-0.5 rounded-lg bg-current;
   width: var(--indicator-width);
+  transform: translateX(var(--indicator-shift));
 }
 
 </style>

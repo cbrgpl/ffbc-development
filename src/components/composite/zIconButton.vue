@@ -1,8 +1,8 @@
 <template >
-  <zButton class="flex items-center min-w-min" >
+  <zButton class="flex items-center min-w-mi" >
     <zIconBrand
       :icon-name="iconName"
-      :class="shrinkIconClasses"
+      :class="['mr-2',...shrinkIconClasses]"
       :width="iconSize"
       :height="iconSize" ></zIconBrand>
     <div >
@@ -38,9 +38,8 @@ export default {
   computed: {
     shrinkIconClasses () {
       return [
-        'mr-2',
         this.shrink ? 'hidden' : '',
-        this.shrink ? this.getResponsiveClass( 'block' ) : '',
+        this.shrink ? this.getResponsiveClass( 'inline-block' ) : '',
       ]
     },
   },
