@@ -14,9 +14,6 @@
       :loader="true" >
       Dimochka
     </zLoaderButton>
-
-    <zValidationInput :validations="['Email is required', 'Use email valid format', 'validate3 was not passed']" />
-
   </div>
 </template>
 

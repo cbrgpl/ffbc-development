@@ -3,7 +3,6 @@ import Preview from '@views/Preview.vue'
 import { verifyEmail, rolesGuard, authGuard } from './helpers/index'
 
 const routes = [
-  // General
   {
     path: '/',
     component: Preview,
@@ -17,7 +16,7 @@ const routes = [
     component: () => import( '@views/Main.vue' ),
     name: 'Main',
     meta: {
-      layout: 'main',
+      layout: 'shop',
     }
   },
   {
@@ -54,15 +53,32 @@ const routes = [
       layout: 'main',
     }
   },
-  { // * РОУТ ДЛЯ МАГАЗИНА КОТОРЫЙ БУДЕТ ОЧЕНЬ НЕ СКОРО PS Врунишка...
+  {
     path: '/shop',
     component: () => import( '@views/Main.vue' ),
     name: 'Shop',
+    redirect: { name: 'ShopMain' },
     meta: {
-      layout: 'main',
-    }
+      layout: 'shop',
+    },
+    children: [
+      {
+        path: 'main',
+        component: () => import( '@/views/HomeMain/HomeMain.vue' ),
+        name: 'ShopMain',
+      },
+      {
+        path: 'home',
+        component: () => import( '@/views/HomeMain/HomeMain.vue' ),
+        name: 'ShopHome',
+      },
+      {
+        path: 'good/:sectionCode',
+        component: () => import( '@/views/Shop/GoodCatalog.vue' ),
+        name: 'ShopGoodCatalog',
+      }
+    ]
   },
-  // USER
   {
     path: '/home',
     component: () => import( '@layouts/HomeLayout/HomeLayout.vue' ),

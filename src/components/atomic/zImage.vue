@@ -36,7 +36,7 @@ export default {
 
       event.target.dispatchEvent( viewImageEvent )
     },
-    emitCustomLoad () {
+    emitCustomLoad ( event ) {
       const imageLoadEvent = new CustomEvent( 'resource-load', {
         bubbles: true,
         cancelable: true,

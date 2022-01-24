@@ -1,4 +1,5 @@
 export default [
+  'cart',
   'catchingPokemon',
   'cleaningService',
   'close',
