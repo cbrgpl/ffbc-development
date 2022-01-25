@@ -112,7 +112,7 @@ export default {
   --indicator-shift: 0;
   --indicator-width: 0;
 
-  @apply flex items-center justify-between relative font-semibold pb-0.5 overflow-x-hidden;
+  @apply flex items-center justify-between relative font-semibold pb-0.5;
 }
 
 .z-tabs-menu__tab {
@@ -124,7 +124,7 @@ export default {
 }
 
 .z-tabs-menu__indicator {
-  @apply absolute ease-in-out bottom-0 w-5 h-0.5 rounded-lg bg-current;
+  @apply absolute ease-in-out -bottom-1 w-5 h-0.5 rounded-lg bg-current;
   width: var(--indicator-width);
   transform: translateX(var(--indicator-shift));
 }

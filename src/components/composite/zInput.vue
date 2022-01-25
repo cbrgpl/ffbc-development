@@ -2,7 +2,7 @@
   <label
     class="block"
     v-bind="styles" >
-    <div :class="['relative', ...inputWrapperMargin] " >
+    <div :class="['relative'] " >
       <input
         placeholder=" "
         class="z-input"
@@ -27,7 +27,7 @@
 
     <small
       v-show="errorState"
-      class="z-input__error" >
+      class="inline-block text-danger text-sm mt-2.5" >
       {{ onError }}
     </small>
   </label>
@@ -70,11 +70,6 @@ export default {
       type: Boolean,
       default: false,
     },
-  },
-  computed: {
-    inputWrapperMargin () {
-      return this.errorState ? 'mb-1.5' : ''
-    }
   },
   methods: {
     setLabelBackground ( $label ) {
@@ -135,7 +130,4 @@ export default {
     absolute transform left-4 top-0 -translate-y-2/4 px-1 transition-all;
 }
 
-.z-input__error {
-  @apply text-danger text-sm;
-}
 </style>

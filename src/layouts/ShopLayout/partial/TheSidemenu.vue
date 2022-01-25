@@ -20,11 +20,11 @@
     </h2>
 
     <SidemenuNavigationList :navigation-options="goodSections" >
-      <template v-slot:default="{ value: sectionName, key: sectionCode  }" >
+      <template v-slot:default="{ value: sectionName, key: productType  }" >
         <router-link
           exact-active-class="text-primary"
           class="sidemenu-list-link"
-          :to="{name: 'ShopGoodCatalog', params: {sectionCode} }" >
+          :to="{name: 'ShopProductCatalog', params: {productType} }" >
           {{ sectionName }}
         </router-link>
       </template>

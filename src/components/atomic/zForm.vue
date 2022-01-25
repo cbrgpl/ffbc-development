@@ -13,7 +13,7 @@
       </small>
     </div>
 
-    <slot name="button" >
+    <slot name="actions" >
 
     </slot>
   </form>
