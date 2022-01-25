@@ -16,7 +16,7 @@
         :error-state="v$.email.$error"
         on-error="Incorrect email format" />
 
-      <template #button >
+      <template #actions >
 
         <zLoaderButton
           class="w-full py-4 md:w-48 self-start"

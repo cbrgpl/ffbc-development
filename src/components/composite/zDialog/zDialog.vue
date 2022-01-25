@@ -17,7 +17,7 @@
           v-if="dialogVisible"
           role='dialog'
           @click.stop
-          :class="['dialog__window', {'border border-white border-opacity-20 border-solid': !modal}]"
+          :class="['dialog__window px-4 py-5', {'border border-white border-opacity-20 border-solid': !modal}]"
           v-bind="$attrs" >
 
           <div class="relative w-full h-full" >
@@ -112,7 +112,7 @@ export default {
 <style lang="scss" scoped>
 .dialog__window {
   @apply fixed right-2/4 bottom-2/4 transform translate-x-2/4 translate-y-2/4 m-auto pointer-events-auto
-    bg-black-lighten text-white rounded-xl px-4 py-5;
+    bg-black-lighten text-white rounded-xl;
 }
 
 .dialog-appear {

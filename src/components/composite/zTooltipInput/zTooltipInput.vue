@@ -42,12 +42,14 @@ export default {
 <style lang="scss" scoped>
 .password-tooltip {
   opacity: 0;
+  pointer-events: none;
 
   transition: all 450ms;
   transform: translateY(20px);
 
   &_visible {
     opacity: 1;
+    pointer-events: all;
     transform: translateY(5px);
   }
 }

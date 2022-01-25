@@ -46,9 +46,9 @@
           class="mb-8"
           :error-state="v$.consent.$error"
           v-model="consent"
-          label="Consent to the processing of personal data" ></zCheckboxSingle>
+          label="Consent to the processing of personal data" />
 
-        <template #button >
+        <template #actions >
           <div class="w-full flex justify-center lg:justify-start" >
             <zLoaderButton
               class="w-full py-4 md:w-56 lg:w-44"

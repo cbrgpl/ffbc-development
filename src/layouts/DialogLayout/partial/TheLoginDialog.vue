@@ -28,7 +28,7 @@
           :error-state="v$.logData.password.$error"
           on-error="Password is required" />
 
-        <template #button >
+        <template #actions >
 
           <div class="flex flex-col justify-center lg:justify-start mt-10" >
 

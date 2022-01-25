@@ -73,9 +73,9 @@ const routes = [
         name: 'ShopHome',
       },
       {
-        path: 'good/:sectionCode',
+        path: 'products/:productType',
         component: () => import( '@/views/Shop/GoodCatalog.vue' ),
-        name: 'ShopGoodCatalog',
+        name: 'ShopProductCatalog',
       }
     ]
   },
