@@ -20,6 +20,7 @@ import zCheckboxSingle from '@components/composite/zCheckboxSingle.vue'
 import zIconBase from '@components/composite/zIconBase.vue'
 import zInput from '@components/composite/zInput.vue'
 import zTooltipInput from '@components/composite/zTooltipInput/zTooltipInput.vue'
+import zMedia from '@components/composite/zMedia.vue'
 
 // directives
 import autofocus from '@directives/autofucs.directive.js'
@@ -53,7 +54,8 @@ const customFunctional = {
       zDivider,
       zInputFile,
       zActionButton,
-      zTooltipInput
+      zTooltipInput,
+      zMedia
     }
   },
   directives: {
