@@ -54,19 +54,12 @@ export default {
 <style lang="scss" scoped>
 .z-image__wrapper {
   position: relative;
-  cursor: pointer;
 }
 
 .z-image__image {
   object-fit: cover;
   width: 100%;
   height: 100%;
-
-  transition: filter 350ms ease-in 45ms;
-
-  &:hover {
-    filter: brightness(0.75);
-  }
 }
 
 .z-image__actions {

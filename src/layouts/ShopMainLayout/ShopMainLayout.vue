@@ -20,7 +20,7 @@ import TheSidemenu from './partial/TheSidemenu.vue'
 import { baseLayoutMix } from '@mixins'
 
 export default {
-  name: 'shop-layout',
+  name: 'shop-main-layout',
   mixins: [ baseLayoutMix ],
   data () {
     return {

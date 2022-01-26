@@ -1,16 +1,13 @@
 <template >
-  <div >
-
-  </div>
+  <div ></div>
 </template>
 
 <script>
 export default {
-  name: 'GoodCatalog',
-
+  name: 'zVideo'
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 
 </style>

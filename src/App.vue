@@ -16,7 +16,7 @@
 import MainLayout from '@layouts/MainLayout/MainLayout.vue'
 import EmptyLayout from '@layouts/EmptyLayout/EmptyLayout.vue'
 import DialogLayout from '@layouts/DialogLayout/DialogLayout.vue'
-import ShopLayout from '@layouts/ShopLayout/ShopLayout.vue'
+import ShopMainLayout from '@layouts/ShopMainLayout/ShopMainLayout.vue'
 
 import TheToast from '@components/composite/TheToast/TheToast.vue'
 
@@ -78,7 +78,7 @@ export default {
     MainLayout,
     EmptyLayout,
     DialogLayout,
-    ShopLayout,
+    ShopMainLayout,
     TheToast,
   },
 }

@@ -1,10 +1,14 @@
 <template >
-  <zButton class="flex items-center min-w-mi" >
-    <zIconBrand
+  <zButton class="flex items-center justify-center min-w-mi" >
+    <zIconBase
       :icon-name="iconName"
-      :class="['mr-2',...shrinkIconClasses]"
+      :class="[...responsiveVisibility]"
+      :title="iconTitle"
       :width="iconSize"
-      :height="iconSize" ></zIconBrand>
+      :height="iconSize" ></zIconBase>
+    <span
+      v-if="defaultSlotFill"
+      :class="['mr-2', ...responsiveVisibility]" ></span>
     <div >
       <slot />
     </div>
@@ -28,7 +32,11 @@ export default {
     },
     iconName: {
       type: String,
-      default: 'fitness',
+      required: true,
+    },
+    iconTitle: {
+      type: String,
+      default: ''
     },
     iconSize: {
       type: Number,
@@ -36,12 +44,15 @@ export default {
     }
   },
   computed: {
-    shrinkIconClasses () {
+    responsiveVisibility () {
       return [
         this.shrink ? 'hidden' : '',
         this.shrink ? this.getResponsiveClass( 'inline-block' ) : '',
       ]
     },
+    defaultSlotFill () {
+      return !!this.$slots.default
+    }
   },
   methods: {
     getResponsiveClass ( defaultClass ) {

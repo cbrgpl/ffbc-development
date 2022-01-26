@@ -16,7 +16,7 @@ const routes = [
     component: () => import( '@views/Main.vue' ),
     name: 'Main',
     meta: {
-      layout: 'shop',
+      layout: 'main',
     }
   },
   {
@@ -55,11 +55,11 @@ const routes = [
   },
   {
     path: '/shop',
-    component: () => import( '@views/Main.vue' ),
+    component: () => import( '@layouts/EmptyLayout/EmptyLayout.vue' ),
     name: 'Shop',
     redirect: { name: 'ShopMain' },
     meta: {
-      layout: 'shop',
+      layout: 'shop-main'
     },
     children: [
       {
@@ -74,7 +74,7 @@ const routes = [
       },
       {
         path: 'products/:productType',
-        component: () => import( '@/views/Shop/GoodCatalog.vue' ),
+        component: () => import( '@/views/Shop/ProductCatalog.vue' ),
         name: 'ShopProductCatalog',
       }
     ]
