@@ -1,28 +1,13 @@
 <template >
   <div class="flex flex-col bg-black-lighten border-placeholder border-opacity-75 border-solid border rounded-md overflow-hidden" >
-    <zShopProductSlider
-      @newActiveElementNumber="setProductMediaShownByIndex( $event )"
-      :elements-count="mediaCount"
-      class="w-full h-36 m-auto border-b border-placeholder border-solid" >
-      <div
-        v-for="(mediaSrc, i) of productData.media"
-        :key="mediaSrc"
-        class="bg-black-lightest h-full w-full flex-shrink-0" >
-        <zMedia
-          class="h-full"
-          @click="showInMediaOverlay(mediaSrc)"
-          :original-src="mediaSrc"
-          :blur-src="require('@images/shop/blur-template.png')"
-          :load-original="originalMediaVisibilityArray[i]"
-          media-type="image" />
-      </div>
-    </zShopProductSlider>
+
+    <zShopProductSlider :media-srcs="product.media" ></zShopProductSlider>
 
     <div
       @click="routeToProductPage"
       class="flex flex-col flex-grow px-3 pt-1.5 pb-4 cursor-pointer" >
       <h4 class="text-lg font-medium leading-6 mb-4" >
-        {{ productData.title }}
+        {{ product.title }}
       </h4>
 
       <div class="mt-auto select-none" >
@@ -32,10 +17,10 @@
             <div
               v-if="containsInStock"
               class="mb-2 lg:mb-1 order-3 lg:order-1" >
-              Quantity in stock - {{ productData.count }}
+              Quantity in stock - {{ product.count }}
             </div>
             <span class="text-placeholder font-mono font-semibold underline mb-2 lg:mb-0 order-2" >
-              ${{ productData.price }}
+              ${{ product.price }}
             </span>
           </div>
 
@@ -58,45 +43,23 @@ import zShopProductSlider from '@components/composite/zShopProductSlider/zShopPr
 export default {
   name: 'ShopProductCard',
   props: {
-    productData: {
+    product: {
       type: Object,
       required: true,
     },
   },
-  data () {
-    return {
-      originalMediaVisibilityArray: null
-
-    }
-  },
-  created () {
-    this.initOriginalMediaVisibilityArray()
-  },
   computed: {
-    mediaCount () {
-      return this.productData.media.length
-    },
     containsInStock () {
-      return this.productData.count !== 0
+      return this.product.count !== 0
     }
   },
   methods: {
-    initOriginalMediaVisibilityArray () {
-      this.originalMediaVisibilityArray = ( new Array( this.mediaCount ) ).fill( false )
-    },
     addToCard () {
       console.log( 'adds to card' )
     },
     routeToProductPage () {
       console.log( 'route to product page' )
     },
-    showInMediaOverlay ( mediaSrc ) {
-      this.mediaViewOverlay$.show( mediaSrc )
-    },
-    setProductMediaShownByIndex ( mediaIndex ) {
-      this.originalMediaVisibilityArray[ mediaIndex ] = true
-    },
-
   },
   components: {
     zShopProductSlider,
