@@ -1,113 +1,60 @@
 <template >
-  <div class="relative overflow-hidden select-none" >
-    <ContentStrip
-      :active-element="activeElementNumber"
-      class="w-full h-full" >
-      <slot />
-    </ContentStrip>
-    <ControlButton
-      @click="showPreviousElement"
-      class="left-0" >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        :height="attributableControlSize"
-        :width="attributableControlSize"
-        viewBox="0 0 24 24"
-        fill="#ffffff" >
-        <path
-          d="M0 0h24v24H0z"
-          fill="none" />
-        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
-      </svg>
-
-    </ControlButton>
-
-    <ControlButton
-      @click="showNextElement"
-      class="right-0" >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        :height="attributableControlSize"
-        :width="attributableControlSize"
-        viewBox="0 0 24 24"
-        fill="#ffffff" >
-        <path
-          d="M0 0h24v24H0z"
-          fill="none" />
-        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
-      </svg>
-
-    </ControlButton>
-
-    <!-- <div v-if="useNavigation" >
-      <slot name="navigation" >
-        <Navigation :images-count="imagesCount" />
-      </slot>
-    </div> -->
-
-  </div>
+  <zSlider
+    @newActiveElementNumber="setProductMediaShownByIndex( $event )"
+    :elements-count="mediaCount"
+    class="w-full h-36 m-auto border-b border-placeholder border-solid" >
+    <div
+      v-for="(src, i) of mediaSrcs"
+      :key="src"
+      class="bg-black-lightest h-full w-full flex-shrink-0" >
+      <zMedia
+        class="h-full"
+        @click="showInMediaOverlay(src)"
+        :original-src="src"
+        :blur-src="require('@images/shop/blur-template.png')"
+        :load-original="originalMediaVisibilityArray[i]"
+        media-type="image" />
+    </div>
+  </zSlider>
 </template>
 
 <script>
-import ControlButton from './partial/ControlButton'
-import ContentStrip from './partial/ContentStrip.vue'
-import Navigation from './partial/Navigation'
+import zSlider from '@components/composite/zSlider/zSlider.vue'
 
 export default {
   name: 'zShopProductSlider',
-  emits: [ 'newActiveElementNumber' ],
   props: {
-    attributableControlSize: {
-      type: String,
-      default: '25px'
-    },
-    useNavigation: {
-      type: Boolean,
-      default: true,
-    },
-    elementsCount: {
-      type: Number,
-      default: 0,
+    mediaSrcs: {
+      type: Array,
+      required: true
+    }
+  },
+  computed: {
+    mediaCount () {
+      return this.mediaSrcs.length
     },
   },
   data () {
     return {
-      activeElementNumber: 0,
+      originalMediaVisibilityArray: null
     }
   },
-  watch: {
-    activeElementNumber: {
-      handler ( newValue ) {
-        this.$emit( 'newActiveElementNumber', newValue )
-      },
-      immediate: true
-    }
+  created () {
+    this.initOriginalMediaVisibilityArray()
   },
   methods: {
-    showNextElement () {
-      this.changeActiveElementNumber( 1 )
+    initOriginalMediaVisibilityArray () {
+      this.originalMediaVisibilityArray = ( new Array( this.mediaCount ) ).fill( false )
     },
-    showPreviousElement () {
-      this.changeActiveElementNumber( -1 )
+    setProductMediaShownByIndex ( mediaIndex ) {
+      this.originalMediaVisibilityArray[ mediaIndex ] = true
     },
-    changeActiveElementNumber ( delta ) {
-      const maxActiveElementNumber = this.elementsCount - 1
-      const minActiveElementNumber = 0
-
-      if ( delta === 1 && this.activeElementNumber === maxActiveElementNumber ) {
-        this.activeElementNumber = minActiveElementNumber
-      } else if ( delta === -1 && this.activeElementNumber === minActiveElementNumber ) {
-        this.activeElementNumber = maxActiveElementNumber
-      } else {
-        this.activeElementNumber += delta
-      }
+    showInMediaOverlay ( mediaSrc ) {
+      this.mediaViewOverlay$.show( mediaSrc )
     },
-
   },
   components: {
-    ControlButton,
-    ContentStrip,
-    Navigation
+    zSlider
   }
 }
 </script>
