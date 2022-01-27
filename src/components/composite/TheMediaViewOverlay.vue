@@ -5,7 +5,7 @@
       v-if="overlayVisibility"
       class="fixed z-30 left-0 top-0 flex w-screen h-screen bg-black bg-opacity-80 transition-all duration-300" >
       <div
-        @click.prevent
+        @click.stop
         class="w-full max-w-3xl m-auto" >
         <zMedia
           class="media transition-opacity duration-300"

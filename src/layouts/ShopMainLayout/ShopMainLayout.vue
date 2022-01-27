@@ -8,7 +8,7 @@
       <TheSidemenu
         :visible="sidebarVisiblity"
         v-if="!hidden['TheSidemenu']" />
-      <router-view class="w-full h-full" />
+      <router-view class="w-full h-full overflow-y-auto" />
     </div>
   </div>
 </template>
