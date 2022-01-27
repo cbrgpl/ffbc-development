@@ -55,6 +55,7 @@ import Navigation from './partial/Navigation'
 
 export default {
   name: 'zShopProductSlider',
+  emits: [ 'newActiveElementNumber' ],
   props: {
     attributableControlSize: {
       type: String,
@@ -72,6 +73,14 @@ export default {
   data () {
     return {
       activeElementNumber: 0,
+    }
+  },
+  watch: {
+    activeElementNumber: {
+      handler ( newValue ) {
+        this.$emit( 'newActiveElementNumber', newValue )
+      },
+      immediate: true
     }
   },
   methods: {

@@ -1,14 +1,13 @@
 
 <template >
   <div
-    @click="emitCustomClick"
     v-bind="styles"
     class="z-image__wrapper" >
     <img
-      @load="emitCustomLoad"
+      width="0"
+      height="0"
       v-bind="attrs"
-      class="z-image__image"
-      alt="" >
+      class="z-image__image" >
 
     <span class="z-image__actions" >
       <slot name="actions" ></slot>
@@ -23,31 +22,6 @@ export default {
   inheritAttrs: false,
   name: 'zImage',
   mixins: [ extenderMix ],
-  methods: {
-    emitCustomClick ( event ) {
-      const viewImageEvent = new CustomEvent( 'view', {
-        bubbles: true,
-        cancelable: true,
-        detail: {
-          component: this.$options.name,
-          src: this.attrs.src
-        }
-      } )
-
-      event.target.dispatchEvent( viewImageEvent )
-    },
-    emitCustomLoad ( event ) {
-      const imageLoadEvent = new CustomEvent( 'resource-load', {
-        bubbles: true,
-        cancelable: true,
-        detail: {
-          component: this.$options.name,
-        }
-      } )
-
-      event.target.dispatchEvent( imageLoadEvent )
-    }
-  }
 }
 </script>
 

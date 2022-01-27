@@ -1,16 +1,19 @@
 <template >
   <div class="flex flex-col bg-black-lighten border-placeholder border-opacity-75 border-solid border rounded-md overflow-hidden" >
     <zShopProductSlider
+      @newActiveElementNumber="setProductMediaShownByIndex( $event )"
       :elements-count="mediaCount"
       class="w-full h-36 m-auto border-b border-placeholder border-solid" >
       <div
-        v-for="mediaSrc of productData.media"
+        v-for="(mediaSrc, i) of productData.media"
         :key="mediaSrc"
         class="bg-black-lightest h-full w-full flex-shrink-0" >
         <zMedia
           class="h-full"
           @click="showInMediaOverlay(mediaSrc)"
-          :src="mediaSrc"
+          :original-src="mediaSrc"
+          :blur-src="require('@images/shop/blur-template.png')"
+          :load-original="originalMediaVisibilityArray[i]"
           media-type="image" />
       </div>
     </zShopProductSlider>
@@ -58,7 +61,16 @@ export default {
     productData: {
       type: Object,
       required: true,
+    },
+  },
+  data () {
+    return {
+      originalMediaVisibilityArray: null
+
     }
+  },
+  created () {
+    this.initOriginalMediaVisibilityArray()
   },
   computed: {
     mediaCount () {
@@ -69,6 +81,9 @@ export default {
     }
   },
   methods: {
+    initOriginalMediaVisibilityArray () {
+      this.originalMediaVisibilityArray = ( new Array( this.mediaCount ) ).fill( false )
+    },
     addToCard () {
       console.log( 'adds to card' )
     },
@@ -77,7 +92,11 @@ export default {
     },
     showInMediaOverlay ( mediaSrc ) {
       this.mediaViewOverlay$.show( mediaSrc )
-    }
+    },
+    setProductMediaShownByIndex ( mediaIndex ) {
+      this.originalMediaVisibilityArray[ mediaIndex ] = true
+    },
+
   },
   components: {
     zShopProductSlider,
