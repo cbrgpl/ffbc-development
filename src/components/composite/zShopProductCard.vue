@@ -3,13 +3,16 @@
     <zShopProductSlider
       :elements-count="mediaCount"
       class="w-full h-36 m-auto border-b border-placeholder border-solid" >
-      <zMedia
+      <div
         v-for="mediaSrc of productData.media"
         :key="mediaSrc"
-        @click="showMediaOverlay(mediaSrc)"
-        class="h-full w-full flex-shrink-0"
-        :src="mediaSrc"
-        media-type="image" />
+        class="bg-black-lightest h-full w-full flex-shrink-0" >
+        <zMedia
+          class="h-full"
+          @click="showInMediaOverlay(mediaSrc)"
+          :src="mediaSrc"
+          media-type="image" />
+      </div>
     </zShopProductSlider>
 
     <div
@@ -72,8 +75,8 @@ export default {
     routeToProductPage () {
       console.log( 'route to product page' )
     },
-    showMediaOverlay () {
-
+    showInMediaOverlay ( mediaSrc ) {
+      this.mediaViewOverlay$.show( mediaSrc )
     }
   },
   components: {

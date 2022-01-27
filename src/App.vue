@@ -8,6 +8,7 @@
     </component>
 
     <TheToast />
+    <TheMediaViewOverlay />
     <DialogLayout />
   </div>
 </template>
@@ -17,6 +18,8 @@ import MainLayout from '@layouts/MainLayout/MainLayout.vue'
 import EmptyLayout from '@layouts/EmptyLayout/EmptyLayout.vue'
 import DialogLayout from '@layouts/DialogLayout/DialogLayout.vue'
 import ShopMainLayout from '@layouts/ShopMainLayout/ShopMainLayout.vue'
+
+import TheMediaViewOverlay from '@components/composite/TheMediaViewOverlay.vue'
 
 import TheToast from '@components/composite/TheToast/TheToast.vue'
 
@@ -72,13 +75,14 @@ export default {
     },
     hiddenElements () {
       return this.$route.meta.hiddenElems ? this.$route.meta.hiddenElems : []
-    }
+    },
   },
   components: {
     MainLayout,
     EmptyLayout,
     DialogLayout,
     ShopMainLayout,
+    TheMediaViewOverlay,
     TheToast,
   },
 }
