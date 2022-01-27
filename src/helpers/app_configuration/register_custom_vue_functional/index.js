@@ -30,6 +30,7 @@ import tooltip from '@directives/tooltip.directive.js'
 // plugins
 import dialogPlugin from '@plugins/dialog.plugin'
 import toastPlugin from '@plugins/toast.plugin'
+import mediaViewOverlay from '@plugins/mediaViewOverlay/index'
 
 const customFunctional = {
   components: {
@@ -71,7 +72,8 @@ const customFunctional = {
     registrator: ( app, plugin ) => app.use( plugin ),
     elements: {
       dialogPlugin,
-      toastPlugin
+      toastPlugin,
+      mediaViewOverlay
     }
   }
 }
