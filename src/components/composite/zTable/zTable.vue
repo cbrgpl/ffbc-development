@@ -1,12 +1,12 @@
 <template >
-  <div class="layout-empty" >
-    <router-view />
-  </div>
+  <table >
+    <slot />
+  </table>
 </template>
 
 <script>
 export default {
-  name: 'layout-empty'
+  name: 'zTable',
 }
 </script>
 

@@ -1,12 +1,12 @@
 <template >
-  <div class="layout-empty" >
-    <router-view />
-  </div>
+  <th class="border border-solid border-placeholder" >
+    <slot />
+  </th>
 </template>
 
 <script>
 export default {
-  name: 'layout-empty'
+  name: 'zTh'
 }
 </script>
 
