@@ -2,7 +2,7 @@
   <zSlider
     @newActiveElementNumber="setProductMediaShownByIndex( $event )"
     :elements-count="mediaCount"
-    class="w-full h-36 m-auto border-b border-placeholder border-solid" >
+    class="w-full h-36 border-b border-placeholder border-solid" >
     <div
       v-for="(src, i) of mediaSrcs"
       :key="src"

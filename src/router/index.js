@@ -76,6 +76,12 @@ const routes = [
         path: 'products/:productType',
         component: () => import( '@/views/Shop/ProductCatalog.vue' ),
         name: 'ShopProductCatalog',
+      },
+      {
+        path: 'product/:productId',
+        component: () => import( '@/views/Shop/ProductPage/ProductPage.vue' ),
+        name: 'ShopProductPage',
+        props: true
       }
     ]
   },

@@ -4,7 +4,7 @@
     <zShopProductSlider :media-srcs="product.media" ></zShopProductSlider>
 
     <div
-      @click="routeToProductPage"
+      @click="routeToProductPage(product)"
       class="flex flex-col flex-grow px-3 pt-1.5 pb-4 cursor-pointer" >
       <h4 class="text-lg font-medium leading-6 mb-4" >
         {{ product.title }}
@@ -57,8 +57,13 @@ export default {
     addToCard () {
       console.log( 'adds to card' )
     },
-    routeToProductPage () {
-      console.log( 'route to product page' )
+    routeToProductPage ( product ) {
+      this.$router.push( {
+        name: 'ShopProductPage',
+        params: {
+          productId: 1,
+        },
+      } )
     },
   },
   components: {

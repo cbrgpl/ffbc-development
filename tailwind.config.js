@@ -73,6 +73,7 @@ const tailwindConfig = {
     extend: {
       fontFamily: {
         sans: [ '\'Ubuntu\'', defaultTheme.fontFamily.sans ],
+        mono: [ '\'Red Hat Mono\'', defaultTheme.fontFamily.mono ]
       },
       fontSize: {
         xs: '0.75rem',
