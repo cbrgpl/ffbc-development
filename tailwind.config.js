@@ -88,7 +88,7 @@ const tailwindConfig = {
         '6xl': '4rem',
       },
       zIndex: {
-        '-10': '-10'
+        '-10': '-10',
       },
     }
   },

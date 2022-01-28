@@ -68,6 +68,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+aside {
+  z-index: 100;
+}
+
 .sidemenu-list-title {
   @apply inline-block mb-2 mx-4 lg:mx-6 xl:text-2xl xl:border-b xl:border-white xl:border-solid;
 }

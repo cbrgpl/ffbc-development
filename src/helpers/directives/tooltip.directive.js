@@ -83,6 +83,7 @@ function onMouseEnter ( event ) {
 }
 
 function onMouseLeave ( event ) {
+  console.log( 'mouselave' )
   hideSymbols( event.currentTarget )
 }
 
@@ -245,6 +246,10 @@ export default {
     bindEvents( el )
   },
   unmounted ( el ) {
+    if ( el.$_ztooltipId ) {
+      remove( el )
+    }
+
     unbindEvents( el )
   },
   update ( el, options ) {

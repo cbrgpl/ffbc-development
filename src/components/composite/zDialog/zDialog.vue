@@ -70,19 +70,20 @@ export default {
   data () {
     return {
       dialogVisible: this.visible,
-      zIndex: getZIndex(),
+      zIndex: 1000 + getZIndex(),
     }
   },
   computed: {
     maskClasses () {
       return [
-        'overflow-y-auto fixed z-30 left-0 top-0 flex w-screen h-screen bg-black bg-opacity-0 transition-all duration-300',
+        'overflow-y-auto fixed left-0 top-0 flex w-screen h-screen bg-black bg-opacity-0 transition-all duration-300',
         { 'pointer-events-none': !this.modal },
       ]
     },
     maskStyles () {
       return {
-        background: !this.modal ? 'transparent' : ''
+        background: !this.modal ? 'transparent' : '',
+        zIndex: this.zIndex
       }
     }
   },
