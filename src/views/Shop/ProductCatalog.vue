@@ -1,5 +1,5 @@
 <template >
-  <div class="grid grid-cols-1 gap-y-8 md:grid-cols-2 md:gap-x-2 xl:grid-cols-3 xl:gap-x- items-stretch px-3" >
+  <div class="grid grid-cols-2 gap-x-2 gap-y-8 md:grid-cols-3 2xl:grid-cols-4 xl:gap-x- items-stretch px-3" >
     <zShopProductCard
       v-for="product of fakeProducts"
       :key="product.title"
