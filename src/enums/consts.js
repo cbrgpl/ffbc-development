@@ -1,4 +1,7 @@
-const API_URL = 'http://82.148.16.42/api/v1'
+const BACKEND_ADDRESS = 'rainbow-siege-developers.ru'
+
+const API_URL = `https://${ BACKEND_ADDRESS }/api`
+
 const CLIENT_URL = location.href
 
 const STATUS_WORDS = {

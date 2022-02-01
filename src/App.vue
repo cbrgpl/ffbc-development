@@ -40,8 +40,12 @@ export default {
     if ( !error.useHook ) {
       console.group( `Not hookable error number ${ this.errorsNumber++ }` )
       consoleLogger.object( info, 'info: ' )
-      consoleLogger.object( error, 'error: ' )
       consoleLogger.object( vnode, 'vnode: ' )
+
+      for ( const prop in error ) {
+        console.error( prop, error[ prop ] )
+      }
+
       console.groupEnd()
 
       throw error

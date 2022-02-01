@@ -1,13 +1,44 @@
-import AuthService from './types/authService.js'
-import ServerService from './types/serverService.js'
-import UserService from './types/userService.js'
+import { ServiceFactory, FetcherFactory, ResponseProcessor, MimeParser } from 'ttt-rest-service'
+import { onBeforeRequest, onBeforeFetch } from './helpers/defaultHooks'
 
-const authService = new AuthService()
-const serverService = new ServerService()
-const userService = new UserService()
+import apiAuthModule from './service_metadata/authService'
 
-export {
-  authService,
-  serverService,
-  userService
+const API = {
+  auth: apiAuthModule
 }
+
+const defaultHooks = {
+  onBeforeRequest,
+  onBeforeFetch,
+}
+
+function getServices ( API ) {
+  const fetcherFactory = new FetcherFactory()
+
+  const mimeParserPairs = [
+    [ 'application/json', ( httpResponse ) => httpResponse.json() ]
+  ]
+  const mimeParser = new MimeParser( mimeParserPairs )
+  const responseProcessor = new ResponseProcessor( mimeParser )
+
+  const serviceFactory = new ServiceFactory( fetcherFactory, responseProcessor )
+
+  return serviceFactory.generateServices( API )
+}
+
+function setDefaultHooks ( services, hooks ) {
+  for ( const serviceName in services ) {
+    const service = services[ serviceName ]
+
+    service.onBeforeRequest( hooks.onBeforeRequest )
+    service.onBeforeFetch( hooks.onBeforeFetch )
+  }
+}
+
+const services = getServices( API )
+
+setDefaultHooks( services, defaultHooks )
+
+export const {
+  authService,
+} = services

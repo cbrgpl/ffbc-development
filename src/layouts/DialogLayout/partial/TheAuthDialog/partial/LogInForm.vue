@@ -48,6 +48,7 @@ import { email, required } from '@vuelidate/validators'
 import { getPasswordValidator } from '@validators'
 
 import { STATUS_WORDS } from 'consts'
+import { authService } from '@services'
 
 export default {
   name: 'LogInForm',
@@ -72,13 +73,16 @@ export default {
     }
   },
   methods: {
-    logIn ( status ) {
+    async logIn ( status ) {
       if ( status === STATUS_WORDS.ERROR ) {
         return
       }
 
-      const logInPayload = Object.assign( {}, this.logInForm )
-      console.log( 'Отправляю данные', logInPayload )
+      const request = await authService.login( {
+        ...this.logInForm,
+      } )
+
+      console.log( request )
     }
   },
   validations () {
