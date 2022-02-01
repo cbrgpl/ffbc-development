@@ -39,11 +39,11 @@
     <li >
       <router-link
         class="p-2 sm:p-2.5"
-        :to="{name: 'Main'}" >
+        :to="{name: 'ShopMain'}" >
         <zIconBase
           width="32"
           height="32"
-          icon-name="event" ></zIconBase>
+          icon-name="cart" ></zIconBase>
       </router-link>
     </li>
   </ul>
