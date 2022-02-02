@@ -13,7 +13,6 @@ function parseModifiers ( el ) {
     direction: 'top',
     focus: false
   }
-
   for ( const modifier of Object.entries( modifiers ) ) {
     if ( !isNaN( modifier[ 0 ] ) ) {
       defaultModifiers.offset = Number( modifier[ 0 ] )
@@ -83,7 +82,6 @@ function onMouseEnter ( event ) {
 }
 
 function onMouseLeave ( event ) {
-  console.log( 'mouselave' )
   hideSymbols( event.currentTarget )
 }
 

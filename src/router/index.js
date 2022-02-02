@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Preview from '@views/Preview.vue'
-import { verifyEmail, rolesGuard, authGuard } from './helpers/index'
+import { verifyEmail, rolesGuard, authGuard, getRedirectOnLargeScreen } from './helpers/index'
 
 const routes = [
   {
@@ -69,10 +69,19 @@ const routes = [
       },
       {
         path: 'profile',
-        component: () => import( '@layouts/EmptyLayout/EmptyLayout.vue' ),
+        component: () => import( '@layouts/ShopProfileLayout/ShopProfileLayout.vue' ),
         name: 'ShopProfile',
-        redirect: { name: 'ShopProfileCart' },
+        redirect: { name: 'ShopProfileMain' },
         children: [
+          {
+            path: 'main',
+            component: () => import( '@views/Shop/ProfileMain.vue' ),
+            name: 'ShopProfileMain',
+            beforeEnter: getRedirectOnLargeScreen( 1024, 'ShopProfileCart' ),
+            meta: {
+              hidden: [ 'TheBackBar' ]
+            }
+          },
           {
             path: 'cart',
             component: () => import( '@views/Shop/ProfileCart.vue' ),
@@ -81,7 +90,7 @@ const routes = [
           {
             path: 'order-list',
             component: () => import( '@views/Shop/ProfileOrderList.vue' ),
-            name: 'ShopProfileOrderList'
+            name: 'ShopProfileOrderList',
           }
         ]
       },
