@@ -5,11 +5,11 @@
     @submit.prevent="validateFields"
     @keydown.enter.prevent="controlFocus" >
     <slot />
-    <div class="mb-5" >
+    <div
+      v-if="state !== null" >
       <small
-        v-if="vuelidateObject.$error || formError"
-        class="text-danger font-semibold text-base leading-tight" >
-        {{ onFormError }}
+        :class="['text-base leading-tight tracking-wider', getStateColorStyle]" >
+        {{ getStateMessage }}
       </small>
     </div>
 
@@ -34,15 +34,25 @@ export default {
       type: Boolean,
       default: true,
     },
-    formError: {
-      type: Boolean,
-      default: false,
+    state: {
+      type: [ Boolean, Object ],
+      default () {
+        return null
+      },
+      validator ( value ) {
+        return typeof value === 'boolean' || value === null
+      }
     },
-    onFormError: {
+    errorMessage: {
       type: String,
       default: '',
+    },
+    successMessage: {
+      type: String,
+      default: ''
     }
   },
+
   computed: {
     childInputs () {
       const htmlInputsCollection = this.form ? this.form.getElementsByClassName( 'z-input' ) : []
@@ -53,6 +63,20 @@ export default {
       }
 
       return $inputsArray
+    },
+    getStateMessage () {
+      if ( this.state !== null ) {
+        return this.state ? this.successMessage : this.errorMessage
+      } else {
+        return ''
+      }
+    },
+    getStateColorStyle () {
+      if ( this.state !== null ) {
+        return this.state ? 'text-safety' : 'text-danger'
+      } else {
+        return ''
+      }
     }
   },
   methods: {

@@ -1,8 +1,9 @@
 <template >
   <zForm
     @validate="signIn"
-    :form-error="formError.state"
-    :on-form-error="formError.message"
+    :state="form.state"
+    :error-message="form.errorMessage"
+    :success-message="form.successMessage"
     :vuelidate-object="v$" >
     <zInput
       v-autofocus
@@ -24,17 +25,17 @@
     <zInput
       class="mb-5"
       type="password"
-      v-model="signInForm.repeatPassword"
+      v-model="signInForm.passwordConfirmation"
       label="Repeat password"
-      :error-state="v$.signInForm.repeatPassword.$error"
+      :error-state="v$.signInForm.passwordConfirmation.$error"
       on-error="The passwords are different" />
 
     <zInput
       class="mb-5"
-      v-model="signInForm.phone"
+      v-model="signInForm.phoneNumber"
       label="Phone number"
       mask="+9 (999) 999 99-99"
-      :error-state="v$.signInForm.phone.$error"
+      :error-state="v$.signInForm.phoneNumber.$error"
       on-error="Invalid phone number" />
 
     <zCheckboxSingle
@@ -43,13 +44,19 @@
       v-model="signInForm.policyAgreement"
       label="Consent to the processing of personal data" />
     <template #actions >
+      <div class="flex flex-col justify-center lg:justify-start mt-3" >
 
-      <div class="flex flex-col justify-center lg:justify-start mt-10" >
+        <zLink
+          v-if="form.state"
+          :disabled="resendVerificationDisabled"
+          @click="sendVerificationLink" >
+          Resend Verification Link
+        </zLink>
 
         <zLoaderButton
-          class="w-full py-4 mb-3.5 md:w-48"
+          class="w-full py-4 md:w-48 mt-1.5"
           type="submit"
-          :loader="formLoader" >
+          :loader="form.loading" >
           Sign In
         </zLoaderButton>
 
@@ -64,7 +71,12 @@ import { email, required, sameAs } from '@vuelidate/validators'
 import { getPasswordValidator, phone } from '@validators'
 
 import passwordRequirements from '@enums/info/passwordRequirements'
-import { STATUS_WORDS } from 'consts'
+import { STATUS_WORDS, CLIENT_URL } from 'consts'
+
+import { authService } from '@services'
+import { deleteUnneededObjProperties } from '@functions'
+
+import { InternalClientLogic } from '@errors'
 
 export default {
   name: 'SignInForm',
@@ -75,29 +87,74 @@ export default {
   },
   data () {
     return {
-      formLoader: false,
       passwordRequirements,
       signInForm: {
         email: '',
         password: '',
-        repeatPassword: '',
-        phone: '',
+        passwordConfirmation: '',
+        phoneNumber: '',
         policyAgreement: false,
       },
-      formError: {
-        state: false,
-        message: ''
+      form: {
+        state: null,
+        errorMessage: '',
+        successMessage: '',
+        loading: false,
       },
+      resendVerificationDisabled: false
     }
   },
   methods: {
-    signIn ( status ) {
+    async signIn ( status ) {
+      this.form.state = null
+
       if ( status === STATUS_WORDS.ERROR ) {
         return
       }
 
-      const signInPayload = Object.assign( {}, this.signInForm )
-      console.log( signInPayload )
+      this.form.loading = true
+
+      const requestPayload = this.getFormatedToBackendData( this.signInForm )
+      deleteUnneededObjProperties( requestPayload, 'policyAgreement' )
+
+      const request = await authService.signIn( {
+        ...requestPayload
+      } )
+
+      this.form.loading = false
+
+      if ( request.httpResponse.status === 200 ) {
+        this.form.successMessage = request.parsedBody.message
+        this.form.state = true
+      } else {
+        this.form.state = false
+        this.form.errorMessage = request.parsedBody.error[ 0 ].message
+      }
+    },
+    getFormatedToBackendData ( notFormattedData ) {
+      const clone = Object.assign( {}, notFormattedData )
+
+      clone.phoneNumber = '+' + clone.phoneNumber.replace( /\D/g, '' )
+      clone.redirectUrl = CLIENT_URL + '/verificate'
+
+      return clone
+    },
+    async sendVerificationLink () {
+      const requestPayload = {
+        email: this.signInForm.email,
+        redirectUrl: CLIENT_URL + '/verificate'
+      }
+      this.resendVerificationDisabled = true
+      const request = await authService.resendVerificationLink( requestPayload )
+
+      if ( request.httpResponse.status === 200 ) {
+        this.toast$.success( { summary: 'Successfully sent!', detail: 'A verification link was sent on your e-mail. \nYou can resend link in 15 seconds.' } )
+        setTimeout( () => {
+          this.resendVerificationDisabled = false
+        }, 15000 )
+      } else {
+        throw new InternalClientLogic( 'Unexpected status with resend verification request' )
+      }
     }
   },
   validations () {
@@ -111,11 +168,11 @@ export default {
           required,
           password: getPasswordValidator()
         },
-        repeatPassword: {
+        passwordConfirmation: {
           required,
           sameAsPassword: sameAs( this.signInForm.password )
         },
-        phone: {
+        phoneNumber: {
           required,
           phone
         },

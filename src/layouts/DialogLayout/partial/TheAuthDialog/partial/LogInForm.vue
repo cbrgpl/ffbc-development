@@ -1,8 +1,9 @@
 <template >
   <zForm
     @validate="logIn"
-    :form-error="formError.state"
-    :on-form-error="formError.message"
+    :state="form.state"
+    :error-message="form.errorMessage"
+    :success-message="form.successMessage"
     :vuelidate-object="v$" >
     <zInput
       v-autofocus
@@ -20,7 +21,7 @@
       :error-state="v$.logInForm.password.$error"
       on-error="Password is required" />
 
-    <div class="flex justify-between items-center mb-3" >
+    <div class="flex justify-between items-center mb-8" >
       <zCheckboxSingle
         v-model="rememberMe"
         label="Remember me" />
@@ -32,9 +33,9 @@
     <template #actions >
 
       <zLoaderButton
-        class="py-4 mb-3.5 md:w-48"
+        class="py-4 mb-3.5 md:w-48 mt-1.5"
         type="submit"
-        :loader="formLoader" >
+        :loader="form.loading" >
         Log in
       </zLoaderButton>
 
@@ -60,29 +61,41 @@ export default {
   data () {
     return {
       rememberMe: true,
-      formLoader: false,
       logInForm: {
         email: '',
         password: ''
       },
-      formError: {
-        state: false,
-        message: ''
+      form: {
+        state: null,
+        errorMessage: '',
+        successMessage: '',
+        loading: false,
       },
-
     }
   },
   methods: {
-    async logIn ( status ) {
-      if ( status === STATUS_WORDS.ERROR ) {
+    async logIn ( formValidateStatus ) {
+      this.form.state = null
+
+      if ( formValidateStatus === STATUS_WORDS.ERROR ) {
         return
       }
 
-      const request = await authService.login( {
+      this.form.loading = true
+
+      const request = await authService.logIn( {
         ...this.logInForm,
       } )
 
-      console.log( request )
+      this.form.loading = false
+
+      if ( request.httpResponse.status === 200 ) {
+        // TODO Завершить после допиливания регистрации
+        this.form.state = true
+      } else {
+        this.form.state = false
+        this.form.errorMessage = request.parsedBody.errors[ 0 ].message
+      }
     }
   },
   validations () {

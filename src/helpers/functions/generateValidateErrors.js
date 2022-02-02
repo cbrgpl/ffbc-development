@@ -4,18 +4,30 @@ export default function ( v$, dataObjectName, fields ) {
 
   for ( const field of fields ) {
     const fieldValidation = dataValidation[ field ]
-    validationMessages[ field ] = []
-    for ( const prop in fieldValidation ) {
-      const isValidationProp = ( prop ) => fieldValidation[ prop ].$message
-      if ( isValidationProp( prop ) ) {
-        const validation = fieldValidation[ prop ]
+    validationMessages[ field ] = getFieldValidationErrors( fieldValidation )
+  }
 
-        if ( validation.$invalid ) {
-          validationMessages[ field ].push( validation.$message )
-        }
-      }
+  return validationMessages
+}
+
+function getFieldValidationErrors ( fieldValidation ) {
+  const validationMessages = []
+  const isValidationProp = ( prop ) => fieldValidation[ prop ].$message
+
+  for ( const prop in fieldValidation ) {
+    if ( isValidationProp( prop ) ) {
+      const validationProperty = fieldValidation[ prop ]
+      const error = getFieldValidationError( validationProperty )
+
+      validationMessages.push( error )
     }
   }
 
   return validationMessages
+}
+
+function getFieldValidationError ( validationProperty ) {
+  if ( validationProperty.$invalid ) {
+    return validationProperty.$message
+  }
 }
