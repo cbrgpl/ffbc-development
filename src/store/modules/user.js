@@ -4,8 +4,11 @@ export default {
   namespaced: true,
   clearable: true,
   state: {
-    userData: {},
-    roles: []
+    userData: {
+      name: 'Dmitry TTT',
+      email: 'cybirgpl@gmail.com',
+      phoneNumber: '+79230040520',
+    },
   },
   getters: {
     userData ( state ) {

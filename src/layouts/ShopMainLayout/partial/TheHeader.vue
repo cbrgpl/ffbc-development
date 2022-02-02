@@ -1,5 +1,5 @@
 <template >
-  <div class="flex items-center justify-between w-full bg-black-lighten py-2 px-1.5 md:px-3 border-b border-white border-solid" >
+  <div class="flex items-center justify-between w-full bg-black-lighten py-2 px-1.5 md:px-3 border-b border-primary-darkest border-solid" >
     <div
       class="p-1 xl:hidden"
       @click="$emit( 'toggleSidebarVisibility' )" >
@@ -16,10 +16,32 @@
         :src="require('@images/shop/logo.jpg')" >
     </router-link>
 
-    <div v-if="isAuth" >
-      <zIconBase
-        class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12"
-        icon-name="cart" />
+    <div
+      class="flex items-center"
+      v-if="isAuth" >
+      <div class="flex pr-3 border-r border-placeholder border-opacity-70 border-solid mr-3" >
+        <router-link
+          class="w-12 h-12 p-2.5 mr-1.5 cursor-pointer hover:bg-black-lightest hover:bg-opacity-40 transition-colors rounded-full md:w-12 md:h-12"
+          :to="{name: 'ShopProfileOrderList'}" >
+          <zIconBase
+            icon-name="inventory" />
+        </router-link>
+
+        <router-link
+          class="w-12 h-12 p-2.5 cursor-pointer hover:bg-black-lightest hover:bg-opacity-40 transition-colors rounded-full md:w-12 md:h-12"
+          :to="{name: 'ShopProfileCart'}" >
+          <zIconBase
+            icon-name="cart" />
+        </router-link>
+      </div>
+
+      <router-link
+        :to="{name: 'ShopProfile'}"
+        class="h-12 w-12 flex p-1 border-2 border-white border-solid rounded-full bg-black" >
+        <zIconBase
+          class="m-auto"
+          icon-name="user" />
+      </router-link>
     </div>
 
     <zIconButton
@@ -44,6 +66,9 @@ export default {
     ...mapGetters( {
       isAuth: 'auth/isAuth'
     } )
+  },
+  created () {
+    console.log( this.isAuth )
   },
   methods: {
     showAuthDialog () {
