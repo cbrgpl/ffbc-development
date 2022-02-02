@@ -28,8 +28,7 @@ import consoleLogger from '@classes/consoleLogger.class'
 export default {
   name: 'App',
   async mounted () {
-    this.handleLoading()
-    this.$store.commit( 'clearModules' )
+    this.onAppInit()
   },
   data () {
     return {
@@ -55,7 +54,7 @@ export default {
     return false
   },
   methods: {
-    async handleLoading () {
+    async onAppInit () {
       const isVerificateRoute = location.href.includes( 'verificate' )
 
       if ( isVerificateRoute ) {

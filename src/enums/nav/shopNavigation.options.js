@@ -7,8 +7,4 @@ export default [
     name: 'To Competitions',
     routeName: 'Main'
   },
-  {
-    name: 'Shop Home',
-    routeName: 'ShopHome'
-  }
 ]

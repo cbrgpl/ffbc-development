@@ -30,4 +30,5 @@ export default [
   'message',
   'microwave',
   'success',
+  'user',
 ]

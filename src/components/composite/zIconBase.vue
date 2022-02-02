@@ -52,6 +52,7 @@ import IconMicrowave from '@/components/icons/IconMicrowave.vue'
 import IconSuccess from '@icons/IconSuccess.vue'
 import IconFileUpload from '@icons/IconFileUpload.vue'
 import IconCart from '@icons/IconCart.vue'
+import IconUser from '@icons/IconUser.vue'
 
 import { stringUtils } from '@js_utils'
 
@@ -119,7 +120,8 @@ export default {
     IconMessage,
     IconMicrowave,
     IconSuccess,
-    IconCart
+    IconCart,
+    IconUser
   },
 }
 </script>

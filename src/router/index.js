@@ -68,9 +68,22 @@ const routes = [
         name: 'ShopMain',
       },
       {
-        path: 'home',
-        component: () => import( '@/views/HomeMain/HomeMain.vue' ),
-        name: 'ShopHome',
+        path: 'profile',
+        component: () => import( '@layouts/EmptyLayout/EmptyLayout.vue' ),
+        name: 'ShopProfile',
+        redirect: { name: 'ShopProfileCart' },
+        children: [
+          {
+            path: 'cart',
+            component: () => import( '@views/Shop/ProfileCart.vue' ),
+            name: 'ShopProfileCart',
+          },
+          {
+            path: 'order-list',
+            component: () => import( '@views/Shop/ProfileOrderList.vue' ),
+            name: 'ShopProfileOrderList'
+          }
+        ]
       },
       {
         path: 'products/:productType',
