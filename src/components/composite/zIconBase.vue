@@ -53,6 +53,7 @@ import IconSuccess from '@icons/IconSuccess.vue'
 import IconFileUpload from '@icons/IconFileUpload.vue'
 import IconCart from '@icons/IconCart.vue'
 import IconUser from '@icons/IconUser.vue'
+import IconBackArrow from '@icons/IconBackArrow.vue'
 
 import { stringUtils } from '@js_utils'
 
@@ -121,7 +122,8 @@ export default {
     IconMicrowave,
     IconSuccess,
     IconCart,
-    IconUser
+    IconUser,
+    IconBackArrow
   },
 }
 </script>

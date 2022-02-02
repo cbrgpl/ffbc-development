@@ -33,13 +33,8 @@ export default {
     }
   },
   watch: {
-    currentRoute ( newValue ) {
+    currentRoute () {
       this.sidebarVisiblity = false
-    }
-  },
-  methods: {
-    test () {
-      console.log( 'toggle' )
     }
   },
   components: {

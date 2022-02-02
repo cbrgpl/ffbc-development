@@ -19,8 +19,11 @@
     <div
       class="flex items-center"
       v-if="isAuth" >
-      <div class="flex pr-3 border-r border-placeholder border-opacity-70 border-solid mr-3" >
+      <div
+        v-if="!isProfileNavigationInvisible"
+        class="flex pr-3 border-r border-placeholder border-opacity-70 border-solid mr-3" >
         <router-link
+          active-class="text-primary-darken text-opacity-80"
           class="w-12 h-12 p-2.5 mr-1.5 cursor-pointer hover:bg-black-lightest hover:bg-opacity-40 transition-colors rounded-full md:w-12 md:h-12"
           :to="{name: 'ShopProfileOrderList'}" >
           <zIconBase
@@ -28,6 +31,7 @@
         </router-link>
 
         <router-link
+          active-class="text-primary-darken text-opacity-80"
           class="w-12 h-12 p-2.5 cursor-pointer hover:bg-black-lightest hover:bg-opacity-40 transition-colors rounded-full md:w-12 md:h-12"
           :to="{name: 'ShopProfileCart'}" >
           <zIconBase
@@ -65,10 +69,11 @@ export default {
   computed: {
     ...mapGetters( {
       isAuth: 'auth/isAuth'
-    } )
-  },
-  created () {
-    console.log( this.isAuth )
+    } ),
+    isProfileNavigationInvisible () {
+      const lgBreakpointMinWidth = 1024
+      return this.$route.matched.some( ( match ) => match.name === 'ShopProfile' ) && document.body.clientWidth >= lgBreakpointMinWidth
+    }
   },
   methods: {
     showAuthDialog () {
