@@ -107,6 +107,7 @@
         "multiline": "never"
       }
     ],
+    "vue/no-v-for-template-key": 0,
     "vue/max-attributes-per-line": [
       "error",
       {

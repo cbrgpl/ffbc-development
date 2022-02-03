@@ -84,7 +84,7 @@ const routes = [
           },
           {
             path: 'cart',
-            component: () => import( '@views/Shop/ProfileCart.vue' ),
+            component: () => import( '@/views/Shop/ProfileCart/ProfileCart.vue' ),
             name: 'ShopProfileCart',
           },
           {

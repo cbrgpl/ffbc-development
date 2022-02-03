@@ -9,7 +9,6 @@
       class="bg-black-lightest h-full w-full flex-shrink-0" >
       <zMedia
         class="h-full"
-        @click="showInMediaOverlay(src)"
         :original-src="src"
         :blur-src="require('@images/shop/blur-template.png')"
         :load-original="originalMediaVisibilityArray[i]"
@@ -48,9 +47,6 @@ export default {
     },
     setProductMediaShownByIndex ( mediaIndex ) {
       this.originalMediaVisibilityArray[ mediaIndex ] = true
-    },
-    showInMediaOverlay ( mediaSrc ) {
-      this.mediaViewOverlay$.show( mediaSrc )
     },
   },
   components: {

@@ -1,5 +1,5 @@
 <template >
-  <aside class="h-full flex flex-col pt-4 px-2 border-r border-l border-placeholder border-opacity-60 border-solid bg-black-lighten" >
+  <aside class="h-full flex flex-col pt-4  border-r border-l border-placeholder border-opacity-60 border-solid bg-black-lighten" >
 
     <router-link
       v-for="navigationElement in profileNavigation"
@@ -11,8 +11,7 @@
 
       <span class="w-10 h-10" >
         <zIconBase
-          :icon-name="navigationElement.iconName"
-          :title="navigationElement.title" />
+          :icon-name="navigationElement.iconName" />
       </span>
     </router-link>
 

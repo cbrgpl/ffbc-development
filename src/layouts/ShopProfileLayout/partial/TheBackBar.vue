@@ -1,14 +1,19 @@
 <template >
-  <div class="flex items-center h-12 w-full px-1.5 bg-black-lighten border-b border-placeholder border-opacity-25 border-solid" >
-    <span
-      class="w-8 h-8 mr-3"
-      @click="$emit('goBack')" >
-      <zIconBase icon-name="backArrow" ></zIconBase>
-    </span>
+  <div
 
-    <span class="text-2xl underline select-none" >
-      {{ pageName }}
-    </span>
+    class="h-12 w-full bg-black-lighten border-b border-placeholder border-opacity-25 border-solid" >
+    <div
+      @click="$emit('goBack')"
+      class="h-full inline-flex items-center pr-8" >
+      <span
+        class="w-8 h-8 mr-3" >
+        <zIconBase icon-name="backArrow" ></zIconBase>
+      </span>
+
+      <span class="text-2xl underline select-none" >
+        {{ pageName }}
+      </span>
+    </div>
   </div>
 </template>
 
