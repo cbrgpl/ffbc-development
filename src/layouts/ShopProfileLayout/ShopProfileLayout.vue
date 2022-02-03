@@ -1,15 +1,15 @@
 <template >
-  <div class="w-full h-full" >
+  <div class="flex flex-col flex-grow overflow-y-hidden" >
     <TheBackBar
-      class="lg:hidden"
+      class="lg:hidden flex-shrink-0 px-2.5 md:px-5"
       v-if="!hiddenLayoutElemets.includes('TheBackBar')"
       @goBack="$router.go(-1)"
       :page-name="getPageName" />
 
-    <div class="flex h-full" >
+    <div class="flex flex-col flex-grow overflow-y-hidden lg:flex-row" >
       <TheSideMenu
-        class="hidden lg:flex" />
-      <router-view ></router-view>
+        class="hidden lg:flex px-2" />
+      <router-view class="overflow-auto w-full h-full" ></router-view>
     </div>
   </div>
 </template>

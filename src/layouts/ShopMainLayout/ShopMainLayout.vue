@@ -1,6 +1,6 @@
 <template >
   <div
-    class="flex flex-col overflow-x-hidden" >
+    class="flex flex-col items-stretch overflow-x-hidden" >
     <TheHeader
       @toggle-sidebar-visibility="sidebarVisiblity = !sidebarVisiblity"
       v-if="!hidden['TheHeader']" />
@@ -8,7 +8,7 @@
       <TheSidemenu
         :visible="sidebarVisiblity"
         v-if="!hidden['TheSidemenu']" />
-      <router-view class="w-full h-full overflow-y-auto" />
+      <router-view class="flex-grow flex flex-col overflow-y-auto" />
     </div>
   </div>
 </template>

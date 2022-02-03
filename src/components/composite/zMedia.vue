@@ -2,6 +2,7 @@
   <component
     v-bind="$attrs"
     :src="activeSrc"
+    @click="showInMediaOverlay(originalSrc)"
     :is="mediaComponent" />
 </template>
 
@@ -76,7 +77,10 @@ export default {
     },
     loadVideo ( src ) {
       // hmmmm
-    }
+    },
+    showInMediaOverlay ( mediaSrc ) {
+      this.mediaViewOverlay$.show( mediaSrc )
+    },
   },
   components: {
     zImage,
