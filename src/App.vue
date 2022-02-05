@@ -74,7 +74,8 @@ export default {
   },
   computed: {
     layout () {
-      return this.$route.meta.layout + '-layout'
+      const currentLayoutName = this.$route.meta.layout || 'empty'
+      return currentLayoutName + '-layout'
     },
     hiddenElements () {
       return this.$route.meta.hiddenElems ? this.$route.meta.hiddenElems : []
