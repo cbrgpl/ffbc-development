@@ -73,7 +73,7 @@ export default {
 
       const request = await authService.requestResetPassword( {
         email: this.email,
-        redirectUrl: CLIENT_URL + 'reset-password'
+        redirectUrl: CLIENT_URL + '/reset-password'
       } )
 
       this.form.loading = false

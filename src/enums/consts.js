@@ -2,7 +2,7 @@ const BACKEND_ADDRESS = 'rainbow-siege-developers.ru'
 
 const API_URL = `https://${ BACKEND_ADDRESS }/api`
 
-const CLIENT_URL = location.href
+const CLIENT_URL = location.origin
 
 const STATUS_WORDS = {
   SUCCESS: 'SUCCESS',

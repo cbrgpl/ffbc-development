@@ -140,6 +140,35 @@ const authApiModule = [
       }
     }
   },
+  {
+    method: 'POST',
+    url: API_URL + '/auth/set-new-password/',
+    secure: false,
+    roles: [],
+    handler: 'setNewPassword',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    schema: {
+      type: 'object',
+      required: [ 'password', 'passwordConfirmation', 'token', 'uidb64' ],
+      properties: {
+        password: {
+          type: 'string'
+        },
+        passwordConfirmation: {
+          type: 'string'
+        },
+        token: {
+          type: 'string'
+        },
+        uidb64: {
+          type: 'string'
+        }
+      }
+    }
+  }
 ]
 
 export default authApiModule
