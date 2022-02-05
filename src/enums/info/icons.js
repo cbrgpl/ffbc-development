@@ -31,5 +31,6 @@ export default [
   'microwave',
   'success',
   'user',
-  'backArrow'
+  'backArrow',
+  'code'
 ]
