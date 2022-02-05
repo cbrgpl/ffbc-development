@@ -54,6 +54,7 @@ import IconFileUpload from '@icons/IconFileUpload.vue'
 import IconCart from '@icons/IconCart.vue'
 import IconUser from '@icons/IconUser.vue'
 import IconBackArrow from '@icons/IconBackArrow.vue'
+import IconCode from '@icons/IconCode.vue'
 
 import { stringUtils } from '@js_utils'
 
@@ -123,7 +124,8 @@ export default {
     IconSuccess,
     IconCart,
     IconUser,
-    IconBackArrow
+    IconBackArrow,
+    IconCode
   },
 }
 </script>

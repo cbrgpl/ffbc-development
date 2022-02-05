@@ -96,7 +96,8 @@ const tailwindConfig = {
     extend: {
       margin: [ 'last' ],
       textColor: [ 'active' ],
-      backgroundColor: [ 'active' ]
+      backgroundColor: [ 'active' ],
+      borderStyle: [ 'last' ]
     }
   },
   plugins: [ textShadowUtility ],
