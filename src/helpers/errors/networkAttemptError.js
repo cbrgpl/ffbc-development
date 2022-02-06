@@ -1,5 +1,4 @@
 import HookableError from './pseudoAbstractErrors/hookableError'
-import networkAttemptCallback from './onErrorCallbacks/networkAttemptCallback'
 
 export default class NetworkAttemptError extends HookableError {
   constructor ( response, ...params ) {
@@ -8,7 +7,5 @@ export default class NetworkAttemptError extends HookableError {
     this.apiUrl = response.url
     this.responseBody = response.body
     this.responseStatus = response.status
-
-    this.onErrorCallback = networkAttemptCallback
   }
 }

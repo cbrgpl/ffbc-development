@@ -76,6 +76,7 @@ module.exports = {
         '@icons': path.resolve( __dirname, 'src', 'components', 'icons' ),
         '@enums': path.resolve( __dirname, 'src', 'enums' ),
         '@classes': path.resolve( __dirname, 'src', 'helpers', 'classes' ),
+        '@commands': path.resolve( __dirname, 'src', 'helpers', 'command' ),
         '@composable': path.resolve( __dirname, 'src', 'helpers', 'composable' ),
         '@directives': path.resolve( __dirname, 'src', 'helpers', 'directives' ),
         '@errors': path.resolve( __dirname, 'src', 'helpers', 'errors' ),

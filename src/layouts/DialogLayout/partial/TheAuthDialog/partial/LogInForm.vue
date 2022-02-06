@@ -49,7 +49,9 @@ import { email, required } from '@vuelidate/validators'
 import { getPasswordValidator } from '@validators'
 
 import { STATUS_WORDS } from 'consts'
+import { setRefreshInStorage } from '@functions'
 import { authService } from '@services'
+import { getUserServiceCommand, SetUserCommand, SetAuthorizeInfoCommand } from '@commands'
 
 export default {
   name: 'LogInForm',
@@ -90,13 +92,21 @@ export default {
       this.form.loading = false
 
       if ( request.httpResponse.status === 200 ) {
-        // TODO Завершить после допиливания регистрации
-        this.form.state = true
+        setRefreshInStorage( request.parsedBody.tokens.refresh, this.rememberMe )
+        const setAuthorizeInfoCommand = new SetAuthorizeInfoCommand( this.$store, request.parsedBody )
+        setAuthorizeInfoCommand.execute()
+
+        const userData = await getUserServiceCommand.execute()
+
+        const saveUserCommand = new SetUserCommand( this.$store, userData )
+        saveUserCommand.execute()
+
+        this.dialog$.hide( 'auth' )
       } else {
         this.form.state = false
         this.form.errorMessage = request.parsedBody.errors[ 0 ].message
       }
-    }
+    },
   },
   validations () {
     return {

@@ -1,5 +1,5 @@
 import $store from '@/store'
-import checkAuthToken from '@/router/helpers/checkAuthToken'
+import setTokensOnInitial from './authSetTokensOnInitial'
 
 /*
 
@@ -11,12 +11,19 @@ import checkAuthToken from '@/router/helpers/checkAuthToken'
 
 */
 
+const isInitialGuardCall = ( userAuth ) => userAuth === null
+
 export default async function ( to, from, next ) {
   const userAuth = $store.getters[ 'auth/isAuth' ]
-  const refreshToken = $store.getters[ 'token/refresh' ]
+  const refreshToken = $store.getters[ 'auth/refreshToken' ]
 
-  if ( userAuth === null && refreshToken !== null ) {
-    await checkAuthToken()
+  if ( isInitialGuardCall( userAuth ) && refreshToken !== null ) {
+    const onNetworkAttemptErrorRoute = await setTokensOnInitial( refreshToken, $store )
+
+    if ( onNetworkAttemptErrorRoute ) {
+      next( { name: onNetworkAttemptErrorRoute } )
+      return
+    }
   }
 
   const routeRequireAuth = to.meta.auth

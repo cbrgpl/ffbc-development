@@ -36,7 +36,8 @@ export default {
     }
   },
   errorCaptured ( error, vnode, info ) {
-    if ( !error.useHook ) {
+    console.log( 'ERROR CAPTURED' )
+    if ( !error.hasOnErrorCallback() ) {
       console.group( `Not hookable error number ${ this.errorsNumber++ }` )
       consoleLogger.object( info, 'info: ' )
       consoleLogger.object( vnode, 'vnode: ' )
@@ -50,8 +51,10 @@ export default {
       throw error
     }
 
-    error.onErrorHook( error )
-    return false
+    return error.onErrorHook( error )
+  },
+  beforeRouteEnter () {
+    console.log( 'asdsadasds' )
   },
   methods: {
     async onAppInit () {

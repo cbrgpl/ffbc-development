@@ -99,7 +99,7 @@ const authApiModule = [
   {
     method: 'POST',
     url: API_URL + '/auth/logout/',
-    secure: false,
+    secure: true,
     roles: [],
     handler: 'logOut',
     headers: {
@@ -164,6 +164,26 @@ const authApiModule = [
           type: 'string'
         },
         uidb64: {
+          type: 'string'
+        }
+      }
+    }
+  },
+  {
+    method: 'POST',
+    url: API_URL + '/auth/login/refresh/',
+    secure: false,
+    roles: [],
+    handler: 'updateTokens',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    schema: {
+      type: 'object',
+      required: [ 'refresh' ],
+      properties: {
+        refresh: {
           type: 'string'
         }
       }

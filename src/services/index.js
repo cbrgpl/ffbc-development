@@ -2,9 +2,11 @@ import { ServiceFactory, FetcherFactory, ResponseProcessor, MimeParser } from 't
 import { onBeforeRequest, onBeforeFetch } from './helpers/defaultHooks'
 
 import apiAuthModule from './service_metadata/authService'
+import userApiModule from './service_metadata/userService'
 
 const API = {
-  auth: apiAuthModule
+  auth: apiAuthModule,
+  user: userApiModule
 }
 
 const defaultHooks = {
@@ -16,7 +18,8 @@ function getServices ( API ) {
   const fetcherFactory = new FetcherFactory()
 
   const mimeParserPairs = [
-    [ 'application/json', ( httpResponse ) => httpResponse.json() ]
+    [ 'application/json', ( httpResponse ) => httpResponse.json() ],
+    [ 'text/html', ( httpResponse ) => httpResponse.text() ]
   ]
   const mimeParser = new MimeParser( mimeParserPairs )
   const responseProcessor = new ResponseProcessor( mimeParser )
@@ -41,4 +44,5 @@ setDefaultHooks( services, defaultHooks )
 
 export const {
   authService,
+  userService
 } = services

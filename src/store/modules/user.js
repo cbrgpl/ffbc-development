@@ -17,23 +17,8 @@ export default {
     roles ( state ) {
       return state.roles
     },
-    userDataClone ( state ) {
-      return Object.assign( state.userData )
-    },
-    avatar ( state ) {
-      return state.userData.avatar
-    },
-    documents ( state ) {
-      const documents = []
-
-      documents.push( state.userData.documentPhotoOne )
-      documents.push( state.userData.documentPhotoTwo )
-      documents.push( state.userData.documentPhotoThree )
-
-      return documents
-    },
     fullName ( state ) {
-      return !state.userData.firstName && !state.userData.lastName ? 'Name is not specified' : `${ state.userData.firstName } ${ state.userData.lastName }`
+      return state.name
     }
   },
   mutations: {

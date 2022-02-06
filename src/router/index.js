@@ -1,6 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
+
 import Preview from '@views/Preview.vue'
-import { verifyEmail, rolesGuard, authGuard, getRedirectOnLargeScreen, resetPasswordGuard } from './helpers/index'
+
+import {
+  verifyEmail,
+  rolesGuard,
+  authGuard,
+  getRedirectOnLargeScreen,
+  resetPasswordGuard
+} from './helpers/index'
 
 const routes = [
   {
@@ -169,12 +177,20 @@ const routes = [
     component: () => import( '@/views/ResetPassword.vue' ),
     props: true,
     beforeEnter: resetPasswordGuard
+  },
+  {
+    path: '/server-disabled',
+    component: () => import( '@layouts/EmptyLayout/EmptyLayout.vue' ),
+    name: 'ServerDisabled',
+    berforeEnter ( to, from, next ) {
+      console.log( to, from )
+    }
   }
 ]
 
 const router = createRouter( {
   history: createWebHistory( process.env.BASE_URL ),
-  routes
+  routes,
 } )
 
 router.beforeEach( authGuard )

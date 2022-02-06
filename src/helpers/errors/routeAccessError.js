@@ -1,5 +1,4 @@
 import HookableError from './pseudoAbstractErrors/hookableError'
-import routeAccessCallback from './onErrorCallbacks/routeAccessCallback'
 
 export default class RouteAccessError extends HookableError {
     static TYPES = {
@@ -13,7 +12,5 @@ export default class RouteAccessError extends HookableError {
       this.route = route
       this.guard = guard
       this.errorType = errorType
-
-      this.onErrorCallback = routeAccessCallback
     }
 }
