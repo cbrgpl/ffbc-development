@@ -39,7 +39,7 @@ import { getPasswordValidator } from '@validators'
 import { STATUS_WORDS } from 'consts'
 import { authService } from '@services'
 
-import { InternalClientLogicError } from '@errors'
+import { ErrorWithDescription } from '@errors'
 
 export default {
   name: 'ResetPassword',
@@ -89,7 +89,7 @@ export default {
       } else if ( request.httpResponse.status === 400 ) {
         this.toast$.warn( { summary: 'Something went wrong...', detail: 'Try requesting password recovery again' } )
       } else {
-        throw new InternalClientLogicError( 'Got unexpected response status while reset password' )
+        throw new ErrorWithDescription( 'Got unexpected response status while reset password' )
       }
 
       this.$router.push( { name: 'ShopMain' } )

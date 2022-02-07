@@ -1,6 +1,6 @@
-import ConstructorNamedError from './base_errors/constructorNamedError'
+import BaseError from './base_errors/baseError'
 
-export default class ArgError extends ConstructorNamedError {
+export default class ArgError extends BaseError {
   constructor ( argValue, argErrorMessage, ...params ) {
     super( ...params )
 

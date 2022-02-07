@@ -1,7 +1,6 @@
 import HookableError from './base_errors/hookableError'
-// Переименовать в ErrorWithDescription
 
-export default class InternalClientLogicError extends HookableError {
+export default class ErrorWithDescription extends HookableError {
   constructor ( description, ...params ) {
     super( ...params )
 

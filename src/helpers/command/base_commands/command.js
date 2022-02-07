@@ -1,7 +1,7 @@
-import { InternalClientLogicError } from '@errors'
+import { ErrorWithDescription } from '@errors'
 
 export default class Command {
   async execute () {
-    throw new InternalClientLogicError( 'execute method is not implemented in ServiceCommand descendant' )
+    throw new ErrorWithDescription( 'execute method is not implemented in ServiceCommand descendant' )
   }
 }

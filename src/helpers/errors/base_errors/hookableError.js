@@ -1,6 +1,6 @@
-import ConstructorNamedError from './constructorNamedError'
+import BaseError from './baseError'
 
-export default class HookableError extends ConstructorNamedError {
+export default class HookableError extends BaseError {
   constructor ( ...params ) {
     super( ...params )
 
