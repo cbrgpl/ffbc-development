@@ -6,7 +6,7 @@
         :height="26"
         :is-title="true"
         title="Share with link"
-        icon-name="share" />
+        icon="share" />
     </span>
 
     <span class="bg-black-primary rounded-full cursor-pointer bg-opacity-50 hover:bg-opacity-100 transition-colors duration-200 p-2" >
@@ -15,7 +15,7 @@
         :height="26"
         :is-title="true"
         title="Buy tickets"
-        icon-name="ticket" />
+        icon="ticket" />
     </span>
   </div>
 </template>

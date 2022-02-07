@@ -8,7 +8,7 @@
     </div>
 
     <div class="flex-shrink-0 w-8" >
-      <zIconBase icon-name="code" />
+      <zIconBase icon="code" />
     </div>
   </div>
 </template>

@@ -15,7 +15,7 @@
           class="m-auto"
           width="40"
           height="40"
-          :icon-name="option.iconName" />
+          :icon="option.iconName" />
       </router-link>
     </ul>
 
@@ -31,7 +31,7 @@
         class="text-white cursor-pointer transform transition-colors hover:text-secondary-darken"
         width="40"
         height="40"
-        icon-name="manageAccount" />
+        icon="manageAccount" />
     </span>
   </aside>
 </template>
@@ -39,7 +39,7 @@
 <script>
 import siteNavOptions from '@enums/nav/staticbar.options.js'
 import UserNavigation from './partial/UserNavigation.vue'
-import zIconBase from '@components/composite/zIconBase.vue'
+
 import { mapGetters } from 'vuex'
 
 export default {
@@ -56,7 +56,6 @@ export default {
     } )
   },
   components: {
-    zIconBase,
     UserNavigation
   },
 }

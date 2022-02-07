@@ -1,11 +1,11 @@
 <template >
   <zButton class="flex items-center justify-center min-w-mi" >
     <zIconBase
-      :icon-name="iconName"
+      :icon="icon"
       :class="[...responsiveVisibility]"
       :title="iconTitle"
       :width="iconSize"
-      :height="iconSize" ></zIconBase>
+      :height="iconSize" />
     <span
       v-if="defaultSlotFill"
       :class="['mr-2', ...responsiveVisibility]" ></span>
@@ -16,7 +16,6 @@
 </template>
 
 <script>
-import { defineAsyncComponent } from 'vue'
 import zButton from '@components/atomic/zButton.vue'
 
 export default {
@@ -30,7 +29,7 @@ export default {
       type: String,
       default: 'sm'
     },
-    iconName: {
+    icon: {
       type: String,
       required: true,
     },
@@ -61,7 +60,6 @@ export default {
   },
   components: {
     zButton,
-    zIconBrand: defineAsyncComponent( () => import( '@components/composite/zIconBase.vue' ) )
   },
 }
 </script>

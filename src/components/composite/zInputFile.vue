@@ -17,7 +17,7 @@
         <zIconBase
           :width="28"
           :height="28"
-          icon-name="fileUpload" />
+          icon="fileUpload" />
       </span>
       <div
         v-if="loader"

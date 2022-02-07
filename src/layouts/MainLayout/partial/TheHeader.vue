@@ -8,7 +8,7 @@
           width="100%"
           height="100%"
 
-          icon-name="menu" />
+          icon="menu" />
       </div>
       <router-link
         class="h-full"
@@ -43,7 +43,7 @@
         @click="dialog$.show('login')"
         class="py-2 px-2 sm:px-3 md:py-2.5 text-sm uppercase font-semibold mr-2"
         :icon-size="20"
-        icon-name="login" >
+        icon="login" >
         Log In
       </zIconButton>
       <zIconButton
@@ -52,7 +52,7 @@
         variant="ghost"
         class="py-2 px-2 sm:px-3 md:py-2.5 text-sm uppercase font-semibold"
         :icon-size="20"
-        icon-name="signUp" >
+        icon="signUp" >
         Sign up
       </zIconButton>
 

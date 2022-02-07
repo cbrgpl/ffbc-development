@@ -4,17 +4,14 @@
       class="m-auto"
       width="25"
       height="25"
-      icon-name="close" />
+      icon="close" />
   </div>
 </template>
 
 <script>
-import zIconBase from '@components/composite/zIconBase.vue'
 
 export default {
-  components: {
-    zIconBase,
-  },
+  name: 'DialogClose',
 }
 </script>
 

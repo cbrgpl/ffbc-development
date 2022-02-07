@@ -7,7 +7,7 @@
       class="h-full inline-flex items-center pr-8" >
       <span
         class="w-8 h-8 mr-3" >
-        <zIconBase icon-name="backArrow" ></zIconBase>
+        <zIconBase icon="backArrow" ></zIconBase>
       </span>
 
       <span class="text-2xl underline select-none" >

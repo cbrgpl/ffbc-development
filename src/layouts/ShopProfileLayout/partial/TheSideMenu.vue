@@ -11,7 +11,7 @@
 
       <span class="w-10 h-10" >
         <zIconBase
-          :icon-name="navigationElement.iconName" />
+          :icon="navigationElement.iconName" />
       </span>
     </router-link>
 
