@@ -102,8 +102,6 @@ import ServiceSection from './partial/ServiceSection.vue'
 import CompetitionCardActions from './partial/CompetitionCardActions.vue'
 import Ticket from './partial/Ticket.vue'
 
-import Console from '@/helpers/classes/Console'
-
 export default {
   name: 'HomeMain',
   data () {

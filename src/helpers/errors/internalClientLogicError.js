@@ -1,4 +1,4 @@
-import HookableError from './pseudoAbstractErrors/hookableError'
+import HookableError from './base_errors/hookableError'
 // Переименовать в ErrorWithDescription
 
 export default class InternalClientLogicError extends HookableError {

@@ -1,4 +1,4 @@
-import HookableError from './pseudoAbstractErrors/hookableError'
+import HookableError from './base_errors/hookableError'
 
 export default class NetworkAttemptError extends HookableError {
   constructor ( response, ...params ) {
