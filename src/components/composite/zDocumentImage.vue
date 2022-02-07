@@ -8,7 +8,7 @@
           class="z-documents-image__action"
           :is-title="true"
           title="Remove Image"
-          icon-name="close" />
+          icon="close" />
       </div>
     </template>
   </zImage>

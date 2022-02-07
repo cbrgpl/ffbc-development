@@ -8,7 +8,7 @@
         :class="['m-auto transform transition-transform duration-200', doubleArrowClasses]"
         width="56"
         height="56"
-        icon-name="doubleArrowUp" />
+        icon="doubleArrowUp" />
 
       <CentralButtonIcons
         :is-visible="isIconsVisible" />

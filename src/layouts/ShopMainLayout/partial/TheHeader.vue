@@ -5,7 +5,7 @@
       @click="$emit( 'toggleSidebarVisibility' )" >
       <zIconBase
         class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12"
-        icon-name="menu" />
+        icon="menu" />
     </div>
     <router-link
       class="hidden xl:block"
@@ -27,7 +27,7 @@
           class="w-12 h-12 p-2.5 mr-1.5 cursor-pointer hover:bg-black-lightest hover:bg-opacity-40 transition-colors rounded-full md:w-12 md:h-12"
           :to="{name: 'ShopProfileOrderList'}" >
           <zIconBase
-            icon-name="inventory" />
+            icon="inventory" />
         </router-link>
 
         <router-link
@@ -35,7 +35,7 @@
           class="w-12 h-12 p-2.5 cursor-pointer hover:bg-black-lightest hover:bg-opacity-40 transition-colors rounded-full md:w-12 md:h-12"
           :to="{name: 'ShopProfileCart'}" >
           <zIconBase
-            icon-name="cart" />
+            icon="cart" />
         </router-link>
       </div>
 
@@ -44,7 +44,7 @@
         class="h-12 w-12 flex p-1 border-2 border-white border-solid rounded-full bg-black" >
         <zIconBase
           class="m-auto"
-          icon-name="user" />
+          icon="user" />
       </router-link>
     </div>
 
@@ -53,7 +53,7 @@
       @click="showAuthDialog"
       class="h-full md:h-auto py-2 px-1.5"
       shrink
-      icon-name="login"
+      icon="login"
       unshrink-breakpoint="sm" >
       Sign In
     </zIconButton>

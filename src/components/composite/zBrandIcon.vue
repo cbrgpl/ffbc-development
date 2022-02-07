@@ -6,13 +6,8 @@
 </template>
 
 <script>
-import zIconBase from '@components/composite/zIconBase.vue'
-
 export default {
   name: 'zBrandIcon',
-  components: {
-    zIconBase,
-  },
 }
 </script>
 

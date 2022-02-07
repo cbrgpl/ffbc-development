@@ -30,7 +30,7 @@
             @click.stop="addToCard"
             class="w-full py-1.5 sm:py-3 lg:w-auto lg:py-1.5 lg:px-3"
             variant="safety"
-            icon-name="cart"
+            icon="cart"
             icon-title="Add To Cart"
             :icon-size="20" >
           </zIconButton>

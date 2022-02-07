@@ -28,7 +28,7 @@
         <h5 class="flex items-center font-semibold mt-1 mb-1.5" >
           <zIconBase
             class="mr-1.5"
-            icon-name="location" /> Lorem ipsum dolor sit.
+            icon="location" /> Lorem ipsum dolor sit.
         </h5>
 
         <!-- title -->

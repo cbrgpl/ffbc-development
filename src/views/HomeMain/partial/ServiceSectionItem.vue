@@ -3,7 +3,7 @@
     <zIconBase
       :width="32"
       :height="32"
-      :icon-name="data.type.icon"
+      :icon="data.type.icon"
       :is-title="true"
       :title="data.type.title" />
 

@@ -8,7 +8,7 @@
         <zIconBase
           width="32"
           height="32"
-          icon-name="gallery" ></zIconBase>
+          icon="gallery" ></zIconBase>
       </router-link>
     </li>
 
@@ -19,7 +19,7 @@
         <zIconBase
           width="32"
           height="32"
-          icon-name="message" ></zIconBase>
+          icon="message" ></zIconBase>
       </router-link>
     </li>
 
@@ -32,7 +32,7 @@
         <zIconBase
           width="32"
           height="32"
-          icon-name="ticket" ></zIconBase>
+          icon="ticket" ></zIconBase>
       </router-link>
     </li>
 
@@ -43,7 +43,7 @@
         <zIconBase
           width="32"
           height="32"
-          icon-name="cart" ></zIconBase>
+          icon="cart" ></zIconBase>
       </router-link>
     </li>
   </ul>

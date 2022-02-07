@@ -2,6 +2,8 @@
   <div class="mb-32" >
 
     <section class="home-main__bg-gradient flex flex-col items-center justify-center pt-20 pb-36" >
+      <IconBase icon="backArrow" />
+
       <img
         class="w-44 h-44 mb-1.5 rounded-full select-none shadow-2xl"
         :src="avatarTest"
@@ -25,7 +27,7 @@
           class="mr-2"
           :width="36"
           :height="36"
-          icon-name="interests" /> There is nothing yet...
+          icon="interests" /> There is nothing yet...
       </h3> -->
       <div class="flex items-center justify-around flex-wrap w-full" >
         <zCompetetionCard
@@ -56,7 +58,7 @@
           class="mr-2"
           :width="36"
           :height="36"
-          icon-name="ticket" /> There is nothing yet...
+          icon="ticket" /> There is nothing yet...
       </h3> -->
 
       <div class="home-main__tickets-grid" >
@@ -78,7 +80,7 @@
           class="mr-2"
           :width="36"
           :height="36"
-          icon-name="catchingPokemon" /> There is nothing yet...
+          icon="catchingPokemon" /> There is nothing yet...
       </h3>
 
       <div class="home-main__services-grid" >
@@ -101,6 +103,8 @@ import { defineAsyncComponent } from 'vue'
 import ServiceSection from './partial/ServiceSection.vue'
 import CompetitionCardActions from './partial/CompetitionCardActions.vue'
 import Ticket from './partial/Ticket.vue'
+
+import IconBase from '@components/atomic/zIconBase.vue'
 
 export default {
   name: 'HomeMain',
@@ -127,6 +131,7 @@ export default {
     CompetitionCardActions,
     Ticket,
     ServiceSection,
+    IconBase
   }
 }
 </script>

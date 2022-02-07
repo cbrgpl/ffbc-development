@@ -3,6 +3,7 @@
     v-bind="styles"
     class="z-action-button" >
     <zIconBase
+      icon="fitness"
       v-bind="attrs"
       :width="28"
       :height="28" />

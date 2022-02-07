@@ -15,7 +15,7 @@
           width="40"
           height="40"
 
-          icon-name="menu" />
+          icon="menu" />
 
         <ul
           class="sidebar__site-navigation"
@@ -29,7 +29,7 @@
 
             <zIconBase
               class="sidebar__site-nav-icon"
-              :icon-name="option.iconName" />
+              :icon="option.iconName" />
 
             <span class="sidebar__site-nav-text" >
               {{ option.name }}
@@ -46,7 +46,6 @@
 
 <script>
 import navOptions from '@enums/nav/sidebar.options.js'
-import zIconBase from '@components/composite/zIconBase.vue'
 import Profile from './partial/Profile.vue'
 
 export default {
@@ -70,7 +69,6 @@ export default {
   },
 
   components: {
-    zIconBase,
     Profile
   },
 }

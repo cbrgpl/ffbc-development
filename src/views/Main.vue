@@ -9,7 +9,7 @@
         <zIconBase
           width="24"
           height="24"
-          :icon-name="icon" />
+          :icon="icon" />
         {{ icon }}
       </span>
     </div>

@@ -16,7 +16,7 @@
         :width="32"
         :height="32"
         class="mr-2"
-        :icon-name="option.iconName" />
+        :icon="option.iconName" />
       {{ option.text }} </router-link>
   </div>
 </template>

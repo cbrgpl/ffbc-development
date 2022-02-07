@@ -12,7 +12,7 @@
         :width="24"
         :height="24"
         class="mr-1"
-        :icon-name="option.iconName" />
+        :icon="option.iconName" />
       {{ option.text }} </router-link>
   </zTape>
 </template>

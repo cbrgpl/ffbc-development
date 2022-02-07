@@ -22,7 +22,7 @@
         v-tooltip.top="'Log out'" >
         <zIconBase
           title="Sign Out"
-          icon-name="logout"
+          icon="logout"
           width="32"
           height="32" />
       </div>
@@ -31,7 +31,6 @@
 </template>
 
 <script>
-import zIconBase from '@components/composite/zIconBase.vue'
 import { mapGetters } from 'vuex'
 import { authService } from '@services'
 
@@ -67,9 +66,6 @@ export default {
         this.toast$.error( { summary: 'Something went wrong', detail: 'When trying to log out of the account, something went wrong. Please reload the page or try again later' } )
       }
     },
-  },
-  components: {
-    zIconBase,
   },
 }
 </script>
