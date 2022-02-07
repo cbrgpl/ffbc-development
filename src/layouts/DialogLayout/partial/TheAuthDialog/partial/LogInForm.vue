@@ -7,22 +7,23 @@
     :vuelidate-object="v$" >
     <zInput
       v-autofocus
-      class="mb-5"
+      class="form-field"
       v-model="logInForm.email"
       label="Email"
       :error-state="v$.logInForm.email.$error"
       on-error="Incorrect email format" />
 
     <zInput
-      class="mb-5"
+      class="form-field"
       type="password"
       v-model="logInForm.password"
       label="Password"
       :error-state="v$.logInForm.password.$error"
       on-error="Password is required" />
 
-    <div class="flex justify-between items-center mb-8" >
+    <div class="form-field flex justify-between flex-col sm:flex-row sm:items-center" >
       <zCheckboxSingle
+        class="mb-2 sm:mb-0"
         v-model="rememberMe"
         label="Remember me" />
 
@@ -32,12 +33,14 @@
     </div>
     <template #actions >
 
-      <zLoaderButton
-        class="py-4 mb-3.5 md:w-48 mt-1.5"
-        type="submit"
-        :loader="form.loading" >
-        Log in
-      </zLoaderButton>
+      <div class="form-actions" >
+        <zLoaderButton
+          class="form-button"
+          type="submit"
+          :loader="form.loading" >
+          Log in
+        </zLoaderButton>
+      </div>
 
     </template>
   </zForm>

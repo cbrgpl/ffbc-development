@@ -7,14 +7,14 @@
     :vuelidate-object="v$" >
     <zInput
       v-autofocus
-      class="mb-5"
+      class="form-field"
       v-model="signInForm.email"
       label="Email"
       :error-state="v$.signInForm.email.$error"
       on-error="Incorrect email format" />
 
     <zTooltipInput
-      class="mb-5"
+      class="form-field"
       type="password"
       v-model="signInForm.password"
       label="Password"
@@ -23,7 +23,7 @@
       :password-requirements="passwordRequirements" />
 
     <zInput
-      class="mb-5"
+      class="form-field"
       type="password"
       v-model="signInForm.passwordConfirmation"
       label="Repeat password"
@@ -31,7 +31,7 @@
       on-error="The passwords are different" />
 
     <zInput
-      class="mb-5"
+      class="form-field"
       v-model="signInForm.phoneNumber"
       label="Phone number"
       mask="+9 (999) 999 99-99"
@@ -39,14 +39,15 @@
       on-error="Invalid phone number" />
 
     <zCheckboxSingle
-      class="mb-8"
+      class="form-field"
       :error-state="v$.signInForm.policyAgreement.$error"
       v-model="signInForm.policyAgreement"
       label="Consent to the processing of personal data" />
     <template #actions >
-      <div class="flex flex-col justify-center lg:justify-start mt-3" >
+      <div class="form-actions flex flex-col justify-center lg:justify-start" >
 
         <zLink
+          class="form-link"
           v-if="form.state"
           :disabled="resendVerificationDisabled"
           @click="sendVerificationLink" >
@@ -54,7 +55,7 @@
         </zLink>
 
         <zLoaderButton
-          class="w-full py-4 md:w-48 mt-1.5"
+          class="form-button"
           type="submit"
           :loader="form.loading" >
           Sign In
