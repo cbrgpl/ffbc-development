@@ -7,10 +7,6 @@ export default class HookableError extends ConstructorNamedError {
     this.onErrorCallback = null
   }
 
-  hasOnErrorCallback () {
-    return this.onErrorCallback !== null
-  }
-
   onErrorHook ( app, error ) {
     return this.onErrorCallback( app, error )
   }

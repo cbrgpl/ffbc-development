@@ -23,7 +23,7 @@ import TheMediaViewOverlay from '@components/composite/TheMediaViewOverlay.vue'
 
 import TheToast from '@components/composite/TheToast/TheToast.vue'
 
-import consoleLogger from '@classes/consoleLogger.class'
+import Console from '@/helpers/classes/Console'
 
 export default {
   name: 'App',
@@ -35,11 +35,12 @@ export default {
       errorsNumber: 0,
     }
   },
+
   errorCaptured ( error, vnode, info ) {
-    if ( !error.hasOnErrorCallback() ) {
+    if ( !error.onErrorCallback ) {
       console.group( `Not hookable error number ${ this.errorsNumber++ }` )
-      consoleLogger.object( info, 'info: ' )
-      consoleLogger.object( vnode, 'vnode: ' )
+      Console.object( info, 'info: ' )
+      Console.object( vnode, 'vnode: ' )
 
       for ( const prop in error ) {
         console.error( prop, error[ prop ] )
