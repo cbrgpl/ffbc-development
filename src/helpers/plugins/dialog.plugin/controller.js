@@ -36,10 +36,10 @@ export default class {
     return this._dialogs
   }
 
-  addWatcher ( dialogName, watcher = null, watcherOptions = {} ) {
+  addWatcher ( dialogName, watcherCallback, watcherOptions = {} ) {
     this.checkDialogName( dialogName, 'Dialog does not exists' )
 
-    if ( typeof watcher !== 'function' ) {
+    if ( typeof watcherCallback !== 'function' ) {
       throw new TypeError( 'Dialog watcher must be callable' )
     }
 
@@ -47,7 +47,7 @@ export default class {
 
     unwatch.value = watch(
       () => this._dialogs[ dialogName ].visible,
-      ( newValue, oldValue ) => watcher( { newValue, oldValue, unwatch } ),
+      ( newValue, oldValue ) => watcherCallback( { newValue, oldValue, unwatch } ),
       watcherOptions
     )
   }

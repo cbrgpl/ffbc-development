@@ -171,7 +171,7 @@
 
 </br>
 
-#### object( object, title 	)
+#### **object( object, title 	)**
 
 </br>
 
@@ -182,7 +182,7 @@
 
 </br></br>
 
-#### log( message )
+#### **log( message )**
 
 </br>
 
@@ -192,7 +192,7 @@
 
 </br></br>
 
-#### error ( message ); warn ( message )
+#### **error ( message )**; **warn ( message )**
 
 </br>
 
@@ -206,6 +206,115 @@ Use **Console.separator** property to change separator symbol;
 
 </br></br>
 
+
+
+## Dialog
+
+Insterted[^inserted_in_app] service;
+
+</br>
+
+#### **register ( dialogName )**
+
+</br>
+
+| Arg | Type | Default | Description |
+| --- | --- | --- | --- |
+| dialogName | string | undefined | The name of dialog; Binds to component and helps to manipulate with dialog component throw the interface |
+
+</br></br>
+
+#### **show( dialogName, modal )**
+
+</br>
+
+| Arg | Type | Default | Description |
+| --- | --- | --- | --- |
+| dialogName | string | undefined | The name of dialog which will be shown |
+| modal | boolean | true | The flag that controls whether or not display dialog window wrapper with background or not |
+
+</br></br>
+
+#### **hide( dialogName )**
+
+</br>
+
+| Arg | Type | Default | Description |
+| --- | --- | --- | --- |
+| dialogName | string | undefined | The name of dialog which will be hidden |
+
+</br></br>
+
+### **addWatcher( dialogName, watcher, watcherOptions )**
+
+| Arg | Type | Default | Description |
+| --- | --- | --- | --- |
+| dialogName | string | undefined | The name of dialog which will be watched |
+| watcherCallback | function | null | The function which will be called at dialog visibility changes |
+| watcherOptions | object | {} | Vue watcher options |
+
+</br>
+
+#### *watcherCallback( { newValue, oldValue, unwatch } )*
+
+| Arg | Type | Description |
+| --- | --- | --- |
+| newValue | any  | New value of watched value |
+| oldValue | any | Old value of watched value |
+| unwatch | function | The function which stops watcher |
+
+</br></br></br></br>
+
+## MediaViewOverlay
+
+Insterted[^inserted_in_app] service;
+
+</br>
+
+#### **show( mediaSrc, mediaType )**
+
+</br>
+
+| Arg | Type | Default | Description |
+| --- | --- | --- | --- |
+| mediaSrc | string  | undefined | The src url of media resource |
+|mediaType | string | undefined | The type of media |
+
+**Available types of media:**
+- image
+- video
+
+</br></br></br></br>
+
+## Toast
+
+Insterted[^inserted_in_app] service;
+
+</br>
+
+#### **warn( { sumary, detail, life } )**
+#### **success( { sumary, detail, life } )**
+#### **error( { sumary, detail, life } )**
+#### **info( { sumary, detail, life } )**
+
+</br>
+
+| Arg | Type | Default | Description |
+| --- | --- | --- | --- |
+| summary | string  | undefined | toast title  |
+|detail | string | undefined | toast detail message |
+| life | number | undefined | Time of live of toast in ms |
+
+</br></br>
+
+#### **remove( id )**
+
+</br>
+
+| Arg | Type | Default | Description |
+| --- | --- | --- | --- |
+| id | number | undefined | ID of toast that must be deleted  |
+
 </br></br></br></br>
 
 [^complex_operation]:
@@ -215,3 +324,6 @@ Use **Console.separator** property to change separator symbol;
 
 [^pseudo_abstract_class]:
 	Так как в JS нет механизма для создания абстрактного класса, то используется такое семантическое обозначение для классов, которые не должны использоваться в клиентском коде. Использование таких классов заключается в наследовании от них и создании разных вариаций потомков.
+
+[^inserted_in_app]:
+	Подразумевается, что сервис является частью app и может быть доступен внутри компонентов через this с помощью соответствующего интерфейса.
