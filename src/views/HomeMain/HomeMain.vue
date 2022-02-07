@@ -2,8 +2,6 @@
   <div class="mb-32" >
 
     <section class="home-main__bg-gradient flex flex-col items-center justify-center pt-20 pb-36" >
-      <IconBase icon="backArrow" />
-
       <img
         class="w-44 h-44 mb-1.5 rounded-full select-none shadow-2xl"
         :src="avatarTest"

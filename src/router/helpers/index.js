@@ -1,12 +1,17 @@
-import verifyEmail from './verifyEmail.guard'
+import commandGuard from './command.guard'
 import rolesGuard from './roles.guard'
 import authGuard from './auth.guard'
-import getRedirectOnLargeScreen from './getRedirectOnLargeScreen'
 import resetPasswordGuard from './resetPassword.guard'
+
+import getRedirectOnLargeScreen from './getRedirectOnLargeScreen'
+import getVerifyEmailGuardParams from './getVerifyEmailGuardParams'
+
 export {
-  verifyEmail,
+  commandGuard,
   rolesGuard,
   authGuard,
-  getRedirectOnLargeScreen,
   resetPasswordGuard,
+
+  getRedirectOnLargeScreen,
+  getVerifyEmailGuardParams,
 }
