@@ -27,8 +27,8 @@ import Console from '@/helpers/classes/Console'
 
 export default {
   name: 'App',
-  async mounted () {
-    this.onAppInit()
+  mounted () {
+    this.disableTemplatePreloader()
   },
   data () {
     return {
@@ -54,18 +54,17 @@ export default {
     return error.onErrorHook( error )
   },
   methods: {
-    async onAppInit () {
-      const isVerificateRoute = location.href.includes( 'verificate' )
+    async disableTemplatePreloader () {
+      const isVerificateRoute = !!this.$route.meta.verificateEmail
 
       if ( isVerificateRoute ) {
-        window.addEventListener( 'storage', this.removeTemplateLoader(), { once: true } )
+        window.addEventListener( 'storage', this.removeTemplateLoader, { once: true } )
       } else {
-        setTimeout( () => {
-          setTimeout( () => {
-            this.removeTemplateLoader()
-          }, 0 )
-        }, 35 )
+        this.removeTemplateLoaderWithTimeout( 160 )
       }
+    },
+    removeTemplateLoaderWithTimeout ( ms ) {
+      setTimeout( this.removeTemplateLoader, ms )
     },
     removeTemplateLoader () {
       document.body.removeChild( document.body.querySelector( '#template-preloader' ) )

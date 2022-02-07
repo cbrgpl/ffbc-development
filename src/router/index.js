@@ -3,12 +3,16 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Preview from '@views/Preview.vue'
 
 import {
-  verifyEmail,
+  commandGuard,
   rolesGuard,
   authGuard,
+  resetPasswordGuard,
+
   getRedirectOnLargeScreen,
-  resetPasswordGuard
+  getVerifyEmailGuardParams,
 } from './helpers/index'
+
+import { ReqVerifyEmailCommand } from '@commands'
 
 const routes = [
   {
@@ -170,7 +174,11 @@ const routes = [
   {
     path: '/verificate',
     component: () => import( '@layouts/EmptyLayout/EmptyLayout.vue' ),
-    beforeEnter: verifyEmail
+    beforeEnter: commandGuard,
+    meta: {
+      verificateEmail: true,
+      command: new ReqVerifyEmailCommand( getVerifyEmailGuardParams )
+    }
   },
   {
     path: '/reset-password',
@@ -182,9 +190,6 @@ const routes = [
     path: '/server-disabled',
     component: () => import( '@layouts/EmptyLayout/EmptyLayout.vue' ),
     name: 'ServerDisabled',
-    berforeEnter ( to, from, next ) {
-      console.log( to, from )
-    }
   }
 ]
 
