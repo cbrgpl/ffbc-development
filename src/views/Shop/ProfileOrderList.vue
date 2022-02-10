@@ -1,5 +1,5 @@
 <template >
-  <div class="relative px-2.5 pt-4" >
+  <div class="relative px-2.5 xl:px-3.5 py-4" >
     <div class="flex flex-col" >
       <zPseudoSelect
         class="md:w-72"
@@ -8,11 +8,12 @@
         {{ selectedOrderCategory }}
       </zPseudoSelect>
 
-      <div class="mt-3 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-y-5 md:gap-4 xl:gap-y-8" >
-        <div
-          v-for="i of 20"
-          :key="i"
-          class="bg-primary-darkest border border-solid border-placeholder h-36" ></div>
+      <div class="mt-3 grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-y-5 md:gap-4 2xl:gap-y-8" >
+
+        <zShopProfileOrder
+          v-for="order of ordersList"
+          :key="order.id"
+          :order="order" />
       </div>
 
       <zDialogList
@@ -34,6 +35,7 @@
 </template>
 
 <script>
+import zShopProfileOrder from '@components/composite/zShopProfileOrder.vue'
 
 export default {
   name: 'ProfileOrderList',
@@ -47,6 +49,68 @@ export default {
         'In the work',
         'Is made',
         'Sent'
+      ],
+      ordersList: [
+        {
+          title: 'Test order title',
+          id: '010-4ef-9304',
+          media: [
+            'https://picsum.photos/1920/1080?random=12',
+            'https://picsum.photos/1920/1080?random=22',
+            'https://picsum.photos/1920/1080?random=52',
+            'https://picsum.photos/1920/1080?random=2',
+            'https://picsum.photos/1920/1080?random=21',
+            'https://picsum.photos/1920/1080?random=54',
+            'https://picsum.photos/1920/1080?random=25',
+            'https://picsum.photos/1920/1080?random=29',
+          ],
+          status: 'Awaiting Payment'
+        },
+        {
+          title: 'Test order title',
+          id: '010-4ef-9305',
+          media: [
+            'https://picsum.photos/1920/1080?random=16',
+            'https://picsum.photos/1920/1080?random=27',
+            'https://picsum.photos/1920/1080?random=56',
+            'https://picsum.photos/1920/1080?random=9',
+            'https://picsum.photos/1920/1080?random=12',
+            'https://picsum.photos/1920/1080?random=64',
+            'https://picsum.photos/1920/1080?random=95',
+            'https://picsum.photos/1920/1080?random=102',
+          ],
+          status: 'In the work'
+        },
+        {
+          title: 'Test order title',
+          id: '010-4ef-9105',
+          media: [
+            'https://picsum.photos/1920/1080?random=13',
+            'https://picsum.photos/1920/1080?random=32',
+            'https://picsum.photos/1920/1080?random=40',
+            'https://picsum.photos/1920/1080?random=23',
+            'https://picsum.photos/1920/1080?random=74',
+            'https://picsum.photos/1920/1080?random=69',
+            'https://picsum.photos/1920/1080?random=98',
+            'https://picsum.photos/1920/1080?random=105',
+          ],
+          status: 'Is made'
+        },
+        {
+          title: 'Test order title',
+          id: '010-5ef-9105',
+          media: [
+            'https://picsum.photos/1920/1080?random=3',
+            'https://picsum.photos/1920/1080?random=39',
+            'https://picsum.photos/1920/1080?random=44',
+            'https://picsum.photos/1920/1080?random=34',
+            'https://picsum.photos/1920/1080?random=4',
+            'https://picsum.photos/1920/1080?random=58',
+            'https://picsum.photos/1920/1080?random=53',
+            'https://picsum.photos/1920/1080?random=84',
+          ],
+          status: 'Sent'
+        },
       ]
     }
   },
@@ -63,6 +127,9 @@ export default {
       this.selectedOrderCategory = category
       this.categoryListVisibile = false
     }
+  },
+  components: {
+    zShopProfileOrder
   }
 }
 </script>

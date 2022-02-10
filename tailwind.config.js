@@ -90,6 +90,9 @@ const tailwindConfig = {
       zIndex: {
         '-10': '-10',
       },
+      screens: {
+        coarse: { raw: '(pointer: coarse)' }
+      }
     }
   },
   variants: {
