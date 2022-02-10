@@ -48,7 +48,7 @@
 
         <zLink
           class="form-link"
-          v-if="form.state"
+          v-if="isFormSuccessed"
           :disabled="resendVerificationDisabled"
           @click="sendVerificationLink" >
           Resend Verification Link
@@ -105,6 +105,16 @@ export default {
       resendVerificationDisabled: false
     }
   },
+  watch: {
+    'signInForm.email': function resetFormValidation ( newValue, oldValue ) {
+      this.form.state = null
+    }
+  },
+  computed: {
+    isFormSuccessed () {
+      return this.form.state
+    }
+  },
   methods: {
     async signIn ( status ) {
       this.form.state = null
@@ -129,7 +139,7 @@ export default {
         this.form.state = true
       } else {
         this.form.state = false
-        this.form.errorMessage = request.parsedBody.error[ 0 ].message
+        this.form.errorMessage = request.parsedBody.errors[ 0 ].message
       }
     },
     getFormatedToBackendData ( notFormattedData ) {

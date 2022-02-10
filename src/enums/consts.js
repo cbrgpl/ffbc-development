@@ -1,6 +1,6 @@
-const BACKEND_ADDRESS = 'rainbow-siege-developers.ru'
+const BACKEND_ADDRESS = '9799-178-88-196-208.ngrok.io'
 
-const API_URL = `https://${ BACKEND_ADDRESS }/api`
+const API_URL = `http://${ BACKEND_ADDRESS }/api`
 
 const CLIENT_URL = location.origin
 
