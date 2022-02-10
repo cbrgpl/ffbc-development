@@ -29,13 +29,13 @@ export default {
   name: 'App',
   mounted () {
     this.disableTemplatePreloader()
+    this.dialog$.show( 'auth' )
   },
   data () {
     return {
       errorsNumber: 0,
     }
   },
-
   errorCaptured ( error, vnode, info ) {
     if ( !error.onErrorCallback ) {
       console.group( `Not hookable error number ${ this.errorsNumber++ }` )
