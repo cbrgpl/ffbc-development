@@ -29,7 +29,6 @@ export default {
   name: 'App',
   mounted () {
     this.disableTemplatePreloader()
-    this.dialog$.show( 'auth' )
   },
   data () {
     return {

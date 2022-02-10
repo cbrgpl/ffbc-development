@@ -23,6 +23,7 @@ import zInput from '@components/composite/zInput.vue'
 import zTooltipInput from '@components/composite/zTooltipInput/zTooltipInput.vue'
 import zMedia from '@components/composite/zMedia.vue'
 import zInputFile from '@/components/composite/zInputFile.vue'
+import zMediaWithTitle from '@/components/composite/zMediaWithTitle.vue'
 
 // directives
 import autofocus from '@directives/autofucs.directive.js'
@@ -60,7 +61,8 @@ const customFunctional = {
       zTooltipInput,
       zMedia,
       zPseudoSelect,
-      zDialogList
+      zDialogList,
+      zMediaWithTitle
     }
   },
   directives: {
