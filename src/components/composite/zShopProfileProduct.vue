@@ -1,7 +1,8 @@
 <template >
-  <div class="py-4 border-b border-placeholder border-solid border-opacity-40" >
+  <div class="py-4 border-b last:border-none border-placeholder border-solid border-opacity-40" >
     <div class="h-full flex items-start" >
       <zCheckboxSingle
+        v-if="showActions"
         :checked="productSelected"
         @update:modelValue="$emit('productSelectChanged', $event)" ></zCheckboxSingle>
       <zMedia
@@ -26,9 +27,6 @@
         </span>
       </div>
     </div>
-    <div >
-
-    </div>
   </div>
 </template>
 
@@ -43,12 +41,12 @@ export default {
     },
     showActions: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     productSelected: {
       type: Boolean,
-      required: true,
-    }
+      default: false,
+    },
   },
 }
 </script>

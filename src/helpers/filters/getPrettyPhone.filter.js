@@ -2,5 +2,5 @@ export default function ( phone ) {
   if ( !phone ) {
     return ''
   }
-  return `+${ phone[ 0 ] } (${ phone.substr( 1, 3 ) }) ${ phone.substr( 4, 3 ) }  ${ phone.substr( 7, 2 ) }-${ phone.substr( 9, 2 ) } `
+  return `${ phone[ 1 ] } (${ phone.substr( 2, 3 ) }) ${ phone.substr( 5, 3 ) }  ${ phone.substr( 8, 2 ) }-${ phone.substr( 10, 2 ) } `
 }

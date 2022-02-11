@@ -155,6 +155,12 @@ const routes = [
             path: 'order-list',
             component: () => import( '@views/Shop/ProfileOrderList.vue' ),
             name: 'ShopProfileOrderList',
+          },
+          {
+            path: 'order-detail/:orderId',
+            component: () => import( '@views/Shop/ProfileOrderDetail.vue' ),
+            name: 'ShopProfileOrderDetail',
+            props: true,
           }
         ]
       },

@@ -35,7 +35,7 @@ export default {
   },
   watch: {
     currentRoute () {
-      this.toggleSidebarVisibility( false )
+      this.setSidebarVibility( false )
     }
   },
   methods: {
@@ -54,5 +54,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+::v-deep(.shop-main-padding) {
+  @apply px-2.5 xl:px-3.5 py-4;
+}
 </style>
