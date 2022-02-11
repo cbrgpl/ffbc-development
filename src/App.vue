@@ -19,7 +19,7 @@ import EmptyLayout from '@layouts/EmptyLayout/EmptyLayout.vue'
 import DialogLayout from '@layouts/DialogLayout/DialogLayout.vue'
 import ShopMainLayout from '@layouts/ShopMainLayout/ShopMainLayout.vue'
 
-import TheMediaViewOverlay from '@components/composite/TheMediaViewOverlay.vue'
+import TheMediaViewOverlay from '@/components/composite/TheMediaViewOverlay/TheMediaViewOverlay.vue'
 
 import TheToast from '@components/composite/TheToast/TheToast.vue'
 
