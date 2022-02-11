@@ -34,7 +34,7 @@ export default {
     }
   },
   state: {
-    isAuth: true, // TODO поменять на null
+    isAuth: null,
     tokens: {
       access: null,
       refresh: localStorage.getItem( STORAGE_NAMES.REFRESH_TOKEN ) || sessionStorage.getItem( STORAGE_NAMES.REFRESH_TOKEN ),

@@ -21,7 +21,12 @@ function onBeforeFetch ( requestParameters ) {
   requestParameters.fetchParams.body = JSON.stringify( requestParameters.fetchParams.body )
 }
 
+function onResponseHandled ( data ) {
+  console.log( data )
+}
+
 export {
   onBeforeFetch,
-  onBeforeRequest
+  onBeforeRequest,
+  onResponseHandled
 }

@@ -1,5 +1,5 @@
 <template >
-  <ul class="text-2xl select-none" >
+  <ul class="text-xl select-none" >
     <li
       class="mb-1.5"
       v-for="(value, key) in navigationOptions"

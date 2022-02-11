@@ -2,7 +2,7 @@
   <div class="flex items-center justify-between w-full bg-black-lighten py-2 px-1.5 md:px-3 border-b border-primary-darkest border-solid" >
     <div
       class="p-1 xl:hidden"
-      @click="$emit( 'toggleSidebarVisibility' )" >
+      @click="emitSidebarShowing" >
       <zIconBase
         class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12"
         icon="menu" />
@@ -79,6 +79,9 @@ export default {
     showAuthDialog () {
       this.dialog$.show( 'auth' )
     },
+    emitSidebarShowing () {
+      this.$emit( 'toggleSidebarVisibility', null )
+    }
   }
 }
 </script>
