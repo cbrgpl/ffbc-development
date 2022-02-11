@@ -1,5 +1,5 @@
 <template >
-  <aside :class="['absolute w-full xl:static h-full bg-black-lighten overflow-auto xl:w-auto flex-shrink-0 pt-4 transform transition-transform duration-500 ease-in-out', sidebarVisibilityClasses]" >
+  <aside :class="['z-100 absolute w-full xl:static h-full bg-black-lighten overflow-auto xl:w-auto flex-shrink-0 pt-4 transform transition-transform duration-500 ease-in-out', sidebarVisibilityClasses]" >
     <h3 class="sidemenu-list-title" >
       Site Navigation:
     </h3>
@@ -30,9 +30,9 @@
       </template>
     </SidemenuNavigationList>
 
-    <zDivider class="my-6" />
-
     <template v-if="isAuth" >
+      <zDivider class="my-6" />
+
       <h3 class="sidemenu-list-title" >
         Actions:
       </h3>
@@ -137,10 +137,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-aside {
-  z-index: 100;
-}
-
 .sidemenu-list-title {
   @apply inline-block mb-2 mx-4 lg:mx-6 xl:text-2xl xl:border-b xl:border-white xl:border-solid;
 }
