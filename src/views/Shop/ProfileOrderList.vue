@@ -1,5 +1,5 @@
 <template >
-  <div class="relative px-2.5 xl:px-3.5 py-4" >
+  <div class="shop-main-padding relative" >
     <div class="flex flex-col" >
       <zPseudoSelect
         class="md:w-72"
@@ -11,6 +11,7 @@
       <div class="mt-3 grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-y-5 md:gap-4 2xl:gap-y-8" >
 
         <zShopProfileOrder
+          @open-order-detail='openOrderDetail'
           v-for="order of ordersList"
           :key="order.id"
           :order="order" />
@@ -126,6 +127,9 @@ export default {
     selectCategory ( category ) {
       this.selectedOrderCategory = category
       this.categoryListVisibile = false
+    },
+    openOrderDetail ( orderId ) {
+      this.$router.push( { name: 'ShopProfileOrderDetail', params: { orderId } } )
     }
   },
   components: {

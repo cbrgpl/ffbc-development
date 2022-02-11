@@ -22,13 +22,14 @@
     <zDivider class="my-3.5" />
 
     <div class="flex flex-col items-stretch sm:flex-row sm:items-center justify-between" >
-      <h5 :class="['inline-flex text-lg sm:font-semibold mb-1.5', chipClasses]" >
-        {{ order.status }}
-      </h5>
+
+      <zShopOrderStatus
+        class="mb-1.5"
+        :status="order.status" />
 
       <zButton
         class="px-8 py-3"
-        @click="routeToOrderDetail" >
+        @click="emitOpenOrderDetail" >
         Detail
       </zButton>
     </div>
@@ -36,10 +37,11 @@
 </template>
 
 <script>
-import orderStatusClasses from '@/enums/info/orderStatusClasses'
+import zShopOrderStatus from '@components/atomic/zShopOrderStatus.vue'
 
 export default {
   name: 'zShopProfileOrder',
+  emits: [ 'open-order-detail' ],
   props: {
     order: {
       type: Object,
@@ -47,14 +49,12 @@ export default {
     }
   },
   methods: {
-    routeToOrderDetail () {
-      console.log( 'to order detail...' )
+    emitOpenOrderDetail () {
+      this.$emit( 'open-order-detail', this.order.id )
     }
   },
-  computed: {
-    chipClasses () {
-      return orderStatusClasses[ this.order.status ]
-    }
+  components: {
+    zShopOrderStatus
   }
 }
 </script>
