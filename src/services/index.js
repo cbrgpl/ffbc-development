@@ -1,5 +1,5 @@
 import { ServiceFactory, FetcherFactory, ResponseProcessor, MimeParser } from 'ttt-rest-service'
-import { onBeforeRequest, onBeforeFetch } from './helpers/defaultHooks'
+import { onBeforeRequest, onBeforeFetch, onResponseHandled } from './helpers/defaultHooks'
 
 import apiAuthModule from './service_metadata/authService'
 import userApiModule from './service_metadata/userService'
@@ -12,6 +12,7 @@ const API = {
 const defaultHooks = {
   onBeforeRequest,
   onBeforeFetch,
+  onResponseHandled
 }
 
 function getServices ( API ) {
@@ -35,6 +36,7 @@ function setDefaultHooks ( services, hooks ) {
 
     service.onBeforeRequest( hooks.onBeforeRequest )
     service.onBeforeFetch( hooks.onBeforeFetch )
+    // service.onResponseHandled( hooks.onResponseHandled )
   }
 }
 

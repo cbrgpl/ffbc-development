@@ -92,11 +92,9 @@ export default {
         ...this.logInForm,
       } )
 
-      this.form.loading = false
-
       if ( request.httpResponse.status === 200 ) {
         setRefreshInStorage( request.parsedBody.tokens.refresh, this.rememberMe )
-        const setAuthorizeInfoCommand = new SetAuthorizeInfoCommand( this.$store, request.parsedBody )
+        const setAuthorizeInfoCommand = new SetAuthorizeInfoCommand( this.$store, request.parsedBody.tokens )
         setAuthorizeInfoCommand.execute()
 
         const userData = await getUserServiceCommand.execute()
@@ -106,6 +104,7 @@ export default {
 
         this.dialog$.hide( 'auth' )
       } else {
+        this.form.loading = false
         this.form.state = false
         this.form.errorMessage = request.parsedBody.errors[ 0 ].message
       }
