@@ -1,76 +1,18 @@
+const isObject = ( val ) => typeof val === 'object' && val !== null && !Array.isArray( val )
+
 const MODS = {
   KEBAB_CAMEL: 'KC',
   CAMEL_KEBAB: 'CK'
 }
 
-// TODO Заменить на по-настоящему приватные методы
-export default class CamelKebabTranslator {
-  static camelKebabKey ( key ) {
-    return this._translateString( key, MODS.CAMEL_KEBAB )
-  }
+const _TYPES = {
+  ARRAY: 'ARRAY',
+  OBJECT: 'OBJECT',
+  NOT_DEFINED: 'NOT_DEFINED'
+}
 
-  static kebabCamelKey ( key ) {
-    return this._translateString( key, MODS.KEBAB_CAMEL )
-  }
-
-  static camelKebabArray ( foreignArray ) {
-    for ( const elem of foreignArray ) {
-      if ( elem instanceof Object ) {
-        this.camelKebabObj( elem )
-      }
-    }
-  }
-
-  static kebabCamelArray ( foreignArray ) {
-    for ( const elem of foreignArray ) {
-      if ( elem instanceof Object ) {
-        this.kebabCamelObj( elem )
-      }
-    }
-  }
-
-  static camelKebabObj ( foreignObj ) {
-    const translatedObject = {}
-
-    for ( const key of Object.keys( foreignObj ) ) {
-      const kebabedKey = this._translateString( key, MODS.CAMEL_KEBAB )
-
-      translatedObject[ kebabedKey ] = foreignObj[ key ]
-
-      if ( translatedObject[ kebabedKey ] instanceof Object ) {
-        this.camelKebabObj( translatedObject[ kebabedKey ] )
-      } else if ( Array.isArray( translatedObject[ kebabedKey ] ) ) {
-        this.camelKebabArray( translatedObject[ kebabedKey ] )
-      }
-    }
-
-    return translatedObject
-  }
-
-  static kebabCamelObj ( foreignObj ) {
-    const translatedObject = {}
-
-    for ( const key of Object.keys( foreignObj ) ) {
-      const cameledKey = this._translateString( key, MODS.KEBAB_CAMEL )
-
-      translatedObject[ cameledKey ] = foreignObj[ key ]
-
-      if ( translatedObject[ cameledKey ] instanceof Object ) {
-        this.camelKebabObj( translatedObject[ cameledKey ] )
-      } else if ( Array.isArray( translatedObject[ cameledKey ] ) ) {
-        this.camelKebabArray( translatedObject[ cameledKey ] )
-      }
-    }
-
-    return translatedObject
-  }
-
-  static _translateString ( key, mode ) {
-    if ( mode === MODS.KEBAB_CAMEL ) return this._toCamel( key )
-    if ( mode === MODS.CAMEL_KEBAB ) return this._toKebab( key )
-  }
-
-  static _toKebab ( key ) {
+const _TRANSLATORS = {
+  toKebab ( key ) {
     let kebabedKey = key
 
     const upperCaseSymbols = RegExp( /[A-Z]/g )
@@ -84,9 +26,8 @@ export default class CamelKebabTranslator {
     }
 
     return kebabedKey
-  }
-
-  static _toCamel ( key ) {
+  },
+  toCamel ( key ) {
     let cameledKey = key
 
     const underlineReg = RegExp( '_', 'g' )
@@ -100,5 +41,84 @@ export default class CamelKebabTranslator {
     }
 
     return cameledKey
+  }
+}
+
+function defineType ( data ) {
+  if ( Array.isArray( data ) ) {
+    return _TYPES.ARRAY
+  } else if ( isObject( data ) ) {
+    return _TYPES.OBJECT
+  } else {
+    return _TYPES.NOT_DEFINED
+  }
+}
+
+function _translateArray ( { arr, mode } ) {
+  const translatedArray = []
+
+  for ( const arrElem of arr ) {
+    if ( isObject( arrElem ) ) {
+      translatedArray.push( _translateObject( { obj: arrElem, mode } ) )
+    } else { translatedArray.push( arrElem ) }
+  }
+
+  return translatedArray
+}
+
+function _applyTranslator ( { str, mode } ) {
+  switch ( mode ) {
+  case MODS.CAMEL_KEBAB:
+    return _TRANSLATORS.toKebab( str )
+  case MODS.KEBAB_CAMEL:
+    return _TRANSLATORS.toCamel( str )
+  }
+}
+
+function _translateObject ( { obj, mode } ) {
+  const translatedObject = {}
+
+  for ( const prop in obj ) {
+    const value = obj[ prop ]
+    let translatedVal = null
+
+    if ( isObject( value ) ) {
+      translatedVal = _translateObject( { obj: value, mode } )
+    } else if ( Array.isArray( value ) ) {
+      translatedVal = _translateArray( { arr: value, mode } )
+    } else {
+      translatedVal = value
+    }
+
+    const translatedKey = _applyTranslator( { str: prop, mode } )
+    translatedObject[ translatedKey ] = translatedVal
+  }
+
+  return translatedObject
+}
+export default class CamelKebabTranslator {
+  static MODS = MODS
+
+  static translate ( { value, mode } ) {
+    if ( !Object.keys( MODS ).some( ( modeKey ) => MODS[ modeKey ] !== mode ) ) {
+      console.warn( `invalid mode with value ${ mode }` )
+      return value
+    }
+
+    const dataType = defineType( value )
+
+    if ( dataType === _TYPES.ARRAY ) {
+      return _translateArray( {
+        arr: value,
+        mode,
+      } )
+    } else if ( dataType === _TYPES.OBJECT ) {
+      return _translateObject( {
+        obj: value,
+        mode,
+      } )
+    } else {
+      throw Error( `Invalid translate mode was passed;\nMode Value ${ mode }` )
+    }
   }
 }

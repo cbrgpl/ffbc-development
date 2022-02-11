@@ -8,7 +8,7 @@
         :class="['m-auto transform transition-transform duration-200', doubleArrowClasses]"
         width="56"
         height="56"
-        icon-name="doubleArrowUp" />
+        icon="doubleArrowUp" />
 
       <CentralButtonIcons
         :is-visible="isIconsVisible" />
@@ -42,7 +42,7 @@ export default {
       document.body.addEventListener( 'click', this.hideContainer )
     },
     hideContainer ( event ) {
-      if ( !this.$refs.centralButton.contains( event.target ) ) {
+      if ( this.$refs.centralButton && !this.$refs.centralButton.contains( event.target ) ) {
         this.isIconsVisible = false
       }
     }

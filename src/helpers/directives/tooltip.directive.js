@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import uniqueComponentId from '@functions/uniqueComponentId.function.js'
+import getUniqueComponentId from '@/helpers/functions/getUniqueComponentId.js'
 import DomHandler from '@classes/DomHandler.class.js'
 
 // v-tooltip.side[top||bottom||left||right].focus.margin(in px)
@@ -13,7 +13,6 @@ function parseModifiers ( el ) {
     direction: 'top',
     focus: false
   }
-
   for ( const modifier of Object.entries( modifiers ) ) {
     if ( !isNaN( modifier[ 0 ] ) ) {
       defaultModifiers.offset = Number( modifier[ 0 ] )
@@ -71,11 +70,11 @@ function onFocusin ( event ) {
 }
 
 function onScroll ( el ) {
-  hide( el )
+  hideSymbols( el )
 }
 
 function onFocusout ( event ) {
-  hide( event.currentTarget )
+  hideSymbols( event.currentTarget )
 }
 
 function onMouseEnter ( event ) {
@@ -83,11 +82,11 @@ function onMouseEnter ( event ) {
 }
 
 function onMouseLeave ( event ) {
-  hide( event.currentTarget )
+  hideSymbols( event.currentTarget )
 }
 
 function onClick ( event ) {
-  hide( event.currentTarget )
+  hideSymbols( event.currentTarget )
 }
 
 function show ( el ) {
@@ -100,7 +99,7 @@ function show ( el ) {
   bindScrollEvents( el )
 }
 
-function hide ( el ) {
+function hideSymbols ( el ) {
   remove( el )
 
   if ( el.$_scrollListener ) {
@@ -124,7 +123,7 @@ function remove ( el ) {
 function createTooltip ( el ) {
   const container = document.createElement( 'div' )
 
-  const id = uniqueComponentId() + '_tooltip'
+  const id = getUniqueComponentId() + '_tooltip'
   el.$_ztooltipId = id
   container.id = id
 
@@ -245,6 +244,10 @@ export default {
     bindEvents( el )
   },
   unmounted ( el ) {
+    if ( el.$_ztooltipId ) {
+      remove( el )
+    }
+
     unbindEvents( el )
   },
   update ( el, options ) {

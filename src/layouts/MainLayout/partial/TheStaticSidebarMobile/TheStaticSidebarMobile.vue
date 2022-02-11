@@ -8,7 +8,7 @@
         <zIconBase
           width="32"
           height="32"
-          icon-name="gallery" ></zIconBase>
+          icon="gallery" ></zIconBase>
       </router-link>
     </li>
 
@@ -19,7 +19,7 @@
         <zIconBase
           width="32"
           height="32"
-          icon-name="message" ></zIconBase>
+          icon="message" ></zIconBase>
       </router-link>
     </li>
 
@@ -32,18 +32,18 @@
         <zIconBase
           width="32"
           height="32"
-          icon-name="ticket" ></zIconBase>
+          icon="ticket" ></zIconBase>
       </router-link>
     </li>
 
     <li >
       <router-link
         class="p-2 sm:p-2.5"
-        :to="{name: 'Main'}" >
+        :to="{name: 'ShopMain'}" >
         <zIconBase
           width="32"
           height="32"
-          icon-name="event" ></zIconBase>
+          icon="cart" ></zIconBase>
       </router-link>
     </li>
   </ul>
@@ -61,7 +61,6 @@ export default {
 </script>
 
 <style lang="scss">
-
 .static-sidebar-mobile__center-button {
   @apply w-20 h-20 bg-primary-darkest rounded-full flex cursor-pointer;
 }

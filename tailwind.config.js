@@ -1,6 +1,6 @@
-const remark = require( 'remark' )
 const defaultTheme = require( 'tailwindcss/defaultTheme' )
 const plugin = require( 'tailwindcss/plugin' )
+const purgeSafelist = require( './tailwind.config.safelist' )
 
 const textShadowUtility = plugin( function ( { addUtilities } ) {
   const newUtilities = {
@@ -22,14 +22,14 @@ const textShadowUtility = plugin( function ( { addUtilities } ) {
   addUtilities( newUtilities )
 } )
 
-module.exports = {
+const tailwindConfig = {
+  mode: process.env.NODE_ENV === 'production' ? 'jit' : '',
   purge: {
-    transform: {
-      content: [ './index.html', './src/**/*.{vue,js,ts,jsx,tsx}' ],
-      md: ( content ) => {
-        return remark().process( content )
-      }
-    }
+    content: [
+      './index.html',
+      './src/**/*.{vue,js,ts,jsx,tsx}'
+    ],
+    safelist: purgeSafelist
   },
   darkMode: false, // or 'media' or 'class'
   theme: {
@@ -73,16 +73,43 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: [ '\'Ubuntu\'', defaultTheme.fontFamily.sans ],
+        mono: [ '\'Red Hat Mono\'', defaultTheme.fontFamily.mono ]
+      },
+      fontSize: {
+        xs: '0.75rem',
+        sm: '0.875rem',
+        base: '1rem',
+        lg: '1.125rem',
+        xl: '1.25rem',
+        '2xl': '1.5rem',
+        '3xl': '1.875rem',
+        '4xl': '2.25rem',
+        '5xl': '3rem',
+        '6xl': '4rem',
       },
       zIndex: {
-        '-10': '-10'
+        '-10': '-10',
+        90: '90',
+        100: '100',
+        110: '110',
+        120: '120',
+        130: '130',
+        140: '140'
       },
+      screens: {
+        coarse: { raw: '(pointer: coarse)' }
+      }
     }
   },
   variants: {
     extend: {
-      margin: [ 'last' ]
+      margin: [ 'last' ],
+      textColor: [ 'active' ],
+      backgroundColor: [ 'active' ],
+      borderStyle: [ 'last' ]
     }
   },
   plugins: [ textShadowUtility ],
 }
+
+module.exports = tailwindConfig

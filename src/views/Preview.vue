@@ -1,17 +1,5 @@
 <template >
-  <div >
-
-    <zButton @click="info" >
-      info
-    </zButton>
-
-    <zButton @click="error" >
-      error
-    </zButton>
-
-    <zButton @click="success" >
-      success
-    </zButton>
+  <div class="relative" >
 
     <zButton @click="warning" >
       warning
@@ -21,6 +9,11 @@
       warning
     </zButton>
 
+    <zLoaderButton
+      class="px-6 py-3.5 mt-3"
+      :loader="true" >
+      Dimochka
+    </zLoaderButton>
   </div>
 </template>
 
@@ -28,7 +21,12 @@
 import observer from '@directives/observer.directive.js'
 
 import zButton from '@/components/atomic/zButton.vue'
-import zDialog from '@/components/composite/zDialog/zDialog.vue'
+
+import zTooltipInput from '@/components/composite/zTooltipInput/zTooltipInput.vue'
+import zValidationInput from '@/components/composite/zValidationInput/zValidationInput.vue'
+
+import NetworkAttemptErorr from '@errors/networkAttemptError'
+import passwordRequirements from '@enums/info/passwordRequirements'
 
 export default {
   directives: {
@@ -36,7 +34,8 @@ export default {
   },
   data () {
     return {
-      visible: false
+      visible: false,
+      passwordRequirements,
     }
   },
   methods: {
@@ -48,29 +47,28 @@ export default {
     },
     error () {
       this.toast$.error( { detail: 'Error while handling', summary: 'Oh, something went wrong' } )
+      throw new NetworkAttemptErorr( 'api/url', { body: 1, attempt: 1 }, 501 )
     },
     warning () {
       this.toast$.warn( { detail: 'Be careful', summary: 'Oh, be careful with that shit it is not looks like' } )
     },
   },
   components: {
-    zDialog,
-    zButton
+    zButton,
+    zTooltipInput,
+    zValidationInput
   },
 }
 </script>
 
 <style lang="scss" scoped>
-
 .image-wrapper {
+  @apply h-64 w-full relative;
   clip-path: inset(0);
 
-  @apply h-64 w-full relative;
-
   &::after {
-    content: '';
-
     @apply absolute z-20 w-full h-full;
+    content: "";
   }
 }
 

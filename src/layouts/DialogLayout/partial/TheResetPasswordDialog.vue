@@ -7,23 +7,25 @@
 
     <zForm
       @validate="sendCode"
+      :state="form.state"
+      :error-message="form.errorMessage"
       :vuelidate-object="v$" >
       <zInput
         v-autofocus
-        class="mb-10"
+        class="mb-8"
         v-model="email"
         label="Email"
         :error-state="v$.email.$error"
         on-error="Incorrect email format" />
 
-      <template #button >
+      <template #actions >
 
-        <zButtonLoader
-          class="w-full py-4 md:w-48 self-start"
+        <zLoaderButton
+          class="w-full py-4 md:w-48 mt-1.5"
           type="submit"
-          :loader="formLoader" >
+          :loader="form.loading" >
           Send mail
-        </zButtonLoader>
+        </zLoaderButton>
 
       </template>
     </zForm>
@@ -31,16 +33,24 @@
 </template>
 <script>
 import zDialog from '@components/composite/zDialog/zDialog.vue'
+
 import useVuelidate from '@vuelidate/core'
-import { email, required } from '@validators'
+import { email, required } from '@vuelidate/validators'
+
 import { authService } from '@services'
+import { STATUS_WORDS, CLIENT_URL } from 'consts'
+
 export default {
   name: 'TheResetPasswordDialog',
   data () {
     return {
       email: '',
-      formLoader: false,
-      v$: useVuelidate()
+      v$: useVuelidate(),
+      form: {
+        state: null,
+        errorMessage: '',
+        loading: false,
+      },
     }
   },
   validations () {
@@ -53,22 +63,27 @@ export default {
   },
   methods: {
     async sendCode ( status ) {
-      if ( status === 'INVALID' ) return
+      this.form.state = null
 
-      this.formLoader = true
-      const requestResponse = await authService.requestResetPassword( {
+      if ( status === STATUS_WORDS.ERROR ) {
+        return
+      }
+
+      this.form.loading = true
+
+      const request = await authService.requestResetPassword( {
         email: this.email,
-        redirectUrl: 'reset-password'
+        redirectUrl: CLIENT_URL + '/reset-password'
       } )
-      this.formLoader = false
 
-      if ( requestResponse.response.status === 200 ) {
+      this.form.loading = false
+
+      if ( request.httpResponse.status === 200 ) {
         this.toast$.success( { summary: 'An e-mail was sent to you', detail: 'The password change reference was sent to your email' } )
         this.dialog$.hide( 'resetPassword' )
-      } else if ( requestResponse.response.status === 429 ) {
-        this.throw$( 'status is 429', requestResponse )
       } else {
-        this.toast$.error( { summary: 'Something went wrong', detail: 'When trying to send a letter something went wrong, try again later' } )
+        this.form.state = false
+        this.form.errorMessage = request.parsedData.errors[ 0 ].message
       }
     }
   },

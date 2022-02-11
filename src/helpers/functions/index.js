@@ -1,9 +1,14 @@
 import clipboardCopy from './clipboardCopy.function'
-import getParentCallback from './getParentCallback.function'
-import getUniqueId from './uniqueComponentId.function'
-
+import getUniqueComponentId from './getUniqueComponentId'
+import deleteUnneededObjProperties from './deleteUnneededObjProperties'
+import setRefreshInStorage from './setRefreshInStorage'
+import isLocalStorageUsed from '@/helpers/functions/isLocalStorageUsed'
+import clearAuthInfo from './clearAuthInfo'
 export {
   clipboardCopy,
-  getParentCallback,
-  getUniqueId
+  getUniqueComponentId,
+  deleteUnneededObjProperties,
+  setRefreshInStorage,
+  isLocalStorageUsed,
+  clearAuthInfo
 }

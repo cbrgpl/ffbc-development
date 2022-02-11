@@ -2,6 +2,7 @@
   <a
     @click="handleClick"
     class="z-link"
+    :data-disabled="disabled"
     :href="url" >
     <slot />
   </a>
@@ -18,11 +19,16 @@ export default {
     externalLink: {
       type: Boolean,
       default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     }
   },
   methods: {
     handleClick ( event ) {
       if ( !this.url || !this.externalLink ) event.preventDefault()
+      if ( this.disabled ) event.stopPropagation()
     }
   }
 }
@@ -43,5 +49,9 @@ export default {
   &:active {
     @apply text-primary-darkest;
   }
+}
+
+.z-link[data-disabled="true"] {
+  @apply text-placeholder cursor-default;
 }
 </style>

@@ -1,4 +1,4 @@
-import ObserverableController from '@/helpers/classes/observerableController.class'
+import EffectObserver from '@/helpers/classes/effectObserver'
 
 /*
     Works with effect controllers with such Interface
@@ -31,7 +31,7 @@ export default {
 
     const $observableElements = $el.querySelectorAll( '[data-observable]' )
 
-    const controller = new ObserverableController( $el, binding.value )
+    const controller = new EffectObserver( $el, binding.value )
     const observerCallback = ( entries, observer ) => {
       entries.forEach( entry => {
         if ( entry.isIntersecting ) {

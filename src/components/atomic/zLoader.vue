@@ -1,11 +1,10 @@
 <template >
   <div
-    :style="backgroundSize"
-    :class="['inline-flex', 'flex-col', 'items-center', 'relative', 'rounded-full', ...backgroundClasses]" >
+    :class="['flex flex-col items-center w-full h-full absolute', ...backgroundClasses]" >
     <svg
       class="m-auto animate-bounce ease-in-out duration-1000"
-      :height="heightPx"
-      :width="widthPx"
+      :height="size"
+      :width="size"
       viewBox="0 -96 512 512"
       xmlns="http://www.w3.org/2000/svg" >
       <path
@@ -44,13 +43,9 @@
 export default {
   name: 'zLoader',
   props: {
-    height: {
-      type: Number,
-      required: true,
-    },
-    width: {
-      type: Number,
-      required: true,
+    size: {
+      type: String,
+      default: '100%',
     },
     background: {
       type: Boolean,
@@ -62,12 +57,6 @@ export default {
     }
   },
   computed: {
-    widthPx () {
-      return this.width + 'px'
-    },
-    heightPx () {
-      return this.height + 'px'
-    },
     backgroundClasses () {
       return !this.background ? []
         : [
@@ -75,15 +64,6 @@ export default {
           'pb-0'
         ]
     },
-    backgroundSize () {
-      const bgAreaCoef = 1.25
-
-      return !this.background ? {}
-        : {
-          height: bgAreaCoef * this.height + 'px',
-          width: bgAreaCoef * this.width + 'px'
-        }
-    }
   },
 }
 </script>

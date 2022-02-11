@@ -1,12 +1,14 @@
 <template >
-  <div class="h-screen  bg-black " >
+  <div class="h-screen  bg-black text-white" >
     <component
       class="h-full overflow-y-auto"
-      :is="layout" >
+      :is="layout"
+      :hidden-elems="hiddenElements" >
       <router-view />
     </component>
 
     <TheToast />
+    <TheMediaViewOverlay />
     <DialogLayout />
   </div>
 </template>
@@ -14,54 +16,54 @@
 <script>
 import MainLayout from '@layouts/MainLayout/MainLayout.vue'
 import EmptyLayout from '@layouts/EmptyLayout/EmptyLayout.vue'
-
 import DialogLayout from '@layouts/DialogLayout/DialogLayout.vue'
+import ShopMainLayout from '@layouts/ShopMainLayout/ShopMainLayout.vue'
+
+import TheMediaViewOverlay from '@/components/composite/TheMediaViewOverlay/TheMediaViewOverlay.vue'
+
 import TheToast from '@components/composite/TheToast/TheToast.vue'
+
+import Console from '@/helpers/classes/Console'
 
 export default {
   name: 'App',
   mounted () {
-    this.handleLoading()
+    this.disableTemplatePreloader()
   },
   data () {
     return {
       errorsNumber: 0,
     }
   },
+  errorCaptured ( error, vnode, info ) {
+    if ( !error.onErrorCallback ) {
+      console.group( `Not hookable error number ${ this.errorsNumber++ }` )
+      Console.object( info, 'info: ' )
+      Console.object( vnode, 'vnode: ' )
 
-  errorCaptured ( errorObject, vnode, info ) {
-    if ( errorObject.error ) {
-      console.group( `Error number ${ this.errorsNumber++ }` )
-      this.log$.error( errorObject.error.message, 'Error with message//was captured' )
-      this.log$.object( info, 'info: ' )
-      this.log$.object( errorObject, 'errorObject: ' )
-      this.log$.object( vnode, 'vnode: ' )
+      for ( const prop in error ) {
+        console.error( prop, error[ prop ] )
+      }
+
       console.groupEnd()
 
-      if ( /429/.test( errorObject.error.message ) ) {
-        this.toast$.warn( { summary: 'Too many server requests', detail: 'You send requests to the server too often.</br><strong>Please wait a while and try again.</strong>' } )
-      } else if ( this.CONST$.ERROR_HANDLER_STATUSES.some( ( statusesGroup ) => statusesGroup.test( errorObject.error.message ) ) ) {
-        this.toast$.error( { summary: 'Server Problems', detail: 'The attempt to connect to the server is successful, but there are some problems with the server. <strong><u>Try again later.</u></strong><br>If you can’t connect, ask for technical support', life: 8000 } )
-      } else {
-        this.toast$.error( { summary: 'Site problem', detail: 'A problem occurred during the operation of the site. We are already in the process of solving it', life: 8000 } )
-      }
-
-      return false
+      throw error
     }
+
+    return error.onErrorHook( error )
   },
   methods: {
-    async handleLoading () {
-      const isVerificateRoute = location.href.includes( 'verificate' )
+    async disableTemplatePreloader () {
+      const isVerificateRoute = !!this.$route.meta.verificateEmail
 
       if ( isVerificateRoute ) {
-        window.addEventListener( 'storage', this.removeTemplateLoader(), { once: true } )
+        window.addEventListener( 'storage', this.removeTemplateLoader, { once: true } )
       } else {
-        setTimeout( () => {
-          setTimeout( () => {
-            this.removeTemplateLoader()
-          }, 0 )
-        }, 35 )
+        this.removeTemplateLoaderWithTimeout( 160 )
       }
+    },
+    removeTemplateLoaderWithTimeout ( ms ) {
+      setTimeout( this.removeTemplateLoader, ms )
     },
     removeTemplateLoader () {
       document.body.removeChild( document.body.querySelector( '#template-preloader' ) )
@@ -70,13 +72,19 @@ export default {
   },
   computed: {
     layout () {
-      return this.$route.meta.layout + '-layout'
-    }
+      const currentLayoutName = this.$route.meta.layout || 'empty'
+      return currentLayoutName + '-layout'
+    },
+    hiddenElements () {
+      return this.$route.meta.hiddenElems ? this.$route.meta.hiddenElems : []
+    },
   },
   components: {
     MainLayout,
     EmptyLayout,
     DialogLayout,
+    ShopMainLayout,
+    TheMediaViewOverlay,
     TheToast,
   },
 }

@@ -8,45 +8,53 @@
           width="100%"
           height="100%"
 
-          icon-name="menu" />
+          icon="menu" />
       </div>
-      <img
-        class="header__logo"
-        height="150"
-        width="250"
-        :src="require( '@images/logo.png' )"
-        alt="" >
+      <router-link
+        class="h-full"
+        :to="{name: 'Main'}" >
+        <img
+          class="header__logo"
+          height="150"
+          width="250"
+          :src="require( '@images/logo.png' )"
+          alt="" >
+      </router-link>
     </div>
 
-    <div v-if="isAuth" >
+    <!-- <div  > -->
+    <router-link
+      v-if="isAuth && $route.name !== 'HomeMain'"
+      :to="{name: 'HomeMain'}" >
       <img
         class="header__avatar"
         width="32"
         height="32"
         :src="avatar"
         alt="" >
-    </div>
+    </router-link>
+    <!-- </div> -->
 
     <div
-      v-else
+      v-else-if="!isAuth"
       class="flex" >
-      <zButtonIcon
+      <zIconButton
         shrink
         @click="dialog$.show('login')"
         class="py-2 px-2 sm:px-3 md:py-2.5 text-sm uppercase font-semibold mr-2"
         :icon-size="20"
-        icon-name="login" >
+        icon="login" >
         Log In
-      </zButtonIcon>
-      <zButtonIcon
+      </zIconButton>
+      <zIconButton
         shrink
         @click="dialog$.show('registration')"
         variant="ghost"
         class="py-2 px-2 sm:px-3 md:py-2.5 text-sm uppercase font-semibold"
         :icon-size="20"
-        icon-name="signUp" >
+        icon="signUp" >
         Sign up
-      </zButtonIcon>
+      </zIconButton>
 
     </div>
   </div>
@@ -69,11 +77,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .header__logo {
-  aspect-ratio: 5 / 3;
-
   @apply w-auto h-full cursor-pointer;
+  aspect-ratio: 5 / 3;
 }
 
 .header__avatar {

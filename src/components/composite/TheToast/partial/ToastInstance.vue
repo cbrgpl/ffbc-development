@@ -8,7 +8,7 @@
       <div class="w-full pt-1 pb-1.5 px-2" >
         <div class="flex items-center pb-1 mb-1 border-b border-solid border-black-lightest" >
           <zIconBase
-            :icon-name="iconName"
+            :icon="iconName"
             class="mr-2 flex-shrink-0"
             :width="26"
             :height="26" />
@@ -34,7 +34,6 @@
 
 <script>
 import zProgressBar from '@components/atomic/zProgressBar.vue'
-import zIconBase from '@components/composite/zIconBase.vue'
 
 export default {
   emits: [ 'remove' ],
@@ -106,14 +105,14 @@ export default {
   },
   components: {
     zProgressBar,
-    zIconBase,
   },
 }
 </script>
 
 <style lang="scss" scoped>
 .toast {
-  @apply flex flex-col bg-black w-full border-2 border-b-0 border-solid border-white border-opacity-20 rounded-md overflow-hidden pointer-events-auto select-none cursor-pointer;
+  @apply flex flex-col bg-black w-full border-2 border-b-0 border-solid border-white border-opacity-20
+    rounded-md overflow-hidden pointer-events-auto select-none cursor-pointer;
 
   &--info {
     @apply text-primary-lightest;

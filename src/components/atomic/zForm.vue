@@ -5,21 +5,23 @@
     @submit.prevent="validateFields"
     @keydown.enter.prevent="controlFocus" >
     <slot />
-    <div class="mb-5" >
+    <div
+      v-if="state !== null" >
       <small
-        v-if="vuelidateObject.$error || formError"
-        class="text-danger font-semibold text-base leading-tight" >
-        {{ onFormError }}
+        :class="['text-base leading-tight tracking-wider', getStateColorStyle]" >
+        {{ getStateMessage }}
       </small>
     </div>
 
-    <slot name="button" >
+    <slot name="actions" >
 
     </slot>
   </form>
 </template>
 
 <script>
+import { STATUS_WORDS } from 'consts'
+
 export default {
   name: 'zForm',
   emits: [ 'validate' ],
@@ -32,23 +34,25 @@ export default {
       type: Boolean,
       default: true,
     },
-    formError: {
-      type: Boolean,
-      default: false,
+    state: {
+      type: [ Boolean, Object ],
+      default () {
+        return null
+      },
+      validator ( value ) {
+        return typeof value === 'boolean' || value === null
+      }
     },
-    onFormError: {
+    errorMessage: {
       type: String,
       default: '',
+    },
+    successMessage: {
+      type: String,
+      default: ''
     }
   },
-  data () {
-    return {
-      statuses: {
-        valid: 'VALID',
-        invalid: 'INVALID'
-      }
-    }
-  },
+
   computed: {
     childInputs () {
       const htmlInputsCollection = this.form ? this.form.getElementsByClassName( 'z-input' ) : []
@@ -59,6 +63,20 @@ export default {
       }
 
       return $inputsArray
+    },
+    getStateMessage () {
+      if ( this.state !== null ) {
+        return this.state ? this.successMessage : this.errorMessage
+      } else {
+        return ''
+      }
+    },
+    getStateColorStyle () {
+      if ( this.state !== null ) {
+        return this.state ? 'text-safety' : 'text-danger'
+      } else {
+        return ''
+      }
     }
   },
   methods: {
@@ -71,8 +89,8 @@ export default {
       this.vuelidateObject.$touch()
 
       if ( this.vuelidateObject.$invalid ) {
-        this.$emit( 'validate', this.statuses.invalid )
-      } else this.$emit( 'validate', this.statuses.valid )
+        this.$emit( 'validate', STATUS_WORDS.ERROR )
+      } else this.$emit( 'validate', STATUS_WORDS.SUCCESS )
     },
     controlFocus ( event ) {
       if ( !this.enterable ) {

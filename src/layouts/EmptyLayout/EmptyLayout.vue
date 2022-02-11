@@ -1,8 +1,6 @@
 <template >
   <div class="layout-empty" >
-    Empty
     <router-view />
-
   </div>
 </template>
 

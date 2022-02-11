@@ -9,7 +9,7 @@ export default {
       iconName: 'fitness'
     },
     {
-      name: 'Settings',
+      name: 'HomeSettings',
       iconName: 'settings'
     },
     {

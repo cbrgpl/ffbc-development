@@ -42,15 +42,15 @@ export default {
   @apply block w-8 h-4 filter grayscale bg-secondary-darken rounded-3xl relative;
 
   &::after {
-    content: '';
 
     // left-1
     @apply block rounded-full w-3 h-3 bg-secondary absolute transform bottom-2/4 translate-y-2/4 left-1 transition-all;
+    content: "";
   }
 }
 
 input:checked {
-  & + .z-toggle__slider {
+  + .z-toggle__slider {
     @apply grayscale-0;
 
     &::after {

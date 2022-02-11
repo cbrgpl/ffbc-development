@@ -17,7 +17,7 @@
           v-if="dialogVisible"
           role='dialog'
           @click.stop
-          :class="['dialog__window', {'border border-white border-opacity-20 border-solid': !modal}]"
+          :class="['dialog__window px-4 py-5', {'border border-white border-opacity-20 border-solid': !modal}]"
           v-bind="$attrs" >
 
           <div class="relative w-full h-full" >
@@ -70,19 +70,20 @@ export default {
   data () {
     return {
       dialogVisible: this.visible,
-      zIndex: getZIndex(),
+      zIndex: 1000 + getZIndex(),
     }
   },
   computed: {
     maskClasses () {
       return [
-        'overflow-y-auto fixed z-30 left-0 top-0 flex w-screen h-screen bg-black bg-opacity-0 transition-all duration-300',
+        'overflow-y-auto fixed left-0 top-0 flex w-screen h-screen bg-black bg-opacity-0 transition-all duration-300',
         { 'pointer-events-none': !this.modal },
       ]
     },
     maskStyles () {
       return {
-        background: !this.modal ? 'transparent' : ''
+        background: !this.modal ? 'transparent' : '',
+        zIndex: this.zIndex
       }
     }
   },
@@ -110,9 +111,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .dialog__window {
-  @apply fixed right-2/4 bottom-2/4 transform translate-x-2/4 translate-y-2/4 m-auto pointer-events-auto bg-black-lighten text-white rounded-xl px-4 py-5;
+  @apply fixed right-2/4 bottom-2/4 transform translate-x-2/4 translate-y-2/4 m-auto pointer-events-auto
+    bg-black-lighten text-white rounded-xl;
 }
 
 .dialog-appear {

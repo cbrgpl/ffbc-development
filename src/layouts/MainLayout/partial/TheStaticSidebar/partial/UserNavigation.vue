@@ -8,7 +8,7 @@
       exact-active-class="text-secondary"
       v-tooltip.top.10="option.label" >
       <zIconBase
-        :icon-name="option.iconName"
+        :icon="option.iconName"
         height="30"
         width="30" />
     </router-link>
@@ -17,7 +17,6 @@
 
 <script>
 import userNavOptions from '@enums/nav/userNavigation.options.js'
-import zIconBase from '@components/composite/zIconBase.vue'
 
 export default {
   props: {
@@ -30,9 +29,6 @@ export default {
     return {
       userNavigation: userNavOptions
     }
-  },
-  components: {
-    zIconBase,
   },
 }
 </script>

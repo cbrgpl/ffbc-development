@@ -7,7 +7,7 @@
       <zIconBase
         width="32"
         height="32"
-        icon-name="ticket" ></zIconBase>
+        icon="ticket" ></zIconBase>
     </router-link>
 
     <router-link
@@ -16,7 +16,7 @@
       <zIconBase
         width="32"
         height="32"
-        icon-name="visibility" ></zIconBase>
+        icon="visibility" ></zIconBase>
     </router-link>
 
     <router-link
@@ -25,7 +25,7 @@
       <zIconBase
         width="32"
         height="32"
-        icon-name="event" ></zIconBase>
+        icon="event" ></zIconBase>
     </router-link>
   </div>
 </template>
@@ -51,6 +51,7 @@ export default {
 
 <style>
 .CentralButtonIcons__button {
-  @apply bg-primary text-white rounded-full border-2 border-solid border-white border-opacity-60 p-3 pointer-events-auto ;
+  @apply bg-primary text-white rounded-full border-2
+    border-solid border-white border-opacity-60 p-3 pointer-events-auto;
 }
 </style>

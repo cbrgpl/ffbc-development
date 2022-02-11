@@ -17,13 +17,13 @@
           title-styles="mr-2"
           :sec="60"
           @timeUp="unableButton" />
-        <zButtonLoader
+        <zLoaderButton
           @click="sendConfirmation"
           :disabled="buttonDisabled"
           :loader="buttonLoader"
           class="default-button" >
           Resend verification link
-        </zButtonLoader>
+        </zLoaderButton>
       </div>
     </template>
   </zDialog>

@@ -39,6 +39,7 @@
     "vetur.format.defaultFormatter.js": "none",
     "vetur.format.defaultFormatter.ts": "none",
     "stylelint.enable": true,
+    "stylelint.validate": [ "css", "scss", "vue" ],
     "css.validate": true,
     "scss.validate": true,
     "html.format.enable": false,
