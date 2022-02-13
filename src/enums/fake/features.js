@@ -1,7 +1,7 @@
 export default [
   {
-    name: 'Material',
-    icon: require( '@images/shop/features/material.svg' ),
+    name: 'Fabric',
+    icon: require( '@images/shop/features/fabric.svg' ),
     values: [
       'Cotton',
       'Silk',
@@ -20,7 +20,7 @@ export default [
   },
   {
     name: 'Bra Connectors',
-    icon: require( '@images/shop/features/connector.svg' ),
+    icon: require( '@images/shop/features/bra_connector.svg' ),
     values: [
       'No connector',
       'Double connector',

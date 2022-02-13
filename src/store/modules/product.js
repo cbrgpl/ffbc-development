@@ -1,3 +1,8 @@
+
+import getActionResultDTO from '../helpers/getActionResultDTO'
+import { NetworkAttemptError } from '@errors'
+import { productService } from '@services'
+
 export default {
   namespaced: true,
   state () {
@@ -9,8 +14,6 @@ export default {
   mutations: {
   },
   actions: {
-    // * out means returning value from action and does not commit it into store
-    // * no prefix means commiting value into store
     outFetchProductById ( { commit, getters }, id ) {
       // need to make API request
       const fetchedProduct = {
@@ -33,6 +36,19 @@ export default {
           resolve( fetchedProduct )
         }, 1500 * Math.random() )
       } )
+    },
+    async outGetProducts ( context, filters ) {
+      console.log( filters )
+      const getProductsRequest = await productService.getProducts( filters )
+
+      if ( getProductsRequest.httpResponse !== 200 ) {
+        throw new NetworkAttemptError( getProductsRequest.httpResponse )
+      }
+
+      return getActionResultDTO( getProductsRequest )
+    },
+    async getProductFeatures ( { commit } ) {
+
     }
   }
 }
