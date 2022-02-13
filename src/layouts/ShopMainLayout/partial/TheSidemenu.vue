@@ -55,7 +55,7 @@
 
 <script>
 import shopNavigation from '@enums/nav/shopNavigation.options'
-import goodSections from '@/enums/info/goodSections'
+import goodSections from '@/enums/info/productSections'
 import SidemenuNavigationList from './TheSidemenuNavigationList.vue'
 
 import StrategyContext from '@classes/strategy.js'

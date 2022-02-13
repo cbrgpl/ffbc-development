@@ -168,6 +168,7 @@ const routes = [
         path: 'products/:productType',
         component: () => import( '@/views/Shop/ProductCatalog.vue' ),
         name: 'ShopProductCatalog',
+        props: true,
       },
       {
         path: 'product/:productId',
