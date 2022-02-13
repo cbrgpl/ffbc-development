@@ -1,5 +1,8 @@
 import { arrayUtils } from '@js_utils'
 
+import { getUserServiceCommand } from '@commands'
+import { userService } from '@services'
+
 export default {
   namespaced: true,
   clearable: true,
@@ -19,6 +22,13 @@ export default {
     },
     fullName ( state ) {
       return state.name
+    }
+  },
+  actions: {
+    async getUser ( { commit } ) {
+      const userData = await getUserServiceCommand.execute()
+
+      commit( 'setUserData', userData.getUser.parsedBody )
     }
   },
   mutations: {

@@ -71,19 +71,21 @@ export default {
 
       this.form.loading = true
 
-      const request = await authService.requestResetPassword( {
+      const resetCodeForm = {
         email: this.email,
         redirectUrl: CLIENT_URL + '/reset-password'
-      } )
+      }
+
+      const resetCodeResult = await this.$store.dispatch( 'auth/outSendResetCode', resetCodeForm )
 
       this.form.loading = false
 
-      if ( request.httpResponse.status === 200 ) {
+      if ( resetCodeResult.success ) {
         this.toast$.success( { summary: 'An e-mail was sent to you', detail: 'The password change reference was sent to your email' } )
         this.dialog$.hide( 'resetPassword' )
       } else {
         this.form.state = false
-        this.form.errorMessage = request.parsedData.errors[ 0 ].message
+        this.form.errorMessage = resetCodeResult.data.errors[ 0 ].message
       }
     }
   },

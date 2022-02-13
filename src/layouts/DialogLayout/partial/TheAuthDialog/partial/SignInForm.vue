@@ -77,8 +77,6 @@ import { STATUS_WORDS, CLIENT_URL } from 'consts'
 import { authService } from '@services'
 import { deleteUnneededObjProperties } from '@functions'
 
-import { InternalClientLogic } from '@errors'
-
 export default {
   name: 'SignInForm',
   setup () {
@@ -125,21 +123,19 @@ export default {
 
       this.form.loading = true
 
-      const requestPayload = this.getFormatedToBackendData( this.signInForm )
-      deleteUnneededObjProperties( requestPayload, 'policyAgreement' )
+      const signInForm = this.getFormatedToBackendData( this.signInForm )
+      deleteUnneededObjProperties( signInForm, 'policyAgreement' )
 
-      const request = await authService.signIn( {
-        ...requestPayload
-      } )
+      const signInDispatch = await this.$store.dispatch( 'auth/outSignIn', signInForm )
 
       this.form.loading = false
 
-      if ( request.httpResponse.status === 200 ) {
-        this.form.successMessage = request.parsedBody.message
+      if ( signInDispatch.success ) {
+        this.form.successMessage = signInDispatch.data.message
         this.form.state = true
       } else {
+        this.form.errorMessage = signInDispatch.data.errors[ 0 ].message
         this.form.state = false
-        this.form.errorMessage = request.parsedBody.errors[ 0 ].message
       }
     },
     getFormatedToBackendData ( notFormattedData ) {
@@ -155,17 +151,18 @@ export default {
         email: this.signInForm.email,
         redirectUrl: CLIENT_URL + '/verificate'
       }
-      this.resendVerificationDisabled = true
-      const request = await authService.resendVerificationLink( requestPayload )
 
-      if ( request.httpResponse.status === 200 ) {
-        this.toast$.success( { summary: 'Successfully sent!', detail: 'A verification link was sent on your e-mail. \nYou can resend link in 15 seconds.' } )
-        setTimeout( () => {
-          this.resendVerificationDisabled = false
-        }, 15000 )
-      } else {
-        throw new InternalClientLogic( 'Unexpected status with resend verification request' )
-      }
+      this.resendVerificationDisabled = true
+
+      await this.$store.dispatch( 'auth/resendVerificationLink', requestPayload )
+
+      this.toast$.success( { summary: 'Successfully sent!', detail: 'A verification link was sent on your e-mail. \nYou can resend link in 15 seconds.' } )
+      this.enableResendLink( 15000 )
+    },
+    enableResendLink ( timeMs ) {
+      setTimeout( () => {
+        this.resendVerificationDisabled = false
+      }, timeMs )
     }
   },
   validations () {

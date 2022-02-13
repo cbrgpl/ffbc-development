@@ -59,9 +59,7 @@ import goodSections from '@/enums/info/goodSections'
 import SidemenuNavigationList from './TheSidemenuNavigationList.vue'
 
 import StrategyContext from '@classes/strategy.js'
-import { authService } from '@services'
 import { clearAuthInfo } from '@functions'
-import { NetworkAttemptError } from '@errors'
 
 export default {
   name: 'TheSidemenu',
@@ -112,21 +110,15 @@ export default {
       this.actionExecuting = false
     },
     async logOut () {
-      const refreshToken = this.$store.getters[ 'auth/refreshToken' ]
+      await this.$store.dispatch( 'auth/logOut' )
 
-      const logoutResponse = await authService.logOut( { refresh: refreshToken } )
+      clearAuthInfo( this.$store )
 
-      if ( logoutResponse.status === 204 ) {
-        clearAuthInfo( this.$store )
-
-        this.emitSidebarHiding()
-
-        this.$router.push( { name: 'ShopMain' } )
-      } else {
-        throw new NetworkAttemptError( logoutResponse )
-      }
+      this.emitSidebarHiding()
+      this.$router.push( { name: 'ShopMain' } )
     },
     emitSidebarHiding () {
+      console.log( 'asdd' )
       this.$emit( 'change-sidebar-visibility', false )
     }
   },
