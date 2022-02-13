@@ -37,8 +37,7 @@ import zDialog from '@components/composite/zDialog/zDialog.vue'
 import useVuelidate from '@vuelidate/core'
 import { email, required } from '@vuelidate/validators'
 
-import { authService } from '@services'
-import { STATUS_WORDS, CLIENT_URL } from 'consts'
+import { STATUS_WORDS, REDIRECT_URLS } from 'consts'
 
 export default {
   name: 'TheResetPasswordDialog',
@@ -73,7 +72,7 @@ export default {
 
       const resetCodeForm = {
         email: this.email,
-        redirectUrl: CLIENT_URL + '/reset-password'
+        redirectUrl: REDIRECT_URLS.RESET_PASSWORD
       }
 
       const resetCodeResult = await this.$store.dispatch( 'auth/outSendResetCode', resetCodeForm )
