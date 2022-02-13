@@ -51,10 +51,10 @@ import useVuelidate from '@vuelidate/core'
 import { email, required } from '@vuelidate/validators'
 import { getPasswordValidator } from '@validators'
 
+import { mapActions } from 'vuex'
+
 import { STATUS_WORDS } from 'consts'
 import { setRefreshInStorage } from '@functions'
-import { authService } from '@services'
-import { getUserServiceCommand, SetUserCommand, SetAuthorizeInfoCommand } from '@commands'
 
 export default {
   name: 'LogInForm',
@@ -79,6 +79,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions( {
+      storeLogIn: 'auth/logIn',
+    } ),
     async logIn ( formValidateStatus ) {
       this.form.state = null
 
@@ -88,25 +91,16 @@ export default {
 
       this.form.loading = true
 
-      const request = await authService.logIn( {
-        ...this.logInForm,
-      } )
+      const dispatchResult = await this.$store.dispatch( 'auth/logIn', { ...this.logInForm } )
 
-      if ( request.httpResponse.status === 200 ) {
-        setRefreshInStorage( request.parsedBody.tokens.refresh, this.rememberMe )
-        const setAuthorizeInfoCommand = new SetAuthorizeInfoCommand( this.$store, request.parsedBody.tokens )
-        setAuthorizeInfoCommand.execute()
-
-        const userData = await getUserServiceCommand.execute()
-
-        const saveUserCommand = new SetUserCommand( this.$store, userData )
-        saveUserCommand.execute()
+      if ( dispatchResult.success ) {
+        setRefreshInStorage( dispatchResult.data.tokens.refresh, this.rememberMe )
 
         this.dialog$.hide( 'auth' )
       } else {
         this.form.loading = false
         this.form.state = false
-        this.form.errorMessage = request.parsedBody.errors[ 0 ].message
+        this.form.errorMessage = dispatchResult.data.errors[ 0 ].message
       }
     },
   },

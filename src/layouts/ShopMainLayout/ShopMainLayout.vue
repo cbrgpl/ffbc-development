@@ -7,7 +7,7 @@
     <div class="relative flex flex-grow items-stretch lg:flex-row overflow-hidden max-w-full"  >
       <TheSidemenu
         :visible="sidebarVisiblity"
-        @toggle-sidebar-visibility="setSidebarVibility"
+        @change-sidebar-visibility="setSidebarVibility"
         v-if="!hidden['TheSidemenu']" />
       <router-view class="flex-grow flex flex-col overflow-y-auto" />
     </div>

@@ -1,5 +1,9 @@
 import { STORAGE_NAMES } from 'consts'
 
+import getActionResultDTO from '../helpers/getActionResultDTO'
+import { NetworkAttemptError } from '@errors'
+import { authService } from '@services'
+
 export default {
   namespaced: true,
   clearable: true,
@@ -16,14 +20,50 @@ export default {
     tokens ( state ) {
       return state.tokens
     }
+  },
+  actions: {
+    async logIn ( { dispatch, commit }, logInForm ) {
+      const logInRequest = await authService.logIn( logInForm )
 
+      if ( logInRequest.httpResponse.status === 200 ) {
+        commit( 'setAuthorizeInfo', logInRequest.parsedBody.tokens )
+        await dispatch( 'user/getUser', null, { root: true } )
+      }
+
+      return getActionResultDTO( logInRequest )
+    },
+    async logOut ( { rootGetters } ) {
+      const refreshToken = rootGetters[ 'auth/refreshToken' ]
+      const logOutResponse = await authService.logOut( { refresh: refreshToken } )
+
+      if ( logOutResponse.status !== 204 ) {
+        throw new NetworkAttemptError( logOutResponse )
+      }
+    },
+    async outSendResetCode ( context, resetCodeForm ) {
+      const resetRequest = await authService.requestResetPassword( resetCodeForm )
+
+      return getActionResultDTO( resetRequest )
+    },
+    async outSignIn ( context, signInForm ) {
+      const signInRequest = await authService.signIn( {
+        ...signInForm
+      } )
+
+      return getActionResultDTO( signInRequest )
+    },
+    async resendVerificationLink ( context, resendForm ) {
+      const resendRequest = await authService.resendVerificationLink( resendForm )
+
+      if ( resendRequest.httpResponse.status !== 200 ) {
+        throw new NetworkAttemptError( resendRequest.httpResponse )
+      }
+    }
   },
   mutations: {
-    setIsAuth ( state, payload ) {
-      state.isAuth = payload
-    },
-    setTokens ( state, tokens ) {
-      state.tokens = { ...tokens }
+    setAuthorizeInfo ( state, tokens ) {
+      state.isAuth = true
+      state.tokens = tokens
     },
     clearModule ( state ) {
       state.isAuth = null
