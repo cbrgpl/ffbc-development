@@ -72,9 +72,8 @@ import { email, required, sameAs } from '@vuelidate/validators'
 import { getPasswordValidator, phone } from '@validators'
 
 import passwordRequirements from '@enums/info/passwordRequirements'
-import { STATUS_WORDS, CLIENT_URL } from 'consts'
+import { STATUS_WORDS, REDIRECT_URLS } from 'consts'
 
-import { authService } from '@services'
 import { deleteUnneededObjProperties } from '@functions'
 
 export default {
@@ -142,14 +141,14 @@ export default {
       const clone = Object.assign( {}, notFormattedData )
 
       clone.phoneNumber = '+' + clone.phoneNumber.replace( /\D/g, '' )
-      clone.redirectUrl = CLIENT_URL + '/verificate'
+      clone.redirectUrl = REDIRECT_URLS.VERIFICATE_EMAIL
 
       return clone
     },
     async sendVerificationLink () {
       const requestPayload = {
         email: this.signInForm.email,
-        redirectUrl: CLIENT_URL + '/verificate'
+        redirectUrl: REDIRECT_URLS.VERIFICATE_EMAIL
       }
 
       this.resendVerificationDisabled = true

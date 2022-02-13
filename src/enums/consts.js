@@ -9,6 +9,12 @@ const STATUS_WORDS = {
   NOT_ERROR: 'NOT_ERROR',
   ERROR: 'ERROR',
 }
+
+const REDIRECT_URLS = {
+  VERIFICATE_EMAIL: CLIENT_URL + '/verificate',
+  RESET_PASSWORD: CLIENT_URL + '/reset-password',
+}
+
 const NOT_ERROR = 'NOT_ERROR'
 
 const STORAGE_NAMES = {
@@ -22,5 +28,6 @@ export {
   API_URL,
   CLIENT_URL,
   STORAGE_NAMES,
-  STATUS_WORDS
+  STATUS_WORDS,
+  REDIRECT_URLS
 }
