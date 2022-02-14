@@ -1,4 +1,4 @@
-import commandGuard from './command.guard'
+import strategyGuard from './strategy.guard'
 import rolesGuard from './roles.guard'
 import authGuard from './auth.guard'
 import resetPasswordGuard from './resetPassword.guard'
@@ -7,7 +7,7 @@ import getRedirectOnLargeScreen from './getRedirectOnLargeScreen'
 import getVerifyEmailGuardParams from './getVerifyEmailGuardParams'
 
 export {
-  commandGuard,
+  strategyGuard,
   rolesGuard,
   authGuard,
   resetPasswordGuard,

@@ -1,9 +1,9 @@
 <template >
   <div class="grid grid-cols-2 gap-x-2 gap-y-8 md:grid-cols-3 2xl:grid-cols-4 xl:gap-x- items-stretch px-3" >
-    <!-- <zShopProductCard
+    <zShopProductCard
       v-for="product of fakeProducts"
       :key="product.title"
-      :product="product" /> -->
+      :product="product" />
   </div>
   <zPagination
     class="mt-4 mx-auto"

@@ -1,7 +1,6 @@
 import { arrayUtils } from '@js_utils'
 
 import { getUserServiceCommand } from '@commands'
-import { userService } from '@services'
 
 export default {
   namespaced: true,

@@ -3,16 +3,15 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Preview from '@views/Preview.vue'
 
 import {
-  commandGuard,
+  strategyGuard,
   rolesGuard,
   authGuard,
   resetPasswordGuard,
 
   getRedirectOnLargeScreen,
-  getVerifyEmailGuardParams,
 } from './helpers/index'
 
-import { ReqVerifyEmailCommand } from '@commands'
+import { verificateEmailGuardStrategy } from '@/helpers/strategy'
 
 const routes = [
   {
@@ -181,10 +180,10 @@ const routes = [
   {
     path: '/verificate',
     component: () => import( '@layouts/EmptyLayout/EmptyLayout.vue' ),
-    beforeEnter: commandGuard,
+    beforeEnter: strategyGuard,
     meta: {
       verificateEmail: true,
-      command: new ReqVerifyEmailCommand( getVerifyEmailGuardParams )
+      strategy: verificateEmailGuardStrategy
     }
   },
   {
