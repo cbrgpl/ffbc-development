@@ -22,9 +22,6 @@ import observer from '@directives/observer.directive.js'
 
 import zButton from '@/components/atomic/zButton.vue'
 
-import zTooltipInput from '@/components/composite/zTooltipInput/zTooltipInput.vue'
-import zValidationInput from '@/components/composite/zValidationInput/zValidationInput.vue'
-
 import NetworkAttemptErorr from '@errors/networkAttemptError'
 import passwordRequirements from '@enums/info/passwordRequirements'
 
@@ -55,8 +52,6 @@ export default {
   },
   components: {
     zButton,
-    zTooltipInput,
-    zValidationInput
   },
 }
 </script>

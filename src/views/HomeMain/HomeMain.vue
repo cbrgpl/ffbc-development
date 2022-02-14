@@ -102,8 +102,6 @@ import ServiceSection from './partial/ServiceSection.vue'
 import CompetitionCardActions from './partial/CompetitionCardActions.vue'
 import Ticket from './partial/Ticket.vue'
 
-import IconBase from '@components/atomic/zIconBase.vue'
-
 export default {
   name: 'HomeMain',
   data () {
@@ -129,7 +127,6 @@ export default {
     CompetitionCardActions,
     Ticket,
     ServiceSection,
-    IconBase
   }
 }
 </script>
