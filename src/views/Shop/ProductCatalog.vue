@@ -8,6 +8,7 @@
   <zPagination
     class="mt-4 mx-auto"
     @change-page="changePage"
+    @set-page="setPage"
     v-bind="pagination" />
 </template>
 
@@ -84,13 +85,13 @@ export default {
       const newPage = this.pagination.page + direction
 
       await this.setPage( newPage )
-
-      this.pagination.page += direction
     },
     async setPage ( pageNumber ) {
       const productsResponse = await this.getProducts( pageNumber )
 
       this.pagination.totalPages = productsResponse.data.count
+      this.pagination.page = pageNumber
+
       // this.products = productsResponse.data.results
     },
     async getProducts ( page ) {
