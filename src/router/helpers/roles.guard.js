@@ -23,7 +23,7 @@ export default async function ( to, from, next ) {
   const defaultRoute = getDefaultRoute( $store.getters[ 'auth/isAuth' ] )
 
   if ( !isAccess( roles, routeRoles ) ) {
-    next( { name: 'Main' } )
+    next( { name: defaultRoute } )
   } else {
     next()
   }

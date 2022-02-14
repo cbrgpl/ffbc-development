@@ -39,9 +39,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { userService } from '@services'
 
-import zImage from '@components/atomic/zImage.vue'
 import zDocumentImage from '@components/composite/zDocumentImage.vue'
 import zImagesCollection from '@components/atomic/zImagesCollection.vue'
 
@@ -124,14 +122,12 @@ export default {
       }
     },
     async uploadRequest ( formData ) {
-      const response = await userService.uploadDocument( formData, this.access )
+      // const response = await userService.uploadDocument( formData, this.access )
 
       // TODO Доделать после того как аким пофиксит
-      console.log( response )
     }
   },
   components: {
-    zImage,
     zDocumentImage,
     zImagesCollection,
   }

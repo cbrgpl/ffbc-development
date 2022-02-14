@@ -9,12 +9,12 @@ const isServerDisabled = ( commandResult ) => commandResult.nextRoute === 'Serve
 export default async function ( to, from, next ) {
   notificateAppComponent()
 
-  const command = to.meta.command
-  const commandResult = await command.execute()
+  const strategy = to.meta.strategy
+  const strategyResult = await strategy.execute()
 
-  if ( !isServerDisabled( commandResult ) ) {
-    toastByState( app, commandResult )
+  if ( !isServerDisabled( strategyResult ) ) {
+    toastByState( app, strategyResult )
   }
 
-  next( { name: commandResult.nextRoute } )
+  next( { name: strategyResult.nextRoute } )
 }
