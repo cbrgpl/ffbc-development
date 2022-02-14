@@ -14,6 +14,7 @@
       <span
         v-for="pageNum of getPages "
         :key="pageNum"
+        @click="emitSetPage(pageNum)"
         :class="['pagination-surface w-7 mr-2.5 last:mr-0 p-3' ,getPageNumberClasses(pageNum)]" >
         {{ pageNum }}
       </span>
@@ -35,7 +36,7 @@ import PaginationButton from './partial/PaginationButton.vue'
 
 export default {
   name: 'zPagination',
-  emits: [ 'change-page' ],
+  emits: [ 'change-page', 'set-page' ],
   props: {
     page: {
       type: Number,
@@ -111,6 +112,9 @@ export default {
       }
 
       return true
+    },
+    emitSetPage ( pageNum ) {
+      this.$emit( 'set-page', pageNum )
     },
     getPageNumberClasses ( nodePage ) {
       return {
