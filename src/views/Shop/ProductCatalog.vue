@@ -1,15 +1,21 @@
 <template >
   <div class="grid grid-cols-2 gap-x-2 gap-y-8 md:grid-cols-3 2xl:grid-cols-4 xl:gap-x- items-stretch px-3" >
-    <zShopProductCard
+    <!-- <zShopProductCard
       v-for="product of fakeProducts"
       :key="product.title"
-      :product="product" />
+      :product="product" /> -->
   </div>
+  <zPagination
+    class="mt-4 mx-auto"
+    @change-page="changePage"
+    v-bind="pagination" />
 </template>
 
 <script>
 import zShopProductCard from '@components/composite/zShopProductCard.vue'
 import fakeProducts from '@enums/fake/products'
+
+import { defineAsyncComponent } from 'vue'
 
 import filtersForProductSection from '@enums/info/filtersForProductSection'
 
@@ -27,10 +33,7 @@ export default {
       pagination: {
         page: null,
         perPage: 24,
-        controlOfMovement: {
-          previous: null,
-          next: null,
-        },
+        totalPages: null,
       },
       loading: true,
     }
@@ -60,7 +63,7 @@ export default {
   },
   created () {
     this.setPageNumber()
-    this.getProducts( this.pagination.page )
+    this.setPage( this.pagination.page )
   },
   methods: {
     setPageInStorage ( pageNum ) {
@@ -76,6 +79,20 @@ export default {
       sessionStorage.removeItem( 'section_page' )
       return Number( pageNum )
     },
+
+    async changePage ( direction ) {
+      const newPage = this.pagination.page + direction
+
+      await this.setPage( newPage )
+
+      this.pagination.page += direction
+    },
+    async setPage ( pageNumber ) {
+      const productsResponse = await this.getProducts( pageNumber )
+
+      this.pagination.totalPages = productsResponse.data.count
+      // this.products = productsResponse.data.results
+    },
     async getProducts ( page ) {
       const requestQueryParams = {
         ...this.filters,
@@ -88,7 +105,9 @@ export default {
       // const products = await this.$store.dispatch( 'product/outGetProducts', requestQueryParams )
       const products = {
         data: {
-
+          count: 12,
+          previous: null,
+          next: 'http://rainbow-siege-developers.ru/api/products/?page=2&per_page=1',
         }
       }
 
@@ -96,34 +115,12 @@ export default {
       // previous http://rainbow-siege-developers.ru/api/products/?page=2&per_page=1
       // next http://rainbow-siege-developers.ru/api/products/?page=2&per_page=1
 
-      return {
-        previous: products.data.previous,
-        next: products.data.next
-      }
-    },
-    async changePage ( direction ) {
-      const newPageNum = this.pagination.page + direction
-
-      // TODO Вынести в пагинацию
-      // if ( direction === -1 && !this.pagination.controlOfMovement.previous ) {
-      //   return
-      // } else if ( direction === 1 && !this.pagination.controlOfMovement.next ) {
-      //   return
-      // }
-
-      const movementLinks = await this.getProducts( newPageNum )
-      this.pagination.page += direction
-      this.updatePaginationMovement( movementLinks )
-    },
-    updatePaginationMovement ( movementLinks ) {
-      const controlOfMovement = this.pagination.controlOfMovement
-
-      controlOfMovement.next = !!movementLinks.next
-      controlOfMovement.previous = !!movementLinks.previous
+      return products
     },
   },
   components: {
     zShopProductCard,
+    zPagination: defineAsyncComponent( () => import( '@/components/composite/zPagination/zPagination.vue' ) )
   }
 }
 </script>
