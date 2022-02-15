@@ -1,6 +1,6 @@
 <template >
   <div
-    @click="selfDestruction"
+    @click="destroySelf"
     @mouseenter="pauseProgressAnimation"
     @mouseleave="continueProgressAnimation"
     :class="toastClasses" >
