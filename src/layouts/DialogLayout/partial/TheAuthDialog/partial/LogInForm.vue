@@ -19,7 +19,7 @@
       v-model="logInForm.password"
       label="Password"
       :error-state="v$.logInForm.password.$error"
-      on-error="Password is required" />
+      on-error="Input correct password" />
 
     <div class="form-field flex justify-between flex-col sm:flex-row sm:items-center" >
       <zCheckboxSingle
@@ -31,6 +31,7 @@
         Forget password?
       </zLink>
     </div>
+
     <template #actions >
 
       <div class="form-actions" >
