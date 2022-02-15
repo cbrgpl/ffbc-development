@@ -31,7 +31,7 @@ export default {
   },
   computed: {
     toastList () {
-      return this.toast$._toastList
+      return this.toast$.getToastList()
     },
     toastCusomStyles () {
       return {

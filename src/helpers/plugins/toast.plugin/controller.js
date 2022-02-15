@@ -1,62 +1,63 @@
 import { reactive } from 'vue'
 import { arrayUtils } from '@js_utils'
 
-const severity = {
+const toastType = {
   INFO: 'info',
   WARN: 'warning',
-  ERR: 'error',
-  SUCC: 'success'
+  ERROR: 'error',
+  SUCCESS: 'success'
 }
 
 export default class ToastController {
-  constructor ( defaultLife = 3000 ) {
-    this._toastCounter = 0
-    this._toastList = reactive( [] )
-    this._defaultLife = defaultLife
-    this._SEVERITY = severity
+  constructor ( defaultToastLife = 3000 ) {
+    this.toastCounter = 0
+    this.toastList = reactive( [] )
+    this.defaultToastLife = defaultToastLife
   }
 
-  warn ( { summary, detail, life } ) {
-    return this._add( arguments[ 0 ], this._SEVERITY.WARN )
+  warn ( ...params ) {
+    return this.add( ...params, toastType.WARN )
   }
 
-  success ( { summary, detail, life } ) {
-    return this._add( arguments[ 0 ], this._SEVERITY.SUCC )
+  success ( ...params ) {
+    return this.add( ...params, toastType.SUCCESS )
   }
 
-  error ( { summary, detail, life } ) {
-    return this._add( arguments[ 0 ], this._SEVERITY.ERR )
+  error ( ...params ) {
+    return this.add( ...params, toastType.ERROR )
   }
 
-  info ( { summary, detail, life } ) {
-    return this._add( arguments[ 0 ], this._SEVERITY.INFO )
+  info ( ...params ) {
+    return this.add( ...params, toastType.INFO )
+  }
+
+  getToastList () {
+    return this.toastList
   }
 
   remove ( id ) {
     setTimeout( () => {
-      arrayUtils.remove( this._toastList, ( el ) => el.id === id )
+      arrayUtils.remove( this.toastList, ( el ) => el.id === id )
     }, 0 )
   }
 
-  _add ( toastParams, severity ) {
+  add ( toastParams, toastType ) {
     setTimeout( () => {
-      this._modifyParams( toastParams, severity )
+      this.modifyParams( toastParams, toastType )
 
-      this._toastList.push( toastParams )
+      this.toastList.push( toastParams )
     }, 0 )
 
     return toastParams.id
   }
 
-  _modifyParams ( userParams, severity ) {
-    if ( !Object.keys( userParams ).includes( 'life' ) ) {
-      userParams.life = this._defaultLife
-    }
-    userParams.severity = severity
-    userParams.id = this._getUniqueID()
+  modifyParams ( toastParams, toastType ) {
+    toastParams.life = toastParams.life || this.defaultToastLife
+    toastParams.toastType = toastType
+    toastParams.id = this.getUniqueID()
   }
 
-  _getUniqueID () {
-    return this._toastCounter++
+  getUniqueID () {
+    return this.toastCounter++
   }
 }

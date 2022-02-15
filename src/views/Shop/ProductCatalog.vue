@@ -1,5 +1,6 @@
 <template >
   <div class="grid grid-cols-2 gap-x-2 gap-y-8 md:grid-cols-3 2xl:grid-cols-4 xl:gap-x- items-stretch px-3" >
+    <zButton @click="this.toast$.info( { summary: 'wow wtf summary!!!', life: 6000 } )" />
     <zShopProductCard
       v-for="product of fakeProducts"
       :key="product.title"
