@@ -5,6 +5,7 @@
       :key="product.title"
       :product="product" />
   </div>
+
   <zPagination
     class="mt-4 mx-auto"
     @change-page="changePage"

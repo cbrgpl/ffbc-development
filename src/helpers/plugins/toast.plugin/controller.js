@@ -33,13 +33,17 @@ export default class ToastController {
   }
 
   remove ( id ) {
-    arrayUtils.remove( this._toastList, ( el ) => el.id === id )
+    setTimeout( () => {
+      arrayUtils.remove( this._toastList, ( el ) => el.id === id )
+    }, 0 )
   }
 
   _add ( toastParams, severity ) {
-    this._modifyParams( toastParams, severity )
+    setTimeout( () => {
+      this._modifyParams( toastParams, severity )
 
-    this._toastList.push( toastParams )
+      this._toastList.push( toastParams )
+    }, 0 )
 
     return toastParams.id
   }

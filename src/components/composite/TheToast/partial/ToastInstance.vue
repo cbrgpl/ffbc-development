@@ -1,8 +1,8 @@
 <template >
   <div
     @click="selfDestruction"
-    @mouseenter="pauseInterval"
-    @mouseleave="unpauseInterval"
+    @mouseenter="pauseProgressAnimation"
+    @mouseleave="continueProgressAnimation"
     :class="toastClasses" >
     <div class="flex items-stretch flex-grow" >
       <div class="w-full pt-1 pb-1.5 px-2" >
@@ -25,10 +25,10 @@
     </div>
     <zProgressBar
       class="h-1 bg-white bg-opacity-20"
-      :progress="progress"
-      :overrun="10"
-      @stop="clearInterval"
-      @finish="selfDestruction" />
+      :progress="100"
+      :animation-paused="progressAnimationPaused"
+      :duration-ms="data.life"
+      @finished="destroySelf" />
   </div>
 </template>
 
@@ -46,16 +46,8 @@ export default {
   },
   data () {
     return {
-      progress: 0,
-      lifeInterval: null,
-      intervalPause: false,
-      oldTime: null,
-      lived: 0,
+      progressAnimationPaused: false,
     }
-  },
-  mounted () {
-    this.oldTime = Date.now()
-    this.lifeInterval = setInterval( this.updateProgress, this.data.life / 50 )
   },
   computed: {
     toastSeverityClass () {
@@ -77,30 +69,14 @@ export default {
     },
   },
   methods: {
-    updateProgress ( currentTime = Date.now() ) {
-      if ( this.intervalPause ) {
-        return
-      }
-
-      this.lived += currentTime - this.oldTime
-      this.oldTime = currentTime
-
-      const life = this.data.life
-      this.progress = this.lived / life * 100
+    pauseProgressAnimation ( ) {
+      this.progressAnimationPaused = true
     },
-    pauseInterval () {
-      this.intervalPause = true
+    continueProgressAnimation () {
+      this.progressAnimationPaused = false
     },
-    unpauseInterval () {
-      this.oldTime = Date.now()
-      this.intervalPause = false
-    },
-    selfDestruction () {
-      this.clearInterval()
+    destroySelf () {
       this.$emit( 'remove', this.data.id )
-    },
-    clearInterval () {
-      if ( this.lifeInterval ) clearInterval( this.lifeInterval )
     }
   },
   components: {
