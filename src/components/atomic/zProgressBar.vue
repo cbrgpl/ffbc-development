@@ -52,9 +52,10 @@ export default {
           throw new ErrorWithDescription( `Invalid progress prop value "${ this.progress }"` )
         }
 
+        const startAnimationDelay = 45
         setTimeout( () => {
           this.barWidth = this.progress
-        }, 0 )
+        }, startAnimationDelay )
       },
       immediate: true,
     },
@@ -95,7 +96,9 @@ export default {
       }
     },
     emitFinish () {
-      this.$emit( 'finished' )
+      if ( !this.animationPaused ) {
+        this.$emit( 'finished' )
+      }
     }
   },
 }
