@@ -51,7 +51,7 @@ export default {
   },
   computed: {
     toastSeverityClass () {
-      return 'toast--' + this.data.severity
+      return 'toast--' + this.data.toastType
     },
     toastClasses () {
       return [
