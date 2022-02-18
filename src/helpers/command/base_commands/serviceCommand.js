@@ -6,13 +6,13 @@ export default class ServiceCommand extends Command {
     super()
     this.services = services
 
-    this.promisesQueue = []
+    this.promiseQueue = []
   }
 
-  async makeRequests ( requestArray ) {
-    this.fulfilRequests( requestArray )
+  async makeRequests ( arrayOfFetchRequests ) {
+    this.fillPromiseQueue( arrayOfFetchRequests )
 
-    const promiseResults = await Promise.allSettled( this.promisesQueue )
+    const promiseResults = await Promise.allSettled( this.promiseQueue )
     const promiseResultsValidation = this.isPromiseResultsValid( promiseResults )
 
     if ( promiseResultsValidation.isValid ) {
@@ -22,10 +22,21 @@ export default class ServiceCommand extends Command {
     }
   }
 
-  fulfilRequests ( requestArray ) {
-    for ( const request of requestArray ) {
-      const requestWrapper = this.getRequestPromiseWrapper( request() )
-      this.promisesQueue.push( requestWrapper() )
+  fillPromiseQueue ( arrayOfFetchRequests ) {
+    for ( const fetchRequest of arrayOfFetchRequests ) {
+      const fetchRequestWrapper = this.getRequestPromiseWrapper( fetchRequest() )
+      this.promiseQueue.push( fetchRequestWrapper() )
+    }
+  }
+
+  getRequestPromiseWrapper ( fetchRequestPromise ) {
+    return async () => {
+      const fetchRequest = await fetchRequestPromise
+      if ( fetchRequest.httpResponse.status !== 200 ) {
+        throw new CommandExecutionError( this.constructor.name, fetchRequest.httpResponse )
+      }
+
+      return fetchRequest
     }
   }
 
@@ -41,17 +52,6 @@ export default class ServiceCommand extends Command {
 
     return {
       isValid: true,
-    }
-  }
-
-  getRequestPromiseWrapper ( requestPromise ) {
-    return async () => {
-      const request = await requestPromise
-      if ( request.httpResponse.status !== 200 ) {
-        throw new CommandExecutionError( this.constructor.name, request.httpResponse )
-      }
-
-      return request
     }
   }
 }
