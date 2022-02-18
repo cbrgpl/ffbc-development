@@ -38,7 +38,7 @@ function setDefaultHooks ( services, hooks ) {
 
     service.onBeforeRequest( hooks.onBeforeRequest )
     service.onBeforeFetch( hooks.onBeforeFetch )
-    // service.onResponseHandled( hooks.onResponseHandled )
+    service.onResponseHandled( hooks.onResponseHandled )
   }
 }
 

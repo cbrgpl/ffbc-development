@@ -63,6 +63,8 @@
 <script>
 import { mapGetters } from 'vuex'
 
+const lgBreakpointMinWidth = 1024
+
 export default {
   name: 'TheHeader',
   emits: [ 'toggleSidebarVisibility' ],
@@ -70,9 +72,20 @@ export default {
     ...mapGetters( {
       isAuth: 'auth/isAuth'
     } ),
+    isProfileNavigationInvisibleWithLargeScreen () {
+      const largeScreen = document.body.clientWidth >= lgBreakpointMinWidth
+      const anyShopProfileRoute = this.$route.matched.some( ( match ) => match.name === 'ShopProfile' )
+
+      return largeScreen && anyShopProfileRoute
+    },
+    isProfileNavigationInvisibleWithSmallScreen () {
+      const smallScreen = document.body.clientWidth < lgBreakpointMinWidth
+      const profileMainRoute = this.$route.matched.some( ( match ) => match.name === 'ShopProfileMain' )
+
+      return smallScreen && profileMainRoute
+    },
     isProfileNavigationInvisible () {
-      const lgBreakpointMinWidth = 1024
-      return this.$route.matched.some( ( match ) => match.name === 'ShopProfile' ) && document.body.clientWidth >= lgBreakpointMinWidth
+      return this.isProfileNavigationInvisibleWithLargeScreen || this.isProfileNavigationInvisibleWithSmallScreen
     }
   },
   methods: {
