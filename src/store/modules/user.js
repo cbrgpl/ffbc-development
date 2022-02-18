@@ -7,7 +7,8 @@ export default {
   clearable: true,
   state: {
     userData: {
-      name: 'Dmitry TTT',
+      firstName: '',
+      lastName: '',
       email: 'cybirgpl@gmail.com',
       phoneNumber: '+79230040520',
     },
@@ -20,7 +21,7 @@ export default {
       return state.roles
     },
     fullName ( state ) {
-      return state.name
+      return state.userData.firstName + ' ' + state.userData.lastName
     }
   },
   actions: {

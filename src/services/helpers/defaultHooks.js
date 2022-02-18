@@ -1,14 +1,14 @@
 import CamelKebabTranslator from './camelCaseKebabTranslator'
 import store from '@/store'
 function onBeforeRequest ( { handlerName, data, id } ) {
-  const translatedData = CamelKebabTranslator.translate( {
+  const kebabedData = CamelKebabTranslator.translate( {
     value: data,
     mode: CamelKebabTranslator.MODS.CAMEL_KEBAB
   } )
 
   return {
     handlerName,
-    data: translatedData,
+    data: kebabedData,
     id
   }
 }
@@ -21,8 +21,13 @@ function onBeforeFetch ( requestParameters ) {
   requestParameters.fetchParams.body = JSON.stringify( requestParameters.fetchParams.body )
 }
 
-function onResponseHandled ( data ) {
-  console.log( data )
+function onResponseHandled ( { handledResponse } ) {
+  const cameledData = CamelKebabTranslator.translate( {
+    value: handledResponse.parsedBody,
+    mode: CamelKebabTranslator.MODS.KEBAB_CAMEL
+  } )
+
+  handledResponse.parsedBody = cameledData
 }
 
 export {

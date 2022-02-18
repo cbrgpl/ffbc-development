@@ -118,7 +118,7 @@ export default class CamelKebabTranslator {
         mode,
       } )
     } else {
-      throw Error( `Invalid translate mode was passed;\nMode Value ${ mode }` )
+      throw Error( `Invalid data type was passed;\nData type ${ dataType }` )
     }
   }
 }

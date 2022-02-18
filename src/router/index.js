@@ -138,7 +138,7 @@ const routes = [
         children: [
           {
             path: 'main',
-            component: () => import( '@views/Shop/ProfileMain.vue' ),
+            component: () => import( '@/views/Shop/ProfileMain/ProfileMain.vue' ),
             name: 'ShopProfileMain',
             beforeEnter: getRedirectOnLargeScreen( 1024, 'ShopProfileCart' ),
             meta: {
