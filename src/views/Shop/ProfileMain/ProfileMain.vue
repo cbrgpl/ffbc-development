@@ -1,6 +1,7 @@
 <template >
   <div >
     <UserData
+      @click="pushToUserRoute"
       class="shop-main-padding"
       :full-name="$store.getters['user/fullName']" />
 
@@ -38,6 +39,11 @@ export default {
   data () {
     return {
       profileNavigation
+    }
+  },
+  methods: {
+    pushToUserRoute () {
+      this.$router.push( { name: 'UserMe' } )
     }
   },
   components: {

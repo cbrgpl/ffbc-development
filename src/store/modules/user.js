@@ -9,8 +9,8 @@ export default {
     userData: {
       firstName: '',
       lastName: '',
-      email: 'cybirgpl@gmail.com',
-      phoneNumber: '+79230040520',
+      email: '',
+      phoneNumber: '',
     },
   },
   getters: {
