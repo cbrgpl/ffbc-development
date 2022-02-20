@@ -5,12 +5,14 @@
     role="tablist" >
     <li
       :ref="selectedRef"
-      v-for="tab in tabs"
+      v-for="tab of tabs"
       :key="tab"
       @click="$emit( 'update:modelValue', tab )"
       :class="['z-tabs-menu__tab', {'z-tabs-menu__tab--selected': tab === modelValue}]"
       role="tab" >
-      <slot > {{ tab }} </slot>
+      <slot :tab="tab" >
+        {{ tab }}
+      </slot>
     </li>
 
     <li
@@ -34,7 +36,6 @@ export default {
       type: Boolean,
       default: true,
     },
-
   },
   data () {
     return {
@@ -62,9 +63,9 @@ export default {
       this.$watch(
         () => this.modelValue,
         function ( newTab ) {
+          // из-за скролла немного криво позиционируется, ждем пока появится скорлл, потом выполняем обновление
           setTimeout( () => {
-            // из-за скролла немного криво позиционируется, ждем пока появится скорлл, потом выполняем обновление
-            this.updateIndicator( this.searchElem( newTab ) )
+            this.updateIndicator( this.searchElem() )
           }, 0 )
         },
         {
@@ -93,9 +94,9 @@ export default {
         this.tabRefs.push( el )
       }
     },
-    searchElem ( modelValue ) {
+    searchElem () {
       for ( const el of this.tabRefs ) {
-        if ( el.innerText === modelValue ) {
+        if ( el.classList.contains( 'z-tabs-menu__tab--selected' ) ) {
           return el
         }
       }
