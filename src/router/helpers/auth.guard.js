@@ -12,9 +12,11 @@ import setTokensOnInitial from './authSetTokensOnInitial'
 */
 
 const isInitialGuardCall = ( userAuth ) => userAuth === null
+const routeRequireAuth = ( matched ) => matched.some( ( route ) => route.meta.auth === true )
+const routeRequireAnAuth = ( matched ) => matched.some( ( route ) => route.meta.auth === false )
 
 export default async function ( to, from, next ) {
-  const userAuth = $store.getters[ 'auth/isAuth' ]
+  let userAuth = $store.getters[ 'auth/isAuth' ]
   const refreshToken = $store.getters[ 'auth/refreshToken' ]
 
   if ( isInitialGuardCall( userAuth ) && refreshToken !== null ) {
@@ -22,16 +24,15 @@ export default async function ( to, from, next ) {
 
     if ( onNetworkAttemptErrorRoute ) {
       next( { name: onNetworkAttemptErrorRoute } )
-      return
+    } else {
+      userAuth = true
     }
   }
 
-  const routeRequireAuth = to.meta.auth
-
-  if ( routeRequireAuth === false && userAuth ) {
-    next( { name: 'Home' } )
-  } else if ( routeRequireAuth === true && !userAuth ) {
-    next( { name: 'Main' } )
+  if ( userAuth && routeRequireAnAuth( to.matched ) ) {
+    next( { name: 'ShopProfileMain' } )
+  } else if ( !userAuth && routeRequireAuth( to.matched ) ) {
+    next( { name: 'ShopMain' } )
   } else {
     next()
   }
