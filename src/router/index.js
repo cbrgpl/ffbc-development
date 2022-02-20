@@ -45,7 +45,7 @@ const routes = [
         name: 'Sponsors',
         meta: {
           layout: 'main',
-          roles: [ 'qwe' ]
+          roles: []
         }
       },
       {
@@ -174,6 +174,26 @@ const routes = [
         component: () => import( '@/views/Shop/ProductPage/ProductPage.vue' ),
         name: 'ShopProductPage',
         props: true
+      }
+    ]
+  },
+  {
+    path: '/user',
+    component: () => import( '@layouts/UserLayout/UserLayout.vue' ),
+    redirect: { name: 'UserMe' },
+    meta: {
+      auth: true,
+    },
+    children: [
+      {
+        path: 'me',
+        component: () => import( '@/views/User/Me/Me.vue' ),
+        name: 'UserMe'
+      },
+      {
+        path: 'account',
+        component: () => import( '@views/User/Account.vue' ),
+        name: 'UserAccount',
       }
     ]
   },
