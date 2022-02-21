@@ -158,19 +158,6 @@
           </small>
         </div>
 
-        <div class="form-field" >
-          <zInput
-            v-model="userForm.email"
-            label="Email"
-            :error-state="v$.userForm.email.$error"
-            on-error="required"
-            class="mb-0.5" />
-
-          <small class="text-placeholder font-semibold" >
-            Field is required
-          </small>
-        </div>
-
         <zInput
           class="form-field"
           v-model="userForm.birthDate"
@@ -210,7 +197,7 @@
 
 <script>
 import useVuelidate from '@vuelidate/core'
-import { email, required, between, minLength, url, numeric } from '@vuelidate/validators'
+import { required, between, minLength, url, numeric } from '@vuelidate/validators'
 import { phone } from '@validators'
 
 import UserContact from './partial/UserContact.vue'
@@ -242,7 +229,6 @@ export default {
         zipcode: '',
         phoneNumber: '',
         instagramUrl: '',
-        email: '',
         birthDate: '',
         growth: '',
         age: '',
@@ -293,10 +279,6 @@ export default {
         instagramUrl: {
           required,
           url
-        },
-        email: {
-          required,
-          email
         },
         growth: {
           required,

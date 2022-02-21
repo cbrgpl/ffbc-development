@@ -1,0 +1,43 @@
+<template >
+  <section >
+    <slot />
+
+    <div
+      @click="toggleFormVisible" >
+      <slot name="action" />
+    </div>
+
+    <slot
+      v-if="formVisible"
+      name="form" />
+  </section>
+</template>
+
+<script>
+export default {
+  name: 'AccountSection',
+  emits: [ 'formVisibilityToggled' ],
+  watch: {
+    formVisible ( newValue ) {
+      this.$emit( 'formVisibilityToggled', newValue )
+    },
+  },
+  data () {
+    return {
+      formVisible: false,
+    }
+  },
+  methods: {
+    toggleFormVisible () {
+      this.formVisible = !this.formVisible
+    },
+    clearSection () {
+      this.formVisible = false
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+
+</style>

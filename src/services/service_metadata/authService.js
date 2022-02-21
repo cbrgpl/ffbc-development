@@ -188,6 +188,33 @@ const authApiModule = [
         }
       }
     }
+  },
+  {
+    method: 'POST',
+    url: API_URL + '/auth/update-user-password/',
+    secure: true,
+    roles: [],
+    handler: 'updatePassword',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    schema: {
+      type: 'object',
+      required: [ 'password', 'passwordConfirmation' ],
+      properties: {
+        password: {
+          type: 'string',
+          minLength: 6,
+          maxLength: 68,
+        },
+        passwordConfirmation: {
+          type: 'string',
+          minLength: 6,
+          maxLength: 68,
+        }
+      }
+    }
   }
 ]
 
