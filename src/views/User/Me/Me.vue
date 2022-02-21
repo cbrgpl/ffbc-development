@@ -1,6 +1,7 @@
 <template >
   <div >
     <zForm
+      class="lg:grid grid-cols-1 lg:grid-cols-4 lg:gap-x-20"
       @validate="updateUser"
       :state="form.state"
       :error-message="form.errorMessage"
@@ -12,7 +13,7 @@
           My name:
         </h4>
 
-        <div class="flex flex-col md:flex-row" >
+        <div class="flex flex-col" >
           <div class="form-field" >
             <zInput
               v-model="userForm.firstName"
@@ -37,42 +38,17 @@
         </div>
       </section>
 
-      <section class=" flex flex-col md:flex-row" >
+      <section >
         <h4 class="mb-3.5 underline" >
-          Address:
+          My parameters:
         </h4>
 
         <div class="form-field" >
           <zInput
-            v-model="userForm.address.street"
-            label="Street"
-            :error-state="v$.userForm.address.street.$error"
-            on-error="required"
-            class="mb-0.5" />
-
-          <small class="text-placeholder font-semibold" >
-            Field is required
-          </small>
-        </div>
-
-        <div class="form-field" >
-          <zInput
-            v-model="userForm.address.city"
-            label="City"
-            :error-state="v$.userForm.address.city.$error"
-            on-error="required"
-            class="mb-0.5" />
-
-          <small class="text-placeholder font-semibold" >
-            Field is required
-          </small>
-        </div>
-
-        <div class="form-field" >
-          <zInput
-            v-model="userForm.address.country"
-            label="Country"
-            :error-state="v$.userForm.address.country.$error"
+            v-model="userForm.growth"
+            label="Growth"
+            mask="999"
+            :error-state="v$.userForm.growth.$error"
             on-error="required"
             class="mb-0.5" />
 
@@ -83,21 +59,76 @@
 
         <zInput
           class="form-field"
-          v-model="userForm.address.state"
-          label="State" />
+          v-model="userForm.age"
+          label="Age"
+          mask="99"
+          :error-state="v$.userForm.age.$error"
+          on-error="required" />
+      </section>
 
-        <div class="form-field" >
+      <section class="flex flex-col" >
+        <h4 class="mb-3.5 underline" >
+          Address:
+        </h4>
+
+        <div class="flex flex-col lg:flex-wrap" >
+          <div class="form-field" >
+            <zInput
+              v-model="userForm.address.street"
+              label="Street"
+              :error-state="v$.userForm.address.street.$error"
+              on-error="required"
+              class="mb-0.5" />
+
+            <small class="text-placeholder font-semibold" >
+              Field is required
+            </small>
+          </div>
+
+          <div class="form-field" >
+            <zInput
+              v-model="userForm.address.city"
+              label="City"
+              :error-state="v$.userForm.address.city.$error"
+              on-error="required"
+              class="mb-0.5" />
+
+            <small class="text-placeholder font-semibold" >
+              Field is required
+            </small>
+          </div>
+
+          <div class="form-field" >
+            <zInput
+              v-model="userForm.address.country"
+              label="Country"
+              :error-state="v$.userForm.address.country.$error"
+              on-error="required"
+              class="mb-0.5" />
+
+            <small class="text-placeholder font-semibold" >
+              Field is required
+            </small>
+          </div>
+
           <zInput
-            v-model="userForm.zipcode"
-            label="Zipcode"
-            mask="999999"
-            :error-state="v$.userForm.zipcode.$error"
-            on-error="required"
-            class="mb-0.5" />
+            class="form-field"
+            v-model="userForm.address.state"
+            label="State" />
 
-          <small class="text-placeholder font-semibold" >
-            Field is required
-          </small>
+          <div class="form-field" >
+            <zInput
+              v-model="userForm.zipcode"
+              label="Zipcode"
+              mask="999999"
+              :error-state="v$.userForm.zipcode.$error"
+              on-error="required"
+              class="mb-0.5" />
+
+            <small class="text-placeholder font-semibold" >
+              Field is required
+            </small>
+          </div>
         </div>
       </section>
 
@@ -160,35 +191,9 @@
         </UserContact>
       </section>
 
-      <section >
-        <h4 class="mb-3.5 underline" >
-          My parameters:
-        </h4>
-
-        <div class="form-field" >
-          <zInput
-            v-model="userForm.growth"
-            label="Growth"
-            :error-state="v$.userForm.growth.$error"
-            on-error="required"
-            class="mb-0.5" />
-
-          <small class="text-placeholder font-semibold" >
-            Field is required
-          </small>
-        </div>
-
-        <zInput
-          class="form-field"
-          v-model="userForm.age"
-          label="Age"
-          :error-state="v$.userForm.age.$error"
-          on-error="required" />
-      </section>
-
       <template #actions >
 
-        <div class="form-actions" >
+        <div class="form-actions flex justify-end col-start-3 col-span-2" >
           <zLoaderButton
             class="form-button"
             type="submit"
@@ -324,6 +329,6 @@ export default {
 }
 
 section {
-  @apply mb-10;
+  @apply mb-10 col-span-1 lg:col-span-2;
 }
 </style>
