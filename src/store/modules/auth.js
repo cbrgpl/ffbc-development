@@ -58,6 +58,15 @@ export default {
       if ( resendRequest.httpResponse.status !== 200 ) {
         throw new NetworkAttemptError( resendRequest.httpResponse )
       }
+    },
+    async updatePassword ( context, newPasswordData ) {
+      const updatePasswordRequest = await authService.updatePassword( newPasswordData )
+
+      if ( updatePasswordRequest.httpResponse.status !== 200 ) {
+        throw new NetworkAttemptError( updatePasswordRequest.httpResponse )
+      }
+
+      return getActionResultDTO( updatePasswordRequest )
     }
   },
   mutations: {
