@@ -1,7 +1,7 @@
 <template >
   <div class="grid grid-cols-2 gap-x-2 gap-y-8 md:grid-cols-3 2xl:grid-cols-4 xl:gap-x- items-stretch px-3" >
     <zShopProductCard
-      v-for="product of fakeProducts"
+      v-for="product of products"
       :key="product.title"
       :product="product" />
   </div>
@@ -15,7 +15,6 @@
 
 <script>
 import zShopProductCard from '@components/composite/zShopProductCard.vue'
-import fakeProducts from '@enums/fake/products'
 
 import { defineAsyncComponent } from 'vue'
 
@@ -31,7 +30,8 @@ export default {
   },
   data () {
     return {
-      fakeProducts,
+      products: [],
+      count: 0,
       pagination: {
         page: null,
         perPage: 24,
@@ -63,7 +63,7 @@ export default {
       return filters
     }
   },
-  created () {
+  async created () {
     this.setPageNumber()
     this.setPage( this.pagination.page )
   },
@@ -90,10 +90,10 @@ export default {
     async setPage ( pageNumber ) {
       const productsResponse = await this.getProducts( pageNumber )
 
-      this.pagination.totalPages = productsResponse.data.count
+      this.pagination.totalPages = productsResponse.count
       this.pagination.page = pageNumber
 
-      // this.products = productsResponse.data.results
+      this.products = productsResponse.products
     },
     async getProducts ( page ) {
       const requestQueryParams = {
@@ -104,20 +104,11 @@ export default {
 
       this.loading = true
 
-      // const products = await this.$store.dispatch( 'product/outGetProducts', requestQueryParams )
-      const products = {
-        data: {
-          count: 12,
-          previous: null,
-          next: 'http://rainbow-siege-developers.ru/api/products/?page=2&per_page=1',
-        }
-      }
+      const productsDispatch = await this.$store.dispatch( 'product/outGetProducts', requestQueryParams )
 
       this.loading = false
-      // previous http://rainbow-siege-developers.ru/api/products/?page=2&per_page=1
-      // next http://rainbow-siege-developers.ru/api/products/?page=2&per_page=1
 
-      return products
+      return productsDispatch.data
     },
   },
   components: {

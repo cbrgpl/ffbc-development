@@ -3,11 +3,12 @@ import getActionResultDTO from '../helpers/getActionResultDTO'
 import { NetworkAttemptError } from '@errors'
 import { productService } from '@services'
 
+console.log( productService )
+
 export default {
   namespaced: true,
   state () {
-    return {
-    }
+    return {}
   },
   getters: {
   },
@@ -38,10 +39,11 @@ export default {
       } )
     },
     async outGetProducts ( context, filters ) {
-      console.log( filters )
-      const getProductsRequest = await productService.getProducts( filters )
+      // TODO Допилить после появления ручки
+      filters.productType = 1
 
-      if ( getProductsRequest.httpResponse !== 200 ) {
+      const getProductsRequest = await productService.getProducts( filters )
+      if ( getProductsRequest.httpResponse.status !== 200 ) {
         throw new NetworkAttemptError( getProductsRequest.httpResponse )
       }
 
