@@ -3,7 +3,7 @@
 
     <zShopProductSlider
       class="h-72 md:h-96"
-      :media-srcs="product.media" ></zShopProductSlider>
+      :media-srcs="product.media" />
 
     <div
       @click="routeToProductPage(product)"
@@ -19,7 +19,7 @@
             <div
               v-if="containsInStock"
               class="mb-2 text-sm sm:text-base lg:mb-1" >
-              Quantity in stock - {{ product.count }}
+              Quantity in stock - {{ product.stockQnt }}
             </div>
             <span class="text-sm sm:text-base text-placeholder font-mono font-semibold underline mb-2 lg:mb-0" >
               ${{ product.price }}
