@@ -28,6 +28,9 @@ export default {
       sidebarVisiblity: false,
     }
   },
+  created () {
+    this.$store.dispatch( 'product/fetchProductFeatures' )
+  },
   computed: {
     currentRoute () {
       return this.$route
