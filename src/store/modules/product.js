@@ -2,15 +2,24 @@
 import getActionResultDTO from '../helpers/getActionResultDTO'
 import { NetworkAttemptError } from '@errors'
 import { productService } from '@services'
+import { StatusError } from '../../../../ttt-rest-service/libs/error/statusError'
 
 export default {
   namespaced: true,
   state () {
-    return {}
+    return {
+      productFeatures: {}
+    }
   },
   getters: {
+    productFeatures ( state ) {
+      return state.productFeatures
+    }
   },
   mutations: {
+    setProductFeatures ( state, features ) {
+      state.productFeatures = features
+    }
   },
   actions: {
     outFetchProductById ( { commit, getters }, id ) {
@@ -47,8 +56,14 @@ export default {
 
       return getActionResultDTO( getProductsRequest )
     },
-    async getProductFeatures ( { commit } ) {
+    async fetchProductFeatures ( { commit } ) {
+      const productFeaturesRequest = await productService.getProductFeatures()
 
+      if ( productFeaturesRequest.httpResponse.status !== 200 ) {
+        throw new NetworkAttemptError( productFeaturesRequest.httpResponse )
+      }
+
+      commit( 'setProductFeatures', productFeaturesRequest.parsedBody )
     }
   }
 }

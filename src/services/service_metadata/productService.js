@@ -32,6 +32,16 @@ const productApiModule = [
       }
     }
   },
+  {
+    method: 'GET',
+    url: API_URL + '/product-features/',
+    secure: false,
+    roles: [],
+    handler: 'getProductFeatures',
+    headers: {
+      Accept: 'application/json'
+    },
+  },
 ]
 
 export default productApiModule
