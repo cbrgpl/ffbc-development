@@ -26,7 +26,16 @@ export default class ProductServiceAdapter extends ServiceAdapter {
   transformProduct ( product ) {
     const transformedProduct = {}
 
-    transformedProduct.media = product.productMedia.map( ( media ) => media.image )
+    transformedProduct.media = product.productMedia.map( ( media ) => {
+      const transformedMedia = {}
+
+      transformedMedia.src = media.image
+      transformedMedia.display = media.imageDisplay
+      transformedMedia.preview = media.imagePreview
+
+      return transformedMedia
+    } )
+
     transformedProduct.stockQnt = product.stockQty
     transformedProduct.price = product.basePrice
     transformedProduct.description = product.description

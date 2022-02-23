@@ -4,14 +4,13 @@
     :elements-count="mediaCount"
     class="w-full h-36 border-b border-placeholder border-solid" >
     <div
-      v-for="(src, i) of mediaSrcs"
-      :key="src"
+      v-for="(aMedia, i) of media"
+      :key="aMedia.original"
       class="bg-black-lightest h-full w-full flex-shrink-0" >
       <zMedia
         class="h-full"
-        :original-src="src"
-        :blur-src="require('@images/shop/blur-template.png')"
-        :load-original="originalMediaVisibilityArray[i]"
+        v-bind="aMedia"
+        :load-display-src="originalMediaVisibilityArray[i]"
         media-type="image" />
     </div>
   </zSlider>
@@ -23,14 +22,14 @@ import zSlider from '@components/composite/zSlider/zSlider.vue'
 export default {
   name: 'zShopProductSlider',
   props: {
-    mediaSrcs: {
+    media: {
       type: Array,
       required: true
     }
   },
   computed: {
     mediaCount () {
-      return this.mediaSrcs.length
+      return this.media.length
     },
   },
   data () {

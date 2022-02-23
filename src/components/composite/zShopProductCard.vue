@@ -3,7 +3,7 @@
 
     <zShopProductSlider
       class="h-72 md:h-96"
-      :media-srcs="product.media" />
+      :media="product.media" />
 
     <div
       @click="routeToProductPage(product)"
