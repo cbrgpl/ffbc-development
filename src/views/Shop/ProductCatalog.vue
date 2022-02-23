@@ -1,16 +1,26 @@
 <template >
-  <div class="grid grid-cols-2 gap-x-2 gap-y-8 md:grid-cols-3 2xl:grid-cols-4 xl:gap-x- items-stretch px-3" >
-    <zShopProductCard
-      v-for="product of products"
-      :key="product.title"
-      :product="product" />
-  </div>
+  <div class="flex flex-col flex-grow relative" >
+    <div class="grid grid-cols-2 gap-x-2 gap-y-8 md:grid-cols-3 2xl:grid-cols-4 xl:gap-x- items-stretch px-3 mb-auto" >
+      <zShopProductCard
+        v-for="product of products"
+        :key="product.title"
+        :product="product" />
+    </div>
 
-  <zPagination
-    class="mt-4 mx-auto"
-    @change-page="changePage"
-    @set-page="setPage"
-    v-bind="pagination" />
+    <zLoader
+      v-if="loading"
+      class="bg-opacity-60 z-10"
+      size="160px"
+      background
+      title />
+
+    <zPagination
+      class="mt-4 mx-auto"
+      @change-page="changePage"
+      @set-page="setPage"
+      :disabled="loading"
+      v-bind="pagination" />
+  </div>
 </template>
 
 <script>
@@ -35,7 +45,7 @@ export default {
       pagination: {
         page: null,
         perPage: 24,
-        totalPages: null,
+        itemCount: 0,
       },
       loading: true,
     }
@@ -90,7 +100,7 @@ export default {
     async setPage ( pageNumber ) {
       const productsResponse = await this.getProducts( pageNumber )
 
-      this.pagination.totalPages = productsResponse.count
+      this.pagination.itemCount = productsResponse.count
       this.pagination.page = pageNumber
 
       this.products = productsResponse.products

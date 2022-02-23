@@ -1,5 +1,5 @@
 <template >
-  <div class="flex items-center select-none" >
+  <div :class="['flex items-center select-none', paginationDisabledClasses]" >
     <PaginationButton
       class="pagination-surface"
       @click="emitChangePage(-1)" >
@@ -12,10 +12,10 @@
 
     <div class="mx-4" >
       <span
-        v-for="pageNum of getPages "
+        v-for="pageNum of getPages"
         :key="pageNum"
         @click="emitSetPage(pageNum)"
-        :class="['pagination-surface w-7 mr-2.5 last:mr-0 p-3' ,getPageNumberClasses(pageNum)]" >
+        :class="['pagination-surface cursor-pointer w-7 mr-2.5 last:mr-0 p-3', getPageNumberClasses(pageNum)]" >
         {{ pageNum }}
       </span>
     </div>
@@ -42,10 +42,18 @@ export default {
       type: Number,
       required: true,
     },
-    totalPages: {
+    perPage: {
       type: Number,
       required: true,
     },
+    itemCount: {
+      type: Number,
+      required: true,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    }
   },
   data () {
     return {
@@ -60,6 +68,9 @@ export default {
     }
   },
   computed: {
+    totalPages () {
+      return Math.ceil( this.itemCount / this.perPage )
+    },
     endOfMiddle () {
       return this.totalPages - 2
     },
@@ -74,16 +85,27 @@ export default {
     },
     getPages () {
       if ( this.scenario === this.scenarios.aboutStart ) {
-        return this.getArrayOfPages( 1, 5 )
+        const displayMax = this.totalPages > this.displayPageQnt ? this.displayPageQnt : this.totalPages
+
+        return this.getArrayOfPages( 1, displayMax )
       } else if ( this.scenario === this.scenarios.middle ) {
         const min = this.page - this.distanceToEdge
         const max = this.page + this.distanceToEdge
 
         return this.getArrayOfPages( min, max )
       } else {
-        const min = this.totalPages - this.displayPageQnt + 1
+        let min = this.totalPages - this.displayPageQnt + 1
+
+        if ( min < 1 ) {
+          min = 1
+        }
 
         return this.getArrayOfPages( min, this.totalPages )
+      }
+    },
+    paginationDisabledClasses () {
+      return {
+        pagination_disabled: this.disabled
       }
     }
   },
@@ -102,7 +124,7 @@ export default {
         return
       }
 
-      this.$emit( 'change-page', direction )
+      this.emitEvent( 'change-page', direction )
     },
     checkEmergencyCase ( direction ) {
       if ( direction === -1 && this.page === 1 ) {
@@ -114,7 +136,12 @@ export default {
       return true
     },
     emitSetPage ( pageNum ) {
-      this.$emit( 'set-page', pageNum )
+      this.emitEvent( 'set-page', pageNum )
+    },
+    emitEvent ( eventName, ...params ) {
+      if ( !this.disabled ) {
+        this.$emit( eventName, ...params )
+      }
     },
     getPageNumberClasses ( nodePage ) {
       return {
@@ -130,6 +157,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.pagination_disabled {
+  .pagination-surface {
+    @apply text-black-lightest cursor-default;
+  }
+}
+
 .pagination-surface {
   @apply bg-black-lighten border border-black border-solid rounded-md;
 }

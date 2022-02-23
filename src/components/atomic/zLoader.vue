@@ -1,8 +1,8 @@
 <template >
   <div
-    :class="['flex flex-col items-center w-full h-full absolute', ...backgroundClasses]" >
+    :class="['flex flex-col items-center justify-center w-full h-full absolute', ...backgroundClasses]" >
     <svg
-      class="m-auto animate-bounce ease-in-out duration-1000"
+      class="animate-bounce ease-in-out duration-1000"
       :height="size"
       :width="size"
       viewBox="0 -96 512 512"
@@ -32,7 +32,7 @@
     </svg>
     <h5
       v-if="title"
-      class="text-white font-mono text-xl absolute -bottom-8" >
+      class="text-white font-mono text-xl" >
       Loading...
     </h5>
 

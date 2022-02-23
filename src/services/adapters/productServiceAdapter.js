@@ -3,7 +3,6 @@ import ServiceAdapter from './serviceAdapter'
 export default class ProductServiceAdapter extends ServiceAdapter {
   getProducts ( result ) {
     const parsedBody = result.parsedBody
-    console.log( parsedBody )
 
     const newParsedBody = {
       count: parsedBody.count,
@@ -31,7 +30,7 @@ export default class ProductServiceAdapter extends ServiceAdapter {
     transformedProduct.stockQnt = product.stockQty
     transformedProduct.price = product.basePrice
     transformedProduct.description = product.description
-    transformedProduct.name = product.name
+    transformedProduct.title = product.name
     transformedProduct.id = product.id
 
     return transformedProduct

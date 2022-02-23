@@ -3,8 +3,6 @@ import getActionResultDTO from '../helpers/getActionResultDTO'
 import { NetworkAttemptError } from '@errors'
 import { productService } from '@services'
 
-console.log( productService )
-
 export default {
   namespaced: true,
   state () {
