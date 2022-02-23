@@ -10,7 +10,7 @@
         <zMedia
           class="media transition-opacity duration-300"
           :media-type="mediaInfo.type"
-          :original-src="mediaInfo.src" />
+          :src="mediaInfo.src" />
 
         <CloseIcon
           @click="closeMediaOverlay"

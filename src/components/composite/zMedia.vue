@@ -2,7 +2,7 @@
   <component
     v-bind="$attrs"
     :src="activeSrc"
-    @click="showInMediaOverlay(originalSrc)"
+    @click="showInMediaOverlay"
     :is="mediaComponent" />
 </template>
 
@@ -21,24 +21,28 @@ export default {
         return [ 'image', 'video' ].includes( value )
       }
     },
-    originalSrc: {
+    src: {
       type: String,
       required: true,
     },
-    blurSrc: {
+    display: {
+      type: String,
+      default: null,
+    },
+    preview: {
       type: String,
       default: null
     },
-    loadOriginal: {
+    loadDisplaySrc: {
       type: Boolean,
       default: null,
     }
   },
   watch: {
-    loadOriginal: {
+    loadDisplaySrc: {
       handler ( newValue ) {
         if ( newValue ) {
-          this.loadOriginalMedia()
+          this.loadDisplayMedia()
         }
       },
       immediate: true
@@ -51,34 +55,36 @@ export default {
   },
   data () {
     return {
-      activeSrc: this.blurSrc || this.originalSrc,
+      activeSrc: this.preview || this.display || this.src,
     }
   },
   methods: {
-    loadOriginalMedia () {
+    loadDisplayMedia () {
       switch ( this.mediaType ) {
       case 'image':
-        this.loadImage( this.originalSrc )
+        this.loadImage( this.display || this.src )
         break
       case 'video':
-        this.loadVideo( this.originalSrc )
+        this.loadVideo( this.src )
         break
       default:
         throw TypeError( `Invalid mediaType value with ${ this.mediaType }` )
       }
     },
     loadImage ( src ) {
-      const originalImage = new Image()
-      originalImage.onload = () => {
+      const displayImage = new Image()
+      displayImage.onload = () => {
         this.activeSrc = src
       }
 
-      originalImage.src = src
+      displayImage.src = src
     },
     loadVideo ( src ) {
       // hmmmm
     },
-    showInMediaOverlay ( mediaSrc ) {
+    showInMediaOverlay () {
+      const mediaSrc = this.display || this.src
+
       this.mediaViewOverlay$.show( mediaSrc )
     },
   },
