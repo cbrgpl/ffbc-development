@@ -101,8 +101,7 @@ export default class CamelKebabTranslator {
 
   static translate ( { value, mode } ) {
     if ( !Object.keys( MODS ).some( ( modeKey ) => MODS[ modeKey ] !== mode ) ) {
-      console.warn( `invalid mode with value ${ mode }` )
-      return value
+      throw Error( `invalid mode with value ${ mode }` )
     }
 
     const dataType = defineType( value )

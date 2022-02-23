@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     addToCard () {
-      console.log( 'adds to card' )
+      console.message( 'adds to card' )
     },
     routeToProductPage ( product ) {
       this.$router.push( {

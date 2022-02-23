@@ -118,7 +118,6 @@ export default {
       this.$router.push( { name: 'ShopMain' } )
     },
     emitSidebarHiding () {
-      console.log( 'asdd' )
       this.$emit( 'change-sidebar-visibility', false )
     }
   },
