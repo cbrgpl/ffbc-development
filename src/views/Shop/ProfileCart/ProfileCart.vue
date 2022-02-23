@@ -94,10 +94,10 @@ export default {
       }
     },
     deleteSelectedProducts () {
-      console.log( 'Удаляю выбранные продукты' )
+      console.message( 'Удаляю выбранные продукты' )
     },
     showBuyProductsDialog () {
-      console.log( 'Показываю диалг для полкуки' )
+      console.message( 'Показываю диалг для полкуки' )
     }
   },
   components: {
