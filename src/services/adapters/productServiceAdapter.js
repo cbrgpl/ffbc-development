@@ -1,32 +1,45 @@
 import ServiceAdapter from './serviceAdapter'
 
 export default class ProductServiceAdapter extends ServiceAdapter {
-  getProducts ( result ) {
-    const parsedBody = result.parsedBody
+  getProducts ( requestResult ) {
+    const parsedBody = requestResult.parsedBody
 
     const newParsedBody = {
       count: parsedBody.count,
-      products: this.getArrayOfTransformedProducts( parsedBody.results )
+      products: this.getArrayOfRestructedProducts( parsedBody.results )
     }
 
-    result.parsedBody = newParsedBody
-    return result
+    requestResult.parsedBody = newParsedBody
+    return requestResult
   }
 
-  getArrayOfTransformedProducts ( arrayOfProducts ) {
-    const transformedProducts = []
+  getArrayOfRestructedProducts ( arrayOfProducts ) {
+    const restructedBaseProducts = []
 
     for ( const product of arrayOfProducts ) {
-      transformedProducts.push( this.transformProduct( product ) )
+      restructedBaseProducts.push( this.restructBaseProductData( product ) )
     }
 
-    return transformedProducts
+    return restructedBaseProducts
   }
 
-  transformProduct ( product ) {
-    const transformedProduct = {}
+  getProductById ( requestResult ) {
+    const product = requestResult.parsedBody
 
-    transformedProduct.media = product.productMedia.map( ( media ) => {
+    const newProductStruct = {
+      ...this.restructBaseProductData( product ),
+      ...this.restructAdditionalProductData( product )
+    }
+
+    requestResult.parsedBody = newProductStruct
+
+    return requestResult
+  }
+
+  restructBaseProductData ( product ) {
+    const restructedBaseProduct = {}
+
+    restructedBaseProduct.media = product.productMedia.map( ( media ) => {
       const transformedMedia = {}
 
       transformedMedia.src = media.image
@@ -36,12 +49,22 @@ export default class ProductServiceAdapter extends ServiceAdapter {
       return transformedMedia
     } )
 
-    transformedProduct.stockQnt = product.stockQty
-    transformedProduct.price = product.basePrice
-    transformedProduct.description = product.description
-    transformedProduct.title = product.name
-    transformedProduct.id = product.id
+    restructedBaseProduct.stockQnt = product.stockQty
+    restructedBaseProduct.price = product.basePrice
+    restructedBaseProduct.description = product.description
+    restructedBaseProduct.title = product.name
+    restructedBaseProduct.id = product.id
 
-    return transformedProduct
+    return restructedBaseProduct
+  }
+
+  restructAdditionalProductData ( product ) {
+    const restructedAdditionalProduct = {}
+
+    restructedAdditionalProduct.type = product.productType.id
+    restructedAdditionalProduct.productsInventory = product.productsInventory
+    restructedAdditionalProduct.video = product.video
+
+    return restructedAdditionalProduct
   }
 }

@@ -2,48 +2,37 @@
 import getActionResultDTO from '../helpers/getActionResultDTO'
 import { NetworkAttemptError } from '@errors'
 import { productService } from '@services'
-import { StatusError } from '../../../../ttt-rest-service/libs/error/statusError'
 
 export default {
   namespaced: true,
   state () {
     return {
-      productFeatures: {}
+      productFeatures: [],
+      productTypes: [],
     }
   },
   getters: {
-    productFeatures ( state ) {
-      return state.productFeatures
-    }
+    productFeatures: ( state ) => state.productFeatures,
+    productTypeById: ( state ) => ( productTypeId ) => state.productTypes.find( ( type ) => type.id === productTypeId ),
+    productFeaturesByIds: ( state ) => ( arrayOfFeatureIds ) => state.productFeatures.filter( ( feature ) => arrayOfFeatureIds.includes( feature.id ) )
   },
   mutations: {
     setProductFeatures ( state, features ) {
       state.productFeatures = features
+    },
+    setProductTypes ( state, types ) {
+      state.productTypes = types
     }
   },
   actions: {
-    outFetchProductById ( { commit, getters }, id ) {
-      // need to make API request
-      const fetchedProduct = {
-        title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis quae doloribus dolores tempo',
-        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis quae doloribus dolores tempora voluptatum animi sequi sint cupiditate ab tempore, cum quas temporibus sapiente provident, distinctio obcaecati quaerat. Ab accusamus nihil iste ratione laborum nesciunt facere saepe impedit amet dolores rem earum ipsum, ad tempo',
-        type: 'Bikini',
-        price: 16.35,
-        count: 0,
-        media: [
-          'https://picsum.photos/1920/1080?random=29',
-          'https://picsum.photos/1920/1080?random=289',
-          'https://picsum.photos/1920/1080?random=358',
-          'https://picsum.photos/1920/1080?random=177',
-          'https://picsum.photos/1920/1080?random=252'
-        ]
+    async outFetchProductById ( context, id ) {
+      const productRequest = await productService.getProductById( null, id )
+
+      if ( productRequest.httpResponse.status !== 200 ) {
+        throw new NetworkAttemptError( productRequest.httpResponse )
       }
 
-      return new Promise( ( resolve, reject ) => {
-        setTimeout( () => {
-          resolve( fetchedProduct )
-        }, 1500 * Math.random() )
-      } )
+      return productRequest.parsedBody
     },
     async outGetProducts ( context, filters ) {
       // TODO Допилить после появления ручки
@@ -64,6 +53,15 @@ export default {
       }
 
       commit( 'setProductFeatures', productFeaturesRequest.parsedBody )
+    },
+    async fetchProductTypes ( { commit } ) {
+      const productTypesRequest = await productService.getProductTypes()
+
+      if ( productTypesRequest.httpResponse.status !== 200 ) {
+        throw new NetworkAttemptError( productTypesRequest.httpResponse )
+      }
+
+      commit( 'setProductTypes', productTypesRequest.parsedBody )
     }
   }
 }

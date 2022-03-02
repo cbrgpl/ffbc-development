@@ -4,7 +4,7 @@
     class="features-list" >
     <li
       class="mb-6"
-      v-for="feature of featuresFake"
+      v-for="feature of features"
       :key="feature.name" >
 
       <div class="flex items-center mb-3" >
@@ -17,9 +17,9 @@
       <ul class="ml-6" >
         <li
           class="feature-value flex items-center mb-2.5"
-          v-for="availableValue of feature.values"
-          :key="availableValue" >
-          <span >{{ availableValue }}</span>
+          v-for="field of feature.featureFields"
+          :key="field.id" >
+          <span >{{ field.name }}</span>
         </li>
       </ul>
 
@@ -29,21 +29,15 @@
 </template>
 
 <script>
-import featuresFake from '@enums/fake/features'
 import zFeatureIcon from '@components/atomic/zFeatureIcon.vue'
 
 export default {
   name: 'AvailableFeatures',
   props: {
-    product: {
-      type: Object,
+    features: {
+      type: Array,
       required: true,
-    }
-  },
-  data () {
-    return {
-      featuresFake,
-    }
+    },
   },
   components: {
     zFeatureIcon,
