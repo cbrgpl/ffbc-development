@@ -9,7 +9,8 @@
       class="bg-black-lightest h-full w-full flex-shrink-0" >
       <zMedia
         class="h-full"
-        v-bind="aMedia"
+        :src="aMedia.display"
+        :preview="aMedia.preview"
         :load-display-src="originalMediaVisibilityArray[i]"
         media-type="image" />
     </div>

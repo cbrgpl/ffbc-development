@@ -13,10 +13,10 @@
     <div class="flex w-full h-80 xl:h-72 overflow-x-auto select-none" >
       <zMediaWithTitle
         v-for="media of order.media"
-        :key="media"
+        :key="media.display"
         title="A Media of product"
         class="mr-2 flex-shrink-0 h-full max-w-full w-auto last:mr-0"
-        :original-src="media" />
+        :src="media.display" />
     </div>
 
     <zDivider class="my-3.5" />

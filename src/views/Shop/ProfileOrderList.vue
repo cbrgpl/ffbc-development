@@ -56,14 +56,27 @@ export default {
           title: 'Test order title',
           id: '010-4ef-9304',
           media: [
-            'https://picsum.photos/1920/1080?random=12',
-            'https://picsum.photos/1920/1080?random=22',
-            'https://picsum.photos/1920/1080?random=52',
-            'https://picsum.photos/1920/1080?random=2',
-            'https://picsum.photos/1920/1080?random=21',
-            'https://picsum.photos/1920/1080?random=54',
-            'https://picsum.photos/1920/1080?random=25',
-            'https://picsum.photos/1920/1080?random=29',
+            {
+              display: 'https://picsum.photos/1920/1080?random=12'
+            },
+            {
+              display: 'https://picsum.photos/1920/1080?random=22',
+            },
+            {
+              display: 'https://picsum.photos/1920/1080?random=52',
+            },
+            {
+              display: 'https://picsum.photos/1920/1080?random=2',
+            },
+            {
+              display: 'https://picsum.photos/1920/1080?random=21',
+            },
+            {
+              display: 'https://picsum.photos/1920/1080?random=54',
+            },
+            {
+              display: 'https://picsum.photos/1920/1080?random=25',
+            },
           ],
           status: 'Awaiting Payment'
         },
@@ -71,14 +84,27 @@ export default {
           title: 'Test order title',
           id: '010-4ef-9305',
           media: [
-            'https://picsum.photos/1920/1080?random=16',
-            'https://picsum.photos/1920/1080?random=27',
-            'https://picsum.photos/1920/1080?random=56',
-            'https://picsum.photos/1920/1080?random=9',
-            'https://picsum.photos/1920/1080?random=12',
-            'https://picsum.photos/1920/1080?random=64',
-            'https://picsum.photos/1920/1080?random=95',
-            'https://picsum.photos/1920/1080?random=102',
+            {
+              display: 'https://picsum.photos/1920/1080?random=12'
+            },
+            {
+              display: 'https://picsum.photos/1920/1080?random=22',
+            },
+            {
+              display: 'https://picsum.photos/1920/1080?random=52',
+            },
+            {
+              display: 'https://picsum.photos/1920/1080?random=2',
+            },
+            {
+              display: 'https://picsum.photos/1920/1080?random=21',
+            },
+            {
+              display: 'https://picsum.photos/1920/1080?random=54',
+            },
+            {
+              display: 'https://picsum.photos/1920/1080?random=25',
+            },
           ],
           status: 'In the work'
         },
@@ -86,14 +112,27 @@ export default {
           title: 'Test order title',
           id: '010-4ef-9105',
           media: [
-            'https://picsum.photos/1920/1080?random=13',
-            'https://picsum.photos/1920/1080?random=32',
-            'https://picsum.photos/1920/1080?random=40',
-            'https://picsum.photos/1920/1080?random=23',
-            'https://picsum.photos/1920/1080?random=74',
-            'https://picsum.photos/1920/1080?random=69',
-            'https://picsum.photos/1920/1080?random=98',
-            'https://picsum.photos/1920/1080?random=105',
+            {
+              display: 'https://picsum.photos/1920/1080?random=12'
+            },
+            {
+              display: 'https://picsum.photos/1920/1080?random=22',
+            },
+            {
+              display: 'https://picsum.photos/1920/1080?random=52',
+            },
+            {
+              display: 'https://picsum.photos/1920/1080?random=2',
+            },
+            {
+              display: 'https://picsum.photos/1920/1080?random=21',
+            },
+            {
+              display: 'https://picsum.photos/1920/1080?random=54',
+            },
+            {
+              display: 'https://picsum.photos/1920/1080?random=25',
+            },
           ],
           status: 'Is made'
         },
@@ -101,14 +140,27 @@ export default {
           title: 'Test order title',
           id: '010-5ef-9105',
           media: [
-            'https://picsum.photos/1920/1080?random=3',
-            'https://picsum.photos/1920/1080?random=39',
-            'https://picsum.photos/1920/1080?random=44',
-            'https://picsum.photos/1920/1080?random=34',
-            'https://picsum.photos/1920/1080?random=4',
-            'https://picsum.photos/1920/1080?random=58',
-            'https://picsum.photos/1920/1080?random=53',
-            'https://picsum.photos/1920/1080?random=84',
+            {
+              display: 'https://picsum.photos/1920/1080?random=12'
+            },
+            {
+              display: 'https://picsum.photos/1920/1080?random=22',
+            },
+            {
+              display: 'https://picsum.photos/1920/1080?random=52',
+            },
+            {
+              display: 'https://picsum.photos/1920/1080?random=2',
+            },
+            {
+              display: 'https://picsum.photos/1920/1080?random=21',
+            },
+            {
+              display: 'https://picsum.photos/1920/1080?random=54',
+            },
+            {
+              display: 'https://picsum.photos/1920/1080?random=25',
+            },
           ],
           status: 'Sent'
         },

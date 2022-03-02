@@ -24,13 +24,13 @@ import { extenderMix } from '@mixins'
 
 export default {
   name: 'zMediaWithTitle',
+  mixins: [ extenderMix ],
   props: {
     title: {
       type: String,
       default: null
     }
   },
-  mixins: [ extenderMix ],
 
 }
 </script>
