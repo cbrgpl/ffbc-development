@@ -10,20 +10,11 @@
       Back
     </div>
 
-    <div class="px-4 pt-5 md:px-6" >
-      <div class="flex text-xl mb-5 w-3/4 mx-auto" >
+    <div class="container mx-auto user_padding" >
+      <div class="flex text-xl md:text-2xl mb-5 md:mb-9 w-3/4 mx-auto md:mx-0" >
         <zTabRouteNavigation
-          class="w-full"
-          :initial-value="userNavigation[0]"
-          :tabs="userNavigation" >
-          <template
-            v-slot="{ tab }" >
-            <router-link
-              :to="{name: tab.toRouteName}" >
-              {{ tab.name }}
-            </router-link>
-          </template>
-        </zTabRouteNavigation>
+          class="w-full md:w-auto"
+          :tabs="userNavigation" />
       </div>
       <div class="flex-grow" >
         <router-view />
@@ -55,5 +46,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>

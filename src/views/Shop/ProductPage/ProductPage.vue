@@ -9,7 +9,7 @@
       </div>
     </div>
     <div
-      class="flex flex-col lg:flex-row lg:h-full lg:px-4 pb-2 md:py-3"
+      class="flex flex-col lg:flex-row lg:h-full shop-main_padding"
       v-if="product !== null" >
       <zShopProductSlider
         class="w-full h-96 lg:h-full flex-shrink-0 lg:w-2/5"
@@ -94,7 +94,6 @@ export default {
     async fetchProduct () {
       this.loading = true
       const product = await this.$store.dispatch( 'product/outFetchProductById', this.productId )
-      console.log( product )
       this.product = product
       this.loading = false
     }

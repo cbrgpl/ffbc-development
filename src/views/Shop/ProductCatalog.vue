@@ -1,26 +1,31 @@
 <template >
-  <div class="flex flex-col flex-grow relative" >
-    <div class="grid grid-cols-2 gap-x-2 gap-y-8 md:grid-cols-3 2xl:grid-cols-4 xl:gap-x- items-stretch px-3 mb-auto" >
-      <zShopProductCard
-        v-for="product of products"
-        :key="product.title"
-        :product="product" />
-    </div>
-
+  <div class="relative flex-grow overflow-hidden" >
     <zLoader
       v-if="loading"
-      class="bg-opacity-60 z-10"
+      class="bg-opacity-60 z-10 w-full h-full"
       size="160px"
       background
       title />
 
-    <zPagination
-      class="mt-4 mx-auto"
-      @change-page="changePage"
-      @set-page="setPage"
-      :disabled="loading"
-      v-bind="pagination" />
+    <div class="h-full overflow-auto" >
+      <div class="flex flex-col min-h-full container shop-main_padding mx-auto" >
+        <div class="grid grid-cols-2 gap-x-2 gap-y-8 md:grid-cols-3 2xl:grid-cols-4 items-stretch mb-auto" >
+          <zShopProductCard
+            v-for="product of products"
+            :key="product.title"
+            :product="product" />
+        </div>
+
+        <zPagination
+          class="mt-4 mx-auto"
+          @change-page="changePage"
+          @set-page="setPage"
+          :disabled="loading"
+          v-bind="pagination" />
+      </div>
+    </div>
   </div>
+
 </template>
 
 <script>

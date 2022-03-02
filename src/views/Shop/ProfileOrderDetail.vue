@@ -1,5 +1,5 @@
 <template >
-  <div class="shop-main-padding flex-col flex" >
+  <div class="shop-main_padding flex-col flex" >
     <h2 class="leading-tight" >
       {{ order.title }}
     </h2>

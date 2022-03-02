@@ -117,7 +117,7 @@ export default {
 }
 
 .z-tabs-menu__tab {
-  @apply cursor-pointer mr-2 select-none transition-colors duration-300 pb-1;
+  @apply cursor-pointer mr-4 select-none transition-colors duration-300 pb-1;
 
   &--selected {
     @apply text-primary-lighten;
