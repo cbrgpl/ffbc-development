@@ -27,12 +27,14 @@ function onBeforeFetch ( requestParameters ) {
 }
 
 function onResponseHandled ( { handledResponse } ) {
-  const cameledData = CamelKebabTranslator.translate( {
-    value: handledResponse.parsedBody,
-    mode: CamelKebabTranslator.MODS.KEBAB_CAMEL
-  } )
+  if ( handledResponse.parsedBody ) {
+    const cameledData = CamelKebabTranslator.translate( {
+      value: handledResponse.parsedBody,
+      mode: CamelKebabTranslator.MODS.KEBAB_CAMEL
+    } )
 
-  handledResponse.parsedBody = cameledData
+    handledResponse.parsedBody = cameledData
+  }
 }
 
 export {
