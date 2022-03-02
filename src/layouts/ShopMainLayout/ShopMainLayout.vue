@@ -29,7 +29,10 @@ export default {
     }
   },
   created () {
+    // TODO Возможно стоит сделать специальный гуард, который навешивается на входной роут
     this.$store.dispatch( 'product/fetchProductFeatures' )
+    this.$store.dispatch( 'measure/fetchMeasures' )
+    this.$store.dispatch( 'product/fetchProductTypes' )
   },
   computed: {
     currentRoute () {

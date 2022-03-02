@@ -1,48 +1,29 @@
 <template >
   <div class="flex flex-col lg:max-h-screen lg:overflow-hidden" >
-    <h4 class="text-left text-2xl underline mb-3" >
-      Ready copies in stock:
-    </h4>
-    <div class="w-full flex-grow-1 overflow-auto" >
-      <zTable class="w-full" >
+    <template
+      v-if="!productsInventoryEmpty" >
+      <h4 class="text-left text-2xl underline mb-3" >
+        Ready copies in stock:
+      </h4>
+      <div class="w-full flex-grow-1 overflow-auto" >
+        <zTable
+          class="w-full" >
 
-        <zTr class="bg-black-primary" >
-          <zTh >
-            id
-          </zTh>
+          <zTr class="bg-black-primary" >
+            <zTh >
+              id
+            </zTh>
 
-          <zTh
-            v-for="feature of featuresFake"
-            :key="feature.name" >
-            <div class="w-full h-full py-1 px-1.5" >
-              <zFeatureIcon :feature-icon-data="feature" />
-            </div>
-          </zTh>
-
-          <zTh >
-          </zTh>
-        </zTr>
-
-        <tbody >
-          <zTr
-            v-for="copy of copiesFake"
-            :key="copy.id" >
-            <zTd >
-              <span class="p-1.5" >
-                {{ copy.id }}
-              </span>
-            </zTd>
-
-            <zTd
-              v-for="feature of copy.features"
-              :key="copy.id + feature.name" >
-              <div class="p-1.5 text-sm font-mono" >
-                {{ feature.value }}
+            <zTh
+              v-for="feature of features"
+              :key="feature.id" >
+              <div class="w-full h-full py-1 px-1.5" >
+                <zFeatureIcon :feature-icon-data="feature" />
               </div>
-            </zTd>
+            </zTh>
 
-            <zTd >
-              <div class="p-1.5" >
+            <zTh >
+              <div class="p-1.5 invisible pointer-events-none" >
                 <zButton
                   @click="buyStockCopy"
                   variant="ghost"
@@ -50,11 +31,49 @@
                   Buy
                 </zButton>
               </div>
-            </zTd>
+            </zTh>
           </zTr>
-        </tbody>
-      </zTable>
-    </div>
+
+          <tbody >
+            <zTr
+              v-for="productInventory of productsInventory"
+              :key="productInventory.id" >
+              <zTd >
+                <span class="p-1.5" >
+                  {{ productInventory.id }}
+                </span>
+              </zTd>
+
+              <zTd
+                v-for="feature of productInventory.features"
+                :key="productInventory.id + feature.name" >
+                <div class="p-1.5 text-sm font-mono" >
+                  {{ feature.value }}
+                </div>
+              </zTd>
+
+              <zTd >
+                <div class="p-1.5" >
+                  <zButton
+                    @click="buyStockCopy"
+                    variant="ghost"
+                    class="px-3 py-2" >
+                    Buy
+                  </zButton>
+                </div>
+              </zTd>
+            </zTr>
+          </tbody>
+        </zTable>
+
+      </div>
+    </template>
+
+    <template  v-else >
+      <h3 class="text-left text-2xl underline mb-3" >
+        There is no in stock products yet...
+      </h3>
+    </template>
   </div>
 </template>
 
@@ -62,26 +81,26 @@
 import { zTable, zTh, zTd, zTr } from '@components/composite/zTable'
 import zFeatureIcon from '@components/atomic/zFeatureIcon.vue'
 
-import featuresFake from '@enums/fake/features'
-import copiesFake from '@enums/fake/copies'
-
 export default {
   name: 'Stock',
   props: {
-    product: {
-      type: Object,
+    features: {
+      type: Array,
+      required: true,
+    },
+    productsInventory: {
+      type: Array,
       required: true,
     }
   },
-  data () {
-    return {
-      featuresFake,
-      copiesFake,
+  computed: {
+    productsInventoryEmpty () {
+      return this.productsInventory.length === 0
     }
   },
   methods: {
     buyStockCopy () {
-      console.log( 'going to but stock copy' )
+      console.log( 'going to but stock productInventory' )
     }
   },
   components: {

@@ -34,10 +34,30 @@ const productApiModule = [
   },
   {
     method: 'GET',
+    url: API_URL + '/products/{{id}}/',
+    secure: false,
+    roles: [],
+    handler: 'getProductById',
+    headers: {
+      Accept: 'application/json'
+    },
+  },
+  {
+    method: 'GET',
     url: API_URL + '/product-features/',
     secure: false,
     roles: [],
     handler: 'getProductFeatures',
+    headers: {
+      Accept: 'application/json'
+    },
+  },
+  {
+    method: 'GET',
+    url: API_URL + '/product-types/',
+    secure: false,
+    roles: [],
+    handler: 'getProductTypes',
     headers: {
       Accept: 'application/json'
     },

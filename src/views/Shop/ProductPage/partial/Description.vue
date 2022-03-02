@@ -1,6 +1,5 @@
 <template >
   <div class="flex flex-col items-stretch" >
-    <h2 ></h2>
     <div class="flex flex-col sm:flex-row items-stretch" >
       <!-- Короткие харки -->
       <div class="flex flex-col order-1 flex-shrink-0 sm:w-48" >
@@ -13,7 +12,7 @@
               type:
             </i>
             <strong >
-              {{ product.type }}
+              {{ type.name }}
             </strong>
           </li>
           <li class="mb-2.5 relative" >
@@ -21,7 +20,7 @@
               price:
             </i>
             <strong >
-              ${{ product.price }}
+              ${{ price }}
             </strong>
           </li>
           <li class="relative" >
@@ -31,8 +30,8 @@
 
             <ul class="ml-3" >
               <li
-                v-for="feature of featuresFake"
-                :key="feature.name"
+                v-for="feature of features"
+                :key="feature.id"
                 class="product-feature mb-2" >
                 {{ feature.name }}
               </li>
@@ -45,13 +44,12 @@
       <zDivider
         vertical
         class="order-2 mx-3 hidden sm:block xl:mx-6" />
-      <!-- description -->
       <div class="order-3" >
         <h3 class="underline mb-2" >
           Description:
         </h3>
         <p class="font-mono leading-5 text-lg" >
-          {{ product.description }}
+          {{ description }}
         </p>
       </div>
     </div>
@@ -59,21 +57,30 @@
 </template>
 
 <script>
-import featuresFake from '@enums/fake/features'
-
 export default {
   name: 'Description',
   props: {
-    product: {
+    title: {
+      type: String,
+      required: true
+    },
+    description: {
+      type: String,
+      required: true
+    },
+    price: {
+      type: String,
+      required: true
+    },
+    features: {
+      type: Array,
+      required: true,
+    },
+    type: {
       type: Object,
       required: true,
     }
   },
-  data () {
-    return {
-      featuresFake,
-    }
-  }
 }
 </script>
 

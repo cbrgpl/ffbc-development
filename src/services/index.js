@@ -1,6 +1,7 @@
 import * as services from './services'
 
 import getServiceProxy from './helpers/getServiceProxy'
+
 import ProductServiceAdapter from './adapters/productServiceAdapter'
 
 const exportServices = {
@@ -12,5 +13,6 @@ exportServices.productService = getServiceProxy( new ProductServiceAdapter(), ex
 export const {
   authService,
   userService,
-  productService
+  productService,
+  measureService
 } = exportServices

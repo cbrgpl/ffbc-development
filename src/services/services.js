@@ -4,11 +4,13 @@ import { onBeforeRequest, onBeforeFetch, onResponseHandled } from './helpers/def
 import apiAuthModule from './service_metadata/authService'
 import userApiModule from './service_metadata/userService'
 import productApiModule from './service_metadata/productService'
+import measureApiModule from './service_metadata/measureService'
 
 const API = {
   auth: apiAuthModule,
   user: userApiModule,
-  product: productApiModule
+  product: productApiModule,
+  measure: measureApiModule
 }
 
 const defaultHooks = {
@@ -50,4 +52,5 @@ export const {
   authService,
   userService,
   productService,
+  measureService
 } = services

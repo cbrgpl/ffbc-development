@@ -8,13 +8,12 @@
         <zLoader title ></zLoader>
       </div>
     </div>
-
     <div
       class="flex flex-col lg:flex-row lg:h-full lg:px-4 pb-2 md:py-3"
       v-if="product !== null" >
       <zShopProductSlider
         class="w-full h-96 lg:h-full flex-shrink-0 lg:w-2/5"
-        :media-srcs="product.media" />
+        :media="product.media" />
 
       <div
         class="flex flex-col px-1.5 pt-3 sm:px-3 lg:w-full lg:p-0 lg:ml-3" >
@@ -24,9 +23,15 @@
             v-model="inPageNavigation.activeTab" />
         </div>
 
+        <h2 class="mb-3" >
+          {{ product.title }}
+        </h2>
+
         <component
           :is="activeTabName"
-          :product="product" />
+          v-bind="product"
+          :features="productFeatures"
+          :type="productType" />
       </div>
 
     </div>
@@ -39,6 +44,8 @@ import zShopProductSlider from '@components/composite/zShopProductSlider/zShopPr
 import AvailableFeatures from './partial/AvailableFeatures.vue'
 import Description from './partial/Description.vue'
 import Stock from './partial/Stock.vue'
+
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'ProductPage',
@@ -68,6 +75,17 @@ export default {
     this.fetchProduct()
   },
   computed: {
+    ...mapGetters( {
+      productTypeGetter: 'product/productTypeById',
+      productFeaturesByIds: 'product/productFeaturesByIds'
+    } ),
+    productType () {
+      return this.productTypeGetter( this.product.type )
+    },
+    productFeatures () {
+      const featureIdArray = this.productType.productFeatures
+      return this.productFeaturesByIds( featureIdArray )
+    },
     activeTabName () {
       return this.inPageNavigation.activeTab.replace( ' ', '' )
     }
@@ -76,6 +94,7 @@ export default {
     async fetchProduct () {
       this.loading = true
       const product = await this.$store.dispatch( 'product/outFetchProductById', this.productId )
+      console.log( product )
       this.product = product
       this.loading = false
     }

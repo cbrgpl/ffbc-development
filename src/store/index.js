@@ -4,12 +4,14 @@ import ui from './modules/ui.js'
 import auth from './modules/auth.js'
 import user from './modules/user.js'
 import product from './modules/product.js'
+import measure from './modules/measure.js'
 
 const modules = {
   ui,
   auth,
   user,
-  product
+  product,
+  measure
 }
 
 const store = createStore( {
