@@ -2,10 +2,10 @@
   <div >
     <UserData
       @click="pushToUserRoute"
-      class="shop-main-padding"
+      class="shop-main_padding"
       :full-name="$store.getters['user/fullName']" />
 
-    <div  class="shop-main-padding" >
+    <div class="shop-main_padding" >
       <h4 class="underline mb-5" >
         Profile navigation:
       </h4>

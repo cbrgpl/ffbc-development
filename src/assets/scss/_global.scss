@@ -83,3 +83,11 @@ h6 {
 .default-button {
   @apply p-4;
 }
+
+.shop-main_padding {
+  @apply px-3 py-2 lg:px-4 md:py-3;
+}
+
+.user_padding {
+  @apply p-3 md:py-4;
+}

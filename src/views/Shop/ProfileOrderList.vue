@@ -1,5 +1,5 @@
 <template >
-  <div class="shop-main-padding relative" >
+  <div class="shop-main_padding relative" >
     <div class="flex flex-col" >
       <zPseudoSelect
         class="md:w-72"

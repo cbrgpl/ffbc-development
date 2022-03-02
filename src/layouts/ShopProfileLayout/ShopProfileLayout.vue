@@ -9,7 +9,7 @@
     <div class="flex flex-col flex-grow overflow-y-hidden lg:flex-row" >
       <TheSideMenu
         class="hidden lg:flex px-2" />
-      <router-view class="overflow-auto w-full h-full" ></router-view>
+      <router-view class="overflow-auto w-full h-full" />
     </div>
   </div>
 </template>

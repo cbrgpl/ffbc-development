@@ -1,7 +1,7 @@
 <template >
   <div class="flex flex-col" >
 
-    <div class="shop-main-padding flex-grow overflow-y-auto" >
+    <div class="shop-main_padding flex-grow overflow-y-auto" >
       <CartActions
         @toggleAllProducts="toggleAllProducts"
         @deleteProducts="deleteSelectedProducts"
