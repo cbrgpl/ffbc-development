@@ -1,6 +1,5 @@
 <template >
   <component
-    v-bind="$attrs"
     :src="activeSrc"
     @click="showInMediaOverlay"
     :is="mediaComponent" />
@@ -12,7 +11,6 @@ import zVideo from '@components/atomic/zVideo.vue'
 
 export default {
   name: 'zMedia',
-  inheritAttrs: false,
   props: {
     mediaType: {
       type: String,
@@ -24,10 +22,6 @@ export default {
     src: {
       type: String,
       required: true,
-    },
-    display: {
-      type: String,
-      default: null,
     },
     preview: {
       type: String,
@@ -55,14 +49,14 @@ export default {
   },
   data () {
     return {
-      activeSrc: this.preview || this.display || this.src,
+      activeSrc: this.preview || this.src,
     }
   },
   methods: {
     loadDisplayMedia () {
       switch ( this.mediaType ) {
       case 'image':
-        this.loadImage( this.display || this.src )
+        this.loadImage( this.src )
         break
       case 'video':
         this.loadVideo( this.src )
@@ -83,7 +77,7 @@ export default {
       // hmmmm
     },
     showInMediaOverlay () {
-      const mediaSrc = this.display || this.src
+      const mediaSrc = this.src
 
       this.mediaViewOverlay$.show( mediaSrc )
     },
