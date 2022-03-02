@@ -53,7 +53,7 @@ export default {
   },
   computed: {
     containsInStock () {
-      return this.product.count !== 0
+      return this.product.stockQnt !== 0
     }
   },
   methods: {
