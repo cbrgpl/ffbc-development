@@ -18,7 +18,7 @@
 <script>
 import { defineAsyncComponent } from 'vue'
 export default {
-  name: 'HomeUpdateData',
+  name: 'UpdateData',
   data () {
     return {
       tabs: [ 'Personal Data', 'Security', 'Documents' ],

@@ -33,7 +33,7 @@ const routes = [
     children: [
       {
         path: 'main',
-        component: () => import( '@views/Main.vue' ),
+        component: () => import( '@/views/Competition/Main/Main.vue' ),
         name: 'Main',
         meta: {
           layout: 'main',
@@ -41,7 +41,7 @@ const routes = [
       },
       {
         path: 'sponsors',
-        component: () => import( '@views/Main.vue' ),
+        component: () => import( '@/views/Competition/Main/Main.vue' ),
         name: 'Sponsors',
         meta: {
           layout: 'main',
@@ -50,7 +50,7 @@ const routes = [
       },
       {
         path: 'shows',
-        component: () => import( '@views/Main.vue' ),
+        component: () => import( '@/views/Competition/Main/Main.vue' ),
         name: 'Shows',
         meta: {
           layout: 'main',
@@ -59,7 +59,7 @@ const routes = [
       },
       {
         path: 'developers',
-        component: () => import( '@views/Main.vue' ),
+        component: () => import( '@/views/Competition/Main/Main.vue' ),
         name: 'Developers',
         meta: {
           layout: 'main',
@@ -67,7 +67,7 @@ const routes = [
       },
       {
         path: 'gallery',
-        component: () => import( '@views/Main.vue' ),
+        component: () => import( '@/views/Competition/Main/Main.vue' ),
         name: 'Gallery',
         meta: {
           layout: 'main',
@@ -89,27 +89,27 @@ const routes = [
         children: [
           {
             path: 'main',
-            component: () => import( '@/views/HomeMain/HomeMain.vue' ),
+            component: () => import( '@/views/Competition/Home/Main/Main.vue' ),
             name: 'HomeMain',
           },
           {
             path: 'update-data',
-            component: () => import( '@/views/HomeUpdateData/HomeUpdateData.vue' ),
+            component: () => import( '@/views/Competition/Home/UpdateData/UpdateData.vue' ),
             name: 'HomeUpdateData',
           },
           {
             path: 'competetions-history',
-            component: () => import( '@/views/HomeMain/HomeMain.vue' ),
+            component: () => import( '@/views/Competition/Home/Main/Main.vue' ),
             name: 'HomeCompetitionsHistory',
           },
           {
             path: 'services',
-            component: () => import( '@/views/HomeMain/HomeMain.vue' ),
+            component: () => import( '@/views/Competition/Home/Main/Main.vue' ),
             name: 'HomeServices',
           },
           {
             path: 'settings',
-            component: () => import( '@/views/HomeMain/HomeMain.vue' ),
+            component: () => import( '@/views/Competition/Home/Main/Main.vue' ),
             name: 'HomeSettings',
           },
         ]
@@ -127,7 +127,7 @@ const routes = [
     children: [
       {
         path: 'main',
-        component: () => import( '@/views/HomeMain/HomeMain.vue' ),
+        component: () => import( '@/views/Competition/Home/Main/Main.vue' ),
         name: 'ShopMain',
       },
       {
@@ -152,12 +152,12 @@ const routes = [
           },
           {
             path: 'order-list',
-            component: () => import( '@views/Shop/ProfileOrderList.vue' ),
+            component: () => import( '@/views/Shop/ProfileOrderList/ProfileOrderList.vue' ),
             name: 'ShopProfileOrderList',
           },
           {
             path: 'order-detail/:orderId',
-            component: () => import( '@views/Shop/ProfileOrderDetail.vue' ),
+            component: () => import( '@/views/Shop/ProfileOrderDetail/ProfileOrderDetail.vue' ),
             name: 'ShopProfileOrderDetail',
             props: true,
           }
@@ -165,7 +165,7 @@ const routes = [
       },
       {
         path: 'products/:productType',
-        component: () => import( '@/views/Shop/ProductCatalog.vue' ),
+        component: () => import( '@/views/Shop/ProductCatalog/ProductCatalog.vue' ),
         name: 'ShopProductCatalog',
         props: true,
       },
@@ -208,7 +208,7 @@ const routes = [
   },
   {
     path: '/reset-password',
-    component: () => import( '@/views/ResetPassword.vue' ),
+    component: () => import( '@/views/Service/ResetPassword.vue' ),
     props: true,
     beforeEnter: resetPasswordGuard
   },
