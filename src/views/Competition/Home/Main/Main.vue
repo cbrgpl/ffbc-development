@@ -103,7 +103,7 @@ import CompetitionCardActions from './partial/CompetitionCardActions.vue'
 import Ticket from './partial/Ticket.vue'
 
 export default {
-  name: 'HomeMain',
+  name: 'Main',
   data () {
     return {
       avatarTest: require( '@images/avatar.jpg' ),
