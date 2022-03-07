@@ -46,7 +46,6 @@ function generateSCSSVars ( themeColors ) {
 
   proccess( themeColors, '' )
 
-  console.message( '\n\n\n\n' + SCSSVars + '\n\n\n\n  ' )
   return SCSSVars
 }
 

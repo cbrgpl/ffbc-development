@@ -17,7 +17,9 @@
           :order="order" />
       </div>
 
-      <zDialogList
+      <zDialogNonLayoutWrapper
+        class="w-screen max-h-72 max-w-md"
+        position="bottom"
         title="Select order category:"
         v-model:visible="categoryListVisibile" >
         <div
@@ -30,7 +32,7 @@
           @click="selectCategory(category)" >
           {{ category }}
         </div>
-      </zDialogList>
+      </zDialogNonLayoutWrapper>
     </div>
   </div>
 </template>
