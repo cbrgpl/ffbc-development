@@ -33,7 +33,15 @@
             true,
             {
                 "ignorePseudoElements": [
-                    "v-deep"
+                    "deep"
+                ]
+            }
+        ],
+        "selector-pseudo-class-no-unknown": [
+            true,
+            {
+                "ignorePseudoClasses": [
+                    "deep"
                 ]
             }
         ],

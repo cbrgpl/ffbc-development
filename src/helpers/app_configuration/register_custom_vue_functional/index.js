@@ -12,7 +12,6 @@ import zToggle from '@components/atomic/zToggle.vue'
 import zDivider from '@components/atomic/zDivider.vue'
 import zActionButton from '@components/atomic/zActionButton.vue'
 import zPseudoSelect from '@/components/atomic/zPseudoSelect.vue'
-import zDialogList from '@/components/atomic/zDialogList.vue'
 import zIconBase from '@components/atomic/zIconBase.vue'
 
 import zIconButton from '@components/composite/zIconButton.vue'
@@ -24,6 +23,7 @@ import zTooltipInput from '@components/composite/zTooltipInput/zTooltipInput.vue
 import zMedia from '@components/composite/zMedia.vue'
 import zInputFile from '@/components/composite/zInputFile.vue'
 import zMediaWithTitle from '@/components/composite/zMediaWithTitle.vue'
+import zDialogNonLayoutWrapper from '@/components/composite/zDialogNonLayoutWrapper.vue'
 
 // directives
 import autofocus from '@directives/autofucs.directive.js'
@@ -61,7 +61,7 @@ const customFunctional = {
       zTooltipInput,
       zMedia,
       zPseudoSelect,
-      zDialogList,
+      zDialogNonLayoutWrapper,
       zMediaWithTitle
     }
   },

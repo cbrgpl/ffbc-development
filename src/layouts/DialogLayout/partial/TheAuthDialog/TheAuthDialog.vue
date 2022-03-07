@@ -1,5 +1,6 @@
 <template >
-  <zDialog class="w-11/12 px-9 py-7 sm:w-8/12 md:w-2/4 max-w-sm md:max-w-lg" >
+  <zDialog
+    class="w-11/12 px-9 py-7 sm:w-8/12 md:w-2/4 max-w-sm md:max-w-lg" >
     <template #header >
       <zTabsNav
         v-model="selectedTab"
@@ -8,10 +9,12 @@
 
       </zTabsNav>
     </template>
-    <zSpacer space="8" ></zSpacer>
+    <zSpacer space="8" />
 
     <div class="flex flex-col items-center w-full" >
-      <component :is="currentFormName" />
+      <KeepAlive >
+        <component :is="currentFormName" />
+      </KeepAlive>
     </div>
   </zDialog>
 </template>
