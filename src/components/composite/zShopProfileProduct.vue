@@ -7,7 +7,7 @@
         @update:modelValue="$emit('productSelectChanged', $event)" ></zCheckboxSingle>
       <zMedia
         class="ml-3 mr-2 w-28 md:w-60 flex-shrink-0 self-stretch"
-        :src="product.originalSrc" />
+        :src="product.media[0].display" />
       <div >
         <h4 class="leading-5 mb-3" >
           {{ product.title }}

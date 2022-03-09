@@ -24,8 +24,7 @@
               class="flex flex-col w-full h-full" >
               <div
                 class="flex relative w-full mb-2" >
-                <slot name="header" >
-                </slot>
+                <slot name="header" />
                 <DialogClose @click="hideWindow" />
               </div>
 

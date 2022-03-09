@@ -1,37 +1,29 @@
 <template >
-  <div
-    class="relative"
-    v-bind="styles" >
-    <zMedia
-      class="h-full"
-      v-bind="attrs" />
+  <zMedia >
+    <template #actions >
+      <div
+        class="bg-black bg-opacity-40 coarse:opacity-100 opacity-0 hover:opacity-100 transition-opacity h-full w-full"
+        v-if="title !== null" >
+        <div class="flex items-end break-all text-shadow h-full select-none py-3 px-2" >
+          <slot name="title" >
+            {{ title }}
+          </slot>
 
-    <div
-      class="bg-black bg-opacity-40 coarse:opacity-100 opacity-0 hover:opacity-100 pointer-events-none transition-opacity absolute z-10 top-0 left-0 w-full h-full"
-      v-if="title !== null" >
-      <div class="flex items-end h-full select-none pb-3 pl-2" >
-        <slot name="title" >
-          {{ title }}
-        </slot>
+        </div>
       </div>
-    </div>
-
-  </div>
+    </template>
+  </zMedia>
 </template>
 
 <script>
-import { extenderMix } from '@mixins'
-
 export default {
   name: 'zMediaWithTitle',
-  mixins: [ extenderMix ],
   props: {
     title: {
       type: String,
       default: null
     }
   },
-
 }
 </script>
 
