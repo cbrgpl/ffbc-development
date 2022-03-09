@@ -1,16 +1,15 @@
-
 <template >
-  <img
-    width="0"
-    height="0"
-    class="object-cover w-full h-full" >
+  <div >
+    M
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'zImage',
+  name: 'OrdererDetailsMeasures'
 }
 </script>
 
 <style lang="scss" scoped>
+
 </style>

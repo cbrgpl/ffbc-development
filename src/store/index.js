@@ -5,13 +5,15 @@ import auth from './modules/auth.js'
 import user from './modules/user.js'
 import product from './modules/product.js'
 import measure from './modules/measure.js'
+import order from './modules/order.js'
 
 const modules = {
   ui,
   auth,
   user,
   product,
-  measure
+  measure,
+  order
 }
 
 const store = createStore( {

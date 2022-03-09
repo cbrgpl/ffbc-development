@@ -1,16 +1,28 @@
 <template >
-  <component
-    :src="activeSrc"
-    @click="showInMediaOverlay"
-    :is="mediaComponent" />
+  <div
+    v-bind="wrapperAttrs"
+    class="relative" >
+    <component
+      v-bind="attrs"
+      :src="activeSrc"
+      @click="showInMediaOverlay"
+      :is="mediaComponent" />
+
+    <span class="absolute z-10 top-0 left-0 w-full h-full" >
+      <slot name="actions" />
+    </span>
+  </div>
 </template>
 
 <script>
 import zImage from '@components/atomic/zImage.vue'
 import zVideo from '@components/atomic/zVideo.vue'
 
+import { extenderMix } from '@mixins/index'
+
 export default {
   name: 'zMedia',
+  mixins: [ extenderMix ],
   props: {
     mediaType: {
       type: String,
@@ -30,7 +42,11 @@ export default {
     loadDisplaySrc: {
       type: Boolean,
       default: null,
-    }
+    },
+    disableMediaOverlay: {
+      type: Boolean,
+      default: false,
+    },
   },
   watch: {
     loadDisplaySrc: {
@@ -77,9 +93,11 @@ export default {
       // hmmmm
     },
     showInMediaOverlay () {
-      const mediaSrc = this.src
+      if ( this.disableMediaOverlay ) {
+        return
+      }
 
-      this.mediaViewOverlay$.show( mediaSrc )
+      this.mediaViewOverlay$.show( this.src )
     },
   },
   components: {

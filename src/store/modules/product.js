@@ -62,6 +62,20 @@ export default {
       }
 
       commit( 'setProductTypes', productTypesRequest.parsedBody )
+    },
+    async outFetchProductsByOrderId ( context, orderId ) {
+      const filters = {
+        perPage: 20,
+        page: 1
+      }
+      filters.productType = 1
+
+      const getProductsRequest = await productService.getProducts( filters )
+      if ( getProductsRequest.httpResponse.status !== 200 ) {
+        throw new NetworkAttemptError( getProductsRequest.httpResponse )
+      }
+
+      return getActionResultDTO( getProductsRequest )
     }
   }
 }

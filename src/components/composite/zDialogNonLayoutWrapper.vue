@@ -3,13 +3,21 @@
     v-if="visible"
     :visible="visible"
     @update:visible="selfClose" >
-    <slot name="title" >
-      <h5
-        v-if="title !== null"
-        class="mb-2 md:text-lg font-mono" >
-        {{ title }}
-      </h5>
-    </slot>
+    <template #header >
+      <slot name="title" >
+        <h5
+          v-if="title !== null"
+          class="md:text-lg font-mono" >
+          {{ title }}
+        </h5>
+
+      </slot>
+    </template>
+
+    <zDivider
+      v-if="titleProvided"
+      class="mb-2" />
+
     <div class="flex flex-col" >
       <slot />
     </div>
@@ -31,6 +39,11 @@ export default {
       type: [ String ],
       default: null
     },
+  },
+  computed: {
+    titleProvided () {
+      return this.title !== null || !!this.$slots.title
+    }
   },
   methods: {
     selfClose () {
