@@ -15,7 +15,7 @@
         <span class="md:flex md:flex-col" >
 
           <template
-            v-for="feature of product.features"
+            v-for="feature of productFeatures"
             :key="feature.feature" >
             <small class="text-placeholder md:mb-2" >
               <u >
@@ -37,6 +37,10 @@ export default {
   props: {
     product: {
       type: Object,
+      required: true,
+    },
+    productFeatures: {
+      type: Array,
       required: true,
     },
     showActions: {
