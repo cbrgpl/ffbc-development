@@ -6,6 +6,7 @@ import user from './modules/user.js'
 import product from './modules/product.js'
 import measure from './modules/measure.js'
 import order from './modules/order.js'
+import cart from './modules/cart.js'
 
 const modules = {
   ui,
@@ -13,7 +14,8 @@ const modules = {
   user,
   product,
   measure,
-  order
+  order,
+  cart
 }
 
 const store = createStore( {

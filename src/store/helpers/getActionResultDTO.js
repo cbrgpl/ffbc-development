@@ -1,4 +1,4 @@
-const defaultSuccessStatuses = [ 200, 204 ]
+const defaultSuccessStatuses = [ 200, 204, 201 ]
 
 export default ( request, successStatuses = defaultSuccessStatuses ) => {
   const isStatusSaccess = ( status ) => successStatuses.includes( status )

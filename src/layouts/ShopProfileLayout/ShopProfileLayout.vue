@@ -9,7 +9,16 @@
     <div class="flex flex-col flex-grow overflow-y-hidden lg:flex-row" >
       <TheSideMenu
         class="hidden lg:flex px-2" />
-      <router-view class="overflow-auto w-full h-full" />
+      <router-view
+        class="overflow-auto w-full h-full"
+        v-slot="{Component, route}" >
+        <keep-alive >
+          <component
+            include="ProfileCart"
+            :is='Component'
+            :key="route.meta.usePathKey ? route.path : undefined" />
+        </keep-alive>
+      </router-view>
     </div>
   </div>
 </template>
