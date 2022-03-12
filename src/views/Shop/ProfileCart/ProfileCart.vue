@@ -32,6 +32,8 @@ import CartActions from './partial/CartActions.vue'
 import zShopProfileProduct from '@components/composite/zShopProfileProduct.vue'
 import CartFooter from './partial/CartFooter.vue'
 
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'ProfileCart',
   data () {
@@ -40,13 +42,23 @@ export default {
       loading: true,
     }
   },
+  watch: {
+    cartLoaded: {
+      handler ( newValue ) {
+        console.log( newValue )
+        if ( newValue ) {
+          this.loading = false
+        }
+      },
+      immediate: true,
+    }
+  },
   computed: {
-    cart () {
-      return this.$store.getters[ 'cart/cart' ]
-    },
-    products () {
-      return this.$store.getters[ 'cart/cartProducts' ]
-    },
+    ...mapGetters( {
+      cartItems: 'cart/cartItems',
+      products: 'cart/cartProducts',
+      cartLoaded: 'cart/cartLoaded',
+    } ),
     selectedProductsEmpty () {
       return this.selectedProducts.length === 0
     },
@@ -67,18 +79,7 @@ export default {
       return this.products.filter( ( product ) => this.selectedIds[ product.product.id ] )
     },
   },
-  async created () {
-    await this.$store.dispatch( 'cart/initCart' )
-    this.initSelectedIds()
-    this.loading = false
-  },
   methods: {
-    initSelectedIds () {
-      for ( const product of this.cart ) {
-        this.selectedIds[ product.id ] = false
-      }
-    },
-
     toggleSelectedId ( selectState, id ) {
       if ( selectState ) {
         this.selectedIds[ id ] = true

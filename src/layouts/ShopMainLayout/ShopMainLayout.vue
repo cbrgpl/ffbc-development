@@ -30,6 +30,10 @@ export default {
   },
   created () {
     // TODO Возможно стоит сделать специальный гуард, который навешивается на входной роут
+    if ( this.$store.getters[ 'auth/isAuth' ] ) {
+      this.$store.dispatch( 'cart/initCart' )
+    }
+
     this.$store.dispatch( 'product/fetchProductFeatures' )
     this.$store.dispatch( 'measure/fetchMeasures' )
     this.$store.dispatch( 'product/fetchProductTypes' )

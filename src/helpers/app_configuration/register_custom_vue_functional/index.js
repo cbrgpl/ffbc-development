@@ -13,6 +13,7 @@ import zDivider from '@components/atomic/zDivider.vue'
 import zActionButton from '@components/atomic/zActionButton.vue'
 import zPseudoSelect from '@/components/atomic/zPseudoSelect.vue'
 import zIconBase from '@components/atomic/zIconBase.vue'
+import zRadioButton from '@components/atomic/zRadioButton.vue'
 
 import zIconButton from '@components/composite/zIconButton.vue'
 import zLoaderButton from '@components/composite/zLoaderButton.vue'
@@ -62,7 +63,8 @@ const customFunctional = {
       zMedia,
       zPseudoSelect,
       zDialogNonLayoutWrapper,
-      zMediaWithTitle
+      zMediaWithTitle,
+      zRadioButton
     }
   },
   directives: {

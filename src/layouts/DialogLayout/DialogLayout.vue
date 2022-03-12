@@ -4,7 +4,8 @@
     :key="name"
     :is="getComponentName(name)"
     v-model:visible="dialogs[name].visible"
-    :modal="dialogs[name].modal" >
+    :modal="dialogs[name].modal"
+    v-bind="param" >
   </component>
 </template>
 
@@ -17,7 +18,8 @@ export default {
   inheritAttrs: false,
   data () {
     return {
-      dialogs: this.dialog$.getDialogs()
+      dialogs: this.dialog$.getDialogs(),
+      param: this.dialog$.getDialogParam()
     }
   },
   created () {
@@ -26,7 +28,7 @@ export default {
   computed: {
     shownDialogs () {
       return Object.keys( this.dialogs ).filter( ( name ) => this.dialogs[ name ].visible )
-    }
+    },
   },
   methods: {
     registerComponents () {
@@ -45,7 +47,9 @@ export default {
   components: {
     TheVerificationDialog: defineAsyncComponent( () => import( './partial/TheVerificationDialog.vue' ) ),
     TheResetPasswordDialog: defineAsyncComponent( () => import( './partial/TheResetPasswordDialog.vue' ) ),
-    TheAuthDialog: defineAsyncComponent( () => import( './partial/TheAuthDialog/TheAuthDialog.vue' ) )
+    TheAuthDialog: defineAsyncComponent( () => import( './partial/TheAuthDialog/TheAuthDialog.vue' ) ),
+    TheAddToCartDialog: defineAsyncComponent( () => import( './partial/TheAddToCartDialog/TheAddToCartDialog.vue' ) )
+
   },
 
 }

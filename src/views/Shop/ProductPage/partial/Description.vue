@@ -6,7 +6,7 @@
         <h3 class="underline mb-2" >
           Characteristics:
         </h3>
-        <ul class="ml-3" >
+        <ul class="ml-3 mb-2.5" >
           <li class="mb-2.5 relative" >
             <i class="font-sans font-semibold text-placeholder tracking-wide mr-1.5" >
               type:
@@ -38,20 +38,29 @@
             </ul>
           </li>
         </ul>
+
+        <zButton
+          @click="emitShowAddToCart"
+          class="w-full py-4 px-3"
+          variant="safety" >
+          Add To Cart
+        </zButton>
       </div>
 
       <zDivider class="order-2 my-6 sm:hidden" />
       <zDivider
         vertical
         class="order-2 mx-3 hidden sm:block xl:mx-6" />
+
       <div class="order-3" >
         <h3 class="underline mb-2" >
           Description:
         </h3>
-        <p class="font-mono leading-5 text-lg" >
+        <p class="font-mono leading-5 text-lg mb-3" >
           {{ description }}
         </p>
       </div>
+
     </div>
   </div>
 </template>
@@ -59,6 +68,7 @@
 <script>
 export default {
   name: 'Description',
+  emits: [ 'showAddToCart' ],
   props: {
     title: {
       type: String,
@@ -79,6 +89,11 @@ export default {
     type: {
       type: Object,
       required: true,
+    }
+  },
+  methods: {
+    emitShowAddToCart () {
+      this.$emit( 'showAddToCart' )
     }
   },
 }
