@@ -4,6 +4,7 @@ import { ArgError } from '@errors'
 export default class {
   constructor () {
     this._dialogs = reactive( {} )
+    this._dialogParam = ref( null )
   }
 
   register ( dialogName ) {
@@ -17,8 +18,14 @@ export default class {
     }
   }
 
-  show ( dialogName, modal = true ) {
+  getDialogParam ( ) {
+    return this._dialogParam
+  }
+
+  show ( dialogName, param = null, modal = true ) {
     this.checkDialogName( dialogName, 'Dialog does not exists' )
+
+    this._dialogParam.value = param
 
     const oldVisible = this._dialogs[ dialogName ].visible
 
@@ -30,6 +37,7 @@ export default class {
     this.checkDialogName( dialogName, 'Dialog does not exists' )
 
     this._dialogs[ dialogName ].visible = false
+    this._dialogParam = null
   }
 
   getDialogs () {

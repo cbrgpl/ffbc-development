@@ -10,15 +10,23 @@ export default {
   namespaced: true,
   state () {
     return {
-      cart: [],
+      cartLoaded: false,
+      cart: {
+        cartItems: [],
+      },
       products: [],
     }
   },
   getters: {
+    cartLoaded: ( state ) => state.cartLoaded,
     cartProducts: ( state ) => state.products,
-    cart: ( state ) => state.cart
+    cartItems: ( state ) => state.cart.cartItems,
+    cartId: ( state ) => state.cart.id,
   },
   mutations: {
+    cartLoaded ( state, loadedState ) {
+      state.cartLoaded = loadedState
+    },
     setCart ( state, cart ) {
       state.cart = cart
     },
@@ -34,19 +42,26 @@ export default {
         throw new NetworkAttemptError( cartRequest.httpResponse )
       }
 
-      commit( 'setCart', cartRequest.parsedBody.cartItems )
+      commit( 'setCart', cartRequest.parsedBody )
       dispatch( 'createProducts', cartRequest.parsedBody.cartItems )
+      commit( 'cartLoaded', true )
     },
     async createProducts ( { commit }, cartProducts ) {
-      const products = []
+      const requests = []
 
       for ( const cartProduct of cartProducts ) {
-        products.push( await cartProductBuilder.getProductResult( cartProduct ) )
+        requests.push( cartProductBuilder.getProductResult( cartProduct ) )
       }
+
+      const requestResults = await Promise.allSettled( requests )
+
+      const products = requestResults
+        .filter( ( result ) => result.status === 'fulfilled' )
+        .map( ( result ) => result.value )
 
       commit( 'setCartProducts', products )
     },
-    async addProductToCart ( { commit }, productId ) {
+    async createCartItem ( { commit }, productId ) {
 
     }
   }

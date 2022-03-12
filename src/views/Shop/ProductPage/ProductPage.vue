@@ -12,7 +12,7 @@
       class="flex flex-col lg:flex-row lg:h-full shop-main_padding"
       v-if="product !== null" >
       <zShopProductSlider
-        class="w-full h-96 lg:h-full flex-shrink-0 lg:w-2/5"
+        class="w-full lg:w-2/5 flex-shrink-0 h-96 lg:h-full"
         :media="product.media" />
 
       <div
@@ -22,12 +22,12 @@
             :tabs="inPageNavigation.tabs"
             v-model="inPageNavigation.activeTab" />
         </div>
-
         <h2 class="mb-3" >
           {{ product.title }}
         </h2>
 
         <component
+          @showAddToCart="showAddToCart"
           :is="activeTabName"
           v-bind="product"
           :features="productFeatures"
@@ -43,7 +43,6 @@ import zShopProductSlider from '@components/composite/zShopProductSlider/zShopPr
 
 import AvailableFeatures from './partial/AvailableFeatures.vue'
 import Description from './partial/Description.vue'
-import Stock from './partial/Stock.vue'
 
 import { mapGetters } from 'vuex'
 
@@ -64,7 +63,6 @@ export default {
         tabs: [
           'Description',
           'Available Features',
-          'Stock'
         ],
         activeTab: 'Available Features'
       }
@@ -96,13 +94,15 @@ export default {
       const product = await this.$store.dispatch( 'product/outFetchProductById', this.productId )
       this.product = product
       this.loading = false
+    },
+    showAddToCart () {
+      this.dialog$.show( 'addToCart', { productId: this.productId, productFeatures: this.productFeatures } )
     }
   },
   components: {
     zShopProductSlider,
     AvailableFeatures,
     Description,
-    Stock,
   }
 }
 </script>

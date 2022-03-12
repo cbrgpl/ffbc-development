@@ -5,7 +5,7 @@
       warning
     </zButton>
 
-    <zButton @click="dialog$.show('registration', false)" >
+    <zButton @click="dialog$.show('registration', null, false)" >
       warning
     </zButton>
 
