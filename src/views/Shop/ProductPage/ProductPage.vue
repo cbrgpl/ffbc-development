@@ -58,13 +58,12 @@ export default {
     return {
       product: null,
       loading: false,
-
       inPageNavigation: {
         tabs: [
           'Description',
           'Available Features',
         ],
-        activeTab: 'Available Features'
+        activeTab: 'Description'
       }
 
     }
@@ -74,15 +73,14 @@ export default {
   },
   computed: {
     ...mapGetters( {
-      productTypeGetter: 'product/productTypeById',
-      productFeaturesByIds: 'product/productFeaturesByIds'
+      getProductType: 'product/productType',
+      getProductFeatures: 'product/productFeatures'
     } ),
     productType () {
-      return this.productTypeGetter( this.product.type )
+      return this.getProductType( this.product )
     },
     productFeatures () {
-      const featureIdArray = this.productType.productFeatures
-      return this.productFeaturesByIds( featureIdArray )
+      return this.getProductFeatures( this.productType )
     },
     activeTabName () {
       return this.inPageNavigation.activeTab.replace( ' ', '' )
@@ -96,7 +94,7 @@ export default {
       this.loading = false
     },
     showAddToCart () {
-      this.dialog$.show( 'addToCart', { productId: this.productId, productFeatures: this.productFeatures } )
+      this.dialog$.show( 'addToCart', { product: this.product } )
     }
   },
   components: {

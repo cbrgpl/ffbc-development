@@ -45,8 +45,8 @@
        { "allow": ["warn", "error"] }
     ],
     "no-debugger": [
-      "error"
-    ],
+      0
+],
     "array-bracket-spacing": [
       "error",
       "always",

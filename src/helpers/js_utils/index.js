@@ -5,6 +5,7 @@ import lookbehind from './extenders/string.lookbehindAlter'
 // Boolean
 // Array
 import remove from './extenders/array.remove'
+import equals from './extenders/array.equals'
 // Object
 import isIterable from './extenders/object.isIterable'
 
@@ -19,6 +20,7 @@ const extendModule = {
   },
   array: {
     remove,
+    equals,
   },
   object: {
     isIterable,

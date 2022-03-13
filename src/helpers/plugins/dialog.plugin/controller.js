@@ -37,7 +37,7 @@ export default class {
     this.checkDialogName( dialogName, 'Dialog does not exists' )
 
     this._dialogs[ dialogName ].visible = false
-    this._dialogParam = null
+    this._dialogParam.value = null
   }
 
   getDialogs () {
