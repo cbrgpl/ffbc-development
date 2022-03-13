@@ -45,7 +45,6 @@ export default {
   watch: {
     cartLoaded: {
       handler ( newValue ) {
-        console.log( newValue )
         if ( newValue ) {
           this.loading = false
         }
@@ -56,7 +55,7 @@ export default {
   computed: {
     ...mapGetters( {
       cartItems: 'cart/cartItems',
-      products: 'cart/cartProducts',
+      products: 'cart/products',
       cartLoaded: 'cart/cartLoaded',
     } ),
     selectedProductsEmpty () {

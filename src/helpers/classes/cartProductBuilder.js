@@ -25,6 +25,6 @@ export default class CartProductBuilder extends RequestStrategy {
   }
 
   getCartProductFeatures ( featureFields ) {
-    return store.getters[ 'product/pairsOfFeatureAndFields' ]( featureFields )
+    return store.getters[ 'product/getFeaturesAndFields' ]( featureFields )
   }
 }

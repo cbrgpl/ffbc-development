@@ -27,15 +27,14 @@
 import zDialog from '@components/composite/zDialog/zDialog.vue'
 import FeatureSection from './partial/FeatureSection.vue'
 
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'AddToCartDialog',
   props: {
-    productId: {
-      type: String,
+    product: {
+      type: Object,
     },
-    productFeatures: {
-      type: Array,
-    }
   },
   data () {
     return {
@@ -43,8 +42,16 @@ export default {
       buttonLoading: false,
     }
   },
-  created () {
+  beforeMount () {
     this.initFeatureValues()
+  },
+  computed: {
+    ...mapGetters( {
+      getFeaturesForProduct: 'product/getFeaturesForProduct',
+    } ),
+    productFeatures () {
+      return this.getFeaturesForProduct( this.product )
+    },
   },
   methods: {
     initFeatureValues () {
@@ -58,7 +65,7 @@ export default {
     putFeatureValue ( featureName, featureValue ) {
       this.features[ featureName ].field = featureValue
     },
-    createCartItem () {
+    async createCartItem () {
       if ( !this.featureFieldsValid() ) {
         return
       }
@@ -66,11 +73,16 @@ export default {
       const featureFields = this.getSelectedFeatureFields()
 
       const cartItem = {
-        product: this.productId,
-        featureFields: featureFields
+        product: this.product.id,
+        featureFields
       }
 
-      this.$store.dispatch( 'cart/createCartItem', cartItem )
+      const creatingSuccess = await this.$store.dispatch( 'cart/createCartItem', cartItem )
+
+      if ( creatingSuccess ) {
+        this.toast$.success( { summary: 'Product was successfuly added to cart' } )
+        this.dialog$.hide( 'addToCart' )
+      }
     },
     featureFieldsValid () {
       this.clearFeatureErrors()

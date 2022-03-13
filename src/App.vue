@@ -74,7 +74,9 @@ export default {
       const unwatch = this.$watch(
         'isAuth',
         () => {
-          this.$store.dispatch( 'user/getUser' )
+          if ( this.$store.getters[ 'auth/isAuth' ] ) {
+            this.$store.dispatch( 'user/getUser' )
+          }
           unwatch()
         }
       )

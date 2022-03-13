@@ -28,24 +28,41 @@ export default {
       sidebarVisiblity: false,
     }
   },
-  created () {
-    // TODO Возможно стоит сделать специальный гуард, который навешивается на входной роут
-    if ( this.$store.getters[ 'auth/isAuth' ] ) {
-      this.$store.dispatch( 'cart/initCart' )
-    }
-
+  async created () {
     this.$store.dispatch( 'product/fetchProductFeatures' )
     this.$store.dispatch( 'measure/fetchMeasures' )
     this.$store.dispatch( 'product/fetchProductTypes' )
+
+    // TODO Возможно стоит сделать специальный гуард, который навешивается на входной роут
+    await this.$store.dispatch( 'cart/initCart' )
+
+    if ( this.isAuth ) {
+      this.$store.commit( 'cart/setCartIdToStrategy' )
+    }
   },
   computed: {
     currentRoute () {
       return this.$route
     },
+    isAuth () {
+      return this.$store.getters[ 'auth/isAuth' ]
+    }
   },
   watch: {
     currentRoute () {
       this.setSidebarVibility( false )
+    },
+    isAuth: {
+      handler ( isAuth, oldValue ) {
+        this.$store.dispatch( 'cart/setCartStrategy', isAuth )
+
+        if ( isAuth && oldValue === false ) {
+          this.$store.dispatch( 'cart/mergeLocalAndApiCarts' )
+        } else if ( !isAuth && oldValue === true ) {
+          this.$store.commit( 'cart/clearModule' )
+        }
+      },
+      immediate: true,
     }
   },
   methods: {

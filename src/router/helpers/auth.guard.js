@@ -1,6 +1,5 @@
 import $store from '@/store'
-import setTokensOnInitial from './authSetTokensOnInitial'
-
+import getInitialAuth from './authGetInitialAuth'
 /*
 
   * There is 3 posibility variants of route.meta.auth
@@ -17,16 +16,10 @@ const routeRequireAnAuth = ( matched ) => matched.some( ( route ) => route.meta.
 
 export default async function ( to, from, next ) {
   let userAuth = $store.getters[ 'auth/isAuth' ]
-  const refreshToken = $store.getters[ 'auth/refreshToken' ]
 
-  if ( isInitialGuardCall( userAuth ) && refreshToken !== null ) {
-    const onNetworkAttemptErrorRoute = await setTokensOnInitial( refreshToken, $store )
-
-    if ( onNetworkAttemptErrorRoute ) {
-      next( { name: onNetworkAttemptErrorRoute } )
-    } else {
-      userAuth = true
-    }
+  if ( isInitialGuardCall( userAuth ) ) {
+    userAuth = await getInitialAuth( $store )
+    $store.commit( 'auth/setIsAuth', userAuth )
   }
 
   if ( userAuth && routeRequireAnAuth( to.matched ) ) {

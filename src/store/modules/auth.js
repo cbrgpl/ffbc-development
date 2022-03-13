@@ -26,7 +26,8 @@ export default {
       const logInRequest = await authService.logIn( logInForm )
 
       if ( logInRequest.httpResponse.status === 200 ) {
-        commit( 'setAuthorizeInfo', logInRequest.parsedBody.tokens )
+        commit( 'setTokens', logInRequest.parsedBody.tokens )
+        commit( 'setIsAuth', true )
         await dispatch( 'user/getUser', null, { root: true } )
       }
 
@@ -70,12 +71,14 @@ export default {
     }
   },
   mutations: {
-    setAuthorizeInfo ( state, tokens ) {
-      state.isAuth = true
+    setTokens ( state, tokens ) {
       state.tokens = tokens
     },
+    setIsAuth ( state, isAuth ) {
+      state.isAuth = isAuth
+    },
     clearModule ( state ) {
-      state.isAuth = null
+      state.isAuth = false
       state.tokens = {
         access: null,
         refresh: null,

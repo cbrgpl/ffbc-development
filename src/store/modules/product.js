@@ -12,19 +12,25 @@ export default {
     }
   },
   getters: {
-    productFeatures: ( state ) => state.productFeatures,
-    productTypeById: ( state ) => ( productTypeId ) => state.productTypes.find( ( type ) => type.id === productTypeId ),
-    productFeaturesByIds: ( state ) => ( arrayOfFeatureIds ) => state.productFeatures.filter( ( feature ) => arrayOfFeatureIds.includes( feature.id ) ),
-    pairsOfFeatureAndFields: ( state ) => ( arrayOfFeatureFieldIds ) => arrayOfFeatureFieldIds.reduce( ( featureAndFieldPairs, productFeatureFieldId ) => {
+    allProductFeatures: ( state ) => state.productFeatures,
+    productType: ( state ) => ( product ) => state.productTypes.find( ( type ) => type.id === product.id ),
+    productFeatures: ( state ) => ( productType ) => state.productFeatures.filter( ( feature ) => productType.productFeatures.includes( feature.id ) ),
+    getFeaturesForProduct: ( state, getters ) => ( product ) => {
+      const productType = getters.productType( product )
+      const features = getters.productFeatures( productType )
+
+      return features
+    },
+    getFeaturesAndFields: ( state ) => ( featureFieldIds ) => featureFieldIds.reduce( ( pairs, featureFieldId ) => {
       for ( const feature of state.productFeatures ) {
         for ( const featureField of feature.featureFields ) {
-          if ( featureField.id === productFeatureFieldId ) {
-            featureAndFieldPairs.push( {
+          if ( featureField.id === featureFieldId ) {
+            pairs.push( {
               feature: feature.name,
               value: featureField.name
             } )
 
-            return featureAndFieldPairs
+            return pairs
           }
         }
       }

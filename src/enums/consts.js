@@ -20,7 +20,8 @@ const NOT_ERROR = 'NOT_ERROR'
 const STORAGE_NAMES = {
   EMAIL_VERIFICATED: 'flag_emailVerified',
   REGISTRATED_EMAIL: 'var_regEmail',
-  REFRESH_TOKEN: 'var_refreshToken'
+  REFRESH_TOKEN: 'var_refreshToken',
+  LOCAL_CART: 'var_localCart'
 }
 
 export {
