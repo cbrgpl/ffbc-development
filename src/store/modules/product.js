@@ -13,7 +13,7 @@ export default {
   },
   getters: {
     allProductFeatures: ( state ) => state.productFeatures,
-    productType: ( state ) => ( product ) => state.productTypes.find( ( type ) => type.id === product.id ),
+    productType: ( state ) => ( product ) => state.productTypes.find( ( type ) => type.id === product.type ),
     productFeatures: ( state ) => ( productType ) => state.productFeatures.filter( ( feature ) => productType.productFeatures.includes( feature.id ) ),
     getFeaturesForProduct: ( state, getters ) => ( product ) => {
       const productType = getters.productType( product )
@@ -56,7 +56,7 @@ export default {
     },
     async outGetProducts ( context, filters ) {
       // TODO Допилить после появления ручки
-      filters.productType = 1
+      delete filters.productType
 
       const getProductsRequest = await productService.getProducts( filters )
       if ( getProductsRequest.httpResponse.status !== 200 ) {

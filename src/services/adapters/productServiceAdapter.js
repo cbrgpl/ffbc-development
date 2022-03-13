@@ -48,7 +48,7 @@ export default class ProductServiceAdapter extends ServiceAdapter {
       return transformedMedia
     } )
 
-    restructedBaseProduct.stockQnt = product.stockQty
+    restructedBaseProduct.type = product.productType.id
     restructedBaseProduct.price = product.basePrice
     restructedBaseProduct.description = product.description
     restructedBaseProduct.title = product.name
@@ -60,8 +60,6 @@ export default class ProductServiceAdapter extends ServiceAdapter {
   restructAdditionalProductData ( product ) {
     const restructedAdditionalProduct = {}
 
-    restructedAdditionalProduct.type = product.productType.id
-    restructedAdditionalProduct.productsInventory = product.productsInventory
     restructedAdditionalProduct.video = product.video
 
     return restructedAdditionalProduct

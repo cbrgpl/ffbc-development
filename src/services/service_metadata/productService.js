@@ -12,7 +12,7 @@ const productApiModule = [
     },
     schema: {
       type: 'object',
-      required: [ 'page', 'perPage', 'productType' ],
+      required: [ 'page', 'perPage' ],
       properties: {
         page: {
           type: 'integer'

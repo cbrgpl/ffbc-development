@@ -56,7 +56,7 @@ export default {
     }
   },
   watch: {
-    productType ( newV ) {
+    productType () {
       this.pagination.page = 1
       this.getProducts( this.pagination.page )
     }
