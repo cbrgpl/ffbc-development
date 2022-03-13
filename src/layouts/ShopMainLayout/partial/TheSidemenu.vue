@@ -112,7 +112,7 @@ export default {
     async logOut () {
       await this.$store.dispatch( 'auth/logOut' )
 
-      clearAuthInfo( this.$store )
+      clearAuthInfo()
 
       this.emitSidebarHiding()
       this.$router.push( { name: 'ShopMain' } )
