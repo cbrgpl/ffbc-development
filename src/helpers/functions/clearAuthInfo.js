@@ -1,11 +1,12 @@
 import { STORAGE_NAMES } from 'consts'
+import store from '@/store'
 
 function deleteBrowserStorageRefresh () {
   localStorage.removeItem( STORAGE_NAMES.REFRESH_TOKEN )
   sessionStorage.removeItem( STORAGE_NAMES.REFRESH_TOKEN )
 }
 
-export default function ( $store ) {
+export default function () {
   deleteBrowserStorageRefresh()
-  $store.commit( 'auth/clearModule' )
+  store.commit( 'auth/clearModule' )
 }

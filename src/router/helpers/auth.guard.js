@@ -1,5 +1,7 @@
 import $store from '@/store'
-import getInitialAuth from './authGetInitialAuth'
+import { ref } from 'vue'
+import setAuthDataOnInit from './authSetAuthDataOnInit'
+import tryCatchInitAuth from './authTryCatchInitAuth'
 /*
 
   * There is 3 posibility variants of route.meta.auth
@@ -15,16 +17,20 @@ const routeRequireAuth = ( matched ) => matched.some( ( route ) => route.meta.au
 const routeRequireAnAuth = ( matched ) => matched.some( ( route ) => route.meta.auth === false )
 
 export default async function ( to, from, next ) {
-  let userAuth = $store.getters[ 'auth/isAuth' ]
+  const userAuth = ref( $store.getters[ 'auth/isAuth' ] )
 
-  if ( isInitialGuardCall( userAuth ) ) {
-    userAuth = await getInitialAuth( $store )
-    $store.commit( 'auth/setIsAuth', userAuth )
+  if ( isInitialGuardCall( userAuth.value ) ) {
+    const refreshToken = $store.getters[ 'auth/refreshToken' ]
+    const redirectRoute = await tryCatchInitAuth( () => setAuthDataOnInit( refreshToken ) )
+    if ( redirectRoute ) {
+      next( { name: redirectRoute } )
+      return
+    }
   }
 
-  if ( userAuth && routeRequireAnAuth( to.matched ) ) {
+  if ( userAuth.value && routeRequireAnAuth( to.matched ) ) {
     next( { name: 'ShopProfileMain' } )
-  } else if ( !userAuth && routeRequireAuth( to.matched ) ) {
+  } else if ( !userAuth.value && routeRequireAuth( to.matched ) ) {
     next( { name: 'ShopMain' } )
   } else {
     next()
