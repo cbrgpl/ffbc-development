@@ -6,7 +6,7 @@
       :media="product.media" />
 
     <div
-      @click="routeToProductPage(product)"
+      @click="routeToProductPage"
       class="flex flex-col flex-grow px-3 pt-1.5 pb-4 cursor-pointer" >
       <h4 class="text-sm leading-4 sm:text-lg font-medium sm:leading-6 mb-4" >
         {{ product.title }}
@@ -58,13 +58,13 @@ export default {
   },
   methods: {
     addToCard () {
-      console.message( 'adds to card' )
+      this.dialog$.show( 'addToCart', { product: this.product } )
     },
-    routeToProductPage ( product ) {
+    routeToProductPage () {
       this.$router.push( {
         name: 'ShopProductPage',
         params: {
-          productId: 1,
+          productId: this.product.id,
         },
       } )
     },
