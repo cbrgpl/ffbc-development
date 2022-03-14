@@ -5,7 +5,7 @@
     <div :class="['relative'] " >
       <input
         placeholder=" "
-        class="z-input"
+        :class="['z-input', inputSizeClasses]"
         :value="modelValue"
         @input="$emit( 'update:modelValue', $event.target.value )"
         v-mask="mask"
@@ -58,6 +58,13 @@ export default {
       type: String,
       default: ''
     },
+    size: {
+      type: String,
+      default: 'base',
+      validator ( value ) {
+        return [ 'sm', 'base', 'lg' ].includes( value )
+      }
+    },
     mask: {
       type: [ String, Array ],
       default: ''
@@ -70,6 +77,18 @@ export default {
       type: Boolean,
       default: false,
     },
+  },
+  computed: {
+    inputSizeClasses () {
+      switch ( this.size ) {
+      case 'sm':
+        return 'px-2 py-1.5 text-sm'
+      case 'lg':
+        return ''
+      default:
+        return 'pl-4 py-3 pr-2'
+      }
+    }
   },
   methods: {
     setLabelBackground ( $label ) {
@@ -102,7 +121,7 @@ export default {
 <style lang="scss" scoped>
 .z-input {
   @apply bg-transparent border-2  border-primary-lighten border-solid
-    text-white rounded-md cursor-pointer pl-4 py-3 pr-2 w-full;
+    text-white rounded-md cursor-pointer w-full;
 
   &:hover + .z-input__label {
     @apply text-primary-darken text-opacity-60;

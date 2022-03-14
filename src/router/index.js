@@ -127,7 +127,7 @@ const routes = [
     children: [
       {
         path: 'main',
-        component: () => import( '@/views/Competition/Home/Main/Main.vue' ),
+        component: () => import( '@/views/Preview.vue' ),
         name: 'ShopMain',
       },
       {

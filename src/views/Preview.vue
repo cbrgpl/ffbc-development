@@ -1,57 +1,45 @@
 <template >
-  <div class="relative" >
-
-    <zButton @click="warning" >
-      warning
-    </zButton>
-
-    <zButton @click="dialog$.show('registration', null, false)" >
-      warning
-    </zButton>
-
-    <zLoaderButton
-      class="px-6 py-3.5 mt-3"
-      :loader="true" >
-      Dimochka
-    </zLoaderButton>
+  <div class="relative p-3" >
+    <zMeasureForm
+      @measureSubmit="updateData"
+      title="Fill in the form"
+      :measure-fields="measure.measureFields"
+      :measure-field-component="$options.components.MeasureFieldInput" >
+      <template #formActions >
+        <zLoaderButton
+          class="py-2 px-4 mt-5"
+          :loader="loading" >
+          Submit
+        </zLoaderButton>
+      </template></zMeasureForm>
   </div>
 </template>
 
 <script>
-import observer from '@directives/observer.directive.js'
-
-import zButton from '@/components/atomic/zButton.vue'
-
-import NetworkAttemptErorr from '@errors/networkAttemptError'
-import passwordRequirements from '@enums/info/passwordRequirements'
+import zMeasureForm from '@/components/composite/zMeasureForm.vue'
+import measure from '@enums/fake/measureExample'
+import MeasureFieldInput from '@/components/composite/zMeasureFieldInput.vue'
 
 export default {
-  directives: {
-    observer,
-  },
   data () {
     return {
       visible: false,
-      passwordRequirements,
+      measure,
+      loading: false,
     }
   },
   methods: {
-    info () {
-      this.toast$.info( { detail: 'Yuo have been completed that shift', summary: 'Completed!' } )
-    },
-    success () {
-      this.toast$.success( { detail: 'Succes status was gotten from the server', summary: 'Success completed!' } )
-    },
-    error () {
-      this.toast$.error( { detail: 'Error while handling', summary: 'Oh, something went wrong' } )
-      throw new NetworkAttemptErorr( 'api/url', { body: 1, attempt: 1 }, 501 )
-    },
-    warning () {
-      this.toast$.warn( { detail: 'Be careful', summary: 'Oh, be careful with that shit it is not looks like' } )
-    },
+    updateData ( measure ) {
+      this.loading = true
+
+      setTimeout( () => {
+        this.loading = false
+      }, 3000 )
+    }
   },
   components: {
-    zButton,
+    zMeasureForm,
+    MeasureFieldInput
   },
 }
 </script>
