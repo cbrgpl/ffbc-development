@@ -160,6 +160,11 @@ const routes = [
             component: () => import( '@/views/Shop/ProfileOrderDetail/ProfileOrderDetail.vue' ),
             name: 'ShopProfileOrderDetail',
             props: true,
+          },
+          {
+            path: 'measures',
+            component: () => import( '@/views/Shop/ProfileMeasures/ProfileMeasures.vue' ),
+            name: 'ShopProfileMeasures',
           }
         ]
       },

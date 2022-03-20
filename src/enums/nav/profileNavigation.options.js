@@ -9,9 +9,9 @@ export default [
     title: 'Orders',
     toRouteName: 'ShopProfileOrderList',
   },
-//   {
-//     iconName: 'manageAccount',
-//     title: 'Me Info',
-//     toRouteName: '',
-//   },
+  {
+    iconName: 'manageAccount',
+    title: 'Measures',
+    toRouteName: 'ShopProfileMeasures',
+  },
 ]

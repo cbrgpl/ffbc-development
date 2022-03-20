@@ -9,10 +9,10 @@
 
     <div class="grid grid-cols-1 justify-between items-end sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-4 md:gap-x-6 gap-y-3" >
       <component
-        v-for="(value, formField) in form"
-        :key="formField"
-        :form-field="formField"
-        v-model="form[formField]"
+        v-for="(fieldId, formField) in form"
+        :key="fieldId"
+        :form-field="form[formField].name"
+        v-model="form[formField].value"
         :error="v$[formField].$error"
         :is="measureFieldComponent" />
     </div>
@@ -28,27 +28,37 @@
 import useVuelidate from '@vuelidate/core'
 import { required, numeric } from '@vuelidate/validators'
 
-import { shallowReactive, computed } from 'vue'
+import { reactive, computed, watch, ref } from 'vue'
 
 const generateMeasureObject = ( measureFields, measureFieldCallback ) => {
   const result = {}
 
   for ( const field of measureFields ) {
-    result[ field.name ] = measureFieldCallback( field )
+    result[ field.id ] = measureFieldCallback( field )
   }
 
   return result
 }
 
-const getMeasureFieldVal = () => ''
+const getMeasureFieldVal = ( field ) => ( { name: field.name, value: '' } )
 const getMeasureFieldValidation = () => ( {
-  required,
-  numeric
+  value: {
+    required,
+    numeric
+  }
 } )
+
+const getFormVariables = ( props ) => {
+  const form = computed( () => reactive( generateMeasureObject( props.measureFields, getMeasureFieldVal ) ) )
+
+  const validations = computed( () => generateMeasureObject( props.measureFields, getMeasureFieldValidation ) )
+
+  return { form, validations }
+}
 
 export default {
   name: 'MeasureForm',
-  emit: [ 'submit' ],
+  emit: [ 'measureSubmit' ],
   props: {
     measureFields: {
       type: Array,
@@ -60,18 +70,18 @@ export default {
     },
     title: {
       type: String,
-      required: true,
+      default: ''
     },
   },
   setup ( props ) {
-    const { measureFields } = props
+    const { form, validations } = getFormVariables( props )
+    const v$ = ref( useVuelidate( validations, form ) )
 
-    const form = shallowReactive( generateMeasureObject( measureFields, getMeasureFieldVal ) )
+    watch( props.measureFields, () => {
+      v$.value = useVuelidate( validations, form )
+    } )
 
-    const validations = computed( () => generateMeasureObject( measureFields, getMeasureFieldValidation ) )
-    const v$ = useVuelidate( validations, form )
-
-    return { v$, form }
+    return { v$, form, validations }
   },
 
   methods: {
