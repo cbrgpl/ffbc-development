@@ -1,24 +1,25 @@
 <template >
-  <ul
-    :ref="listRef"
-    class="z-tabs-menu"
-    role="tablist" >
-    <li
-      :ref="selectedRef"
-      v-for="tab of tabs"
-      :key="tab"
-      @click="$emit( 'update:modelValue', tab )"
-      :class="['z-tabs-menu__tab', {'z-tabs-menu__tab--selected': tab === modelValue}]"
-      role="tab" >
-      <slot :tab="tab" >
-        {{ tab }}
-      </slot>
-    </li>
-
-    <li
-      :ref="indicatorRef"
-      :class="indicatorClasses" ></li>
-  </ul>
+  <div class="overflow-x-hidden" >
+    <ul
+      :ref="listRef"
+      class="z-tabs-menu"
+      role="tablist" >
+      <li
+        :ref="indicatorRef"
+        :class="indicatorClasses" ></li>
+      <li
+        :ref="selectedRef"
+        v-for="tab of tabs"
+        :key="tab"
+        @click="$emit( 'update:modelValue', tab )"
+        :class="['z-tabs-menu__tab', {'z-tabs-menu__tab--selected': tab === modelValue}]"
+        role="tab" >
+        <slot :tab="tab" >
+          {{ tab }}
+        </slot>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -113,7 +114,7 @@ export default {
   --indicator-shift: 0;
   --indicator-width: 0;
 
-  @apply flex items-center justify-between relative font-semibold pb-0.5 overflow-x-hidden;
+  @apply flex items-center justify-between relative font-semibold pb-0.5;
 }
 
 .z-tabs-menu__tab {
@@ -121,6 +122,10 @@ export default {
 
   &--selected {
     @apply text-primary-lighten;
+  }
+
+  &:last-child {
+    @apply mr-0;
   }
 }
 
