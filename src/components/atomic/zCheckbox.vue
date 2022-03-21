@@ -1,7 +1,7 @@
 <template >
   <label
     class="flex items-center relative cursor-pointer"
-    v-bind="styles" >
+    v-bind="wrapperAttrs" >
     <input
       :checked="checked"
       @change="$emit( 'update:modelValue', $event)"

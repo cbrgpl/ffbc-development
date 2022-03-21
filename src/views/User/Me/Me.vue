@@ -176,17 +176,12 @@
           </option>
         </select>
 
-        <UserContact
+        <!-- <UserContact
           v-model="contactServices" >
           <div :class="userContactTitleClasses" >
-            <h5 class="leading-4" >
-              Specify contact service:
-            </h5>
-            <small class="text-placeholder font-semibold" >
-              Select at least one service
-            </small>
+
           </div>
-        </UserContact>
+        </UserContact> -->
       </section>
 
       <template #actions >
@@ -216,8 +211,6 @@ import { getBackendFormatDate } from '@filters'
 import { STATUS_WORDS } from 'consts'
 
 import bustType from '@enums/backend/bustType.js'
-
-import UserContact from './partial/UserContact.vue'
 
 // TODO Вернуть zipcode, когда он появится в АПИ
 
@@ -257,13 +250,6 @@ export default {
   },
   created () {
     this.fillForm()
-  },
-  computed: {
-    userContactTitleClasses () {
-      return {
-        'text-danger': this.v$.userForm.contactServices.$error
-      }
-    }
   },
   methods: {
     async updateUser ( formValidationStatus ) {
@@ -346,7 +332,6 @@ export default {
           isBustType: ( val ) => Object.entries( this.bustType ).some( ( type ) => type[ 1 ].id === val )
         },
         contactServices: {
-          // atLeastOne: ( val ) => Object.keys( val ).length >= 1
         },
         age: {
           numeric,
@@ -355,9 +340,6 @@ export default {
       }
     }
   },
-  components: {
-    UserContact
-  }
 }
 </script>
 

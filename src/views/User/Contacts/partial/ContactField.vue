@@ -2,7 +2,7 @@
   <div >
     <zCheckboxSingle
       class="mb-4"
-      @change="emitUselectService"
+      @change="emitUnselectService"
       v-model="serviceSelected"
       :label="service" />
     <zInput
@@ -16,6 +16,7 @@
 <script>
 export default {
   name: 'UserContactField',
+  emits: [ 'update:modelValue' ],
   props: {
     service: {
       type: String,
@@ -31,7 +32,7 @@ export default {
     emitUpdateServiceId ( event ) {
       this.$emit( 'update:modelValue', { service: this.service, id: event.target.value } )
     },
-    emitUselectService () {
+    emitUnselectService () {
       this.$emit( 'update:modelValue', { service: this.service, id: '' } )
     }
   }

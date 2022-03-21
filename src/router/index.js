@@ -200,6 +200,11 @@ const routes = [
         path: 'account',
         component: () => import( '@/views/User/Account/Account.vue' ),
         name: 'UserAccount',
+      },
+      {
+        path: 'contacts',
+        component: () => import( '@/views/User/Contacts/Contacts.vue' ),
+        name: 'UserContacts'
       }
     ]
   },
