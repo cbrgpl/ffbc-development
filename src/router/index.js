@@ -187,7 +187,8 @@ const routes = [
     component: () => import( '@layouts/UserLayout/UserLayout.vue' ),
     redirect: { name: 'UserMe' },
     meta: {
-      auth: true,
+      // TODO Посмотреть, почему перенаправляет со страницы, даже если ты авторизирован
+      // auth: true,
     },
     children: [
       {
