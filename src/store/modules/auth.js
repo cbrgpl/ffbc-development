@@ -91,6 +91,5 @@ export default {
       access: null,
       refresh: localStorage.getItem( STORAGE_NAMES.REFRESH_TOKEN ) || sessionStorage.getItem( STORAGE_NAMES.REFRESH_TOKEN ),
     }
-
   },
 }

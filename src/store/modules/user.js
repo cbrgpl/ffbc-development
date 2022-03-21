@@ -1,17 +1,16 @@
 import { arrayUtils } from '@js_utils'
 
+import { NetworkAttemptError } from '@errors'
+
 import { getUserServiceCommand } from '@commands'
+import { userService } from '@/services/services'
+import getActionResultDTO from '@/store/helpers/getActionResultDTO'
 
 export default {
   namespaced: true,
   clearable: true,
   state: {
-    userData: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      phoneNumber: '',
-    },
+    userData: {},
   },
   getters: {
     userData ( state ) {
@@ -22,6 +21,9 @@ export default {
     },
     fullName ( state ) {
       return state.userData.firstName + ' ' + state.userData.lastName
+    },
+    email ( state ) {
+      return state.userData.email
     }
   },
   actions: {
@@ -29,6 +31,17 @@ export default {
       const userData = await getUserServiceCommand.execute()
 
       commit( 'setUserData', userData.getUser.parsedBody )
+    },
+    async updateUser ( { commit }, user ) {
+      const updateUserRequest = await userService.updateUser( user )
+
+      if ( updateUserRequest.httpResponse.status === 200 ) {
+        commit( 'setUserData', updateUserRequest.parsedBody )
+      } else if ( /5\d\d/.test( updateUserRequest.httpResponse.status ) ) {
+        throw new NetworkAttemptError( updateUserRequest.httpResponse )
+      }
+
+      return getActionResultDTO( updateUserRequest )
     }
   },
   mutations: {
