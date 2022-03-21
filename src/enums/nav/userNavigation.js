@@ -8,5 +8,10 @@ export default [
     name: 'Account',
     toRouteName: 'UserAccount',
     icon: 'code'
+  },
+  {
+    name: 'Contacts',
+    toRouteName: 'UserContacts',
+    icon: 'code'
   }
 ]

@@ -1,13 +1,13 @@
 <template >
   <label
     class="block"
-    v-bind="styles" >
+    v-bind="wrapperAttrs" >
     <div :class="['relative'] " >
       <input
         placeholder=" "
         :class="['z-input', inputSizeClasses]"
         :value="modelValue"
-        @input="$emit( 'update:modelValue', $event.target.value )"
+        @input="emitModelValue"
         v-mask="mask"
         type="text"
         :data-error-state="errorState"
@@ -107,6 +107,9 @@ export default {
 
         $label.style.backgroundColor = window.getComputedStyle( $closestBackgroundedParent ).backgroundColor
       }, 0 )
+    },
+    emitModelValue ( event ) {
+      this.$emit( 'update:modelValue', event.target.value )
     }
   },
   directives: {
