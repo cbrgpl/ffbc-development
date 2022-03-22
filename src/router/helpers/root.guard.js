@@ -25,6 +25,8 @@ const initCart = async ( isAuth ) => {
   }
 }
 
+const toIsRoot = ( to ) => to.name === 'Root'
+
 export default async ( to, from, next ) => {
   const isAuth = store.getters[ 'auth/isAuth' ]
 
@@ -34,6 +36,13 @@ export default async ( to, from, next ) => {
   ]
 
   await waiterOfPromises.executePromises( promiseGetters )
+
+  store.commit( 'app/userLoaded', true )
+
+  if ( toIsRoot( to ) ) {
+    next( { name: 'ShopMain' } )
+    return
+  }
 
   next()
 }

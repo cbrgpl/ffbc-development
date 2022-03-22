@@ -7,6 +7,15 @@
       <router-view />
     </component>
 
+    <div
+      v-if="!subAppLoaded"
+      class="fixed w-screen h-screen top-0 left-0 z-140" >
+      <zLoader
+        size="180px"
+        background
+        title />
+    </div>
+
     <TheToast />
     <TheMediaViewOverlay />
     <DialogLayout />
@@ -27,8 +36,23 @@ import Console from '@/helpers/classes/Console'
 
 export default {
   name: 'App',
-  mounted () {
-    this.disableTemplatePreloader()
+  created () {
+    this.startWatchAppInitStatus()
+  },
+  computed: {
+    layout () {
+      const currentLayoutName = this.$route.meta.layout || 'empty'
+      return currentLayoutName + '-layout'
+    },
+    hiddenElements () {
+      return this.$route.meta.hiddenElems ? this.$route.meta.hiddenElems : []
+    },
+    appInitialized () {
+      return this.$store.getters[ 'app/appInitialized' ]
+    },
+    subAppLoaded () {
+      return this.$store.getters[ 'app/subAppLoaded' ]
+    }
   },
   data () {
     return {
@@ -53,6 +77,17 @@ export default {
     return error.onErrorHook( error )
   },
   methods: {
+    startWatchAppInitStatus () {
+      const unwatch = this.$watch(
+        () => this.appInitialized,
+        ( newVal ) => {
+          if ( newVal ) {
+            this.disableTemplatePreloader()
+            unwatch()
+          }
+        },
+      )
+    },
     async disableTemplatePreloader () {
       const isVerificateRoute = !!this.$route.meta.verificateEmail
 
@@ -70,18 +105,7 @@ export default {
       document.body.classList.remove( 'body-template-preloader' )
     },
   },
-  computed: {
-    layout () {
-      const currentLayoutName = this.$route.meta.layout || 'empty'
-      return currentLayoutName + '-layout'
-    },
-    hiddenElements () {
-      return this.$route.meta.hiddenElems ? this.$route.meta.hiddenElems : []
-    },
-    isAuth () {
-      return this.$store.getters[ 'auth/isAuth' ]
-    }
-  },
+
   components: {
     MainLayout,
     EmptyLayout,

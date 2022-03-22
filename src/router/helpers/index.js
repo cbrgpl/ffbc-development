@@ -2,7 +2,7 @@ import strategyGuard from './strategy.guard'
 import rolesGuard from './roles.guard'
 import authGuard from './auth.guard'
 import resetPasswordGuard from './resetPassword.guard'
-import userGuard from './user.guard'
+import rootGuard from './root.guard'
 import userEnumsGuard from './userEnums.guard'
 import shopEnumsGuard from './shopEnums.guard'
 
@@ -14,7 +14,7 @@ export {
   rolesGuard,
   authGuard,
   resetPasswordGuard,
-  userGuard,
+  rootGuard,
   userEnumsGuard,
   shopEnumsGuard,
 
