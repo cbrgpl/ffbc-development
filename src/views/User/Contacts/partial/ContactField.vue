@@ -1,14 +1,18 @@
 <template >
+
   <div >
+
+    <!-- :checked="showInput" -->
     <zCheckboxSingle
       class="mb-4"
       @change="emitUnselectService"
-      v-model="serviceSelected"
-      :label="service" />
+      v-model="showInput"
+      :label="contactType.name" />
     <zInput
       @input="emitUpdateServiceId"
+      :value="modelValue"
       label="Enter your identificator in service"
-      v-if="serviceSelected"
+      v-if="showInput"
       class="flex-grow" />
   </div>
 </template>
@@ -18,22 +22,39 @@ export default {
   name: 'UserContactField',
   emits: [ 'update:modelValue' ],
   props: {
-    service: {
-      type: String,
+    contactType: {
+      type: Object,
+      required: true,
+    },
+    modelValue: {
+      required: true
+    },
+    showInputOnInit: {
+      type: Boolean,
       required: true,
     }
   },
   data () {
     return {
-      serviceSelected: false,
+      fieldSelected: false,
+    }
+  },
+  computed: {
+    showInput: {
+      get () {
+        return this.fieldSelected || this.showInputOnInit
+      },
+      set ( value ) {
+        this.fieldSelected = value
+      }
     }
   },
   methods: {
     emitUpdateServiceId ( event ) {
-      this.$emit( 'update:modelValue', { service: this.service, id: event.target.value } )
+      this.$emit( 'update:modelValue', { typeId: this.contactType.id, id: event.target.value } )
     },
     emitUnselectService () {
-      this.$emit( 'update:modelValue', { service: this.service, id: '' } )
+      this.$emit( 'update:modelValue', { typeId: this.contactType.id, id: '' } )
     }
   }
 }

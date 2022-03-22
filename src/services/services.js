@@ -6,12 +6,15 @@ import userApiModule from './service_metadata/userService'
 import productApiModule from './service_metadata/productService'
 import measureApiModule from './service_metadata/measureService'
 import cartApiModule from './service_metadata/cartService'
+import contactsApiModule from './service_metadata/contactsService'
+
 const API = {
   auth: apiAuthModule,
   user: userApiModule,
   product: productApiModule,
   measure: measureApiModule,
-  cart: cartApiModule
+  cart: cartApiModule,
+  contacts: contactsApiModule
 }
 
 const defaultHooks = {
@@ -54,5 +57,6 @@ export const {
   userService,
   productService,
   measureService,
-  cartService
+  cartService,
+  contactsService
 } = services

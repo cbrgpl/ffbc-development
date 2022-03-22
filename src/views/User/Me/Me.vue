@@ -175,13 +175,6 @@
             {{ type.value }}
           </option>
         </select>
-
-        <!-- <UserContact
-          v-model="contactServices" >
-          <div :class="userContactTitleClasses" >
-
-          </div>
-        </UserContact> -->
       </section>
 
       <template #actions >

@@ -15,5 +15,6 @@ export const {
   userService,
   productService,
   measureService,
-  cartService
+  cartService,
+  contactsService
 } = exportServices

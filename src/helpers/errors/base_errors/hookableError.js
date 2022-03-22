@@ -7,6 +7,10 @@ export default class HookableError extends BaseError {
     this.onErrorCallback = null
   }
 
+  setErrorHook ( callback ) {
+    this.onErrorCallback = callback
+  }
+
   onErrorHook ( app, error ) {
     return this.onErrorCallback( app, error )
   }
