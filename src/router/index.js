@@ -7,7 +7,7 @@ import {
   rolesGuard,
   authGuard,
   resetPasswordGuard,
-  userGuard,
+  rootGuard,
   userEnumsGuard,
   shopEnumsGuard,
 
@@ -21,7 +21,7 @@ const routes = [
     path: '/',
     component: EmptyLayout,
     name: 'Root',
-    beforeEnter: userGuard,
+    beforeEnter: rootGuard,
     children: [
       {
         path: '/competitions',
