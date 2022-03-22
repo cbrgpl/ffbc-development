@@ -34,6 +34,9 @@ export default {
       userNavigation,
     }
   },
+  created () {
+    this.$store.dispatch( 'contacts/getContactTypes' )
+  },
   methods: {
     routerPushBack () {
       this.$router.push( { name: 'ShopMain' } )

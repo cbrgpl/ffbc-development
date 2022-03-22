@@ -13,11 +13,13 @@
     </div>
 
     <ContactField
-      @update:modelValue="mutateUserServices"
       class="mb-6"
-      v-for="service of contactServices"
-      :key="service"
-      :service="service" />
+      v-for="type of contactTypes"
+      :key="type.id"
+      :model-value="filledContacts[type.id]"
+      @update:modelValue="mutateUserContact"
+      :contact-type="type"
+      :show-input-on-init="isFieldSelected(type.id)" />
 
     <zLoaderButton
       :loader="form.loading"
@@ -45,7 +47,7 @@ export default {
   },
   data () {
     return {
-      userServices: {},
+      filledContacts: {},
       form: {
         loading: false,
       },
@@ -57,32 +59,70 @@ export default {
       ],
     }
   },
+  created () {
+    this.fillForm()
+  },
   computed: {
     titleErrorClass () {
       return {
-        'text-danger': this.v$.userServices.$error
+        'text-danger': this.v$.filledContacts.$error
       }
+    },
+    contactTypes () {
+      return this.$store.getters[ 'contacts/contactTypes' ]
+    },
+    userContacts () {
+      return this.$store.getters[ 'contacts/userContacts' ]
+    },
+    selectedContacts () {
+      return Object.keys( this.filledContacts ).map( ( id ) => parseInt( id ) )
     }
   },
   methods: {
-    mutateUserServices ( { service, id } ) {
+    mutateUserContact ( { typeId, id } ) {
       if ( id !== '' ) {
-        this.userServices[ service ] = id
+        this.filledContacts[ typeId ] = id
       } else {
-        delete this.userServices[ service ]
+        delete this.filledContacts[ typeId ]
       }
     },
-    setUserContacts ( validationStatus ) {
+    async setUserContacts ( validationStatus ) {
       if ( validationStatus === STATUS_WORDS.ERROR ) {
         return
       }
 
+      const preparedData = this.prepareDataToSend( this.filledContacts )
+
       this.form.loading = true
+      await this.$store.dispatch( 'contacts/setContacts', preparedData )
+      this.form.loading = false
+
+      this.toast$.success( { summary: 'Your contacts have been successful updated!' } )
+    },
+    prepareDataToSend ( contacts ) {
+      const preparedData = []
+
+      for ( const contact of Object.entries( contacts ) ) {
+        preparedData.push( {
+          value: contact[ 1 ],
+          contactService: parseInt( contact[ 0 ] )
+        } )
+      }
+
+      return preparedData
+    },
+    fillForm () {
+      for ( const contact of this.userContacts ) {
+        this.filledContacts[ contact.contactService ] = contact.value
+      }
+    },
+    isFieldSelected ( typeId ) {
+      return this.selectedContacts.includes( typeId )
     }
   },
   validations () {
     return {
-      userServices: {
+      filledContacts: {
         atLeastOne: ( val ) => Object.keys( val ).length >= 1
       }
     }
