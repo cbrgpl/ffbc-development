@@ -1,7 +1,7 @@
 export default {
   site: [
     {
-      name: 'Preview',
+      name: 'Root',
       iconName: 'manageAccount'
     },
     {
