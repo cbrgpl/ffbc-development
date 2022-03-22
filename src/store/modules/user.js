@@ -10,13 +10,14 @@ export default {
   namespaced: true,
   clearable: true,
   state: {
-    userData: {
-      contactServices: [ { id: 6, value: 'qwe qw', contactService: 1, user: 3 }, { id: 8, value: 'mmqq', contactService: 3, user: 3 }, { id: 9, value: 'zof', contactService: 2, user: 3 }, { id: 10, value: 'glo', contactService: 4, user: 3 } ]
-    },
+    userData: {},
   },
   getters: {
     userData ( state ) {
       return state.userData
+    },
+    userLoaded ( state ) {
+      return Object.keys( state.userData ).length !== 0
     },
     roles ( state ) {
       return state.roles

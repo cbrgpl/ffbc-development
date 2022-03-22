@@ -28,18 +28,6 @@ export default {
       sidebarVisiblity: false,
     }
   },
-  async created () {
-    this.$store.dispatch( 'product/fetchProductFeatures' )
-    this.$store.dispatch( 'measure/fetchMeasures' )
-    this.$store.dispatch( 'product/fetchProductTypes' )
-
-    // TODO Возможно стоит сделать специальный гуард, который навешивается на входной роут
-    await this.$store.dispatch( 'cart/initCart' )
-
-    if ( this.isAuth ) {
-      this.$store.commit( 'cart/setCartIdToStrategy' )
-    }
-  },
   computed: {
     currentRoute () {
       return this.$route
@@ -52,18 +40,15 @@ export default {
     currentRoute () {
       this.setSidebarVibility( false )
     },
-    isAuth: {
-      handler ( isAuth, oldValue ) {
-        this.$store.dispatch( 'cart/setCartStrategy', isAuth )
+    isAuth ( isAuth, oldValue ) {
+      this.$store.dispatch( 'cart/setCartStrategy', isAuth )
 
-        if ( isAuth && oldValue === false ) {
-          this.$store.dispatch( 'cart/mergeLocalAndApiCarts' )
-        } else if ( !isAuth && oldValue === true ) {
-          this.$store.commit( 'cart/clearModule' )
-        }
-      },
-      immediate: true,
-    }
+      if ( isAuth && oldValue === false ) {
+        this.$store.dispatch( 'cart/mergeLocalAndApiCarts' )
+      } else if ( !isAuth && oldValue === true ) {
+        this.$store.commit( 'cart/clearModule' )
+      }
+    },
   },
   methods: {
     toggleSidebarVisibility () {

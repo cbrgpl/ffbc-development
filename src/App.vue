@@ -29,7 +29,6 @@ export default {
   name: 'App',
   mounted () {
     this.disableTemplatePreloader()
-    this.requestUser()
   },
   data () {
     return {
@@ -70,17 +69,6 @@ export default {
       document.body.removeChild( document.body.querySelector( '#template-preloader' ) )
       document.body.classList.remove( 'body-template-preloader' )
     },
-    requestUser () {
-      const unwatch = this.$watch(
-        'isAuth',
-        () => {
-          if ( this.$store.getters[ 'auth/isAuth' ] ) {
-            this.$store.dispatch( 'user/getUser' )
-          }
-          unwatch()
-        }
-      )
-    }
   },
   computed: {
     layout () {

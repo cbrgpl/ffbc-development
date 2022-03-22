@@ -3,7 +3,7 @@
     :class="['absolute z-50 flex justify-between w-56 right-2/4 bottom-full transform translate-x-2/4 transition-all duration-300 pointer-events-none', getContainerClasses ]" >
     <router-link
       class="CentralButtonIcons__button transform translate-y-4"
-      :to="{name: 'Preview'}" >
+      :to="{name: 'Root'}" >
       <zIconBase
         width="32"
         height="32"
