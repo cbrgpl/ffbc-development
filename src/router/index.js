@@ -189,8 +189,7 @@ const routes = [
         redirect: { name: 'UserMe' },
         beforeEnter: userEnumsGuard,
         meta: {
-          // TODO Посмотреть, почему перенаправляет со страницы, даже если ты авторизирован
-          // auth: true,
+          auth: true,
         },
         children: [
           {

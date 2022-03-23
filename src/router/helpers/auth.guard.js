@@ -1,5 +1,5 @@
 import $store from '@/store'
-import { ref } from 'vue'
+import { computed } from 'vue'
 import setAuthDataOnInit from './authSetAuthDataOnInit'
 import tryCatchInitAuth from './authTryCatchInitAuth'
 /*
@@ -17,8 +17,7 @@ const routeRequireAuth = ( matched ) => matched.some( ( route ) => route.meta.au
 const routeRequireAnAuth = ( matched ) => matched.some( ( route ) => route.meta.auth === false )
 
 export default async function ( to, from, next ) {
-  const userAuth = ref( $store.getters[ 'auth/isAuth' ] )
-
+  const userAuth = computed( () => $store.getters[ 'auth/isAuth' ] )
   if ( isInitialGuardCall( userAuth.value ) ) {
     const refreshToken = $store.getters[ 'auth/refreshToken' ]
     const redirectRoute = await tryCatchInitAuth( () => setAuthDataOnInit( refreshToken ) )
