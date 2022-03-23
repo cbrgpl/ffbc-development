@@ -1,45 +1,59 @@
 <template >
   <div class="relative p-3" >
-    <zMeasureForm
-      @measureSubmit="updateData"
-      title="Fill in the form"
-      :measure-fields="measure.measureFields"
-      :measure-field-component="$options.components.MeasureFieldInput" >
-      <template #formActions >
-        <zLoaderButton
-          class="py-2 px-4 mt-5"
-          :loader="loading" >
-          Submit
-        </zLoaderButton>
-      </template></zMeasureForm>
+    <div class="w-96 " >
+      <zSelect
+        class="w-36"
+        v-model="selectedItem"
+        :list="list"
+        :item-accesser="(item) => item.num" >
+
+        <template #visible="{ value }" >
+
+          <div class="px-5" >
+            {{ value }}
+          </div>
+        </template>
+
+      </zSelect>
+    </div>
   </div>
 </template>
 
 <script>
-import zMeasureForm from '@/components/composite/zMeasureForm.vue'
-import measure from '@enums/fake/measureExample'
-import MeasureFieldInput from '@/components/composite/zMeasureFieldInput.vue'
+import zSelect from '@components/atomic/zSelect.vue'
 
 export default {
   data () {
     return {
       visible: false,
-      measure,
       loading: false,
+      list: [
+        {
+          num: 'one',
+        },
+        {
+          num: 'two',
+        },
+        {
+          num: 'three',
+        },
+        {
+          num: 'four',
+        },
+        {
+          num: 'five',
+        },
+        {
+          num: 'six',
+        },
+      ],
+      selectedItem: null,
     }
   },
   methods: {
-    updateData ( measure ) {
-      this.loading = true
-
-      setTimeout( () => {
-        this.loading = false
-      }, 3000 )
-    }
   },
   components: {
-    zMeasureForm,
-    MeasureFieldInput
+    zSelect
   },
 }
 </script>
