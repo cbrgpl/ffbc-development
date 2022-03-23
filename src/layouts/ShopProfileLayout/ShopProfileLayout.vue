@@ -1,5 +1,5 @@
 <template >
-  <div class="flex flex-col flex-grow overflow-y-hidden" >
+  <div class="w-full h-full flex flex-col flex-grow overflow-y-hidden" >
     <TheBackBar
       class="lg:hidden flex-shrink-0 px-2.5 md:px-5"
       v-if="!hiddenLayoutElemets.includes('TheBackBar')"

@@ -4,7 +4,7 @@
     <TheHeader
       @toggle-sidebar-visibility="toggleSidebarVisibility"
       v-if="!hidden['TheHeader']" />
-    <div class="relative flex flex-grow items-stretch lg:flex-row overflow-hidden max-w-full"  >
+    <div class="relative flex flex-grow items-stretch lg:flex-row overflow-hidden w-full"  >
       <TheSidemenu
         :visible="sidebarVisiblity"
         @change-sidebar-visibility="setSidebarVibility"
