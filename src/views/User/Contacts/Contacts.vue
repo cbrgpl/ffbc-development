@@ -31,13 +31,12 @@
 
 <script>
 import useVulidate from '@vuelidate/core'
+import filledContacts from './validations/filledContacts'
+
 import ContactField from './partial/ContactField.vue'
 
 import { STATUS_WORDS } from 'consts'
 
-/*
-
-*/
 export default {
   name: 'UserContact',
   setup () {
@@ -120,13 +119,7 @@ export default {
       return this.selectedContacts.includes( typeId )
     }
   },
-  validations () {
-    return {
-      filledContacts: {
-        atLeastOne: ( val ) => Object.keys( val ).length >= 1
-      }
-    }
-  },
+  validations: filledContacts(),
   components: {
     ContactField
   }

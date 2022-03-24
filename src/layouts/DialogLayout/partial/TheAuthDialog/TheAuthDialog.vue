@@ -22,8 +22,8 @@
 <script>
 import zDialog from '@components/composite/zDialog/zDialog.vue'
 
-import LogInForm from './partial/LogInForm.vue'
-import SignInForm from './partial/SignInForm.vue'
+import LogInForm from './partial/LogInForm/LogInForm.vue'
+import SignInForm from './partial/SignInForm/SignInForm.vue'
 
 export default {
   name: 'auth-dialog',

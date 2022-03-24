@@ -49,8 +49,7 @@
 
 <script>
 import useVuelidate from '@vuelidate/core'
-import { email, required } from '@vuelidate/validators'
-import { getPasswordValidator } from '@validators'
+import logInValidation from './validations/logIn'
 
 import { mapActions } from 'vuex'
 
@@ -105,20 +104,7 @@ export default {
       }
     },
   },
-  validations () {
-    return {
-      logInForm: {
-        email: {
-          email,
-          required
-        },
-        password: {
-          password: getPasswordValidator(),
-          required,
-        }
-      }
-    }
-  }
+  validations: logInValidation()
 
 }
 </script>
