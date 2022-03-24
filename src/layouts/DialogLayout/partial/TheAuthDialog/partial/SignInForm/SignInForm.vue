@@ -68,8 +68,7 @@
 
 <script>
 import useValidation from '@vuelidate/core'
-import { email, required, sameAs } from '@vuelidate/validators'
-import { getPasswordValidator, phone } from '@validators'
+import signInValidation from './validation/signIn'
 
 import passwordRequirements from '@enums/info/passwordRequirements'
 import { STATUS_WORDS, REDIRECT_URLS } from 'consts'
@@ -164,31 +163,7 @@ export default {
       }, timeMs )
     }
   },
-  validations () {
-    return {
-      signInForm: {
-        email: {
-          required,
-          email
-        },
-        password: {
-          required,
-          password: getPasswordValidator()
-        },
-        passwordConfirmation: {
-          required,
-          sameAsPassword: sameAs( this.signInForm.password )
-        },
-        phoneNumber: {
-          required,
-          phone
-        },
-        policyAgreement: {
-          isTrue: ( val ) => val
-        }
-      }
-    }
-  }
+  validations: signInValidation
 }
 </script>
 
