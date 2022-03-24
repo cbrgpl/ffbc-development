@@ -7,11 +7,16 @@ import {
   rolesGuard,
   authGuard,
   resetPasswordGuard,
-  rootGuard,
+  getUserGuard,
   userEnumsGuard,
   shopEnumsGuard,
+  aggregateGuard,
+  cartGuard,
+  fromRootGuard,
+  shopEndGuard,
 
   getRedirectOnLargeScreen,
+  GuardMetaAccesser
 } from './helpers/index'
 
 import { verificateEmailGuardStrategy } from '@/helpers/strategy'
@@ -21,7 +26,13 @@ const routes = [
     path: '/',
     component: EmptyLayout,
     name: 'Root',
-    beforeEnter: rootGuard,
+    beforeEnter: aggregateGuard,
+    meta: {
+      guards: GuardMetaAccesser.defineParam( [
+        getUserGuard,
+        fromRootGuard
+      ] )
+    },
     children: [
       {
         path: '/competitions',
@@ -121,9 +132,14 @@ const routes = [
         component: EmptyLayout,
         name: 'Shop',
         redirect: { name: 'ShopMain' },
-        beforeEnter: shopEnumsGuard,
+        beforeEnter: aggregateGuard,
         meta: {
-          layout: 'shop-main'
+          layout: 'shop-main',
+          guards: GuardMetaAccesser.defineParam( [
+            shopEnumsGuard,
+            cartGuard,
+            shopEndGuard
+          ] )
         },
         children: [
           {
