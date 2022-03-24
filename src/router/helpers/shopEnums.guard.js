@@ -7,12 +7,8 @@ const actions = [
   'product/fetchProductTypes'
 ]
 
-export default async ( to, from, next ) => {
+export default async ( to, from ) => {
   store.commit( 'app/subAppLoaded', false )
 
   await waiterOfActions.executeActions( actions )
-
-  store.commit( 'app/subAppLoaded', true )
-
-  next()
 }
