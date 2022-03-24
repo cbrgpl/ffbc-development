@@ -1,7 +1,6 @@
 import getActionResultDTO from '../helpers/getActionResultDTO'
-import { NetworkAttemptError, ErrorWithDescription } from '@errors'
+import { NetworkAttemptError } from '@errors'
 import { contactsService } from '@services'
-import { STATEMENT_OR_BLOCK_KEYS } from '../../../../../Users/cybir/AppData/Local/Microsoft/TypeScript/4.6/node_modules/@babel/types/lib/index'
 
 export default {
   namespaced: true,

@@ -27,6 +27,9 @@ export default {
     },
     email ( state ) {
       return state.userData.email
+    },
+    id ( state ) {
+      return state.userData.id
     }
   },
   actions: {

@@ -8,12 +8,13 @@
     </h4>
 
     <div class="grid grid-cols-1 justify-between items-end sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-4 md:gap-x-6 gap-y-3" >
+
       <component
-        v-for="(fieldId, formField) in form"
+        v-for="(field, fieldId) in form"
         :key="fieldId"
-        :form-field="form[formField].name"
-        v-model="form[formField].value"
-        :error="v$[formField].$error"
+        :form-field="field.name"
+        v-model="field.value"
+        :error="v$[fieldId].$error"
         :is="measureFieldComponent" />
     </div>
 
@@ -28,7 +29,7 @@
 import useVuelidate from '@vuelidate/core'
 import { required, numeric } from '@vuelidate/validators'
 
-import { reactive, computed, watch, ref } from 'vue'
+import { reactive, computed, ref } from 'vue'
 
 const generateMeasureObject = ( measureFields, measureFieldCallback ) => {
   const result = {}
@@ -40,7 +41,12 @@ const generateMeasureObject = ( measureFields, measureFieldCallback ) => {
   return result
 }
 
-const getMeasureFieldVal = ( field ) => ( { name: field.name, value: '' } )
+const getMeasureFormField = ( field ) => ( {
+  value: field.value,
+  id: field.id,
+  name: field.name
+} )
+
 const getMeasureFieldValidation = () => ( {
   value: {
     required,
@@ -49,9 +55,8 @@ const getMeasureFieldValidation = () => ( {
 } )
 
 const getFormVariables = ( props ) => {
-  const form = computed( () => reactive( generateMeasureObject( props.measureFields, getMeasureFieldVal ) ) )
-
-  const validations = computed( () => generateMeasureObject( props.measureFields, getMeasureFieldValidation ) )
+  const form = computed( () => reactive( generateMeasureObject( props.formFields, getMeasureFormField ) ) )
+  const validations = computed( () => generateMeasureObject( props.formFields, getMeasureFieldValidation ) )
 
   return { form, validations }
 }
@@ -60,7 +65,7 @@ export default {
   name: 'MeasureForm',
   emit: [ 'measureSubmit' ],
   props: {
-    measureFields: {
+    formFields: {
       type: Array,
       required: true,
     },
@@ -76,10 +81,6 @@ export default {
   setup ( props ) {
     const { form, validations } = getFormVariables( props )
     const v$ = ref( useVuelidate( validations, form ) )
-
-    watch( props.measureFields, () => {
-      v$.value = useVuelidate( validations, form )
-    } )
 
     return { v$, form, validations }
   },

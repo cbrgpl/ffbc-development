@@ -15,10 +15,10 @@
       </zTabsNav>
     </div>
 
-    <div v-if="measureLoaded" >
+    <div >
       <zMeasureForm
         @measureSubmit="updateMeasureForm"
-        :measure-fields="activeMeasure.measureFields"
+        :form-fields="formFields"
         :measure-field-component="$options.components.zMeasureFieldInput" >
 
         <template #formActions >
@@ -40,8 +40,6 @@
 import zMeasureForm from '@components/composite/zMeasureForm.vue'
 import zMeasureFieldInput from '@components/composite/zMeasureFieldInput.vue'
 
-import { ref } from 'vue'
-
 export default {
   name: 'ProfileMeasures',
   data () {
@@ -51,17 +49,32 @@ export default {
     }
   },
   created () {
-    this.setDefaultActiveMeasure()
+    this.setDefaultMeasure()
   },
   computed: {
     measures () {
       return this.$store.getters[ 'measure/measures' ]
     },
-    measuresLoaded () {
-      return this.$store.getters[ 'measure/enumLoaded' ]
+    userId () {
+      return this.$store.getters[ 'user/id' ]
     },
-    measureLoaded () {
-      return this.measures[ 0 ] !== undefined
+    activeMeasureFields () {
+      return this.activeMeasure.measureFields.map( ( measureField ) => measureField.id )
+    },
+    userMeasureFields () {
+      return this.$store.getters[ 'measure/userMeasureFields' ]( this.activeMeasureFields )
+    },
+    formFields () {
+      return this.activeMeasure.measureFields.map( ( measureField ) => {
+        const userField = this.userMeasureFields.find( ( userField ) => userField.measureField === measureField.id )
+        const fieldValue = userField ? userField.value : ''
+
+        return {
+          name: measureField.name,
+          id: measureField.id,
+          value: fieldValue
+        }
+      } )
     }
   },
   methods: {
@@ -71,35 +84,19 @@ export default {
     async updateMeasureForm ( form ) {
       this.loading = true
       const apiForm = this.getAPIedMeasureField( form )
-      const dispatch = await this.$store.dispatch( 'measure/setUserMeasure', apiForm )
+      await this.$store.dispatch( 'measure/setUserMeasures', apiForm )
 
-      if ( dispatch.success ) {
-        this.toast$.success( { summary: 'Measures have been successful updated' } )
-      }
+      this.toast$.success( { summary: 'Measures have been successful updated' } )
 
       this.loading = false
     },
     getAPIedMeasureField ( measureFields ) {
-      return Object.entries( measureFields ).map( ( measureField ) => ( { id: measureField[ 0 ], value: measureField[ 1 ].value } ) )
+      return Object.entries( measureFields ).map( ( measureField ) => ( { measureField: parseInt( measureField[ 0 ] ), value: measureField[ 1 ].value, user: this.userId } ) )
     },
-    setDefaultActiveMeasure () {
-      const unwatch = ref( null )
-      unwatch.value = this.$watch(
-        'measuresLoaded',
-        async ( measuresLoaded ) => {
-          if ( measuresLoaded ) {
-            this.activeMeasure = this.measures[ 0 ]
-            this.deferredUnwatch( unwatch )
-          }
-        },
-        {
-          immediate: true,
-        }
-      )
+    setDefaultMeasure () {
+      this.activeMeasure = this.measures[ 0 ]
     },
-    deferredUnwatch ( unwatch ) {
-      setTimeout( () => unwatch.value(), 0 )
-    }
+
   },
   components: {
     zMeasureForm,
