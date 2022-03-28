@@ -8,7 +8,6 @@ import shopEnumsGuard from './shopEnums.guard'
 import aggregateGuard from './aggregate.guard'
 import cartGuard from './cart.guard'
 import fromRootGuard from './fromRoot.guard'
-import shopEndGuard from './shop.end.guard'
 
 import getRedirectOnLargeScreen from './getRedirectOnLargeScreen'
 import getVerifyEmailGuardParams from './getVerifyEmailGuardParams'
@@ -25,7 +24,6 @@ export {
   aggregateGuard,
   cartGuard,
   fromRootGuard,
-  shopEndGuard,
 
   getRedirectOnLargeScreen,
   getVerifyEmailGuardParams,
