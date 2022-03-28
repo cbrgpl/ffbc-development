@@ -3,6 +3,8 @@ import { NetworkAttemptError } from '@errors'
 import { measureService } from '@services'
 import { arrayUtils } from '@js_utils'
 
+import ApiSendArray from '../helpers/apiSendArray'
+
 export default {
   namespaced: true,
   state () {
@@ -10,6 +12,7 @@ export default {
       measures: [],
       userMeasures: [],
       enumLoaded: false,
+      apiSendArray: null
     }
   },
   getters: {
@@ -26,6 +29,16 @@ export default {
     },
     userMeasureFields: ( state ) => ( arrayOfFieldIds ) => {
       return state.userMeasures.filter( ( measureField ) => arrayOfFieldIds.includes( measureField.measureField ) )
+    },
+    userMeasureId: ( state, getters ) => ( measureField ) => {
+      for ( const userMeasureField of state.userMeasures ) {
+        if ( userMeasureField.measureField === measureField ) {
+          return userMeasureField.id
+        }
+      }
+    },
+    apiSendArray ( state ) {
+      return state.apiSendArray
     }
   },
   mutations: {
@@ -42,6 +55,9 @@ export default {
     },
     setEnumLoaded ( state, enumLoaded ) {
       state.enumLoaded = enumLoaded
+    },
+    setApiSendArray ( state, apiSendArray ) {
+      state.apiSendArray = apiSendArray
     }
   },
   actions: {
@@ -64,52 +80,31 @@ export default {
 
       commit( 'setUserMeasures', getMeasureRequest.parsedBody )
     },
-    validateMeasureRequests ( context, resultOfRequests ) {
-      const rejectedRequests = resultOfRequests.filter( ( requestResult ) => requestResult.status === 'rejected' )
-
-      if ( rejectedRequests.length !== 0 ) {
-        const errors = rejectedRequests.map( ( rejectedRequest ) => new NetworkAttemptError( rejectedRequest.reason.httpResponse ) )
-        throw new AggregateError( errors, 'One of request while setting user contacts has been rejected' )
+    async setUserMeasures ( { commit, dispatch, getters }, measureForm ) {
+      if ( getters.apiSendArray === null ) {
+        commit( 'setApiSendArray', new ApiSendArray( {
+          fieldExists: getters.measureExists,
+          postField: ( ...args ) => dispatch( 'postMeasureField', ...args ),
+          patchField: ( ...args ) => dispatch( 'patchMeasureField', ...args ),
+          getFieldId: getters.userMeasureId,
+          fieldIdKey: 'measureField',
+        } ) )
       }
-    },
-    async setUserMeasures ( { commit, dispatch }, measureForm ) {
-      const arrayOfRequests = []
 
-      for ( const measure of measureForm ) {
-        arrayOfRequests.push( dispatch( 'doMeasureRequest', measure ) )
-      }
-      const resultOfRequests = await Promise.allSettled( arrayOfRequests )
+      const requestResults = await getters.apiSendArray.sendForm( measureForm )
 
-      dispatch( 'validateMeasureRequests', resultOfRequests )
-
-      const measure = resultOfRequests.map( ( result ) => result.value.request.parsedBody )
-      const patchedMeasureField = resultOfRequests.filter( ( result ) => result.value.method === 'PATCH' )
-        .map( ( result ) => result.value.request.parsedBody )
+      const measure = requestResults.map( ( result ) => result.body )
+      const patchedMeasureField = requestResults.filter( ( result ) => result.method === 'PATCH' )
+        .map( ( result ) => result.body )
 
       commit( 'removeUserMeasureFields', patchedMeasureField )
       commit( 'setUserMeasures', measure )
     },
-    async doMeasureRequest ( { getters }, measure ) {
-      const measureExists = getters.measureExists
-      let requestWrapper = null
-
-      if ( measureExists( measure.measureField ) ) {
-        requestWrapper = {
-          request: await measureService.patchUserMeasure( measure, getters.userMeasureId( measure.measureField ) ),
-          method: 'PATCH'
-        }
-      } else {
-        requestWrapper = {
-          request: await measureService.postUserMeasure( measure ),
-          method: 'POST'
-        }
-      }
-
-      if ( ![ 200, 201 ].includes( requestWrapper.request.httpResponse.status ) ) {
-        throw requestWrapper.request
-      } else {
-        return requestWrapper
-      }
+    postMeasureField ( context, args ) {
+      return measureService.postUserMeasure( ...args )
+    },
+    patchMeasureField ( context, args ) {
+      return measureService.patchUserMeasure( ...args )
     },
   }
 }

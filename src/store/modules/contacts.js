@@ -2,11 +2,14 @@ import getActionResultDTO from '../helpers/getActionResultDTO'
 import { NetworkAttemptError } from '@errors'
 import { contactsService } from '@services'
 
+import ApiSendArray from '../helpers/apiSendArray'
+
 export default {
   namespaced: true,
   state () {
     return {
       contactTypes: [],
+      apiSendArray: null,
     }
   },
   getters: {
@@ -17,13 +20,15 @@ export default {
 
       return userContacts.some( ( contact ) => contact.contactService === contactId )
     },
-    userContactId: ( state, getters ) => ( contactId ) => getters.userContacts.find( ( userContact ) => userContact.contactService === contactId ).id
+    userContactId: ( state, getters ) => ( contactId ) => getters.userContacts.find( ( userContact ) => userContact.contactService === contactId ).id,
+    apiSendArray: ( state ) => state.apiSendArray
   },
   mutations: {
     setContactTypes ( state, contactTypes ) {
       state.contactTypes = contactTypes
     },
-    setUserServices ( state ) {
+    setApiSendArray ( state, apiSendArray ) {
+      state.apiSendArray = apiSendArray
     }
   },
   actions: {
@@ -36,42 +41,27 @@ export default {
 
       commit( 'setContactTypes', contactTypeRequest.parsedBody )
     },
-    validateContactRequests ( context, resultOfRequests ) {
-      const rejectedRequests = resultOfRequests.filter( ( requestResult ) => requestResult.status === 'rejected' )
-
-      if ( rejectedRequests.length !== 0 ) {
-        const errors = rejectedRequests.map( ( rejectedRequest ) => new NetworkAttemptError( rejectedRequest.reason.httpResponse ) )
-        throw new AggregateError( errors, 'One of request while setting user contacts has been rejected' )
+    async setContacts ( { commit, getters, dispatch }, contacts ) {
+      if ( getters.apiSendArray === null ) {
+        commit( 'setApiSendArray', new ApiSendArray( {
+          fieldExists: getters.contactExists,
+          postField: ( ...args ) => dispatch( 'postContact', ...args ),
+          patchField: ( ...args ) => dispatch( 'patchContact', ...args ),
+          getFieldId: getters.userContactId,
+          fieldIdKey: 'contactService',
+        } ) )
       }
-    },
-    async setContacts ( { commit, dispatch }, contacts ) {
-      const arrayOfRequests = []
 
-      for ( const contact of contacts ) {
-        arrayOfRequests.push( dispatch( 'doContactRequest', contact ) )
-      }
-      const resultOfRequests = await Promise.allSettled( arrayOfRequests )
+      const requestResults = await getters.apiSendArray.sendForm( contacts )
 
-      dispatch( 'validateContactRequests', resultOfRequests )
-
-      const contactArray = resultOfRequests.map( ( result ) => result.value.parsedBody )
+      const contactArray = requestResults.map( ( result ) => result.body )
       commit( 'user/setUserContacts', contactArray, { root: true } )
     },
-    async doContactRequest ( { getters }, contact ) {
-      const contactExists = getters.contactExists
-      let request = null
-
-      if ( contactExists( contact.contactService ) ) {
-        request = await contactsService.patchContactService( contact, getters.userContactId( contact.contactService ) )
-      } else {
-        request = await contactsService.setUserContacts( contact )
-      }
-
-      if ( ![ 200, 201 ].includes( request.httpResponse.status ) ) {
-        throw request
-      } else {
-        return request
-      }
+    postContact ( context, args ) {
+      return contactsService.setUserContacts( ...args )
     },
+    patchContact ( context, args ) {
+      return contactsService.patchContactService( ...args )
+    }
   }
 }
