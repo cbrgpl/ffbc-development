@@ -13,7 +13,6 @@ import {
   aggregateGuard,
   cartGuard,
   fromRootGuard,
-  shopEndGuard,
 
   getRedirectOnLargeScreen,
   GuardMetaAccesser
@@ -28,10 +27,12 @@ const routes = [
     name: 'Root',
     beforeEnter: aggregateGuard,
     meta: {
-      guards: GuardMetaAccesser.defineParam( [
-        getUserGuard,
-        fromRootGuard
-      ] )
+      aggregate: GuardMetaAccesser.defineParam( {
+        guards: [
+          getUserGuard,
+        ],
+        endGuard: fromRootGuard
+      } )
     },
     children: [
       {
@@ -135,11 +136,12 @@ const routes = [
         beforeEnter: aggregateGuard,
         meta: {
           layout: 'shop-main',
-          guards: GuardMetaAccesser.defineParam( [
-            shopEnumsGuard,
-            cartGuard,
-            shopEndGuard
-          ] )
+          aggregate: GuardMetaAccesser.defineParam( {
+            guards: [
+              shopEnumsGuard,
+              cartGuard,
+            ],
+          } )
         },
         children: [
           {
