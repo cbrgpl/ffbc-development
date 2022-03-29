@@ -11,5 +11,4 @@ export default async ( to, from ) => {
   store.commit( 'app/subAppLoaded', false )
 
   await waiterOfActions.executeActions( actions )
-  console.log( 'завершаю энамы шопа качать' )
 }

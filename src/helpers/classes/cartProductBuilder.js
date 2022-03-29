@@ -17,6 +17,7 @@ export default class CartProductBuilder extends RequestStrategy {
     return {
       product,
       features: cartProductFeatures,
+      cartProductId: cartProduct.id
     }
   }
 
