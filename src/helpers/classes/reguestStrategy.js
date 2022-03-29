@@ -8,7 +8,7 @@ export default class RequestStrategy {
   async request ( method, ...args ) {
     const response = await this.service[ method ]( ...args )
 
-    if ( response.httpResponse.status !== 200 ) {
+    if ( ![ 200, 201 ].includes( response.httpResponse.status ) ) {
       throw new ErrorWithDescription( `Got not 200 response status while fetching resource with a builder ${ this.constructor.name }` )
     }
 

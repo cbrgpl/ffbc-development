@@ -1,6 +1,5 @@
 <template >
   <div class="flex flex-col" >
-
     <div class="shop-main_padding flex-grow overflow-y-auto" >
       <CartActions
         @toggleAllProducts="toggleAllProducts"
@@ -11,13 +10,12 @@
       </span>
       <zShopProfileProduct
         v-for="product of products"
-        :key="product.product.id"
+        :key="product.cartProductId"
         :product="product.product"
         :product-features="product.features"
-        :product-selected="selectedIds[product.product.id]"
-        @productSelectChanged="toggleSelectedId($event, product.product.id)"
+        :product-selected="selectedIds[product.cartProductId]"
+        @productSelectChanged="toggleSelectedId($event, product.cartProductId)"
         show-actions />
-
     </div>
 
     <CartFooter
@@ -75,7 +73,7 @@ export default {
       return cartCalculation
     },
     selectedProducts () {
-      return this.products.filter( ( product ) => this.selectedIds[ product.product.id ] )
+      return this.products.filter( ( product ) => this.selectedIds[ product.cartProductId ] )
     },
   },
   methods: {
@@ -95,12 +93,12 @@ export default {
     },
     selectAllProducts () {
       for ( const product of this.products ) {
-        this.selectedIds[ product.product.id ] = true
+        this.selectedIds[ product.cartProductId ] = true
       }
     },
     unselecteAllProducts () {
       for ( const product of this.products ) {
-        this.selectedIds[ product.product.id ] = false
+        this.selectedIds[ product.cartProductId ] = false
       }
     },
     deleteSelectedProducts () {
