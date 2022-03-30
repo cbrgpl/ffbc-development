@@ -25,7 +25,7 @@
 
       <zShopOrderStatus
         class="mb-1.5"
-        :status="order.status" />
+        :status-id="order.status" />
 
       <zButton
         class="px-8 py-3"

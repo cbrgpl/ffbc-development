@@ -1,12 +1,28 @@
 <template >
   <div >
-    M
+    <OrderDetailsMeasuresSection
+      v-for="measureGroup of measureGroups"
+      :key="measureGroup.id"
+      :name="measureGroup.name"
+      :measure-fields="measureGroup.measureFields" />
   </div>
 </template>
 
 <script>
+import OrderDetailsMeasuresSection from './OrderDetailsMeasuresSection.vue'
+
 export default {
-  name: 'OrdererDetailsMeasures'
+  name: 'OrdererDetailsMeasures',
+  inject: [ 'fakeOrderMeasures' ],
+  computed: {
+    measureGroups () {
+      return this.$store.getters[ 'measure/groupMeasureFieldByMeasure' ]( this.fakeOrderMeasures, ( measureField ) => measureField.measureField )
+    },
+  },
+  components: {
+    OrderDetailsMeasuresSection
+  }
+
 }
 </script>
 

@@ -4,9 +4,9 @@
     class="shop-main_padding flex-col flex" >
     <header class="flex justify-between items-center flex-wrap" >
       <h4 class="font-mono mr-5 leading-tight" >
-        № {{ order.data.id }}
+        № {{ '010-5ef-9105' || order.data.id }}
       </h4>
-      <zShopOrderStatus :status="order.data.status" />
+      <zShopOrderStatus :status-id="1" />
     </header>
 
     <zDivider class="my-3" />
@@ -29,6 +29,14 @@
       <OrdererDetails />
     </Section>
   </div>
+  <div
+    v-else
+    class="w-full h-full" >
+    <zLoader
+      size="200px"
+      background
+      title />
+  </div>
 </template>
 
 <script>
@@ -39,9 +47,9 @@ import OrderProducts from './partial/OrderProducts.vue'
 import OrderSummary from './partial/OrderSummary.vue'
 import OrdererDetails from './partial/OrdererDetails.vue'
 
-import { computed } from 'vue'
+import fakeOrderMeasures from '@enums/fake/orderMeasures'
 
-import { getPrettyPhone } from '@filters'
+import { computed } from 'vue'
 
 export default {
   name: 'ProfileOrderDetail',
@@ -62,7 +70,8 @@ export default {
   provide () {
     return {
       orderData: computed( () => this.order.data ),
-      orderProducts: computed( () => this.order.products )
+      orderProducts: computed( () => this.order.products ),
+      fakeOrderMeasures
     }
   },
   created () {
@@ -70,9 +79,6 @@ export default {
     this.fetchOrderProducts()
   },
   computed: {
-    // prettyPhone () {
-    //   return getPrettyPhone( this.order.data.phone )
-    // },
     dataLoaded () {
       return this.order.data !== null && this.order.products !== null
     }

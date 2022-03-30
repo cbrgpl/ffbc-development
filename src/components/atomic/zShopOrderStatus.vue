@@ -1,27 +1,32 @@
 <template >
   <h5 :class="['inline-flex text-lg sm:font-semibold', statusClasses]" >
-    {{ status }}
+    {{ status.value }}
   </h5>
 
 </template>
 
 <script>
 import orderStatusClasses from '@/enums/info/orderStatusClasses'
+import orderStatuseTypes from '@/enums/backend/orderStatusTypes'
 
 export default {
   name: 'zShopOrderStatus',
   props: {
-    status: {
-      type: String,
+    statusId: {
+      type: Number,
       required: true,
       validator ( value ) {
-        return Object.keys( orderStatusClasses ).includes( value )
+        return Object.entries( orderStatuseTypes ).map( ( type ) => type[ 1 ].id ).includes( value )
       }
     }
   },
   computed: {
+    status () {
+      const typeKeyword = Object.keys( orderStatuseTypes ).find( ( typeKeyword ) => orderStatuseTypes[ typeKeyword ].id === this.statusId )
+      return orderStatuseTypes[ typeKeyword ]
+    },
     statusClasses () {
-      return orderStatusClasses[ this.status ]
+      return orderStatusClasses[ this.status.value ]
     }
   }
 }

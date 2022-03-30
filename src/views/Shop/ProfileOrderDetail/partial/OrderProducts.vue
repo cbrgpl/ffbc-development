@@ -24,9 +24,6 @@ export default {
   name: 'OrderProducts',
   inheritAttrs: false,
   inject: [ 'orderData', 'orderProducts' ],
-  created () {
-    console.log( this.orderProducts )
-  },
   data () {
     return {
       productDialog: {

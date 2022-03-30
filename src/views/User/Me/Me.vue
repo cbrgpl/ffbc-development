@@ -202,7 +202,7 @@ import { getObjectPartClone } from '@functions'
 import { getBackendFormatDate } from '@filters'
 import { STATUS_WORDS } from 'consts'
 
-import bustType from '@enums/backend/bustType.js'
+import bustType from '@/enums/backend/bustTypes.js'
 
 // TODO Вернуть zipcode, когда он появится в АПИ
 

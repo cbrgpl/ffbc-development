@@ -102,10 +102,10 @@ export default {
       }
     },
     deleteSelectedProducts () {
-      console.message( 'Удаляю выбранные продукты' )
+      console.log( 'Удаляю выбранные продукты' )
     },
     showBuyProductsDialog () {
-      console.message( 'Показываю диалг для полкуки' )
+      this.toast$.info( { summary: 'No access', detail: 'That functionality is not completed yet...', life: 7500 } )
     }
   },
   components: {

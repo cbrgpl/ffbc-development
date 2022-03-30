@@ -30,12 +30,51 @@ export default {
     userMeasureFields: ( state ) => ( arrayOfFieldIds ) => {
       return state.userMeasures.filter( ( measureField ) => arrayOfFieldIds.includes( measureField.measureField ) )
     },
-    userMeasureId: ( state, getters ) => ( measureField ) => {
+    userMeasureId: ( state ) => ( measureField ) => {
       for ( const userMeasureField of state.userMeasures ) {
         if ( userMeasureField.measureField === measureField ) {
           return userMeasureField.id
         }
       }
+    },
+    groupMeasureFieldByMeasure: ( state, getters ) => ( measureFieldArray, getMeasureFieldId = ( measureField ) => measureField ) => {
+      const getMeasureForMeasureField = getters.measureForMeasureField
+      const groupedMeasureFields = []
+
+      const createMeasureGroup = ( measure ) => ( {
+        measureId: measure.id,
+        name: measure.name,
+        measureFields: []
+      } )
+      const getMeasureGroup = ( measureId ) => groupedMeasureFields.find( ( measureGroup ) => measureGroup.measureId === measureId )
+
+      for ( const measureField of measureFieldArray ) {
+        const measureOfMeasureField = getMeasureForMeasureField( measureField, getMeasureFieldId )
+        const measureGroup = getMeasureGroup( measureOfMeasureField.id )
+
+        if ( !measureGroup ) {
+          const measureGroup = createMeasureGroup( measureOfMeasureField )
+          measureGroup.measureFields.push( measureField )
+
+          groupedMeasureFields.push( measureGroup )
+        } else {
+          measureGroup.measureFields.push( measureField )
+        }
+      }
+
+      return groupedMeasureFields
+    },
+    measureFieldWithName: ( state, getters ) => ( measureField, getMeasureFieldId = ( measureField ) => measureField ) => {
+      const measureOfMeasureField = getters.measureForMeasureField( measureField, getMeasureFieldId )
+      const enumMeasureField = measureOfMeasureField.measureFields.find( ( enumMeasureField ) => enumMeasureField.id === getMeasureFieldId( measureField ) )
+
+      return {
+        name: enumMeasureField.name,
+        measureField,
+      }
+    },
+    measureForMeasureField: ( state, getters ) => ( measureField, getMeasureFieldId = ( measureField ) => measureField ) => {
+      return getters.measures.find( ( measure ) => measure.measureFields.find( ( enumMeasureField ) => enumMeasureField.id === getMeasureFieldId( measureField ) ) )
     },
     apiSendArray ( state ) {
       return state.apiSendArray
