@@ -30,7 +30,7 @@ export default class GuardMetaAccesser {
   }
 
   makeMatchedUndirty ( matched ) {
-    const guardedMatches = this.getGuardedMatched( matched )
+    const guardedMatches = this.getGuardedMatched( matched ).filter( ( match ) => !match.meta[ this.metaProp ].immutable )
 
     for ( const match of guardedMatches ) {
       match.meta[ this.metaProp ].called = false
@@ -41,10 +41,11 @@ export default class GuardMetaAccesser {
     return matched.filter( ( match ) => match.meta[ this.metaProp ] )
   }
 
-  static defineParam ( value ) {
+  static defineParam ( value, immutable = false ) {
     return {
       value,
       called: false,
+      immutable,
     }
   }
 }
