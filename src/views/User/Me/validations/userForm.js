@@ -34,10 +34,6 @@ export default function () {
         minLength: minLength( 3 ),
         between: between( 99, 250 )
       },
-      bustImplants: {
-        required,
-        isBustType: ( val ) => Object.entries( this.bustType ).some( ( type ) => type[ 1 ].id === val )
-      },
       contactServices: {
       },
       age: {

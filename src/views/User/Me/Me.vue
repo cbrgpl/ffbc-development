@@ -164,17 +164,23 @@
           label="Birth date mm.dd.yyyy"
           on-error="required" />
 
-        <!-- TODO Написать Селект-компонент -->
-        <select
+        <zSelect
           class="form-field"
-          @input="changeBustType"
-          name="bustType" >
-          <option
-            v-for="(type, typeId) in bustType"
-            :key="typeId" >
-            {{ type.value }}
-          </option>
-        </select>
+          :list="bustTypes"
+          :item-accesser="(bustType) => bustType[1].id"
+          v-model="this.userForm.bustImplants" >
+          <template #visible="{ value }" >
+            <div class="pl-4 py-3 pr-2" >
+              {{ typeof value === 'string' ? value : value[1].value }}
+            </div>
+          </template>
+
+          <template #listItem="item" >
+            <div class="pl-2 py-3" >
+              {{ item[1].value }}
+            </div>
+          </template>
+        </zSelect>
       </section>
 
       <template #actions >
@@ -184,7 +190,7 @@
             class="form-button"
             type="submit"
             :loader="form.loading" >
-            Log in
+            Update
           </zLoaderButton>
         </div>
 
@@ -202,7 +208,7 @@ import { getObjectPartClone } from '@functions'
 import { getBackendFormatDate } from '@filters'
 import { STATUS_WORDS } from 'consts'
 
-import bustType from '@/enums/backend/bustTypes.js'
+import bustTypes from '@/enums/backend/bustTypes.js'
 
 // TODO Вернуть zipcode, когда он появится в АПИ
 
@@ -228,16 +234,20 @@ export default {
         city: 'dodo',
         country: 'qweew',
         state: '',
-        // zipcode: '015305',
+        zipcode: '015305',
         phoneNumber: '',
         instagramUrl: 'https://instagram.com/cbrgpl',
         birthDate: '',
-        height: '192',
-        age: '21',
+        height: 192,
+        age: 21,
         bustImplants: 2,
       },
       contactServices: {},
-      bustType
+    }
+  },
+  computed: {
+    bustTypes () {
+      return Object.entries( bustTypes )
     }
   },
   created () {
@@ -276,7 +286,7 @@ export default {
       return sendData
     },
     changeBustType ( event ) {
-      const typeEntry = Object.entries( this.bustType ).find( ( type ) => type[ 1 ].value === event.target.value )
+      const typeEntry = Object.entries( this.bustTypes ).find( ( type ) => type[ 1 ].value === event.target.value )
       this.userForm.bustImplants = typeEntry[ 1 ].id
     },
     fillForm () {

@@ -44,8 +44,11 @@ const userApiModule = [
           type: 'string'
         },
         height: {
-          type: 'string'
+          type: 'number'
         },
+        age: {
+          type: 'number'
+        }
       }
     }
   }
