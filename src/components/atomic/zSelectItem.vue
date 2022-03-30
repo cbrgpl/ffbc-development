@@ -1,5 +1,5 @@
 <template >
-  <div class="w-full px-1.5 py-1 hover:bg-black-primary" >
+  <div class="w-full px-1.5 py-1" >
     <slot >
       {{ item }}
     </slot>

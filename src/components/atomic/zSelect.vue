@@ -1,5 +1,5 @@
 <template >
-  <div class="select relative select-none" >
+  <div class="relative select-none" >
     <div
       @click="toggleListVisible"
       class="border-2 border-primary-darkest border-solid bg-black-lighten rounded-md p-1 cursor-pointer" >
@@ -11,9 +11,10 @@
     </div>
     <Transition name="list-appear" >
       <ul
-        class="list w-full border border-primary-darkest border-solid rounded-md overflow-hidden"
+        class="list w-full border border-primary-darkest border-solid bg-black-lighten rounded-md overflow-hidden"
         v-if="listVisible" >
         <li
+          class="hover:bg-black-primary transition-colors"
           @click="setItemAsSelected(item)"
           v-for="(item, i) of list"
           :key="i" >
@@ -41,10 +42,10 @@ export default {
     },
     itemAccesser: {
       type: Function,
-      default: null
+      default: ( val ) => val
     },
     modelValue: {
-      type: [ String, Object ],
+      type: [ String, Object, Number ],
       default: null,
     }
   },
@@ -60,11 +61,11 @@ export default {
     listItemComponent () {
       return this.$slots.listItem || zSelectItem
     },
-    accesserProvided () {
-      return this.itemAccesser !== null
+    selectedItem () {
+      return this.list.find( ( el ) => this.itemAccesser( el ) === this.modelValue ) || null
     },
     visibleValue () {
-      return this.modelValue === null ? 'Select Value' : this.modelValue
+      return this.selectedItem === null ? 'Select Value' : this.selectedItem
     }
   },
   methods: {
@@ -78,11 +79,7 @@ export default {
     setItemAsSelected ( item ) {
       this.listVisible = false
 
-      if ( this.accesserProvided ) {
-        this.$emit( 'update:modelValue', this.itemAccesser( item ) )
-      } else {
-        this.$emit( 'update:modelValue', item )
-      }
+      this.$emit( 'update:modelValue', this.itemAccesser( item ) )
     },
     toggleListVisible () {
       this.listVisible = !this.listVisible
@@ -96,12 +93,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.select {
-}
-
 .list {
   position: absolute;
-  top: calc(100% + 5px)
+  top: calc(100% + 5px);
+  z-index: 20;
 }
 
 .list-appear {
