@@ -110,7 +110,7 @@ export default {
       commit( 'setMeasures', measuresRequest.parsedBody )
       commit( 'setEnumLoaded', true )
     },
-    async getUserMeasures ( { commit } ) {
+    async fetchUserMeasures ( { commit } ) {
       const getMeasureRequest = await measureService.getUserMeasures()
 
       if ( getMeasureRequest.httpResponse.status !== 200 ) {

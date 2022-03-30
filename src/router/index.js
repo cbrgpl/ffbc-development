@@ -13,6 +13,7 @@ import {
   aggregateGuard,
   cartGuard,
   fromRootGuard,
+  userMeasuresGuard,
 
   getRedirectOnLargeScreen,
   GuardMetaAccesser
@@ -140,6 +141,7 @@ const routes = [
             guards: [
               shopEnumsGuard,
               cartGuard,
+              userMeasuresGuard,
             ],
           } )
         },
