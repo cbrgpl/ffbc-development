@@ -32,8 +32,8 @@ const routes = [
         guards: [
           getUserGuard,
         ],
-        endGuard: fromRootGuard
-      } )
+        endGuard: fromRootGuard,
+      }, true ),
     },
     children: [
       {
@@ -143,7 +143,7 @@ const routes = [
               cartGuard,
               userMeasuresGuard,
             ],
-          } )
+          } ),
         },
         children: [
           {
