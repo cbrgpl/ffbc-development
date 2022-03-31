@@ -10,7 +10,7 @@ export default {
     }
   },
   getters: {
-    appInitialized: ( state ) => state.loadedStatuses.user && state.loadedStatuses.subApp,
+    appInitialized: ( state ) => state.loadedStatuses.user,
     subAppLoaded: ( state ) => state.loadedStatuses.subApp,
   },
   mutations: {

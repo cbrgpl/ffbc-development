@@ -14,6 +14,7 @@ import {
   cartGuard,
   fromRootGuard,
   userMeasuresGuard,
+  subAppEnterGuard,
 
   getRedirectOnLargeScreen,
   GuardMetaAccesser
@@ -139,6 +140,7 @@ const routes = [
           layout: 'shop-main',
           aggregate: GuardMetaAccesser.defineParam( {
             guards: [
+              subAppEnterGuard,
               shopEnumsGuard,
               cartGuard,
               userMeasuresGuard,
@@ -207,9 +209,15 @@ const routes = [
         path: '/user',
         component: () => import( '@layouts/UserLayout/UserLayout.vue' ),
         redirect: { name: 'UserMe' },
-        beforeEnter: userEnumsGuard,
+        beforeEnter: aggregateGuard,
         meta: {
           auth: true,
+          aggregate: GuardMetaAccesser.defineParam( {
+            guards: [
+              subAppEnterGuard,
+              userEnumsGuard
+            ],
+          } ),
         },
         children: [
           {

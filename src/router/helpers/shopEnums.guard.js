@@ -1,4 +1,3 @@
-import store from '@/store'
 import waiterOfActions from './waiterOfActions'
 
 const actions = [
@@ -8,7 +7,5 @@ const actions = [
 ]
 
 export default async ( to, from ) => {
-  store.commit( 'app/subAppLoaded', false )
-
   await waiterOfActions.executeActions( actions )
 }

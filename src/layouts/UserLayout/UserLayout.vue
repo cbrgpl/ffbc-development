@@ -27,8 +27,11 @@
 import userNavigation from '@enums/nav/userNavigation'
 import zTabRouteNavigation from '@/components/composite/zTabRouteNavigation.vue'
 
+import { subAppLayoutMix } from '@mixins'
+
 export default {
   name: 'user-layout',
+  mixins: [ subAppLayoutMix ],
   data () {
     return {
       userNavigation,
