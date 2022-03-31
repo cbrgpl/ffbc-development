@@ -8,7 +8,7 @@
     </component>
 
     <div
-      v-if="!subAppLoaded"
+      v-if="appInitialized && !subAppLoaded"
       class="fixed w-screen h-screen top-0 left-0 z-140" >
       <zLoader
         size="180px"
@@ -79,7 +79,7 @@ export default {
   methods: {
     startWatchAppInitStatus () {
       const unwatch = this.$watch(
-        () => this.appInitialized,
+        () => this.appInitialized && this.subAppLoaded,
         ( newVal ) => {
           if ( newVal ) {
             this.disableTemplatePreloader()

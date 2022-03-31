@@ -9,6 +9,7 @@ import aggregateGuard from './aggregate.guard'
 import cartGuard from './cart.guard'
 import fromRootGuard from './fromRoot.guard'
 import userMeasuresGuard from './userMeasures.guard'
+import subAppEnterGuard from './subAppEnter.guard'
 
 import getRedirectOnLargeScreen from './getRedirectOnLargeScreen'
 import getVerifyEmailGuardParams from './getVerifyEmailGuardParams'
@@ -26,6 +27,7 @@ export {
   cartGuard,
   fromRootGuard,
   userMeasuresGuard,
+  subAppEnterGuard,
 
   getRedirectOnLargeScreen,
   getVerifyEmailGuardParams,

@@ -50,7 +50,8 @@ export default {
       selectedItem: null,
     }
   },
-  methods: {
+  mounted () {
+    console.log( 'mounted preview' )
   },
   components: {
     zSelect
