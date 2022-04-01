@@ -4,17 +4,18 @@
       <CartActions
         @toggleAllProducts="toggleAllProducts"
         @deleteProducts="deleteSelectedProducts"
-        :selected-products-empty="selectedProductsEmpty" />
+        :selected-products-empty="selectedProductsEmpty"
+        :disabled="actionsDisabled" />
       <span v-if="loading" >
         loading...
       </span>
       <zShopProfileProduct
-        v-for="product of products"
-        :key="product.cartProductId"
-        :product="product.product"
-        :product-features="product.features"
-        :product-selected="selectedIds[product.cartProductId]"
-        @productSelectChanged="toggleSelectedId($event, product.cartProductId)"
+        v-for="bindedCartItem of bindedCartItems"
+        :key="bindedCartItem.cartItem.id"
+        :product="bindedCartItem.product"
+        :product-features="bindedCartItem.features"
+        :product-selected="selectedIds[bindedCartItem.cartItem.id]"
+        @productSelectChanged="toggleSelectedId($event, bindedCartItem.cartItem.id)"
         show-actions />
     </div>
 
@@ -31,6 +32,7 @@ import zShopProfileProduct from '@components/composite/zShopProfileProduct.vue'
 import CartFooter from './partial/CartFooter.vue'
 
 import { mapGetters } from 'vuex'
+import { computed } from 'vue'
 
 export default {
   name: 'ProfileCart',
@@ -38,6 +40,7 @@ export default {
     return {
       selectedIds: {},
       loading: true,
+      actionsDisabled: false,
     }
   },
   watch: {
@@ -50,14 +53,21 @@ export default {
       immediate: true,
     }
   },
+  provide () {
+    return {
+      actionsDisabled: computed( () => this.actionsDisabled ),
+    }
+  },
   computed: {
     ...mapGetters( {
-      cartItems: 'cart/cartItems',
-      products: 'cart/products',
+      bindedCartItems: 'cart/bindedCartItems',
       cartLoaded: 'cart/cartLoaded',
     } ),
     selectedProductsEmpty () {
-      return this.selectedProducts.length === 0
+      return this.selectedCartItems.length === 0
+    },
+    selectedCartItems () {
+      return this.bindedCartItems.filter( ( bindedCartItem ) => this.selectedIds[ bindedCartItem.cartItem.id ] )
     },
     cartCalculation () {
       const cartCalculation = {
@@ -65,15 +75,12 @@ export default {
         price: 0,
       }
 
-      for ( const product of this.selectedProducts ) {
+      for ( const bindedCartItem of this.selectedCartItems ) {
         cartCalculation.qnt++
-        cartCalculation.price += parseFloat( product.product.price )
+        cartCalculation.price += parseFloat( bindedCartItem.cartItem.price )
       }
 
       return cartCalculation
-    },
-    selectedProducts () {
-      return this.products.filter( ( product ) => this.selectedIds[ product.cartProductId ] )
     },
   },
   methods: {
@@ -85,24 +92,19 @@ export default {
       }
     },
     toggleAllProducts () {
-      if ( this.selectedProductsEmpty ) {
-        this.selectAllProducts()
-      } else {
-        this.unselecteAllProducts()
+      const selectAll = this.selectedProductsEmpty === true
+
+      for ( const bindedCartItem of this.bindedCartItems ) {
+        this.selectedIds[ bindedCartItem.cartItem.id ] = selectAll
       }
     },
-    selectAllProducts () {
-      for ( const product of this.products ) {
-        this.selectedIds[ product.cartProductId ] = true
-      }
-    },
-    unselecteAllProducts () {
-      for ( const product of this.products ) {
-        this.selectedIds[ product.cartProductId ] = false
-      }
-    },
-    deleteSelectedProducts () {
-      console.log( 'Удаляю выбранные продукты' )
+    async deleteSelectedProducts () {
+      this.actionsDisabled = true
+
+      const cartItemIds = this.selectedCartItems.map( ( bindedCartItem ) => bindedCartItem.cartItem.id )
+      await this.$store.dispatch( 'cart/removeCartItems', cartItemIds )
+
+      this.actionsDisabled = false
     },
     showBuyProductsDialog () {
       this.toast$.info( { summary: 'No access', detail: 'That functionality is not completed yet...', life: 7500 } )

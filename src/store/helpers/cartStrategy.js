@@ -6,6 +6,10 @@ export default class CartStrategy {
   }
 
   addCartItem () {
-    throw new ErrorWithDescription( 'CartStrategy\'s method "createCartItem" in not implemented' )
+    throw new ErrorWithDescription( 'CartStrategy\'s method "addCartItem" in not implemented' )
+  }
+
+  removeCartItems ( cartItemIds ) {
+    throw new ErrorWithDescription( 'CartStrategy\'s method "removeCartItem" in not implemented' )
   }
 }

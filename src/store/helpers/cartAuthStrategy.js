@@ -9,6 +9,10 @@ export default class CartAuthStrategy extends CartStrategy {
     this.cartId = null
   }
 
+  setCartId ( cartId ) {
+    this.cartId = cartId
+  }
+
   async initCart () {
     const cartRequest = await cartService.getCart()
 
@@ -19,14 +23,16 @@ export default class CartAuthStrategy extends CartStrategy {
     return cartRequest.parsedBody
   }
 
-  setCartId ( cartId ) {
-    this.cartId = cartId
-  }
-
-  addCartItem ( cartItem ) {
-    return cartService.addCartItem( {
+  async addCartItem ( cartItem ) {
+    const addRequest = await cartService.addCartItem( {
       cart: this.cartId,
       ...cartItem,
     } )
+
+    return addRequest.parsedBody
+  }
+
+  removeCartItems ( cartItemIds ) {
+    return cartService.removeCartItems( { ids: cartItemIds } )
   }
 }
