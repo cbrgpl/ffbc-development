@@ -21,6 +21,7 @@
 
 <script>
 import zSelect from '@components/atomic/zSelect.vue'
+import { arrayUtils } from '@js_utils'
 
 export default {
   data () {
@@ -51,7 +52,6 @@ export default {
     }
   },
   mounted () {
-    console.log( 'mounted preview' )
   },
   components: {
     zSelect

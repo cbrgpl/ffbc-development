@@ -9,6 +9,7 @@
     <transition name="delete-button" >
       <zButton
         v-if="!selectedProductsEmpty"
+        :disabled="actionsDisabled.value"
         @click="$emit('deleteProducts')"
         variant="danger"
         class="px-6" >
@@ -26,8 +27,9 @@ export default {
     selectedProductsEmpty: {
       type: Boolean,
       required: true,
-    }
+    },
   },
+  inject: [ 'actionsDisabled' ],
   emits: [ 'toggleAllProducts', 'deleteProducts' ],
 }
 </script>

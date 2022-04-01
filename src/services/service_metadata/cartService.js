@@ -36,6 +36,23 @@ const cartApiModule = [
         }
       }
     }
+  },
+  {
+    method: 'POST',
+    url: API_URL + '/cart-items/delete-multiple/',
+    secure: true,
+    roles: [],
+    handler: 'removeCartItems',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    schema: {
+      type: 'object',
+      required: [ 'ids' ],
+      ids: {
+        type: 'array'
+      }
+    }
   }
 ]
 

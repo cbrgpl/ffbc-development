@@ -16,7 +16,7 @@
       <zLoaderButton
         class="w-full md:w-auto px-16 py-3.5 float-right"
         :loader="buttonLoading"
-        @click="createCartItem" >
+        @click="addCartItem" >
         Add
       </zLoaderButton>
     </template>
@@ -65,7 +65,7 @@ export default {
     putFeatureValue ( featureName, featureValue ) {
       this.features[ featureName ].field = featureValue
     },
-    async createCartItem () {
+    async addCartItem () {
       if ( !this.featureFieldsValid() ) {
         return
       }
@@ -77,7 +77,7 @@ export default {
         featureFields
       }
 
-      const creatingSuccess = await this.$store.dispatch( 'cart/createCartItem', cartItem )
+      const creatingSuccess = await this.$store.dispatch( 'cart/addCartItem', cartItem )
 
       if ( creatingSuccess ) {
         this.toast$.success( { summary: 'Product was successfuly added to cart' } )

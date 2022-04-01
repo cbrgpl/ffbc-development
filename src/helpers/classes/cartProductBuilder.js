@@ -1,31 +1,28 @@
 import RequestStrategy from './reguestStrategy'
 
-import { productService } from '@/services'
 import store from '@/store'
 
 export default class CartProductBuilder extends RequestStrategy {
-  constructor () {
-    super()
-    this.setService( productService )
-  }
-
-  async getProductResult ( cartProduct ) {
-    const product = await this.getProduct( cartProduct.product )
-
-    const cartProductFeatures = this.getCartProductFeatures( cartProduct.featureFields )
+  getBindedCartItem ( cartItem ) {
+    const features = this.getCartItemFeatures( cartItem.featureFields )
 
     return {
-      product,
-      features: cartProductFeatures,
-      cartProductId: cartProduct.id
+      cartItem,
+      features,
+      product: null,
     }
   }
 
-  async getProduct ( productId ) {
-    return await this.request( 'getProductById', null, productId )
+  async bindProductToCartItem ( bindedCartItem ) {
+    const productBuffer = store.getters[ 'cart/productBuffer' ]
+
+    const cartItemProductId = bindedCartItem.cartItem.product
+    const cartItemProduct = productBuffer.find( ( product ) => product.id === cartItemProductId )
+
+    bindedCartItem.product = cartItemProduct
   }
 
-  getCartProductFeatures ( featureFields ) {
+  getCartItemFeatures ( featureFields ) {
     return store.getters[ 'product/getFeaturesAndFields' ]( featureFields )
   }
 }
