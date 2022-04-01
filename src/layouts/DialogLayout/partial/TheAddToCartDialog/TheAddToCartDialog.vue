@@ -69,6 +69,7 @@ export default {
       if ( !this.featureFieldsValid() ) {
         return
       }
+      this.buttonLoading = true
 
       const featureFields = this.getSelectedFeatureFields()
 
@@ -79,6 +80,7 @@ export default {
 
       const creatingSuccess = await this.$store.dispatch( 'cart/addCartItem', cartItem )
 
+      this.buttonLoading = false
       if ( creatingSuccess ) {
         this.toast$.success( { summary: 'Product was successfuly added to cart' } )
         this.dialog$.hide( 'addToCart' )
