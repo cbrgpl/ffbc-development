@@ -34,7 +34,7 @@
         <zTooltipInput
           class="form-field"
           type="password"
-          v-model="changePasswordForm.password"
+          v-model.trim="changePasswordForm.password"
           label="Password"
           :error-state="v$.changePasswordForm.password.$error"
           on-error="Password does not match to requirements"
@@ -42,7 +42,7 @@
         <zInput
           class="form-field"
           type="password"
-          v-model="changePasswordForm.passwordConfirmation"
+          v-model.trim="changePasswordForm.passwordConfirmation"
           label="Password Confirmation"
           :error-state="v$.changePasswordForm.passwordConfirmation.$error"
           on-error="Password does not match to requirements" />
