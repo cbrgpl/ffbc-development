@@ -1,6 +1,6 @@
 import { NetworkAttemptError } from '@errors'
 
-export default class ApiArraySend {
+export default class ArrayApiSender {
   constructor ( { fieldExists, postField, patchField, getFieldId, fieldIdKey } ) {
     this.fieldExists = fieldExists
     this.postField = postField

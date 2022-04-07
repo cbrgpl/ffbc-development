@@ -2,14 +2,14 @@ import getActionResultDTO from '../helpers/getActionResultDTO'
 import { NetworkAttemptError } from '@errors'
 import { contactsService } from '@services'
 
-import ApiSendArray from '../helpers/apiSendArray'
+import ArrayApiSender from '../helpers/arrayApiSender'
 
 export default {
   namespaced: true,
   state () {
     return {
       contactTypes: [],
-      apiSendArray: null,
+      arrayApiSender: null,
     }
   },
   getters: {
@@ -21,14 +21,14 @@ export default {
       return userContacts.some( ( contact ) => contact.contactService === contactId )
     },
     userContactId: ( state, getters ) => ( contactId ) => getters.userContacts.find( ( userContact ) => userContact.contactService === contactId ).id,
-    apiSendArray: ( state ) => state.apiSendArray
+    arrayApiSender: ( state ) => state.arrayApiSender
   },
   mutations: {
     setContactTypes ( state, contactTypes ) {
       state.contactTypes = contactTypes
     },
-    setApiSendArray ( state, apiSendArray ) {
-      state.apiSendArray = apiSendArray
+    setArrayApiSender ( state, arrayApiSender ) {
+      state.arrayApiSender = arrayApiSender
     }
   },
   actions: {
@@ -42,8 +42,8 @@ export default {
       commit( 'setContactTypes', contactTypeRequest.parsedBody )
     },
     async setContacts ( { commit, getters, dispatch }, contacts ) {
-      if ( getters.apiSendArray === null ) {
-        commit( 'setApiSendArray', new ApiSendArray( {
+      if ( getters.arrayApiSender === null ) {
+        commit( 'setArrayApiSender', new ArrayApiSender( {
           fieldExists: getters.contactExists,
           postField: ( ...args ) => dispatch( 'postContact', ...args ),
           patchField: ( ...args ) => dispatch( 'patchContact', ...args ),
@@ -52,7 +52,7 @@ export default {
         } ) )
       }
 
-      const requestResults = await getters.apiSendArray.sendForm( contacts )
+      const requestResults = await getters.arrayApiSender.sendForm( contacts )
 
       const contactArray = requestResults.map( ( result ) => result.body )
       commit( 'user/setUserContacts', contactArray, { root: true } )
