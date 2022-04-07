@@ -2,7 +2,9 @@
   <zDialog
     v-if="visible"
     :visible="visible"
-    @update:visible="selfClose" >
+    :remove-buffer="fakeRemoveBuffer"
+    :name="fakeName"
+    @close="selfClose" >
     <template #header >
       <slot name="title" >
         <h5
@@ -27,8 +29,11 @@
 <script>
 import zDialog from '@components/composite/zDialog/zDialog'
 
+import escCloseMix from '@/helpers/mixins/escClose.mixin'
+
 export default {
   name: 'zDialogList',
+  mixins: [ escCloseMix ],
   emits: [ 'update:visible' ],
   props: {
     visible: {
@@ -40,6 +45,12 @@ export default {
       default: null
     },
   },
+  data () {
+    return {
+      fakeRemoveBuffer: [],
+      fakeName: 'fake-name'
+    }
+  },
   computed: {
     titleProvided () {
       return this.title !== null || !!this.$slots.title
@@ -48,6 +59,9 @@ export default {
   methods: {
     selfClose () {
       this.$emit( 'update:visible', false )
+    },
+    closeFn () {
+      this.fakeRemoveBuffer.push( this.fakeName )
     }
   },
   components: {
