@@ -16,7 +16,7 @@ export default {
   inject: [ 'fakeOrderMeasures' ],
   computed: {
     measureGroups () {
-      return this.$store.getters[ 'measure/groupMeasureFieldByMeasure' ]( this.fakeOrderMeasures, ( measureField ) => measureField.measureField )
+      return this.$store.getters[ 'measure/groupMeasureFields' ]( this.fakeOrderMeasures, ( measureField ) => measureField.measureField )
     },
   },
   components: {

@@ -3,7 +3,7 @@ import { NetworkAttemptError } from '@errors'
 import { measureService } from '@services'
 import { arrayUtils } from '@js_utils'
 
-import ApiSendArray from '../helpers/apiSendArray'
+import ArrayApiSender from '../helpers/arrayApiSender'
 
 export default {
   namespaced: true,
@@ -12,7 +12,7 @@ export default {
       measures: [],
       userMeasures: [],
       enumLoaded: false,
-      apiSendArray: null
+      arrayApiSender: null
     }
   },
   getters: {
@@ -22,13 +22,13 @@ export default {
     enumLoaded ( state ) {
       return state.enumLoaded
     },
-    measureExists: ( state ) => ( measureId ) => {
+    userMeasureExists: ( state ) => ( measureId ) => {
       const userMeasures = state.userMeasures
 
       return userMeasures.some( ( measure ) => measure.measureField === measureId )
     },
-    userMeasureFields: ( state ) => ( arrayOfFieldIds ) => {
-      return state.userMeasures.filter( ( measureField ) => arrayOfFieldIds.includes( measureField.measureField ) )
+    userMeasureFields: ( state ) => ( measureFieldArray ) => {
+      return state.userMeasures.filter( ( measureField ) => measureFieldArray.includes( measureField.measureField ) )
     },
     userMeasureId: ( state ) => ( measureField ) => {
       for ( const userMeasureField of state.userMeasures ) {
@@ -37,47 +37,47 @@ export default {
         }
       }
     },
-    groupMeasureFieldByMeasure: ( state, getters ) => ( measureFieldArray, getMeasureFieldId = ( measureField ) => measureField ) => {
+    groupMeasureFields: ( state, getters ) => ( measureFieldArray, getMeasureFieldId = ( measureField ) => measureField ) => {
       const getMeasureForMeasureField = getters.measureForMeasureField
-      const groupedMeasureFields = []
+      const measureFieldGroupes = []
 
       const createMeasureGroup = ( measure ) => ( {
         measureId: measure.id,
         name: measure.name,
         measureFields: []
       } )
-      const getMeasureGroup = ( measureId ) => groupedMeasureFields.find( ( measureGroup ) => measureGroup.measureId === measureId )
+      const getMeasureGroup = ( measureId ) => measureFieldGroupes.find( ( measureGroup ) => measureGroup.measureId === measureId )
 
       for ( const measureField of measureFieldArray ) {
-        const measureOfMeasureField = getMeasureForMeasureField( measureField, getMeasureFieldId )
-        const measureGroup = getMeasureGroup( measureOfMeasureField.id )
+        const currentMeasure = getMeasureForMeasureField( measureField, getMeasureFieldId )
+        const measureGroup = getMeasureGroup( currentMeasure.id )
 
         if ( !measureGroup ) {
-          const measureGroup = createMeasureGroup( measureOfMeasureField )
+          const measureGroup = createMeasureGroup( currentMeasure )
           measureGroup.measureFields.push( measureField )
 
-          groupedMeasureFields.push( measureGroup )
+          measureFieldGroupes.push( measureGroup )
         } else {
           measureGroup.measureFields.push( measureField )
         }
       }
 
-      return groupedMeasureFields
+      return measureFieldGroupes
     },
     measureFieldWithName: ( state, getters ) => ( measureField, getMeasureFieldId = ( measureField ) => measureField ) => {
-      const measureOfMeasureField = getters.measureForMeasureField( measureField, getMeasureFieldId )
-      const enumMeasureField = measureOfMeasureField.measureFields.find( ( enumMeasureField ) => enumMeasureField.id === getMeasureFieldId( measureField ) )
+      const currentMeasure = getters.measureForMeasureField( measureField, getMeasureFieldId )
+      const enumedMeasureField = currentMeasure.measureFields.find( ( enumedMeasureField ) => enumedMeasureField.id === getMeasureFieldId( measureField ) )
 
       return {
-        name: enumMeasureField.name,
+        name: enumedMeasureField.name,
         measureField,
       }
     },
     measureForMeasureField: ( state, getters ) => ( measureField, getMeasureFieldId = ( measureField ) => measureField ) => {
-      return getters.measures.find( ( measure ) => measure.measureFields.find( ( enumMeasureField ) => enumMeasureField.id === getMeasureFieldId( measureField ) ) )
+      return getters.measures.find( ( measure ) => measure.measureFields.find( ( enumedMeasureField ) => enumedMeasureField.id === getMeasureFieldId( measureField ) ) )
     },
-    apiSendArray ( state ) {
-      return state.apiSendArray
+    arrayApiSender ( state ) {
+      return state.arrayApiSender
     }
   },
   mutations: {
@@ -95,8 +95,8 @@ export default {
     setEnumLoaded ( state, enumLoaded ) {
       state.enumLoaded = enumLoaded
     },
-    setApiSendArray ( state, apiSendArray ) {
-      state.apiSendArray = apiSendArray
+    setArrayApiSender ( state, arrayApiSender ) {
+      state.arrayApiSender = arrayApiSender
     }
   },
   actions: {
@@ -120,29 +120,29 @@ export default {
       commit( 'setUserMeasures', getMeasureRequest.parsedBody )
     },
     async setUserMeasures ( { commit, dispatch, getters }, measureForm ) {
-      if ( getters.apiSendArray === null ) {
-        commit( 'setApiSendArray', new ApiSendArray( {
-          fieldExists: getters.measureExists,
-          postField: ( ...args ) => dispatch( 'postMeasureField', ...args ),
-          patchField: ( ...args ) => dispatch( 'patchMeasureField', ...args ),
+      if ( getters.arrayApiSender === null ) {
+        commit( 'setArrayApiSender', new ArrayApiSender( {
+          fieldExists: getters.userMeasureExists,
+          postField: ( ...args ) => dispatch( 'postField', ...args ),
+          patchField: ( ...args ) => dispatch( 'patchField', ...args ),
           getFieldId: getters.userMeasureId,
           fieldIdKey: 'measureField',
         } ) )
       }
 
-      const requestResults = await getters.apiSendArray.sendForm( measureForm )
+      const requestResults = await getters.arrayApiSender.sendForm( measureForm )
 
       const measure = requestResults.map( ( result ) => result.body )
-      const patchedMeasureField = requestResults.filter( ( result ) => result.method === 'PATCH' )
+      const patchedUserMeasureFields = requestResults.filter( ( result ) => result.method === 'PATCH' )
         .map( ( result ) => result.body )
 
-      commit( 'removeUserMeasureFields', patchedMeasureField )
+      commit( 'removeUserMeasureFields', patchedUserMeasureFields )
       commit( 'setUserMeasures', measure )
     },
-    postMeasureField ( context, args ) {
+    postField ( context, args ) {
       return measureService.postUserMeasure( ...args )
     },
-    patchMeasureField ( context, args ) {
+    patchField ( context, args ) {
       return measureService.patchUserMeasure( ...args )
     },
   }
