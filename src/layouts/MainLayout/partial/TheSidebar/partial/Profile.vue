@@ -14,7 +14,6 @@
         </h6>
       </span>
 
-      <!-- TODO Добавить ripple эффект -->
       <div
         class="border border-white border-solid border-opacity-40 cursor-pointer rounded-md p-1.5 transition-colors duration-300 hover:text-secondary"
         @click="logout"
@@ -46,7 +45,6 @@ export default {
     } ),
     getUserData () {
       return {
-        // TODO Заменить на какую-то дефолтную картинку, если пользователь не поставил аватарку, или аватарку пользователя
         avatar: this.isAuth ? require( '@images/avatar.jpg' ) : require( '@images/anonymous.svg' ),
         callsign: this.isAuth ? this.fullName : 'Anonymous user',
         email: this.isAuth ? this.userData.email : 'noemail@gmail.com'

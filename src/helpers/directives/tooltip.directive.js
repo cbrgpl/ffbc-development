@@ -105,7 +105,6 @@ function hideSymbols ( el ) {
   if ( el.$_scrollListener ) {
     unbindScrollEvents( el )
   }
-  // TODO Добавтиь глобальную утилиту для zIndex;
 }
 
 function remove ( el ) {

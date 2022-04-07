@@ -23,7 +23,7 @@ const userApiModule = [
     },
     schema: {
       type: 'object',
-      required: [ 'firstName', 'lastName', 'street', 'city', 'country', 'instagramUrl', 'height', 'bustImplants' ],
+      required: [ 'firstName', 'lastName', 'street', 'city', 'country', 'instagramUrl', 'height', 'bustType' ],
       properties: {
         firstName: {
           type: 'string'

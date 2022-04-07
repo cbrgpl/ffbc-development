@@ -6,7 +6,6 @@
 
     <div class="px-4" >
       <ServiceSectionItem :data="header" />
-      <!-- TODO Сделать, чтобы если пусто была надпись "Nothing buyed yet..." -->
       <ServiceSectionItem
         v-for="(beauty, i) of beauties"
         :key="i"
