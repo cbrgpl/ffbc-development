@@ -84,9 +84,9 @@ export default {
     setMeasures ( state, measures ) {
       state.measures = measures
     },
-    removeUserMeasureFields ( state, arrayOfmeasureFields ) {
-      for ( const userMeasureField of arrayOfmeasureFields ) {
-        arrayUtils.remove( state.userMeasures, ( measure ) => measure.measureField === userMeasureField.measureField )
+    removeUserMeasureFields ( state, userMeasureFieldArray ) {
+      for ( const userMeasureField of userMeasureFieldArray ) {
+        arrayUtils.remove( state.userMeasures, ( field ) => field.measureField === userMeasureField.measureField )
       }
     },
     setUserMeasures ( state, userMeasures ) {
