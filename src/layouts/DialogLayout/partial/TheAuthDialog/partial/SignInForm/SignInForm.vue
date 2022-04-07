@@ -16,7 +16,7 @@
     <zTooltipInput
       class="form-field"
       type="password"
-      v-model="signInForm.password"
+      v-model.trim="signInForm.password"
       label="Password"
       :error-state="v$.signInForm.password.$error"
       on-error="Password does not match to requirements"
@@ -25,14 +25,14 @@
     <zInput
       class="form-field"
       type="password"
-      v-model="signInForm.passwordConfirmation"
+      v-model.trim="signInForm.passwordConfirmation"
       label="Repeat password"
       :error-state="v$.signInForm.passwordConfirmation.$error"
       on-error="The passwords are different" />
 
     <zInput
       class="form-field"
-      v-model="signInForm.phoneNumber"
+      v-model.trim="signInForm.phoneNumber"
       label="Phone number"
       mask="+9 (999) 999 99-99"
       :error-state="v$.signInForm.phoneNumber.$error"

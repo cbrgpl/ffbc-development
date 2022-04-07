@@ -8,7 +8,7 @@
     <zInput
       v-autofocus
       class="form-field"
-      v-model="logInForm.email"
+      v-model.trim="logInForm.email"
       label="Email"
       :error-state="v$.logInForm.email.$error"
       on-error="Incorrect email format" />
@@ -16,7 +16,7 @@
     <zInput
       class="form-field"
       type="password"
-      v-model="logInForm.password"
+      v-model.trim="logInForm.password"
       label="Password"
       :error-state="v$.logInForm.password.$error"
       on-error="Input correct password" />

@@ -31,6 +31,7 @@ export default function () {
       },
       height: {
         required,
+        numeric,
         minLength: minLength( 3 ),
         between: between( 99, 250 )
       },

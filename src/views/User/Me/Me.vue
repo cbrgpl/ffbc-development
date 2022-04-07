@@ -16,7 +16,7 @@
         <div class="flex flex-col" >
           <div class="form-field" >
             <zInput
-              v-model="userForm.firstName"
+              v-model.trim="userForm.firstName"
               label="First Name"
               :error-state="v$.userForm.firstName.$error"
               on-error="First name is required" />
@@ -27,7 +27,7 @@
 
           <div class="form-field" >
             <zInput
-              v-model="userForm.lastName"
+              v-model.trim="userForm.lastName"
               label="Last Name"
               :error-state="v$.userForm.lastName.$error"
               on-error="Last name is required" />
@@ -45,7 +45,7 @@
 
         <div class="form-field" >
           <zInput
-            v-model="userForm.height"
+            v-model.number="userForm.height"
             label="Growth"
             mask="999"
             :error-state="v$.userForm.height.$error"
@@ -59,7 +59,7 @@
 
         <zInput
           class="form-field"
-          v-model="userForm.age"
+          v-model.number="userForm.age"
           label="Age"
           mask="99"
           :error-state="v$.userForm.age.$error"
@@ -74,7 +74,7 @@
         <div class="flex flex-col lg:flex-wrap" >
           <div class="form-field" >
             <zInput
-              v-model="userForm.street"
+              v-model.trim="userForm.street"
               label="Street"
               :error-state="v$.userForm.street.$error"
               on-error="required"
@@ -87,7 +87,7 @@
 
           <div class="form-field" >
             <zInput
-              v-model="userForm.city"
+              v-model.trim="userForm.city"
               label="City"
               :error-state="v$.userForm.city.$error"
               on-error="required"
@@ -100,7 +100,7 @@
 
           <div class="form-field" >
             <zInput
-              v-model="userForm.country"
+              v-model.trim="userForm.country"
               label="Country"
               :error-state="v$.userForm.country.$error"
               on-error="required"
@@ -113,7 +113,7 @@
 
           <zInput
             class="form-field"
-            v-model="userForm.state"
+            v-model.trim="userForm.state"
             label="State" />
 
           <!-- <div class="form-field" >
@@ -146,7 +146,7 @@
 
         <div class="form-field" >
           <zInput
-            v-model="userForm.instagramUrl"
+            v-model.trim="userForm.instagramUrl"
             label="Instagram Url"
             :error-state="v$.userForm.instagramUrl.$error"
             on-error="required"

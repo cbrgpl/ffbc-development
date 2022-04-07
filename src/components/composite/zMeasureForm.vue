@@ -13,7 +13,7 @@
         v-for="(field, fieldId) in form"
         :key="fieldId"
         :form-field="field.name"
-        v-model="field.value"
+        v-model.trim="field.value"
         :error="v$[fieldId].$error"
         :is="measureFieldComponent" />
     </div>
