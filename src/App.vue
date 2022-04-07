@@ -38,6 +38,7 @@ export default {
   name: 'App',
   created () {
     this.startWatchAppInitStatus()
+    this.$store.dispatch( 'app/initWindowEscListener' )
   },
   computed: {
     layout () {

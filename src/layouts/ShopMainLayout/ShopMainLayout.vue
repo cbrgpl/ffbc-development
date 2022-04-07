@@ -18,11 +18,11 @@
 import TheHeader from './partial/TheHeader.vue'
 import TheSidemenu from './partial/TheSidemenu.vue'
 
-import { baseLayoutMix, subAppLayoutMix } from '@mixins'
+import { baseLayoutMix, subAppLayoutMix, escCloseMix } from '@mixins'
 
 export default {
   name: 'shop-main-layout',
-  mixins: [ baseLayoutMix, subAppLayoutMix ],
+  mixins: [ baseLayoutMix, subAppLayoutMix, escCloseMix ],
   data () {
     return {
       sidebarVisiblity: false,
@@ -56,6 +56,9 @@ export default {
     },
     setSidebarVibility ( visibilityState ) {
       this.sidebarVisiblity = visibilityState
+    },
+    closeFn () {
+      this.setSidebarVibility( false )
     }
   },
   components: {
