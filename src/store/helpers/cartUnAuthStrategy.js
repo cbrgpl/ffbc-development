@@ -38,7 +38,7 @@ export default class CartAnAuthStrategy extends CartStrategy {
   }
 
   getLocalCartItems () {
-    return JSON.parse( localStorage.getItem( STORAGE_NAMES.LOCAL_CART ) ) || '[]'
+    return JSON.parse( localStorage.getItem( STORAGE_NAMES.LOCAL_CART ) || '[]' )
   }
 
   setLocalCartItems ( cartItems ) {
