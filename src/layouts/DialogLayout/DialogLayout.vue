@@ -15,10 +15,12 @@
 <script>
 import { defineAsyncComponent } from 'vue'
 import { stringUtils } from '@js_utils'
+import escCloseMix from '@mixins/escClose.mixin'
 
 export default {
   name: 'DialogLayout',
   inheritAttrs: false,
+  mixins: [ escCloseMix ],
   data () {
     return {
       dialogs: this.dialog$.getDialogs(),
@@ -28,7 +30,6 @@ export default {
   },
   created () {
     this.registerComponents()
-    this.startListenEscKeyup()
   },
   computed: {
     shownDialogs () {
@@ -48,25 +49,16 @@ export default {
     getComponentName ( dialog ) {
       return 'The' + stringUtils.capitalize( dialog ) + 'Dialog'
     },
-    startListenEscKeyup () {
-      const hideLastDialog = () => {
-        const shownDialogsLength = this.shownDialogs.length
+    closeFn () {
+      const shownDialogsLength = this.shownDialogs.length
 
-        if ( shownDialogsLength === 0 ) {
-          return
-        }
+      const lastDialogName = this.shownDialogs[ shownDialogsLength - 1 ]
 
-        const lastDialogName = this.shownDialogs[ shownDialogsLength - 1 ]
-
-        this.dialog$.hide( lastDialogName )
-      }
-
-      window.addEventListener( 'keydown', ( event ) => {
-        if ( event.key === 'Escape' ) {
-          hideLastDialog()
-        }
-      } )
+      this.dialog$.hide( lastDialogName )
     },
+    getCallCondition () {
+      return this.shownDialogs.length !== 0
+    }
   },
   components: {
     TheVerificationDialog: defineAsyncComponent( () => import( './partial/TheVerificationDialog.vue' ) ),
