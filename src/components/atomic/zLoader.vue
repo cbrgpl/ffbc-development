@@ -58,11 +58,10 @@ export default {
   },
   computed: {
     backgroundClasses () {
-      return !this.background ? []
-        : [
-          'bg-black',
-          'pb-0'
-        ]
+      return this.background ? [
+        'bg-black',
+        'pb-0'
+      ] : []
     },
   },
 }

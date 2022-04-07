@@ -1,14 +1,19 @@
 <template >
-  <div class="flex flex-col" >
+  <div class="flex flex-col relative" >
+    <zLoader
+      class="z-10"
+      v-if="loading"
+      title
+      background
+      size="120px" />
+
     <div class="shop-main_padding flex-grow overflow-y-auto" >
       <CartActions
         @toggleAllProducts="toggleAllProducts"
         @deleteProducts="deleteSelectedProducts"
         :selected-products-empty="selectedProductsEmpty"
         :disabled="actionsDisabled" />
-      <span v-if="loading" >
-        loading...
-      </span>
+
       <zShopProfileProduct
         v-for="bindedCartItem of bindedCartItems"
         :key="bindedCartItem.cartItem.id"
