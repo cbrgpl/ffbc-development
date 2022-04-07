@@ -5,6 +5,7 @@ export default class {
   constructor () {
     this._dialogs = reactive( {} )
     this._dialogParam = ref( null )
+    this._removeBuffer = reactive( [] )
   }
 
   register ( dialogName ) {
@@ -33,15 +34,24 @@ export default class {
     this._dialogs[ dialogName ].visible = true
   }
 
+  close ( dialogName ) {
+    this._removeBuffer.pop()
+
+    this._dialogs[ dialogName ].visible = false
+  }
+
   hide ( dialogName ) {
     this.checkDialogName( dialogName, 'Dialog does not exists' )
 
-    this._dialogs[ dialogName ].visible = false
-    this._dialogParam.value = null
+    this._removeBuffer.push( dialogName )
   }
 
   getDialogs () {
     return this._dialogs
+  }
+
+  getRemoveBuffer () {
+    return this._removeBuffer
   }
 
   addWatcher ( dialogName, watcherCallback, watcherOptions = {} ) {

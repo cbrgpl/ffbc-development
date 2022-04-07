@@ -3,7 +3,10 @@
     v-for="name of shownDialogs"
     :key="name"
     :is="getComponentName(name)"
-    v-model:visible="dialogs[name].visible"
+    @close="dialog$.close( $event )"
+    :remove-buffer="removeBuffer"
+    :name="name"
+    :visible="true"
     :modal="dialogs[name].modal"
     v-bind="param" >
   </component>
@@ -19,11 +22,13 @@ export default {
   data () {
     return {
       dialogs: this.dialog$.getDialogs(),
+      removeBuffer: this.dialog$.getRemoveBuffer(),
       param: this.dialog$.getDialogParam()
     }
   },
   created () {
     this.registerComponents()
+    this.startListenEscKeyup()
   },
   computed: {
     shownDialogs () {
@@ -42,6 +47,25 @@ export default {
     },
     getComponentName ( dialog ) {
       return 'The' + stringUtils.capitalize( dialog ) + 'Dialog'
+    },
+    startListenEscKeyup () {
+      const hideLastDialog = () => {
+        const shownDialogsLength = this.shownDialogs.length
+
+        if ( shownDialogsLength === 0 ) {
+          return
+        }
+
+        const lastDialogName = this.shownDialogs[ shownDialogsLength - 1 ]
+
+        this.dialog$.hide( lastDialogName )
+      }
+
+      window.addEventListener( 'keydown', ( event ) => {
+        if ( event.key === 'Escape' ) {
+          hideLastDialog()
+        }
+      } )
     },
   },
   components: {

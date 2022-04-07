@@ -4,8 +4,7 @@
       ref="mask"
       :style="dialogZIndex"
       :class="['dialog__mask', maskOverlowClass]"
-      @click="hideWindow"
-      @keyup.esc="hideWindow" >
+      @click="hideWindow" >
 
       <Transition
         :name="appearAnimation"
@@ -52,7 +51,7 @@ import getZIndex from '@functions/getZIndex.function.js'
 export default {
   name: 'Dialog',
   inheritAttrs: false,
-  emits: [ 'update:visible' ],
+  emits: [ 'close' ],
   props: {
     visible: {
       type: Boolean,
@@ -65,6 +64,24 @@ export default {
         return [ 'top', 'center', 'bottom' ].includes( val )
       }
     },
+    removeBuffer: {
+      type: Array,
+      required: true,
+    },
+    name: {
+      type: String,
+      required: true,
+    }
+  },
+  watch: {
+    removeBuffer: {
+      handler ( newValue ) {
+        if ( newValue.includes( this.name ) ) {
+          this.hideWindow()
+        }
+      },
+      deep: true,
+    }
   },
   data () {
     return {
@@ -113,7 +130,7 @@ export default {
       this.windowVisible = false
     },
     emitCloseDialog () {
-      this.$emit( 'update:visible', false )
+      this.$emit( 'close', this.name )
     }
   },
   components: {
