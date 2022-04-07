@@ -168,7 +168,7 @@
           class="form-field"
           :list="bustTypes"
           :item-accesser="(bustType) => bustType[1].id"
-          v-model="this.userForm.bustImplants" >
+          v-model="this.userForm.bustType" >
           <template #visible="{ value }" >
             <div class="pl-4 py-3 pr-2" >
               {{ typeof value === 'string' ? value : value[1].value }}
@@ -228,19 +228,19 @@ export default {
         loading: false,
       },
       userForm: {
-        firstName: 'dima',
-        lastName: 'dmi',
-        street: 'novo',
-        city: 'dodo',
-        country: 'qweew',
+        firstName: '',
+        lastName: '',
+        street: '',
+        city: '',
+        country: '',
         state: '',
-        zipcode: '015305',
+        zipcode: '',
         phoneNumber: '',
-        instagramUrl: 'https://instagram.com/cbrgpl',
+        instagramUrl: '',
         birthDate: '',
-        height: 192,
-        age: 21,
-        bustImplants: 2,
+        height: '',
+        age: '',
+        bustType: '',
       },
       contactServices: {},
     }
@@ -287,7 +287,7 @@ export default {
     },
     changeBustType ( event ) {
       const typeEntry = Object.entries( this.bustTypes ).find( ( type ) => type[ 1 ].value === event.target.value )
-      this.userForm.bustImplants = typeEntry[ 1 ].id
+      this.userForm.bustType = typeEntry[ 1 ].id
     },
     fillForm () {
       const userData = this.$store.getters[ 'user/userData' ]

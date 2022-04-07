@@ -124,7 +124,6 @@ export default {
     async uploadRequest ( formData ) {
       // const response = await userService.uploadDocument( formData, this.access )
 
-      // TODO Доделать после того как аким пофиксит
     }
   },
   components: {

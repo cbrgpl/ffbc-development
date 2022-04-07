@@ -75,7 +75,6 @@
 import { DomHandler } from '@classes'
 import { getIntlPartFormatFunction } from '@filters'
 
-// TODO Доделать навигацию сверху и сделать чтобы на телефонах при клике карточка становилась открыта или закрыта
 export default {
   name: 'zCompetitionCard',
   data () {
