@@ -1,11 +1,6 @@
 import { ErrorWithDescription } from '@errors'
 let mixInstanceNumber = 0
 
-const closeFn = function () {
-  // It looks like nothing here...
-  return 1
-}
-
 export default {
   data () {
     return {
