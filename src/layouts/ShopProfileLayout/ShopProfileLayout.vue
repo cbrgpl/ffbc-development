@@ -8,6 +8,7 @@
 
     <div class="flex flex-col flex-grow overflow-y-hidden lg:flex-row" >
       <TheSideMenu
+        v-if="isAuth"
         class="hidden lg:flex px-2" />
       <router-view
         class="overflow-auto w-full h-full"
@@ -39,6 +40,9 @@ export default {
     },
     hiddenLayoutElemets () {
       return this.$route.meta.hidden || []
+    },
+    isAuth ( ) {
+      return this.$store.getters[ 'auth/isAuth' ]
     }
   },
   components: {

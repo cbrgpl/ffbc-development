@@ -17,8 +17,9 @@
     </router-link>
 
     <div
-      class="flex items-center"
-      v-if="isAuth" >
+      v-if="isAuth"
+
+      class="flex items-center" >
       <div
         v-if="!isProfileNavigationInvisible"
         class="flex pr-3 border-r border-placeholder border-opacity-70 border-solid mr-3" >
@@ -42,21 +43,34 @@
       <router-link
         :to="{name: 'ShopProfile'}"
         class="h-12 w-12 flex p-1 border-2 border-white border-solid rounded-full bg-black" >
+
         <zIconBase
           class="m-auto"
           icon="user" />
       </router-link>
     </div>
 
-    <zIconButton
-      v-else
-      @click="showAuthDialog"
-      class="h-full md:h-auto py-2 px-1.5"
-      shrink
-      icon="login"
-      unshrink-breakpoint="sm" >
-      Sign In
-    </zIconButton>
+    <div
+      class="flex"
+      v-else >
+      <router-link
+        active-class="text-primary-darken text-opacity-80"
+        class="w-12 h-12 p-2.5 cursor-pointer hover:bg-black-lightest hover:bg-opacity-40 transition-colors rounded-full md:w-12 md:h-12 mr-4"
+        :to="{name: 'ShopProfileCart'}" >
+        <zIconBase
+          icon="cart" />
+      </router-link>
+
+      <zIconButton
+        @click="showAuthDialog"
+        class="h-full md:h-auto py-2 px-1.5"
+        shrink
+        icon="login"
+        unshrink-breakpoint="sm" >
+        Sign In
+      </zIconButton>
+    </div>
+
   </div>
 </template>
 
