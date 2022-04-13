@@ -33,12 +33,12 @@ import zShopProductCard from '@components/composite/zShopProductCard.vue'
 
 import { defineAsyncComponent } from 'vue'
 
-import filtersForProductSection from '@enums/info/filtersForProductSection'
+import productSectionFilters from '@enums/info/productSectionFilters'
 
 export default {
   name: 'ProductCatalog',
   props: {
-    productType: {
+    sectionCode: {
       type: String,
       required: true,
     }
@@ -56,33 +56,36 @@ export default {
     }
   },
   watch: {
-    productType () {
+    sectionCode () {
+      this.redirectOnWrongSectionName()
+
       this.pagination.page = 1
-      this.getProducts( this.pagination.page )
+      this.setPage( 1 )
     }
   },
   beforeUnmount () {
     this.setPageInStorage( this.pagination.page )
   },
   computed: {
-    sectionFilters () {
-      return filtersForProductSection.find( ( sectionFilters ) => sectionFilters.section === this.productType ).filters
+    defaultSectionCode () {
+      return productSectionFilters.keys().next().value
     },
-    filters () {
-      const filters = {}
-
-      for ( const filter of this.sectionFilters ) {
-        filters[ filter.name ] = filter.value
-      }
-
-      return filters
-    }
+    sectionFilters () {
+      return productSectionFilters.get( this.sectionCode )
+    },
   },
   async created () {
+    this.redirectOnWrongSectionName()
+
     this.setPageNumber()
     this.setPage( this.pagination.page )
   },
   methods: {
+    redirectOnWrongSectionName () {
+      if ( !productSectionFilters.has( this.sectionCode ) ) {
+        this.$router.push( { name: 'ShopProductCatalog', params: { sectionCode: this.defaultSectionCode } } )
+      }
+    },
     setPageInStorage ( pageNum ) {
       sessionStorage.setItem( 'section_page', pageNum )
     },
@@ -94,7 +97,7 @@ export default {
     shiftPageFromStorage () {
       const pageNum = sessionStorage.getItem( 'section_page' )
       sessionStorage.removeItem( 'section_page' )
-      return Number( pageNum )
+      return parseInt( pageNum )
     },
 
     async changePage ( direction ) {
@@ -112,7 +115,7 @@ export default {
     },
     async getProducts ( page ) {
       const requestQueryParams = {
-        ...this.filters,
+        ...this.sectionFilters,
         page,
         perPage: this.pagination.perPage
       }

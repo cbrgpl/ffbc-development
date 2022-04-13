@@ -61,14 +61,14 @@ export default {
     }
   },
   errorCaptured ( error, vnode, info ) {
+    for ( const prop in error ) {
+      console.error( prop, error[ prop ] )
+    }
+
     if ( !error.onErrorCallback ) {
       console.group( `Not hookable error number ${ this.errorsNumber++ }` )
       Console.object( info, 'info: ' )
       Console.object( vnode, 'vnode: ' )
-
-      for ( const prop in error ) {
-        console.error( prop, error[ prop ] )
-      }
 
       console.groupEnd()
 

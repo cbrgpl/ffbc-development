@@ -11,6 +11,6 @@ export default {
   budget1: 'Budget Level 1',
   budget2: 'Budget Level 2',
   budget3: 'Budget Level 3',
-  readyToBuy: 'Ready To Buy',
-  rental: 'Rental'
+  // readyToBuy: 'Ready To Buy',
+  // rental: 'Rental'
 }

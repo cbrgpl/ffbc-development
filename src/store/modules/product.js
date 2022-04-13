@@ -55,9 +55,6 @@ export default {
       return productRequest.parsedBody
     },
     async outGetProducts ( context, filters ) {
-      // TODO Допилить после появления ручки
-      delete filters.productType
-
       const getProductsRequest = await productService.getProducts( filters )
       if ( getProductsRequest.httpResponse.status !== 200 ) {
         throw new NetworkAttemptError( getProductsRequest.httpResponse )
