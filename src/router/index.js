@@ -16,7 +16,6 @@ import {
   userMeasuresGuard,
   subAppEnterGuard,
 
-  getRedirectOnLargeScreen,
   GuardMetaAccesser
 } from './helpers/index'
 
@@ -163,7 +162,6 @@ const routes = [
                 path: 'main',
                 component: () => import( '@/views/Shop/ProfileMain/ProfileMain.vue' ),
                 name: 'ShopProfileMain',
-                beforeEnter: getRedirectOnLargeScreen( 1024, 'ShopProfileCart' ),
                 meta: {
                   hidden: [ 'TheBackBar' ]
                 }
