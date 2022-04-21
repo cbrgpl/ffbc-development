@@ -14,14 +14,14 @@
 
 <script>
 
-import { subAppLayoutMix } from '@mixins'
+import { rootLayoutMixin } from '@mixins'
 
 import BackLayout from '@layouts/BackLayout/BackLayout.vue'
 import UserNavigation from './partial/UserNavigation.vue'
 
 export default {
   name: 'user-root-layout',
-  mixins: [ subAppLayoutMix ],
+  mixins: [ rootLayoutMixin ],
   components: {
     BackLayout,
     UserNavigation
