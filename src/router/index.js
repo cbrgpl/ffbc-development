@@ -32,6 +32,7 @@ const routes = [
         guards: [
           getUserGuard,
         ],
+        // TODO Убрать endGuard
         endGuard: fromRootGuard,
       }, true ),
     },
@@ -131,12 +132,11 @@ const routes = [
       },
       {
         path: '/shop',
-        component: EmptyLayout,
+        component: () => import( '@layouts/ShopRootLayout/ShopRootLayout' ),
         name: 'Shop',
         redirect: { name: 'ShopMain' },
         beforeEnter: aggregateGuard,
         meta: {
-          layout: 'shop-root',
           aggregate: GuardMetaAccesser.defineParam( {
             guards: [
               subAppEnterGuard,
@@ -205,12 +205,11 @@ const routes = [
       },
       {
         path: '/user',
-        component: EmptyLayout,
+        component: () => import( '@layouts/UserRootLayout/UserRootLayout' ),
         redirect: { name: 'UserMe' },
         beforeEnter: aggregateGuard,
         meta: {
           auth: true,
-          layout: 'user-root',
           aggregate: GuardMetaAccesser.defineParam( {
             guards: [
               subAppEnterGuard,

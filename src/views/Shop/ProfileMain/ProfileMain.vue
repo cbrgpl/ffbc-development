@@ -1,5 +1,5 @@
 <template >
-  <div >
+  <div class="flex-col" >
     <UserData
       @click="pushToUserRoute"
       class="shop-main_padding"

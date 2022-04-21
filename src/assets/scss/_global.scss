@@ -91,3 +91,15 @@ h6 {
 .user_padding {
   @apply p-3 md:py-4;
 }
+
+.layout-content {
+  @apply flex-grow flex overflow-y-auto;
+}
+
+.layout-content-wrapper {
+  @apply flex flex-grow overflow-y-hidden;
+}
+
+.h-fit {
+  height: fit-content;
+}

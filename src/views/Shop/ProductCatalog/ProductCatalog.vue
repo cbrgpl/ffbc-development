@@ -1,5 +1,5 @@
 <template >
-  <div class="relative flex-grow overflow-hidden" >
+  <div class="relative" >
     <zLoader
       v-if="loading"
       class="bg-opacity-60 z-10 w-full h-full"
@@ -7,9 +7,53 @@
       background
       title />
 
-    <div class="h-full overflow-auto" >
+    <div class="h-full w-full overflow-auto" >
       <div class="flex flex-col min-h-full container shop-main_padding mx-auto" >
         <div class="grid grid-cols-2 gap-x-2 gap-y-8 md:grid-cols-3 2xl:grid-cols-4 items-stretch mb-auto" >
+          <zShopProductCard
+            v-for="product of products"
+            :key="product.title"
+            :product="product" />
+          <zShopProductCard
+            v-for="product of products"
+            :key="product.title"
+            :product="product" />
+          <zShopProductCard
+            v-for="product of products"
+            :key="product.title"
+            :product="product" />
+          <zShopProductCard
+            v-for="product of products"
+            :key="product.title"
+            :product="product" />
+          <zShopProductCard
+            v-for="product of products"
+            :key="product.title"
+            :product="product" />
+          <zShopProductCard
+            v-for="product of products"
+            :key="product.title"
+            :product="product" />
+          <zShopProductCard
+            v-for="product of products"
+            :key="product.title"
+            :product="product" />
+          <zShopProductCard
+            v-for="product of products"
+            :key="product.title"
+            :product="product" />
+          <zShopProductCard
+            v-for="product of products"
+            :key="product.title"
+            :product="product" />
+          <zShopProductCard
+            v-for="product of products"
+            :key="product.title"
+            :product="product" />
+          <zShopProductCard
+            v-for="product of products"
+            :key="product.title"
+            :product="product" />
           <zShopProductCard
             v-for="product of products"
             :key="product.title"

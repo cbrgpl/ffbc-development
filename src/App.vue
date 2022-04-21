@@ -1,11 +1,15 @@
 <template >
   <div class="h-screen  bg-black text-white" >
-    <component
-      class="h-full overflow-y-auto"
-      :is="layout"
-      :hidden-elems="hiddenElements" >
-      <router-view />
-    </component>
+
+    <router-view v-slot="{Component}" >
+      <component
+        class="layout-content flex-col"
+        :is="Component" >
+        <router-view
+          class="layout-content"
+          id="sub-app-root" ></router-view>
+      </component>
+    </router-view>
 
     <div
       v-if="appInitialized && !subAppLoaded"
@@ -23,12 +27,7 @@
 </template>
 
 <script>
-import MainLayout from '@layouts/MainLayout/MainLayout.vue'
-import EmptyLayout from '@layouts/EmptyLayout/EmptyLayout.vue'
 import DialogLayout from '@layouts/DialogLayout/DialogLayout.vue'
-
-import ShopRootLayout from '@layouts/ShopRootLayout/ShopRootLayout.vue'
-import UserRootLayout from './layouts/UserRootLayout/UserRootLayout.vue'
 
 import TheMediaViewOverlay from '@/components/composite/TheMediaViewOverlay/TheMediaViewOverlay.vue'
 
@@ -43,13 +42,6 @@ export default {
     this.$store.dispatch( 'app/initWindowEscListener' )
   },
   computed: {
-    layout () {
-      const currentLayoutName = this.$route.meta.layout || 'empty'
-      return currentLayoutName + '-layout'
-    },
-    hiddenElements () {
-      return this.$route.meta.hiddenElems ? this.$route.meta.hiddenElems : []
-    },
     appInitialized () {
       return this.$store.getters[ 'app/appInitialized' ]
     },
@@ -110,14 +102,7 @@ export default {
   },
 
   components: {
-    MainLayout,
-
-    EmptyLayout,
     DialogLayout,
-
-    ShopRootLayout,
-    UserRootLayout,
-
     TheMediaViewOverlay,
     TheToast,
   },

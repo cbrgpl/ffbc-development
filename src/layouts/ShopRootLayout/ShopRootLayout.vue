@@ -1,15 +1,19 @@
 <template >
   <div
-    class="flex flex-col items-stretch overflow-x-hidden" >
+    class="flex-col" >
     <TheHeader
       @toggle-sidebar-visibility="toggleSidebarVisibility"
       v-if="!hidden['TheHeader']" />
-    <div class="relative flex flex-grow items-stretch lg:flex-row overflow-hidden w-full"  >
+    <!-- flex flex-col flex-grow overflow-y-hidden -->
+    <div class="layout-content-wrapper relative items-stretch"  >
       <TheSidemenu
         :visible="sidebarVisiblity"
         @change-sidebar-visibility="setSidebarVibility"
         v-if="!hidden['TheSidemenu']" />
-      <router-view class="flex-grow flex flex-col overflow-y-auto" />
+
+      <router-view
+        id="shop-root-content "
+        class="layout-content" />
     </div>
   </div>
 </template>
