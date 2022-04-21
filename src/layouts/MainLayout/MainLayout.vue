@@ -33,11 +33,11 @@ import TheStaticSidebar from './partial/TheStaticSidebar/TheStaticSidebar.vue'
 import TheStaticSidebarMobile from './partial/TheStaticSidebarMobile/TheStaticSidebarMobile.vue'
 import TheHeader from './partial/TheHeader.vue'
 
-import { baseLayoutMix, escCloseMix } from '@mixins'
+import { hideLayoutPartialsMixin, escCloseMix } from '@mixins'
 
 export default {
   name: 'main-layout',
-  mixins: [ baseLayoutMix, escCloseMix ],
+  mixins: [ hideLayoutPartialsMixin, escCloseMix ],
   data () {
     return {
       isSidebarVisible: false,

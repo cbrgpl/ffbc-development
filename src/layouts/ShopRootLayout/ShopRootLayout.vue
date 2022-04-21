@@ -18,11 +18,11 @@
 import TheHeader from './partial/TheHeader.vue'
 import TheSidemenu from './partial/TheSidemenu.vue'
 
-import { baseLayoutMix, subAppLayoutMix, escCloseMix } from '@mixins'
+import { hideLayoutPartialsMixin, rootLayoutMixin, escCloseMix } from '@mixins'
 
 export default {
   name: 'shop-root-layout',
-  mixins: [ baseLayoutMix, subAppLayoutMix, escCloseMix ],
+  mixins: [ hideLayoutPartialsMixin, rootLayoutMixin, escCloseMix ],
   data () {
     return {
       sidebarVisiblity: false,

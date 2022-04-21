@@ -1,15 +1,15 @@
-import baseLayoutMix from './baseLayout.mixin'
+import hideLayoutPartialsMixin from './hideLayoutPartials.mixin'
 import extenderMix from './extender.mixin'
 import preventModelMix from './preventModel.mixin'
 import tailwindConfigMix from './tailwindConfig.mixin'
-import subAppLayoutMix from './subAppLayout.mixin'
+import rootLayoutMixin from './rootLayout.mixin'
 import escCloseMix from './escClose.mixin'
 
 export {
-  baseLayoutMix,
+  hideLayoutPartialsMixin,
   extenderMix,
   preventModelMix,
   tailwindConfigMix,
-  subAppLayoutMix,
+  rootLayoutMixin,
   escCloseMix,
 }

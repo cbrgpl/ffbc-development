@@ -18,11 +18,11 @@
 import TheHomeSidebar from './partial/TheHomeSidebar.vue'
 import TheMobileLenta from './partial/TheMobileTape.vue'
 
-import { baseLayoutMix } from '@mixins'
+import { hideLayoutPartialsMixin } from '@mixins'
 
 export default {
   name: 'home-layout',
-  mixins: [ baseLayoutMix ],
+  mixins: [ hideLayoutPartialsMixin ],
   data () {
     return {
       lastScrollTop: 0,
