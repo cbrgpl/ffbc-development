@@ -161,9 +161,6 @@ const routes = [
             name: 'ShopProfile',
             props: getHiddenPartials( 'ShopProfile' ),
             redirect: { name: 'ShopProfileMain' },
-            meta: {
-              ShopHiddenPartials: [ 'q', 'w' ]
-            },
             children: [
               {
                 path: 'main',

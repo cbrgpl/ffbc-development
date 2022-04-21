@@ -1,13 +1,14 @@
 <template >
   <div class="w-full h-full flex-col" >
     <TheBackBar
+      v-if="partialVisible('TheBackBar')"
       class="lg:hidden flex-shrink-0 px-2.5 md:px-5"
       @goBack="$router.go(-1)"
       :page-name="getPageName" />
 
     <div class="layout-content-wrapper" >
       <TheSideMenu
-        v-if="isAuth"
+        v-if="partialVisible('TheSideMenu') && isAuth"
         class="hidden lg:flex px-2" />
       <router-view
         v-slot="{Component, route}" >

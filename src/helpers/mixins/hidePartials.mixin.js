@@ -7,12 +7,9 @@ export default {
       }
     }
   },
-  computed: {
-    hidden () {
-      return this.hiddenElems.reduce( ( hidden, elem ) => {
-        hidden[ elem ] = true
-        return hidden
-      }, {} )
+  methods: {
+    partialVisible ( partialName ) {
+      return !this.hiddenPartials.includes( partialName )
     }
   }
 }

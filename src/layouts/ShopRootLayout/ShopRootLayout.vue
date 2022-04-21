@@ -2,10 +2,12 @@
   <div
     class="flex-col" >
     <TheHeader
+      v-if="partialVisible('TheHeader')"
       @toggle-sidebar-visibility="toggleSidebarVisibility" />
-    <!-- flex flex-col flex-grow overflow-y-hidden -->
+
     <div class="layout-content-wrapper relative items-stretch"  >
       <TheSidemenu
+        v-if="partialVisible('TheSidemenu')"
         :visible="sidebarVisiblity"
         @change-sidebar-visibility="setSidebarVibility" />
 
