@@ -3,6 +3,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import EmptyLayout from '@layouts/EmptyLayout/EmptyLayout.vue'
 
 import {
+  getHiddenPartials,
+
   strategyGuard,
   rolesGuard,
   authGuard,
@@ -134,6 +136,7 @@ const routes = [
         path: '/shop',
         component: () => import( '@layouts/ShopRootLayout/ShopRootLayout' ),
         name: 'Shop',
+        props: getHiddenPartials( 'Shop' ),
         redirect: { name: 'ShopMain' },
         beforeEnter: aggregateGuard,
         meta: {
@@ -156,14 +159,18 @@ const routes = [
             path: 'profile',
             component: () => import( '@layouts/ShopProfileLayout/ShopProfileLayout.vue' ),
             name: 'ShopProfile',
+            props: getHiddenPartials( 'ShopProfile' ),
             redirect: { name: 'ShopProfileMain' },
+            meta: {
+              ShopHiddenPartials: [ 'q', 'w' ]
+            },
             children: [
               {
                 path: 'main',
                 component: () => import( '@/views/Shop/ProfileMain/ProfileMain.vue' ),
                 name: 'ShopProfileMain',
                 meta: {
-                  hidden: [ 'TheBackBar' ]
+                  ShopProfileHiddenPartials: [ 'TheBackBar' ]
                 }
               },
               {

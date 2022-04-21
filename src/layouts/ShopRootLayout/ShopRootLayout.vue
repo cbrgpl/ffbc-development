@@ -2,14 +2,12 @@
   <div
     class="flex-col" >
     <TheHeader
-      @toggle-sidebar-visibility="toggleSidebarVisibility"
-      v-if="!hidden['TheHeader']" />
+      @toggle-sidebar-visibility="toggleSidebarVisibility" />
     <!-- flex flex-col flex-grow overflow-y-hidden -->
     <div class="layout-content-wrapper relative items-stretch"  >
       <TheSidemenu
         :visible="sidebarVisiblity"
-        @change-sidebar-visibility="setSidebarVibility"
-        v-if="!hidden['TheSidemenu']" />
+        @change-sidebar-visibility="setSidebarVibility" />
 
       <router-view
         id="shop-root-content "
@@ -22,11 +20,11 @@
 import TheHeader from './partial/TheHeader.vue'
 import TheSidemenu from './partial/TheSidemenu.vue'
 
-import { hideLayoutPartialsMixin, rootLayoutMixin, escCloseMix } from '@mixins'
+import { hidePartialsMixin, rootLayoutMixin, escCloseMix } from '@mixins'
 
 export default {
   name: 'shop-root-layout',
-  mixins: [ hideLayoutPartialsMixin, rootLayoutMixin, escCloseMix ],
+  mixins: [ hidePartialsMixin, rootLayoutMixin, escCloseMix ],
   data () {
     return {
       sidebarVisiblity: false,
