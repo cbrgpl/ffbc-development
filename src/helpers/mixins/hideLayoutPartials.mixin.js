@@ -2,7 +2,9 @@ export default {
   props: {
     hiddenElems: {
       type: Array,
-      required: true
+      default () {
+        return []
+      }
     }
   },
   computed: {

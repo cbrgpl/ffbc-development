@@ -1,7 +1,7 @@
 <template >
   <div
     v-if="dataLoaded"
-    class="shop-main_padding flex-col flex" >
+    class="shop-main_padding flex-col" >
     <header class="flex justify-between items-center flex-wrap" >
       <h4 class="font-mono mr-5 leading-tight" >
         № {{ '010-5ef-9105' || order.data.id }}
@@ -85,6 +85,7 @@ export default {
   },
   methods: {
     async fetchOrder () {
+      // TODO Починить запрос данных о заказе
       const order = await this.$store.dispatch( 'order/outFetchOrderById', this.orderId )
       this.order.data = order
     },

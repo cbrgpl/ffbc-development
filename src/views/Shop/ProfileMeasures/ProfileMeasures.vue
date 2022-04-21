@@ -1,7 +1,7 @@
 <template >
-  <section class="shop-main_padding" >
+  <section class="flex-col shop-main_padding" >
 
-    <div class="flex max-w-full overflow-x-auto py-2.5" >
+    <div class="flex  max-w-full overflow-x-auto py-2.5" >
       <zTabsNav
         class="profile-measures__tab-nav"
         :tabs="measures"

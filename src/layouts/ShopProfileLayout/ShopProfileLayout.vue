@@ -1,20 +1,21 @@
 <template >
-  <div class="w-full h-full flex flex-col flex-grow overflow-y-hidden" >
+  <div class="w-full h-full flex-col" >
     <TheBackBar
       class="lg:hidden flex-shrink-0 px-2.5 md:px-5"
       v-if="!hiddenLayoutElemets.includes('TheBackBar')"
       @goBack="$router.go(-1)"
       :page-name="getPageName" />
 
-    <div class="flex flex-col flex-grow overflow-y-hidden lg:flex-row" >
+    <div class="layout-content-wrapper" >
       <TheSideMenu
         v-if="isAuth"
         class="hidden lg:flex px-2" />
       <router-view
-        class="overflow-auto w-full h-full"
         v-slot="{Component, route}" >
         <keep-alive >
           <component
+            id="shop-profile-content"
+            class="layout-content"
             include="ProfileCart"
             :is='Component'
             :key="route.meta.usePathKey ? route.path : undefined" />

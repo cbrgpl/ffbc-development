@@ -1,5 +1,5 @@
 <template >
-  <div class="flex flex-col relative" >
+  <div class="flex-col relative" >
     <zLoader
       class="z-10"
       v-if="loading"
