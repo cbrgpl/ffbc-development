@@ -2,7 +2,6 @@
   <div class="w-full h-full flex-col" >
     <TheBackBar
       class="lg:hidden flex-shrink-0 px-2.5 md:px-5"
-      v-if="!hiddenLayoutElemets.includes('TheBackBar')"
       @goBack="$router.go(-1)"
       :page-name="getPageName" />
 
@@ -29,8 +28,11 @@
 import TheBackBar from './partial/TheBackBar.vue'
 import TheSideMenu from './partial/TheSideMenu.vue'
 
+import { hidePartialsMixin } from '@mixins'
+
 export default {
   name: 'shop-profile-layout',
+  mixins: [ hidePartialsMixin ],
   computed: {
     getLastRouteMatchName () {
       const lastElemIndex = this.$route.matched.length - 1
@@ -38,9 +40,6 @@ export default {
     },
     getPageName () {
       return this.getLastRouteMatchName.replace( 'ShopProfile', '' )
-    },
-    hiddenLayoutElemets () {
-      return this.$route.meta.hidden || []
     },
     isAuth ( ) {
       return this.$store.getters[ 'auth/isAuth' ]

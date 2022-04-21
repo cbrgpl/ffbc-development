@@ -1,6 +1,6 @@
 export default {
   props: {
-    hiddenElems: {
+    hiddenPartials: {
       type: Array,
       default () {
         return []

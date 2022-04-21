@@ -1,3 +1,5 @@
+import getHiddenPartials from './getHiddenPartials.props'
+
 import strategyGuard from './strategy.guard'
 import rolesGuard from './roles.guard'
 import authGuard from './auth.guard'
@@ -16,6 +18,8 @@ import getVerifyEmailGuardParams from './getVerifyEmailGuardParams'
 import GuardMetaAccesser from './guardMetaAccesser'
 
 export {
+  getHiddenPartials,
+
   strategyGuard,
   rolesGuard,
   authGuard,
