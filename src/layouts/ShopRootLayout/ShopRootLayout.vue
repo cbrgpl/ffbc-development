@@ -21,7 +21,7 @@ import TheSidemenu from './partial/TheSidemenu.vue'
 import { baseLayoutMix, subAppLayoutMix, escCloseMix } from '@mixins'
 
 export default {
-  name: 'shop-main-layout',
+  name: 'shop-root-layout',
   mixins: [ baseLayoutMix, subAppLayoutMix, escCloseMix ],
   data () {
     return {
