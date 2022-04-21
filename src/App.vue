@@ -26,7 +26,9 @@
 import MainLayout from '@layouts/MainLayout/MainLayout.vue'
 import EmptyLayout from '@layouts/EmptyLayout/EmptyLayout.vue'
 import DialogLayout from '@layouts/DialogLayout/DialogLayout.vue'
-import ShopMainLayout from '@layouts/ShopMainLayout/ShopMainLayout.vue'
+
+import ShopRootLayout from '@layouts/ShopRootLayout/ShopRootLayout.vue'
+import UserRootLayout from './layouts/UserRootLayout/UserRootLayout.vue'
 
 import TheMediaViewOverlay from '@/components/composite/TheMediaViewOverlay/TheMediaViewOverlay.vue'
 
@@ -109,9 +111,13 @@ export default {
 
   components: {
     MainLayout,
+
     EmptyLayout,
     DialogLayout,
-    ShopMainLayout,
+
+    ShopRootLayout,
+    UserRootLayout,
+
     TheMediaViewOverlay,
     TheToast,
   },
