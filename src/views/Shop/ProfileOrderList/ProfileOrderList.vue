@@ -10,7 +10,7 @@
 
     </div>
 
-    <div class="h-fit flex flex-col shop-main_padding" >
+    <div class="h-fit w-full flex flex-col shop-main_padding" >
       <zPseudoSelect
         class="md:w-72"
         @click="showCategoriesList"
