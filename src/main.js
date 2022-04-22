@@ -1,6 +1,5 @@
 import { createApp } from 'vue'
 
-import '@scss/_predefined.scss'
 import { registerCustomVueFunctional } from '@/helpers/app_configuration'
 
 import router from './router'
@@ -10,6 +9,8 @@ import App from './App.vue'
 
 // eslint-disable-next-line no-unused-expressions
 import( /* webpackPreload: true */ '@services' )
+// eslint-disable-next-line no-unused-expressions
+import( /* webpackPreload: true */'@scss/_predefined.scss' )
 
 const app = createApp( App )
 
