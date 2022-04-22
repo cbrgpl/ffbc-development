@@ -22,9 +22,11 @@
 
 <script>
 import CloseIcon from './partial/CloseIcon.vue'
+import { escCloseMix } from '@mixins'
 
 export default {
   name: 'TheMediaViewOverlay',
+  mixins: [ escCloseMix ],
   computed: {
     mediaInfo () {
       return this.mediaViewOverlay$.getActiveMediaInfo().value
@@ -36,6 +38,9 @@ export default {
   methods: {
     closeMediaOverlay () {
       this.mediaViewOverlay$.resetActiveMediaInfo()
+    },
+    closeFn () {
+      this.closeMediaOverlay()
     }
   },
   components: {
