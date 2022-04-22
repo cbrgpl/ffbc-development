@@ -7,6 +7,7 @@ import { STORAGE_NAMES } from '@/enums/consts'
 import getCartProducts from '../helpers/getCartProducts'
 import getLocalCartDifference from '../helpers/getLocalCartDifference'
 import getBindedCartItem from '../helpers/getBindedCartItem'
+import cartContainsItem from '../helpers/cartContainsItem'
 
 import { productService } from '@services'
 
@@ -115,10 +116,15 @@ export default {
 
       commit( 'addCartItemProducts', cartItemProducts )
     },
-    async addCartItem ( { commit, dispatch }, cartItem ) {
-      const createdCartItem = await cartStrategy.addCartItem( cartItem )
+    async addCartItem ( { commit, dispatch, getters }, newCartItem ) {
+      const cartItems = getters.bindedCartItems.map( ( bindedCartItem ) => bindedCartItem.cartItem )
+      if ( cartContainsItem( cartItems, newCartItem ) ) {
+        return false
+      }
 
-      await dispatch( 'addCartItemProduct', cartItem )
+      const createdCartItem = await cartStrategy.addCartItem( newCartItem )
+
+      await dispatch( 'addCartItemProduct', newCartItem )
 
       const bindedCartItem = getBindedCartItem( createdCartItem )
 

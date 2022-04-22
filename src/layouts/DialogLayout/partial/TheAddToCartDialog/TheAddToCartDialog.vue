@@ -78,12 +78,14 @@ export default {
         featureFields
       }
 
-      const creatingSuccess = await this.$store.dispatch( 'cart/addCartItem', cartItem )
+      const addingSuccess = await this.$store.dispatch( 'cart/addCartItem', cartItem )
 
       this.buttonLoading = false
-      if ( creatingSuccess ) {
-        this.toast$.success( { summary: 'Product was successfuly added to cart' } )
+      if ( addingSuccess ) {
+        this.toast$.success( { summary: 'Added', detail: 'Item was successfully added to the cart.', life: 5000 } )
         this.dialog$.hide( 'addToCart' )
+      } else if ( addingSuccess === false ) {
+        this.toast$.info( { summary: 'Duplicate item', detail: 'You already have such item in the cart. Duplicate was not added to cart.', life: 5000 } )
       }
     },
     featureFieldsValid () {
