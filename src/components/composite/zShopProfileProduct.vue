@@ -7,7 +7,9 @@
         @update:modelValue="$emit('productSelectChanged', $event)" ></zCheckboxSingle>
       <zMedia
         class="ml-3 mr-2 w-28 md:w-60 flex-shrink-0 self-stretch"
-        :src="product.media[0].display" />
+        :load-display-src="loadDisplaySrc"
+        :src="product.media[0].display"
+        :preview="product.media[0].preview" />
       <div >
         <h4 class="leading-5 mb-3" >
           {{ product.title }}
@@ -51,6 +53,16 @@ export default {
       type: Boolean,
       default: false,
     },
+  },
+  data () {
+    return {
+      loadDisplaySrc: false
+    }
+  },
+  mounted () {
+    setTimeout( () => {
+      this.loadDisplaySrc = true
+    }, 0 )
   },
 }
 </script>
