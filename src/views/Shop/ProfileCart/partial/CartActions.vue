@@ -7,14 +7,14 @@
       label="Select All" />
 
     <transition name="delete-button" >
-      <zButton
+      <zLoaderButton
         v-if="!selectedProductsEmpty"
-        :disabled="actionsDisabled.value"
+        :loader="actionsDisabled.value"
         @click="$emit('deleteProducts')"
         variant="danger"
         class="px-6" >
         Delete
-      </zButton>
+      </zLoaderButton>
     </transition>
   </div>
 </template>
