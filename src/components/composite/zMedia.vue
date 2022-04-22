@@ -2,13 +2,14 @@
   <div
     v-bind="wrapperAttrs"
     class="relative" >
+
     <component
+      @click="showInMediaOverlay"
       v-bind="attrs"
       :src="activeSrc"
-      @click="showInMediaOverlay"
       :is="mediaComponent" />
 
-    <span class="absolute z-10 top-0 left-0 w-full h-full" >
+    <span class="absolute z-10 top-0 left-0 w-full h-full pointer-events-none" >
       <slot name="actions" />
     </span>
   </div>
@@ -90,7 +91,7 @@ export default {
       displayImage.src = src
     },
     loadVideo ( src ) {
-      // hmmmm
+      // TODO Complete video src loading
     },
     showInMediaOverlay () {
       if ( this.disableMediaOverlay ) {
