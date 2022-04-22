@@ -1,4 +1,5 @@
 import ServiceAdapter from './serviceAdapter'
+import { TEMPLATE_IMG } from 'consts'
 
 export default class ProductServiceAdapter extends ServiceAdapter {
   getProducts ( requestResult ) {
@@ -39,14 +40,7 @@ export default class ProductServiceAdapter extends ServiceAdapter {
   restructBaseProductData ( product ) {
     const restructedBaseProduct = {}
 
-    restructedBaseProduct.media = product.productMedia.map( ( media ) => {
-      const transformedMedia = {}
-
-      transformedMedia.display = media.imageDisplay
-      transformedMedia.preview = media.imagePreview
-
-      return transformedMedia
-    } )
+    restructedBaseProduct.media = this.getProductMedia( product.productMedia )
 
     restructedBaseProduct.type = product.productType.id
     restructedBaseProduct.price = product.basePrice
@@ -55,6 +49,26 @@ export default class ProductServiceAdapter extends ServiceAdapter {
     restructedBaseProduct.id = product.id
 
     return restructedBaseProduct
+  }
+
+  getProductMedia ( externalProductMedia ) {
+    if ( externalProductMedia.length ) {
+      return externalProductMedia.map( ( media ) => {
+        const transformedMedia = {}
+
+        transformedMedia.display = media.imageDisplay
+        transformedMedia.preview = media.imagePreview
+
+        return transformedMedia
+      } )
+    } else {
+      return [
+        {
+          display: TEMPLATE_IMG,
+          preview: TEMPLATE_IMG,
+        }
+      ]
+    }
   }
 
   restructAdditionalProductData ( product ) {

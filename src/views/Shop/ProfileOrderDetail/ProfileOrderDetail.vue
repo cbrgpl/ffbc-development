@@ -13,7 +13,6 @@
 
     <Section title="Order products:" >
       <OrderProducts />
-
     </Section>
 
     <zDivider class="my-3" />
@@ -85,7 +84,6 @@ export default {
   },
   methods: {
     async fetchOrder () {
-      // TODO Починить запрос данных о заказе
       const order = await this.$store.dispatch( 'order/outFetchOrderById', this.orderId )
       this.order.data = order
     },

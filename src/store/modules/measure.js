@@ -47,7 +47,6 @@ export default {
         measureFields: []
       } )
       const getMeasureGroup = ( measureId ) => measureFieldGroupes.find( ( measureGroup ) => measureGroup.measureId === measureId )
-
       for ( const measureField of measureFieldArray ) {
         const currentMeasure = getMeasureForMeasureField( measureField, getMeasureFieldId )
         const measureGroup = getMeasureGroup( currentMeasure.id )

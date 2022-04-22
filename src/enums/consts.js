@@ -24,11 +24,14 @@ const STORAGE_NAMES = {
   LOCAL_CART: 'var_localCart'
 }
 
+const TEMPLATE_IMG = require( '@images/shop/blur-template.png' )
+
 export {
   NOT_ERROR,
   API_URL,
   CLIENT_URL,
   STORAGE_NAMES,
   STATUS_WORDS,
-  REDIRECT_URLS
+  REDIRECT_URLS,
+  TEMPLATE_IMG
 }
