@@ -85,7 +85,6 @@ export default {
         perPage: 20,
         page: 1
       }
-      filters.productType = 1
 
       const getProductsRequest = await productService.getProducts( filters )
       if ( getProductsRequest.httpResponse.status !== 200 ) {

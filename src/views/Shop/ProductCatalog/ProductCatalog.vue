@@ -14,50 +14,6 @@
             v-for="product of products"
             :key="product.title"
             :product="product" />
-          <zShopProductCard
-            v-for="product of products"
-            :key="product.title"
-            :product="product" />
-          <zShopProductCard
-            v-for="product of products"
-            :key="product.title"
-            :product="product" />
-          <zShopProductCard
-            v-for="product of products"
-            :key="product.title"
-            :product="product" />
-          <zShopProductCard
-            v-for="product of products"
-            :key="product.title"
-            :product="product" />
-          <zShopProductCard
-            v-for="product of products"
-            :key="product.title"
-            :product="product" />
-          <zShopProductCard
-            v-for="product of products"
-            :key="product.title"
-            :product="product" />
-          <zShopProductCard
-            v-for="product of products"
-            :key="product.title"
-            :product="product" />
-          <zShopProductCard
-            v-for="product of products"
-            :key="product.title"
-            :product="product" />
-          <zShopProductCard
-            v-for="product of products"
-            :key="product.title"
-            :product="product" />
-          <zShopProductCard
-            v-for="product of products"
-            :key="product.title"
-            :product="product" />
-          <zShopProductCard
-            v-for="product of products"
-            :key="product.title"
-            :product="product" />
         </div>
 
         <zPagination
