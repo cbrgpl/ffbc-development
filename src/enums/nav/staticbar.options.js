@@ -25,7 +25,7 @@ export default [
     iconName: 'gallery'
   },
   {
-    name: 'ShopMain',
+    name: 'ShopTmp',
     label: 'Visit our merch shop',
     iconName: 'cart'
   },

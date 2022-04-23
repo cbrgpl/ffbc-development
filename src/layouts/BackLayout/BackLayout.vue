@@ -23,7 +23,7 @@ export default {
   mixins: [ preventLayoutExtendMixin ],
   methods: {
     routerPushBack () {
-      this.$router.push( { name: 'ShopMain' } )
+      this.$router.push( { name: 'ShopTmp' } )
     }
   },
 }

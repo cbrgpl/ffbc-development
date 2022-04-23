@@ -44,7 +44,7 @@ const routes = [
         component: EmptyLayout,
         name: 'Competitions',
         beforeEnter ( to, from, next ) {
-          next( { name: 'ShopMain' } )
+          next( { name: 'ShopTmp' } )
         },
         children: [
           {
@@ -134,77 +134,108 @@ const routes = [
       },
       {
         path: '/shop',
-        component: () => import( '@layouts/ShopRootLayout/ShopRootLayout' ),
-        name: 'Shop',
-        props: getHiddenPartials( 'Shop' ),
-        redirect: { name: 'ShopMain' },
+        component: () => import( '@layouts/EmptyLayout/EmptyLayout.vue' ),
         beforeEnter: aggregateGuard,
         meta: {
           aggregate: GuardMetaAccesser.defineParam( {
             guards: [
               subAppEnterGuard,
               shopEnumsGuard,
-              cartGuard,
-              userMeasuresGuard,
             ],
-          } ),
+          } )
         },
         children: [
           {
-            path: 'main',
-            component: () => import( '@/views/Preview.vue' ),
-            name: 'ShopMain',
-          },
-          {
-            path: 'profile',
-            component: () => import( '@layouts/ShopProfileLayout/ShopProfileLayout.vue' ),
-            name: 'ShopProfile',
-            props: getHiddenPartials( 'ShopProfile' ),
-            redirect: { name: 'ShopProfileMain' },
+            path: '',
+            component: () => import( '@layouts/ShopRootLayout/ShopRootLayout' ),
+            props: getHiddenPartials( 'Shop' ),
+            beforeEnter: aggregateGuard,
+            meta: {
+              aggregate: GuardMetaAccesser.defineParam( {
+                guards: [
+                  cartGuard,
+                  userMeasuresGuard,
+                ],
+              } )
+            },
             children: [
               {
-                path: 'main',
-                component: () => import( '@/views/Shop/ProfileMain/ProfileMain.vue' ),
-                name: 'ShopProfileMain',
-                meta: {
-                  ShopProfileHiddenPartials: [ 'TheBackBar' ]
-                }
+                path: '',
+                component: () => import( '@/views/Preview.vue' ),
+                name: 'ShopTmp',
               },
               {
-                path: 'cart',
-                component: () => import( '@/views/Shop/ProfileCart/ProfileCart.vue' ),
-                name: 'ShopProfileCart',
+                path: 'profile',
+                component: () => import( '@layouts/ShopProfileLayout/ShopProfileLayout.vue' ),
+                name: 'ShopProfile',
+                props: getHiddenPartials( 'ShopProfile' ),
+                redirect: { name: 'ShopProfileMain' },
+                children: [
+                  {
+                    path: 'main',
+                    component: () => import( '@/views/Shop/ProfileMain/ProfileMain.vue' ),
+                    name: 'ShopProfileMain',
+                    meta: {
+                      ShopProfileHiddenPartials: [ 'TheBackBar' ]
+                    }
+                  },
+                  {
+                    path: 'cart',
+                    component: () => import( '@/views/Shop/ProfileCart/ProfileCart.vue' ),
+                    name: 'ShopProfileCart',
+                  },
+                  {
+                    path: 'order-list',
+                    component: () => import( '@/views/Shop/ProfileOrderList/ProfileOrderList.vue' ),
+                    name: 'ShopProfileOrderList',
+                  },
+                  {
+                    path: 'order-detail/:orderId',
+                    component: () => import( '@/views/Shop/ProfileOrderDetail/ProfileOrderDetail.vue' ),
+                    name: 'ShopProfileOrderDetail',
+                    props: true,
+                  },
+                  {
+                    path: 'measures',
+                    component: () => import( '@/views/Shop/ProfileMeasures/ProfileMeasures.vue' ),
+                    name: 'ShopProfileMeasures',
+                  }
+                ]
               },
               {
-                path: 'order-list',
-                component: () => import( '@/views/Shop/ProfileOrderList/ProfileOrderList.vue' ),
-                name: 'ShopProfileOrderList',
-              },
-              {
-                path: 'order-detail/:orderId',
-                component: () => import( '@/views/Shop/ProfileOrderDetail/ProfileOrderDetail.vue' ),
-                name: 'ShopProfileOrderDetail',
+                path: 'products/:sectionCode',
+                component: () => import( '@/views/Shop/ProductCatalog/ProductCatalog.vue' ),
+                name: 'ShopProductCatalog',
                 props: true,
               },
               {
-                path: 'measures',
-                component: () => import( '@/views/Shop/ProfileMeasures/ProfileMeasures.vue' ),
-                name: 'ShopProfileMeasures',
-              }
+                path: 'product/:productId',
+                component: () => import( '@/views/Shop/ProductPage/ProductPage.vue' ),
+                name: 'ShopProductPage',
+                props: true
+              },
             ]
           },
           {
-            path: 'products/:sectionCode',
-            component: () => import( '@/views/Shop/ProductCatalog/ProductCatalog.vue' ),
-            name: 'ShopProductCatalog',
-            props: true,
+            path: 'checkout',
+            component: () => import( '@layouts/CheckoutRootLayout/CheckoutRootLayout.vue' ),
+            props: getHiddenPartials( 'Checkout' ),
+            beforeEnter: aggregateGuard,
+            meta: {
+              aggregate: GuardMetaAccesser.defineParam( {
+                guards: [
+                  userEnumsGuard,
+                ],
+              } ),
+            },
+            children: [
+              {
+                path: '',
+                component: () => import( '@/views/Checkout/Checkout.vue' ),
+                name: 'ShopCheckout',
+              },
+            ]
           },
-          {
-            path: 'product/:productId',
-            component: () => import( '@/views/Shop/ProductPage/ProductPage.vue' ),
-            name: 'ShopProductPage',
-            props: true
-          }
         ]
       },
       {
@@ -217,7 +248,7 @@ const routes = [
           aggregate: GuardMetaAccesser.defineParam( {
             guards: [
               subAppEnterGuard,
-              userEnumsGuard
+              userEnumsGuard,
             ],
           } ),
         },

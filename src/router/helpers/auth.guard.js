@@ -30,7 +30,7 @@ export default async function ( to, from, next ) {
   if ( userAuth.value && routeRequireAnAuth( to.matched ) ) {
     next( { name: 'ShopProfileMain' } )
   } else if ( !userAuth.value && routeRequireAuth( to.matched ) ) {
-    next( { name: 'ShopMain' } )
+    next( { name: 'ShopTmp' } )
   } else {
     next()
   }
