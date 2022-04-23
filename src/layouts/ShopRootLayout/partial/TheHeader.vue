@@ -9,7 +9,7 @@
     </div>
     <router-link
       class="hidden xl:block"
-      :to="{name: 'ShopMain'}" >
+      :to="{name: 'ShopTmp'}" >
       <img
         width="60"
         height="auto"

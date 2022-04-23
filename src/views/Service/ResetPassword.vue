@@ -92,7 +92,7 @@ export default {
         throw new ErrorWithDescription( 'Got unexpected response status while reset password' )
       }
 
-      this.$router.push( { name: 'ShopMain' } )
+      this.$router.push( { name: 'ShopTmp' } )
     }
   },
   validations () {

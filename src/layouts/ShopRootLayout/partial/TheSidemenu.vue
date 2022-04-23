@@ -115,7 +115,7 @@ export default {
       clearAuthInfo()
 
       this.emitSidebarHiding()
-      this.$router.push( { name: 'ShopMain' } )
+      this.$router.push( { name: 'ShopTmp' } )
     },
     emitSidebarHiding () {
       this.$emit( 'change-sidebar-visibility', false )

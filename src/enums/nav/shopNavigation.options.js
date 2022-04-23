@@ -1,7 +1,7 @@
 export default [
   {
-    name: 'Shop Main',
-    routeName: 'ShopMain',
+    name: 'Preview',
+    routeName: 'ShopTmp',
   },
   {
     name: 'To Competitions',

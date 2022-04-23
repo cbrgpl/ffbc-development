@@ -11,6 +11,6 @@ export default ( to, from, next ) => {
     to.params.queryParams = queryParamMap
     next()
   } else {
-    next( { name: 'ShopMain' } )
+    next( { name: 'ShopTmp' } )
   }
 }

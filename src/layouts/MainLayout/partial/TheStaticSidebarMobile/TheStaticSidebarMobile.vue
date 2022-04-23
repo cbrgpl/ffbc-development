@@ -39,7 +39,7 @@
     <li >
       <router-link
         class="p-2 sm:p-2.5"
-        :to="{name: 'ShopMain'}" >
+        :to="{name: 'ShopTmp'}" >
         <zIconBase
           width="32"
           height="32"
