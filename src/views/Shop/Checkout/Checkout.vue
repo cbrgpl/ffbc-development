@@ -1,6 +1,6 @@
 <template >
   <section class="px-3">
-    <Navigation class="mt-2 mb-4" v-model="currentSectionIndex" :checkoutNavigation="checkoutNavigation"/>
+    <Navigation class="mt-2 mb-4 max-w-md md:max-w-lg mx-auto" v-model="currentSectionIndex" :checkoutNavigation="checkoutNavigation"/>
 
     <zButton @click="changeSection">change</zButton>
     {{ currentSectionIndex }}
