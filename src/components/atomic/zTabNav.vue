@@ -9,13 +9,15 @@
         :class="indicatorClasses" ></li>
       <li
         :ref="selectedRef"
-        v-for="tab of tabs"
-        :key="tab"
-        @click="$emit( 'update:modelValue', tab )"
-        :class="['z-tabs-menu__tab', {'z-tabs-menu__tab--selected': tab === modelValue}]"
+        v-for="keyword of tabKeywords"
+        :key="keyword"
+        @click="$emit( 'update:modelValue', keyword )"
+        :class="['z-tabs-menu__tab', {'z-tabs-menu__tab--selected': keyword === modelValue}]"
         role="tab" >
-        <slot :tab="tab" >
-          {{ tab }}
+        <slot
+          :tab="getTabByKeyword(keyword)"
+          :active="keyword === modelValue" >
+          {{ keyword }}
         </slot>
       </li>
     </ul>
@@ -26,12 +28,18 @@
 import DomHandler from '@classes/DomHandler.class.js'
 
 export default {
-  name: 'zTabsMenu',
+  name: 'zTabNav',
   props: {
     modelValue: {},
     tabs: {
       type: Array,
       required: true
+    },
+    keywordGetter: {
+      type: Function,
+      default () {
+        return ( tab ) => tab
+      }
     },
     indicatorMovement: {
       type: Boolean,
@@ -57,14 +65,18 @@ export default {
         'z-tabs-menu__indicator',
         { 'transition-all duration-300': this.indicatorMovement }
       ]
-    }
+    },
+    tabKeywords () {
+      return this.tabs.map( ( tab ) => this.keywordGetter( tab ) )
+    },
+
   },
   methods: {
     startTabWatch () {
       this.$watch(
         () => this.modelValue,
         function ( newTab ) {
-          // из-за скролла немного криво позиционируется, ждем пока появится скорлл, потом выполняем обновление
+          // из-за скролла немного криво позиционируется, ждем пока появится скролл, потом выполняем обновление
           setTimeout( () => {
             this.updateIndicator( this.searchElem() )
           }, 0 )
@@ -104,6 +116,9 @@ export default {
     },
     indicatorRef ( el ) {
       this.indicator = el
+    },
+    getTabByKeyword ( keyword ) {
+      return this.tabs.find( ( tab ) => this.keywordGetter( tab ) === keyword )
     }
   },
 }
