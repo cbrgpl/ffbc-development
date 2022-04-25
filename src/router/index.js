@@ -141,6 +141,7 @@ const routes = [
             guards: [
               subAppEnterGuard,
               shopEnumsGuard,
+              cartGuard,
             ],
           } )
         },
@@ -153,7 +154,6 @@ const routes = [
             meta: {
               aggregate: GuardMetaAccesser.defineParam( {
                 guards: [
-                  cartGuard,
                   userMeasuresGuard,
                 ],
               } )

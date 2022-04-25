@@ -1,7 +1,7 @@
 <template >
   <div class="w-full" >
     <zButton
-      class="w-full px-4.5 py-3.5"
+      class="w-full max-w-xs float-right px-4.5 py-3.5"
       type="submit"
       @click="showNext" >
       Next

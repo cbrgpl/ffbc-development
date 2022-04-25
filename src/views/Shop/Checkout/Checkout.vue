@@ -8,6 +8,7 @@
     <component
       class="container mx-auto"
       @section-complete="sendSectionData"
+      :binded-cart-items="bindedCartItems"
       :is="sectionName" >
 
       <template #actions >
@@ -27,6 +28,7 @@ import checkoutNavigation from '@enums/info/navigation.checkout.js'
 import Navigation from './partial/Navigation.vue'
 
 import BasicInformation from './partial/BasicInformation.vue'
+import Measures from './partial/Measures.vue'
 
 export default {
   name: 'Checkout',
@@ -47,6 +49,9 @@ export default {
     },
     sectionName () {
       return this.sectionKeyword.slice( 0, 1 ).toUpperCase() + this.sectionKeyword.slice( 1 )
+    },
+    bindedCartItems () {
+      return this.$store.getters[ 'cart/bindedCartItems' ]
     }
   },
   methods: {
@@ -62,7 +67,9 @@ export default {
   },
   components: {
     Navigation,
-    BasicInformation
+
+    BasicInformation,
+    Measures
   }
 }
 </script>

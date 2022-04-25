@@ -13,6 +13,7 @@ export default {
   },
   getters: {
     allProductFeatures: ( state ) => state.productFeatures,
+    allProductTypes: ( state ) => state.productTypes,
     productType: ( state ) => ( product ) => state.productTypes.find( ( type ) => type.id === product.type ),
     productFeatures: ( state ) => ( productType ) => state.productFeatures.filter( ( feature ) => productType.productFeatures.includes( feature.id ) ),
     getFeaturesForProduct: ( state, getters ) => ( product ) => {

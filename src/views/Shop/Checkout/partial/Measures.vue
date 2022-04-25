@@ -1,0 +1,123 @@
+<template >
+  <div >
+    <div >
+      <zMeasureForm
+        class="mb-8  border-b border-solid border-placeholder last:border-none"
+        v-for="measure of orderMeasures"
+        :key="measure.id"
+        :title="measure.name"
+        :form-fields="measure.measureFields"
+        @measureSubmit="setMeasureData(measure.name, setMeasureData)" >
+
+        <template #formActions >
+          <zButton
+            class="px-2.5 py-2 my-3"
+            :variant="getButtonType(measure.name)"
+            type="submit" >
+            Submit
+          </zButton>
+        </template>
+
+      </zMeasureForm>
+    </div>
+
+    <SectionActions @show-next="emitSectionComplete" />
+  </div>
+</template>
+
+<script>
+import SectionActions from './SectionActions.vue'
+
+import zMeasureForm from '@components/composite/zMeasureForm.vue'
+
+export default {
+  name: 'Measures',
+  emits: [ 'section-complete' ],
+  props: {
+    bindedCartItems: {
+      type: Object,
+      required: true,
+    }
+  },
+  data () {
+    return {
+      filledMeasures: {
+
+      }
+    }
+  },
+  computed: {
+    orderProductTypeIds () {
+      const orderProductTypeIds = []
+
+      for ( const bindedCartItem of this.bindedCartItems ) {
+        if ( !orderProductTypeIds.includes( bindedCartItem.product.type ) ) {
+          orderProductTypeIds.push( bindedCartItem.product.type )
+        }
+      }
+
+      return orderProductTypeIds
+    },
+    orderProductTypes () {
+      const productTypes = this.$store.getters[ 'product/allProductTypes' ]
+      const orderProductTypes = []
+
+      for ( const productTypeId of this.orderProductTypeIds ) {
+        orderProductTypes.push( productTypes.find( ( productType ) => productType.id === productTypeId ) )
+      }
+
+      return orderProductTypes
+    },
+    orderMeasureIds () {
+      const orderMeasureIds = []
+
+      for ( const productType of this.orderProductTypes ) {
+        const productTypeMeasures = productType.measureCategories
+
+        for ( const measureId of productTypeMeasures ) {
+          if ( !orderMeasureIds.includes( measureId ) ) {
+            orderMeasureIds.push( measureId )
+          }
+        }
+      }
+
+      return orderMeasureIds
+    },
+    orderMeasures () {
+      return this.$store.getters[ 'measure/measures' ].filter( ( measure ) => this.orderMeasureIds.includes( measure.id ) )
+    },
+    orderMeasureNames () {
+      return this.orderMeasures.map( ( measure ) => measure.name )
+    }
+  },
+  methods: {
+    getButtonType ( measureName ) { return !this.filledMeasures[ measureName ] ? 'brick' : 'safety' },
+    emitSectionComplete () {
+      if ( !this.checkAllMeasuresFilled() ) {
+        this.toast$.warn( { summary: 'Action prevented', detail: 'Fill all forms before go to the next section', life: 5000 } )
+        return
+      }
+
+      this.$emit( 'section-complete', {
+        name: this.$options.name,
+        payload: this.filledMeasures
+      } )
+    },
+    checkAllMeasuresFilled () {
+      return this.orderMeasureNames.every( ( measureName ) => !!this.filledMeasures[ measureName ] )
+    },
+    setMeasureData ( measureName, data ) {
+      this.filledMeasures[ measureName ] = data
+    },
+  },
+  components: {
+    SectionActions,
+    zMeasureForm
+  }
+
+}
+</script>
+
+<style lang="scss">
+
+</style>
