@@ -1,7 +1,9 @@
 <template >
-  <div >
-    {{ actionsDisabled.value }}
-    <zButton @click="showNext" >
+  <div class="w-full" >
+    <zButton
+      class="w-full px-4.5 py-3.5"
+      type="submit"
+      @click="showNext" >
       Next
     </zButton>
   </div>
