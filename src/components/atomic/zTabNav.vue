@@ -37,8 +37,8 @@ export default {
     },
     keywordGetter: {
       type: Function,
-      default () {
-        return ( tab ) => tab
+      default ( tab ) {
+        return tab
       }
     },
     indicatorMovement: {
