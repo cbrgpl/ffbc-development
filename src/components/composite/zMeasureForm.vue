@@ -30,6 +30,7 @@ import useVuelidate from '@vuelidate/core'
 import { required, numeric } from '@vuelidate/validators'
 
 import { reactive, computed, ref } from 'vue'
+import zMeasureFieldInput from '@components/composite/zMeasureFieldInput.vue'
 
 const generateMeasureObject = ( measureFields, measureFieldCallback ) => {
   const result = {}
@@ -71,7 +72,7 @@ export default {
     },
     measureFieldComponent: {
       type: Object,
-      required: true,
+      default: zMeasureFieldInput
     },
     title: {
       type: String,
