@@ -1,29 +1,32 @@
 <template >
   <div >
-    <h3 >BasicInformation</h3>
-    <div >
+    <UserForm  @form-submitted="emitSectionComplete" >
+      <template #actions >
+        <SectionActions />
+      </template>
+    </UserForm>
 
-    </div>
-
-    <SectionActions @show-next="emitSectionComplete" />
   </div>
 </template>
 
 <script>
+import UserForm from '@components/composite/UserForm/UserForm.vue'
 import SectionActions from './SectionActions.vue'
-
-import formValidations from './../validations/basicInformation'
 
 export default {
   name: 'BasicInformation',
   emits: [ 'section-complete' ],
   methods: {
-    emitSectionComplete () {
-      this.$emit( 'section-complete' )
+    emitSectionComplete ( userData ) {
+      this.$emit( 'section-complete', {
+        name: this.$options.name,
+        payload: userData
+      } )
     }
   },
   components: {
-    SectionActions
+    SectionActions,
+    UserForm
   }
 
 }

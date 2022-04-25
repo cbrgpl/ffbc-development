@@ -1,11 +1,12 @@
 <template >
-  <section class="px-3" >
+  <section class="px-3 py-4" >
     <Navigation
-      class="mt-2 mb-4 max-w-md md:max-w-lg mx-auto"
+      class="mb-4 max-w-md md:max-w-lg mx-auto"
       v-model="currentSectionIndex"
       :checkout-navigation="checkoutNavigation" />
 
     <component
+      class="container mx-auto"
       @section-complete="sendSectionData"
       :is="sectionName" >
 
@@ -49,7 +50,8 @@ export default {
     }
   },
   methods: {
-    sendSectionData () {
+    sendSectionData ( data ) {
+      console.log( data )
       this.changeSection()
     },
     changeSection () {
