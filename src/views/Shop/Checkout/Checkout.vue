@@ -30,17 +30,20 @@ import Navigation from './partial/Navigation.vue'
 import BasicInformation from './partial/BasicInformation.vue'
 import Measures from './partial/Measures.vue'
 
-import CheckoutStrategy from '@classes/checkoutStrategy'
-import CheckoutStrategySpecialCase from '@classes/checkoutStrategy'
+import CheckoutStrategyEntry from '@classes/checkoutStrategyEntry'
+import CheckoutStrategyFinish from '@classes/checkoutStrategyFinish'
+
+import { orderService } from '@services'
+import { NetworkAttemptError } from '@/helpers/errors'
 
 const strategiesMap = new Map( [
   [ 'BasicInformation', {
-    constructorArgs: [ '12354' ],
-    Strategy: CheckoutStrategy
+    constructorArgs: [ 'orderCreate' ],
+    Strategy: CheckoutStrategyEntry
   } ],
   [ 'Measures', {
-    constructorArgs: [ '56678' ],
-    Strategy: CheckoutStrategySpecialCase
+    constructorArgs: [ 'orderMeasuresCreate' ],
+    Strategy: CheckoutStrategyFinish
   } ],
 ] )
 
@@ -58,6 +61,7 @@ export default {
       currentSectionIndex: 0,
       strategiesMap,
       activeStrategy: null,
+      orderId: null,
       actionsLoader: false
     }
   },
@@ -65,6 +69,13 @@ export default {
     return {
       actionsDisabled: computed( () => this.currentSectionIndex === this.checkoutNavigation.tabs.length - 1 ),
       actionsLoader: computed( () => this.actionsLoader )
+    }
+  },
+  watch: {
+    orderId ( newOrderId ) {
+      if ( newOrderId ) {
+        this.createOrderItems()
+      }
     }
   },
   computed: {
@@ -77,16 +88,50 @@ export default {
     bindedCartItems () {
       return this.$store.getters[ 'cart/bindedCartItems' ].filter( ( bindedCartItem ) => this.bindedCartItemIds.includes( bindedCartItem.cartItem.id ) )
     },
+    orderItems () {
+      const getOrderItemTemplate = () => ( {
+        order: null,
+        product: null,
+        featureFields: null,
+      } )
+
+      return this.bindedCartItems.map( ( bindedCartItem ) => {
+        const orderItem = getOrderItemTemplate()
+
+        orderItem.order = this.orderId
+        orderItem.product = bindedCartItem.cartItem.product
+        orderItem.featureFields = bindedCartItem.cartItem.featureFields
+
+        return orderItem
+      } )
+    },
+    ids () {
+      const userId = this.$store.getters[ 'user/id' ] || null
+      const orderId = this.orderId
+
+      return {
+        userId,
+        orderId
+      }
+    }
   },
   methods: {
     async sendSectionData ( data ) {
       this.actionsLoader = true
       this.setStrategy( data.sectionName )
 
-      await this.activeStrategy.sendData( data.payload )
+      const unbindedPayload = JSON.parse( JSON.stringify( data.payload ) )
+
+      const orderId = await this.activeStrategy.sendData( unbindedPayload, this.ids )
+      this.setOrderId( orderId )
 
       this.changeSection()
       this.actionsLoader = false
+    },
+    setOrderId ( orderId ) {
+      if ( this.orderId === null ) {
+        this.orderId = orderId
+      }
     },
     changeSection () {
       if ( this.currentSectionIndex < this.checkoutNavigation.tabs.length - 1 ) {
@@ -97,6 +142,13 @@ export default {
       const { constructorArgs, Strategy } = this.strategiesMap.get( sectionName )
 
       this.activeStrategy = new Strategy( constructorArgs )
+    },
+    async createOrderItems () {
+      const createOrderItems = await orderService.orderItemsCreate( this.orderItems )
+
+      if ( createOrderItems.httpResponse.status !== 201 ) {
+        throw new NetworkAttemptError( createOrderItems.httpResponse )
+      }
     }
   },
   components: {

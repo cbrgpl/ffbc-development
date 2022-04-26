@@ -112,18 +112,18 @@
           v-model.trim="userForm.state"
           label="State" />
 
-          <!-- <div class="form-field" >
-            <zInput
-              v-model="userForm.zipcode"
-              label="Zipcode"
-              :error-state="v$.userForm.zipcode.$error"
-              on-error="required"
-              class="mb-0.5" />
+        <div class="form-field" >
+          <zInput
+            v-model="userForm.zipCode"
+            label="Zip code"
+            :error-state="v$.userForm.zipCode.$error"
+            on-error="required"
+            class="mb-0.5" />
 
-            <small class="text-placeholder font-semibold" >
-              Field is required
-            </small>
-          </div> -->
+          <small class="text-placeholder font-semibold" >
+            Field is required
+          </small>
+        </div>
       </div>
     </section>
 
@@ -204,8 +204,6 @@ import { STATUS_WORDS } from 'consts'
 
 import bustTypes from '@/enums/backend/bustTypes.js'
 
-// TODO Вернуть zipcode, когда он появится в АПИ
-
 export default {
   name: 'UserMe',
   emits: [ 'form-submitted' ],
@@ -224,7 +222,7 @@ export default {
         city: '',
         country: '',
         state: '',
-        zipcode: '',
+        zipCode: '',
         phoneNumber: '',
         instagramUrl: '',
         birthDate: '',
@@ -262,7 +260,16 @@ export default {
 
       sendData.email = this.$store.getters[ 'user/email' ]
 
+      this.removeEmptyProperties( sendData )
+
       return sendData
+    },
+    removeEmptyProperties ( data ) {
+      for ( const prop in data ) {
+        if ( data[ prop ] === '' ) {
+          delete data[ prop ]
+        }
+      }
     },
     changeBustType ( event ) {
       const typeEntry = Object.entries( this.bustTypes ).find( ( type ) => type[ 1 ].value === event.target.value )
