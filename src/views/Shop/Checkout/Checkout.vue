@@ -46,6 +46,12 @@ const strategiesMap = new Map( [
 
 export default {
   name: 'Checkout',
+  props: {
+    bindedCartItemIds: {
+      type: Array,
+      required: true,
+    }
+  },
   data () {
     return {
       checkoutNavigation,
@@ -69,9 +75,8 @@ export default {
       return this.sectionKeyword.slice( 0, 1 ).toUpperCase() + this.sectionKeyword.slice( 1 )
     },
     bindedCartItems () {
-      return this.$store.getters[ 'cart/bindedCartItems' ]
+      return this.$store.getters[ 'cart/bindedCartItems' ].filter( ( bindedCartItem ) => this.bindedCartItemIds.includes( bindedCartItem.cartItem.id ) )
     },
-
   },
   methods: {
     async sendSectionData ( data ) {

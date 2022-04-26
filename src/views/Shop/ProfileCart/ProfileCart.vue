@@ -26,7 +26,7 @@
 
     <CartFooter
       class="flex-shrink-0 px-2.5 md:px-5 xl:px-7"
-      @buy="showBuyProductsDialog"
+      @buy="goToOrderCheckout"
       :cart-calculation="cartCalculation" />
   </div>
 </template>
@@ -111,8 +111,15 @@ export default {
 
       this.actionsDisabled = false
     },
-    showBuyProductsDialog () {
-      this.toast$.info( { summary: 'No access', detail: 'That functionality is not completed yet...', life: 7500 } )
+    goToOrderCheckout () {
+      const bindedCartItemIds = this.selectedCartItems.map( ( bindedCartItem ) => bindedCartItem.cartItem.id )
+
+      this.$router.push( {
+        name: 'ShopCheckout',
+        params: {
+          bindedCartItemIds: JSON.stringify( bindedCartItemIds )
+        }
+      } )
     }
   },
   components: {

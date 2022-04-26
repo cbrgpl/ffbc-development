@@ -233,6 +233,16 @@ const routes = [
                 path: '',
                 component: () => import( '@/views/Shop/Checkout/Checkout.vue' ),
                 name: 'ShopCheckout',
+                props: ( route ) => ( {
+                  bindedCartItemIds: JSON.parse( route.params.bindedCartItemIds ),
+                } ),
+                beforeEnter ( to, from, next ) {
+                  if ( !to.params.bindedCartItemIds ) {
+                    next( { name: 'ShopTmp' } )
+                  } else {
+                    next()
+                  }
+                }
               },
             ]
           },
