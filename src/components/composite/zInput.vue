@@ -14,7 +14,7 @@
         v-bind="attrs" >
 
       <h5
-        :ref="setLabelBackground"
+        ref="inputLabel"
         class="z-input__label" >
         <zIconBrand
           v-if="icon"
@@ -90,23 +90,26 @@ export default {
       }
     }
   },
+  mounted () {
+    this.setLabelBackground()
+  },
   methods: {
-    setLabelBackground ( $label ) {
-      if ( !$label ) {
+    setLabelBackground ( ) {
+      const $label = this.$refs.inputLabel
+
+      const defaultBackgroundColor = 'rgba(0, 0, 0, 0)'
+
+      const backgroundedParentsList = DomHandler.getParents( $label, ( $node ) => {
+        return $node ? window.getComputedStyle( $node ).backgroundColor !== defaultBackgroundColor : false
+      } )
+
+      if ( backgroundedParentsList.length === 0 ) {
         return
       }
 
-      setTimeout( () => {
-        const defaultBackgroundColor = 'rgba(0, 0, 0, 0)'
+      const $closestBackgroundedParent = backgroundedParentsList.shift()
 
-        const backgroundedParentsList = DomHandler.getParents( $label, ( $node ) => {
-          return window.getComputedStyle( $node ).backgroundColor !== defaultBackgroundColor
-        } )
-
-        const $closestBackgroundedParent = backgroundedParentsList.shift()
-
-        $label.style.backgroundColor = window.getComputedStyle( $closestBackgroundedParent ).backgroundColor
-      }, 0 )
+      $label.style.backgroundColor = window.getComputedStyle( $closestBackgroundedParent ).backgroundColor
     },
     emitModelValue ( event ) {
       this.$emit( 'update:modelValue', event.target.value )

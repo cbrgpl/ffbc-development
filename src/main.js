@@ -19,5 +19,9 @@ registerCustomVueFunctional( app )
 app.use( store ).use( router )
 
 app.mount( '#app' )
+const config = app.config
 
-export { app }
+export {
+  app,
+  config,
+}

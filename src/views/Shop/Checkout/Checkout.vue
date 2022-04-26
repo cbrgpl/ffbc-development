@@ -30,17 +30,35 @@ import Navigation from './partial/Navigation.vue'
 import BasicInformation from './partial/BasicInformation.vue'
 import Measures from './partial/Measures.vue'
 
+import CheckoutStrategy from '@classes/checkoutStrategy'
+import CheckoutStrategySpecialCase from '@classes/checkoutStrategy'
+
+const strategiesMap = new Map( [
+  [ 'BasicInformation', {
+    constructorArgs: [ '12354' ],
+    Strategy: CheckoutStrategy
+  } ],
+  [ 'Measures', {
+    constructorArgs: [ '56678' ],
+    Strategy: CheckoutStrategySpecialCase
+  } ],
+] )
+
 export default {
   name: 'Checkout',
   data () {
     return {
       checkoutNavigation,
       currentSectionIndex: 0,
+      strategiesMap,
+      activeStrategy: null,
+      actionsLoader: false
     }
   },
   provide () {
     return {
-      actionsDisabled: computed( () => this.currentSectionIndex === this.checkoutNavigation.tabs.length - 1 )
+      actionsDisabled: computed( () => this.currentSectionIndex === this.checkoutNavigation.tabs.length - 1 ),
+      actionsLoader: computed( () => this.actionsLoader )
     }
   },
   computed: {
@@ -52,17 +70,28 @@ export default {
     },
     bindedCartItems () {
       return this.$store.getters[ 'cart/bindedCartItems' ]
-    }
+    },
+
   },
   methods: {
-    sendSectionData ( data ) {
-      console.log( data )
+    async sendSectionData ( data ) {
+      this.actionsLoader = true
+      this.setStrategy( data.sectionName )
+
+      await this.activeStrategy.sendData( data.payload )
+
       this.changeSection()
+      this.actionsLoader = false
     },
     changeSection () {
       if ( this.currentSectionIndex < this.checkoutNavigation.tabs.length - 1 ) {
         this.currentSectionIndex++
       }
+    },
+    setStrategy ( sectionName ) {
+      const { constructorArgs, Strategy } = this.strategiesMap.get( sectionName )
+
+      this.activeStrategy = new Strategy( constructorArgs )
     }
   },
   components: {

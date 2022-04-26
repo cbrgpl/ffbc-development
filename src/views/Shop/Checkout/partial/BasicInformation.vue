@@ -19,7 +19,7 @@ export default {
   methods: {
     emitSectionComplete ( userData ) {
       this.$emit( 'section-complete', {
-        name: this.$options.name,
+        sectionName: this.$options.name,
         payload: userData
       } )
     }

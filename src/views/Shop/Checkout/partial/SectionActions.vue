@@ -1,11 +1,12 @@
 <template >
   <div class="w-full" >
-    <zButton
+    <zLoaderButton
       class="w-full max-w-xs float-right px-4.5 py-3.5"
       type="submit"
+      :loader="actionsLoader.value"
       @click="showNext" >
       Next
-    </zButton>
+    </zLoaderButton>
   </div>
 </template>
 
@@ -15,7 +16,8 @@ export default {
   name: 'SectionActions',
   emits: [ 'show-next' ],
   inject: [
-    'actionsDisabled'
+    'actionsDisabled',
+    'actionsLoader'
   ],
   methods: {
     showNext () {

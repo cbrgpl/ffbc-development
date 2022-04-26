@@ -2,7 +2,7 @@
   <div >
     <div >
       <zMeasureForm
-        class="mb-8  border-b border-solid border-placeholder last:border-none"
+        class="mb-8 border-b border-solid border-placeholder last:border-none"
         v-for="measure of orderMeasures"
         :key="measure.id"
         :title="measure.name"
@@ -41,9 +41,7 @@ export default {
   },
   data () {
     return {
-      filledMeasures: {
-
-      }
+      filledMeasures: {}
     }
   },
   computed: {
@@ -99,7 +97,7 @@ export default {
       }
 
       this.$emit( 'section-complete', {
-        name: this.$options.name,
+        sectionName: this.$options.name,
         payload: this.filledMeasures
       } )
     },
