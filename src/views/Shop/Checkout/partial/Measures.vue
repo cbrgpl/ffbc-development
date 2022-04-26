@@ -7,7 +7,7 @@
         :key="measure.id"
         :title="measure.name"
         :form-fields="measure.measureFields"
-        @measureSubmit="setMeasureData(measure.name, setMeasureData)" >
+        @measureSubmit="setMeasureData(measure.name, $event)" >
 
         <template #formActions >
           <zButton
@@ -105,8 +105,24 @@ export default {
       return this.orderMeasureNames.every( ( measureName ) => !!this.filledMeasures[ measureName ] )
     },
     setMeasureData ( measureName, data ) {
-      this.filledMeasures[ measureName ] = data
+      const formattedMeasure = this.formatMeasure( data )
+
+      this.filledMeasures[ measureName ] = formattedMeasure
     },
+    formatMeasure ( measure ) {
+      const formattedMeasure = []
+
+      for ( const fieldId in measure ) {
+        const measureField = measure[ fieldId ]
+
+        formattedMeasure.push( {
+          value: measureField.value,
+          measureFields: measureField.id
+        } )
+      }
+
+      return formattedMeasure
+    }
   },
   components: {
     SectionActions,

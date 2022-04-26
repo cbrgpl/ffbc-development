@@ -19,9 +19,9 @@ export default function () {
       country: {
         required
       },
-      // zipcode: {
-      //   required,
-      // },
+      zipCode: {
+        required,
+      },
       phoneNumber: {
         phone
       },
