@@ -6,12 +6,7 @@ export default class CheckoutStrategy {
     this.serviceMethodName = serviceMethodName
   }
 
-  async sendData ( payload, ids = { userId: null, orderId: null } ) {
-    return await new Promise( ( resolve, reject ) => {
-      setTimeout( () => {
-        console.log( payload )
-        resolve()
-      }, 4500 )
-    } )
+  sendData ( payload ) {
+    return this.orderService[ this.serviceMethodName ]( payload )
   }
 }

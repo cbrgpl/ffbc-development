@@ -96,9 +96,12 @@ export default {
         return
       }
 
+      const measureFieldArray = this.getMeasureFieldArray( this.filledMeasures )
+      this.mixOrderId( measureFieldArray )
+
       this.$emit( 'section-complete', {
         sectionName: this.$options.name,
-        payload: this.filledMeasures
+        payload: measureFieldArray
       } )
     },
     checkAllMeasuresFilled () {
@@ -122,6 +125,24 @@ export default {
       }
 
       return formattedMeasure
+    },
+    getMeasureFieldArray ( measures ) {
+      const measureFieldArray = []
+
+      for ( const measureName in measures ) {
+        const measure = measures[ measureName ]
+
+        for ( const measureField of measure ) {
+          measureFieldArray.push( measureField )
+        }
+      }
+
+      return measureFieldArray
+    },
+    mixOrderId ( measureFieldArray ) {
+      for ( const measureField of measureFieldArray ) {
+        measureField.order = this.orderId
+      }
     }
   },
   components: {

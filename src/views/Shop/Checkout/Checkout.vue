@@ -30,22 +30,10 @@ import Navigation from './partial/Navigation.vue'
 import BasicInformation from './partial/BasicInformation.vue'
 import Measures from './partial/Measures.vue'
 
-import CheckoutStrategyEntry from '@classes/checkoutStrategyEntry'
-import CheckoutStrategyFinish from '@classes/checkoutStrategyFinish'
+import CheckoutStrategyWithHooks from '@classes/checkoutStrategyWithHooks'
 
 import { orderService } from '@services'
 import { NetworkAttemptError } from '@/helpers/errors'
-
-const strategiesMap = new Map( [
-  [ 'BasicInformation', {
-    constructorArgs: [ 'orderCreate' ],
-    Strategy: CheckoutStrategyEntry
-  } ],
-  [ 'Measures', {
-    constructorArgs: [ 'orderMeasuresCreate' ],
-    Strategy: CheckoutStrategyFinish
-  } ],
-] )
 
 export default {
   name: 'Checkout',
@@ -59,7 +47,7 @@ export default {
     return {
       checkoutNavigation,
       currentSectionIndex: 0,
-      strategiesMap,
+      strategiesMap: [],
       activeStrategy: null,
       orderId: null,
       actionsLoader: false
@@ -68,14 +56,8 @@ export default {
   provide () {
     return {
       actionsDisabled: computed( () => this.currentSectionIndex === this.checkoutNavigation.tabs.length - 1 ),
-      actionsLoader: computed( () => this.actionsLoader )
-    }
-  },
-  watch: {
-    orderId ( newOrderId ) {
-      if ( newOrderId ) {
-        this.createOrderItems()
-      }
+      actionsLoader: computed( () => this.actionsLoader ),
+      orderId: computed( () => this.orderId )
     }
   },
   computed: {
@@ -115,23 +97,37 @@ export default {
       }
     }
   },
+  created () {
+    this.initStrategies()
+  },
   methods: {
+    initStrategies () {
+      const strategiesSchema = [
+        [
+          'BasicInformation',
+          new CheckoutStrategyWithHooks( {
+            beforeRequest: this.mixUserIdAtInit,
+            afterRequest: this.handleOrderInit
+          }, 'orderCreate' )
+        ],
+        [
+          'Measures',
+          new CheckoutStrategyWithHooks( { afterRequest: this.finishOrderCheckout }, 'orderMeasuresCreate' )
+        ],
+      ]
+
+      this.strategiesMap = new Map( strategiesSchema )
+    },
     async sendSectionData ( data ) {
       this.actionsLoader = true
       this.setStrategy( data.sectionName )
 
       const unbindedPayload = JSON.parse( JSON.stringify( data.payload ) )
 
-      const orderId = await this.activeStrategy.sendData( unbindedPayload, this.ids )
-      this.setOrderId( orderId )
+      await this.activeStrategy.sendData( unbindedPayload )
 
       this.changeSection()
       this.actionsLoader = false
-    },
-    setOrderId ( orderId ) {
-      if ( this.orderId === null ) {
-        this.orderId = orderId
-      }
     },
     changeSection () {
       if ( this.currentSectionIndex < this.checkoutNavigation.tabs.length - 1 ) {
@@ -139,16 +135,38 @@ export default {
       }
     },
     setStrategy ( sectionName ) {
-      const { constructorArgs, Strategy } = this.strategiesMap.get( sectionName )
-
-      this.activeStrategy = new Strategy( constructorArgs )
+      this.activeStrategy = this.strategiesMap.get( sectionName )
     },
-    async createOrderItems () {
+    handleOrderInit ( orderCreateResponse ) {
+      this.setOrderId( orderCreateResponse.parsedBody.id )
+      this.createOrderItems()
+    },
+    setOrderId ( orderId ) {
+      if ( this.orderId === null ) {
+        this.orderId = orderId
+      }
+    },
+    async createOrderItems ( ) {
       const createOrderItems = await orderService.orderItemsCreate( this.orderItems )
 
       if ( createOrderItems.httpResponse.status !== 201 ) {
         throw new NetworkAttemptError( createOrderItems.httpResponse )
       }
+    },
+    mixUserIdAtInit ( payload ) {
+      payload.user = this.userId
+      return [ payload ]
+    },
+    finishOrderCheckout ( response ) {
+      const toastDetail = this.getToastDetails( this.ids.userId )
+      this.toast$.success( { summary: `Order #${ this.orderId } created`, detail: toastDetail, life: 15000 } )
+      this.$router.push( { name: 'ShopTmp' } )
+    },
+    getToastDetails ( userId ) {
+      const generalPart = 'Administrator soon will contact with you.<br>'
+      const partByUserType = this.ids.userId !== null ? 'You can explore details in your profile.' : 'Unfortunately, you can\'t explore order detail.'
+
+      return generalPart + partByUserType
     }
   },
   components: {
