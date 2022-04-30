@@ -39,6 +39,7 @@ export default {
       required: true,
     }
   },
+  inject: [ 'orderId' ],
   data () {
     return {
       filledMeasures: {}
@@ -120,7 +121,7 @@ export default {
 
         formattedMeasure.push( {
           value: measureField.value,
-          measureFields: measureField.id
+          measureField: measureField.id
         } )
       }
 
