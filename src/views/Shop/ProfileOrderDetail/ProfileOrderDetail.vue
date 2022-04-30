@@ -1,6 +1,14 @@
 <template >
   <div
-    v-if="dataLoaded"
+    v-if="loader"
+    class="w-full h-full" >
+    <zLoader
+      size="200px"
+      background
+      title />
+  </div>
+  <div
+    v-else
     class="shop-main_padding flex-col" >
     <header class="flex justify-between items-center flex-wrap" >
       <h4 class="font-mono mr-5 leading-tight" >
@@ -28,14 +36,7 @@
       <OrdererDetails />
     </Section>
   </div>
-  <div
-    v-else
-    class="w-full h-full" >
-    <zLoader
-      size="200px"
-      background
-      title />
-  </div>
+
 </template>
 
 <script>
@@ -45,8 +46,6 @@ import Section from './partial/Section.vue'
 import OrderProducts from './partial/OrderProducts.vue'
 import OrderSummary from './partial/OrderSummary.vue'
 import OrdererDetails from './partial/OrdererDetails.vue'
-
-import fakeOrderMeasures from '@enums/fake/orderMeasures'
 
 import { computed } from 'vue'
 
@@ -61,60 +60,46 @@ export default {
   data () {
     return {
       order: {
-        data: null,
-        products: null,
+        data: {},
+        products: [],
       },
+      loader: false
     }
   },
   provide () {
     return {
       orderData: computed( () => this.order.data ),
       orderProducts: computed( () => this.order.products ),
-      fakeOrderMeasures
+      orderMeasures: computed( () => this.order.data.measures || [] )
     }
   },
   created () {
     this.fetchOrder()
-    this.fetchOrderProducts()
   },
   computed: {
-    dataLoaded () {
-      return this.order.data !== null && this.order.products !== null
-    }
+    orderProductIds () {
+      const productIds = []
+      for ( const orderItem of this.order.data.orderItems ) {
+        if ( orderItem.product && !productIds.includes( orderItem.product ) ) {
+          productIds.push( orderItem.product )
+        }
+      }
+
+      return productIds
+    },
   },
   methods: {
     async fetchOrder () {
       const order = await this.$store.dispatch( 'order/outFetchOrderById', this.orderId )
       this.order.data = order
+      this.loader = false
+      this.fetchOrderProducts()
     },
     async fetchOrderProducts () {
-      const products = await this.$store.dispatch( 'product/outFetchProductsByOrderId' )
-      this.order.products = products.data.products
+      await this.$store.dispatch( 'cart/addProductsByIds', this.orderProductIds )
 
-      for ( const product of this.order.products ) {
-        product.features = [
-          {
-            feature: 'material',
-            value: 'len'
-          },
-          {
-            feature: 'feat2',
-            value: 'vla2'
-          },
-          {
-            feature: 'feat3',
-            value: 'val3'
-          },
-          {
-            feature: 'feat4',
-            value: 'val4'
-          },
-          {
-            feature: 'feat5',
-            value: 'val5'
-          }
-        ]
-      }
+      const productBuffer = this.$store.getters[ 'cart/productBuffer' ]
+      this.order.products = productBuffer.filter( ( product ) => this.orderProductIds.includes( product.id ) )
     },
 
   },

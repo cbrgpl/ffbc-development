@@ -57,7 +57,10 @@ export default {
         }
       },
       immediate: true
-    }
+    },
+    src ( newValue ) {
+      this.activeSrc = newValue
+    },
   },
   computed: {
     mediaComponent () {

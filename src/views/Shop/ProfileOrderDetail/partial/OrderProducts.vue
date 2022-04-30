@@ -3,22 +3,23 @@
     v-bind="$attrs"
     scrollable >
     <zMediaWithTitle
-      v-for="product of orderProducts.value"
-      :key="product.id"
-      @click="showProductDetail(product)"
+      v-for="bindedOrderItem of bindedOrderItems"
+      :key="bindedOrderItem.orderItem.id"
+      @click="showProductDetail(bindedOrderItem)"
       class="h-36 whitespace-normal flex-shrink-0 mr-4 last:mr-0"
-      :src="product.media[0].display"
-      :title="product.title"
+      :src="getProductMedia(bindedOrderItem)"
+      :title="getProductTitle(bindedOrderItem)"
       disable-media-overlay />
   </zTape>
   <ProductDialog
     v-if="productDialog.visible"
     v-model:visible="productDialog.visible"
-    :product="productDialog.product" />
+    :binded-order-item="productDialog.bindedOrderItem" />
 </template>
 
 <script>
 import ProductDialog from './ProductDialog.vue'
+import { TEMPLATE_IMG } from 'consts'
 
 export default {
   name: 'OrderProducts',
@@ -28,23 +29,49 @@ export default {
     return {
       productDialog: {
         visible: false,
-        product: null,
-      }
+        bindedOrderItem: null,
+      },
+      TEMPLATE_IMG
     }
   },
+  computed: {
+    bindedOrderItems () {
+      const bindedOrderItems = []
+
+      if ( this.orderData.value.orderItems ) {
+        for ( const orderItem of this.orderData.value.orderItems ) {
+          const bindedOrderItem = {
+            orderItem,
+            product: null
+          }
+
+          bindedOrderItem.product = this.orderProducts.value.find( ( product ) => product.id === orderItem.product ) || null
+
+          bindedOrderItems.push( bindedOrderItem )
+        }
+      }
+
+      return bindedOrderItems
+    },
+  },
   methods: {
-    showProductDetail ( product ) {
+    getProductMedia ( bindedOrderItem ) {
+      return bindedOrderItem.product !== null ? bindedOrderItem.product.media[ 0 ].display : this.TEMPLATE_IMG
+    },
+    getProductTitle ( bindedOrderItem ) {
+      return bindedOrderItem.product !== null ? bindedOrderItem.product.title : 'Product was deleted'
+    },
+    showProductDetail ( bindedOrderItem ) {
       this.productDialog.visible = true
-      this.productDialog.product = product
+      this.productDialog.bindedOrderItem = bindedOrderItem
     },
     hideProductDetail () {
       this.productDialog.visibile = false
-      this.productDialog.product = null
+      this.productDialog.bindedOrderItem = null
     }
   },
   components: {
     ProductDialog,
-
   }
 }
 </script>
