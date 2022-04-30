@@ -1,22 +1,38 @@
-
+import { orderService } from '@services'
 import { NetworkAttemptError } from '@errors'
 
 export default {
   namespaced: true,
   state () {
-    return {}
+    return {
+      orderStatusTypes: [],
+    }
   },
-  getters: {},
-  mutations: {},
+  getters: {
+    orderStatusTypes: ( state ) => state.orderStatusTypes
+  },
+  mutations: {
+    setOrderStatusTypes ( state, orderStatusTypes ) {
+      state.orderStatusTypes = orderStatusTypes
+    },
+  },
   actions: {
-    async fetchMeasures ( { commit } ) {
-      const measuresRequest = await measureService.getMeasures()
+    async fetchOrderSpecs ( { commit } ) {
+      const orderSpecs = await orderService.getOrderSpecs()
 
-      if ( measuresRequest.httpResponse.status !== 200 ) {
-        throw new NetworkAttemptError( measuresRequest.httpResponse )
+      if ( orderSpecs.httpResponse.status !== 200 ) {
+        throw new NetworkAttemptError( orderSpecs.httpResponse )
       }
 
-      commit( 'setMeasures', measuresRequest.parsedBody )
+      commit( 'setOrderStatusTypes', orderSpecs.parsedBody.orderStatusType )
+    },
+    async outFetchOrderList ( context, filters ) {
+      const orders = await orderService.getOrders( )
+
+      if ( orders.httpResponse.status !== 200 ) {
+        throw new NetworkAttemptError( orders.httpResponse )
+      }
+      return orders.parsedBody.results
     },
     async outFetchOrderById ( context, orderId ) {
       const orderRequest = await new Promise( ( resolve, reject ) => {

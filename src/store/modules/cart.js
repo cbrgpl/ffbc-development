@@ -21,6 +21,7 @@ export default {
       cartLoaded: false,
       cartId: null,
       bindedCartItems: [],
+      // TODO Вынести product buffer в отдельный модуль со своим функционалом
       productBuffer: [],
     }
   },
@@ -149,5 +150,21 @@ export default {
 
       commit( 'removeBindedCartItems', cartItemIds )
     },
-  }
+    // --------------PRODUCT BUFFER FUNCTIONALLITY---------------------
+    async addProductsByIds ( { commit, getters, dispatch }, productIds ) {
+      const productBufferIncludesProduct = getters.productBufferIncludesProduct
+
+      const dispatches = []
+      for ( const productId of productIds ) {
+        if ( !productBufferIncludesProduct( productId ) ) {
+          dispatches.push( dispatch( 'fetchCartItemProduct', productId ) )
+        }
+      }
+
+      const products = ( await Promise.allSettled( dispatches ) )
+        .map( ( dispatch ) => dispatch.value )
+
+      commit( 'addCartItemProducts', products )
+    }
+  },
 }

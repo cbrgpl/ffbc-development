@@ -69,123 +69,18 @@ export default {
         'Sent'
       ],
       ordersList: [
-        {
-          title: 'Test order title',
-          id: '010-4ef-9304',
-          media: [
-            {
-              display: 'https://picsum.photos/1920/1080?random=12'
-            },
-            {
-              display: 'https://picsum.photos/1920/1080?random=22',
-            },
-            {
-              display: 'https://picsum.photos/1920/1080?random=52',
-            },
-            {
-              display: 'https://picsum.photos/1920/1080?random=2',
-            },
-            {
-              display: 'https://picsum.photos/1920/1080?random=21',
-            },
-            {
-              display: 'https://picsum.photos/1920/1080?random=54',
-            },
-            {
-              display: 'https://picsum.photos/1920/1080?random=25',
-            },
-          ],
-          status: 1
-        },
-        {
-          title: 'Test order title',
-          id: '010-4ef-9305',
-          media: [
-            {
-              display: 'https://picsum.photos/1920/1080?random=12'
-            },
-            {
-              display: 'https://picsum.photos/1920/1080?random=22',
-            },
-            {
-              display: 'https://picsum.photos/1920/1080?random=52',
-            },
-            {
-              display: 'https://picsum.photos/1920/1080?random=2',
-            },
-            {
-              display: 'https://picsum.photos/1920/1080?random=21',
-            },
-            {
-              display: 'https://picsum.photos/1920/1080?random=54',
-            },
-            {
-              display: 'https://picsum.photos/1920/1080?random=25',
-            },
-          ],
-          status: 2
-        },
-        {
-          title: 'Test order title',
-          id: '010-4ef-9105',
-          media: [
-            {
-              display: 'https://picsum.photos/1920/1080?random=12'
-            },
-            {
-              display: 'https://picsum.photos/1920/1080?random=22',
-            },
-            {
-              display: 'https://picsum.photos/1920/1080?random=52',
-            },
-            {
-              display: 'https://picsum.photos/1920/1080?random=2',
-            },
-            {
-              display: 'https://picsum.photos/1920/1080?random=21',
-            },
-            {
-              display: 'https://picsum.photos/1920/1080?random=54',
-            },
-            {
-              display: 'https://picsum.photos/1920/1080?random=25',
-            },
-          ],
-          status: 3
-        },
-        {
-          title: 'Test order title',
-          id: '010-5ef-9105',
-          media: [
-            {
-              display: 'https://picsum.photos/1920/1080?random=12'
-            },
-            {
-              display: 'https://picsum.photos/1920/1080?random=22',
-            },
-            {
-              display: 'https://picsum.photos/1920/1080?random=52',
-            },
-            {
-              display: 'https://picsum.photos/1920/1080?random=2',
-            },
-            {
-              display: 'https://picsum.photos/1920/1080?random=21',
-            },
-            {
-              display: 'https://picsum.photos/1920/1080?random=54',
-            },
-            {
-              display: 'https://picsum.photos/1920/1080?random=25',
-            },
-          ],
-          status: 4
-        },
       ],
-      loader: false,
+      loader: true,
     }
   },
+  created () {
+    this.requestOrders()
+  },
   methods: {
+    async requestOrders () {
+      this.ordersList = await this.$store.dispatch( 'order/outFetchOrderList' )
+      this.loader = false
+    },
     showCategoriesList () {
       this.categoryListVisibile = true
     },

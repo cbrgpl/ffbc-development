@@ -2,6 +2,26 @@ import { API_URL } from 'consts'
 
 const orderApiModule = [
   {
+    method: 'GET',
+    url: API_URL + '/orders/',
+    secure: true,
+    roles: [],
+    handler: 'getOrders',
+    headers: {
+      Accept: 'application/json'
+    },
+  },
+  {
+    method: 'GET',
+    url: API_URL + '/orders/specs/',
+    secure: false,
+    roles: [],
+    handler: 'getOrderSpecs',
+    headers: {
+      Accept: 'application/json'
+    },
+  },
+  {
     method: 'POST',
     url: API_URL + '/orders/',
     secure: false,
