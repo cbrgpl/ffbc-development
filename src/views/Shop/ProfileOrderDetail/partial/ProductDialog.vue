@@ -5,7 +5,7 @@
 
     <template #title >
       <h4 class="font-semibold " >
-        {{ product.title }}
+        {{ bindedOrderItem.product.title }}
       </h4>
     </template>
 
@@ -18,7 +18,7 @@
         <h5 ><strong >{{ priceString }}</strong></h5>
         <div >
           <span
-            v-for="feature of product.features"
+            v-for="feature of features"
             :key="feature.feature" >
             <em > {{ feature.feature }} </em>:&nbsp;{{ feature.value }},
           </span>
@@ -32,18 +32,21 @@
 export default {
   name: 'ProductDialog',
   props: {
-    product: {
+    bindedOrderItem: {
       type: [ Object, null ],
       required: true,
     },
   },
   computed: {
     priceString () {
-      return '$' + this.product.price
+      return '$' + this.bindedOrderItem.orderItem.price
     },
     mediaSrc () {
-      return this.product.media[ 0 ].display
-    }
+      return this.bindedOrderItem.product.media[ 0 ].display
+    },
+    features () {
+      return this.$store.getters[ 'product/getFeaturesAndFields' ]( this.bindedOrderItem.orderItem.featureFields )
+    },
   },
   methods: {
     goToProductDetails () {

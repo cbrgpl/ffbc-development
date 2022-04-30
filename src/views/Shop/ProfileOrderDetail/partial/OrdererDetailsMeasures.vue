@@ -13,10 +13,10 @@ import OrderDetailsMeasuresSection from './OrderDetailsMeasuresSection.vue'
 
 export default {
   name: 'OrdererDetailsMeasures',
-  inject: [ 'fakeOrderMeasures' ],
+  inject: [ 'orderMeasures' ],
   computed: {
     measureGroups () {
-      return this.$store.getters[ 'measure/groupMeasureFields' ]( this.fakeOrderMeasures, ( measureField ) => measureField.measureField )
+      return this.$store.getters[ 'measure/groupMeasureFields' ]( this.orderMeasures.value, ( measureField ) => measureField.measureField )
     },
   },
   components: {

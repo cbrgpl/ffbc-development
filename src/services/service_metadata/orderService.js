@@ -22,6 +22,16 @@ const orderApiModule = [
     },
   },
   {
+    method: 'GET',
+    url: API_URL + '/orders/{{id}}/',
+    secure: false,
+    roles: [],
+    handler: 'getOrderDetails',
+    headers: {
+      Accept: 'application/json'
+    },
+  },
+  {
     method: 'POST',
     url: API_URL + '/orders/',
     secure: false,
