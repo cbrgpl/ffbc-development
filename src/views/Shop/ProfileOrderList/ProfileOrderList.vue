@@ -18,10 +18,6 @@
         {{ selectedOrderCategory }}
       </zPseudoSelect>
 
-      <h4 class="text-danger-darken underline" >
-        <strong >That is test static order's data!</strong>
-      </h4>
-
       <div class="mt-3 grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-y-5 md:gap-4 2xl:gap-y-8" >
 
         <zShopProfileOrder
