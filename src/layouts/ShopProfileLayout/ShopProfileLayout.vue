@@ -12,14 +12,12 @@
         class="hidden lg:flex px-2" />
       <router-view
         v-slot="{Component, route}" >
-        <keep-alive >
-          <component
-            id="shop-profile-content"
-            class="layout-content"
-            include="ProfileCart"
-            :is='Component'
-            :key="route.meta.usePathKey ? route.path : undefined" />
-        </keep-alive>
+        <component
+          id="shop-profile-content"
+          class="layout-content"
+          include="ProfileCart"
+          :is='Component'
+          :key="route.meta.usePathKey ? route.path : undefined" />
       </router-view>
     </div>
   </div>

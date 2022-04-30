@@ -12,9 +12,9 @@
     class="shop-main_padding flex-col" >
     <header class="flex justify-between items-center flex-wrap" >
       <h4 class="font-mono mr-5 leading-tight" >
-        № {{ '010-5ef-9105' || order.data.id }}
+        № {{ order.data.id }}
       </h4>
-      <zShopOrderStatus :status-id="1" />
+      <zShopOrderStatus :status-id="order.data.orderStatus" />
     </header>
 
     <zDivider class="my-3" />
