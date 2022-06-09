@@ -1,14 +1,11 @@
 const OBSERVABLE_ATTR = 'observable'
 
 const getDirective = ( addObservable ) => {
-  let observablesCount = 0
-
   return {
-    created: ( $el ) => {
-      const number = ++observablesCount
-      $el.setAttribute( `data-${ OBSERVABLE_ATTR }`, number )
+    created: ( $el, bindings ) => {
+      $el.setAttribute( `data-${ OBSERVABLE_ATTR }`, bindings.value )
 
-      addObservable( number )
+      addObservable( bindings.value )
     }
   }
 }

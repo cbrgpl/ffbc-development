@@ -50,6 +50,9 @@ export default {
       type: Object,
       required: true,
     },
+    intersected: {
+      type: Boolean,
+    }
   },
   computed: {
     containsInStock () {

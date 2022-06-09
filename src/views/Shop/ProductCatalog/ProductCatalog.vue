@@ -7,13 +7,21 @@
       background
       title />
 
-    <div class="h-full w-full overflow-auto" >
+    <pre class="fixed text-white z-140" >
+      {{ $options.reactiveObserver.observablesSchema }}
+    </pre>
+
+    <div
+      ref="contentContainer"
+      class="h-full w-full overflow-auto" >
       <div class="flex flex-col min-h-full container shop-main_padding mx-auto" >
         <div class="grid grid-cols-2 gap-x-2 gap-y-8 md:grid-cols-3 2xl:grid-cols-4 items-stretch mb-auto" >
           <zShopProductCard
-            v-for="product of products"
+            v-observable="i"
+            v-for="(product, i) of products"
             :key="product.title"
-            :product="product" />
+            :product="product"
+            :intersected="$options.reactiveObserver.observablesSchema[i]" />
         </div>
 
         <zPagination
@@ -29,14 +37,18 @@
 </template>
 
 <script>
+import { defineAsyncComponent, nextTick } from 'vue'
+
 import zShopProductCard from '@components/composite/zShopProductCard.vue'
 
-import { defineAsyncComponent } from 'vue'
-
+import { ReactiveObserver } from '@/helpers/modules/reactiveObserver'
 import productSectionFilters from '@enums/info/productSectionFilters'
+
+const reactiveObserver = new ReactiveObserver()
 
 export default {
   name: 'ProductCatalog',
+  reactiveObserver,
   props: {
     sectionCode: {
       type: String,
@@ -61,11 +73,20 @@ export default {
 
       this.pagination.page = 1
       this.setPage( 1 )
+    },
+    products () {
+      nextTick( ( ) => {
+        const reactiveObserver = this.$options.reactiveObserver
+        if ( !reactiveObserver.inited ) {
+          const $contentContainer = this.$refs.contentContainer
+          reactiveObserver.init( $contentContainer, '0px 0px 300px 0px' )
+        } else {
+          reactiveObserver.reset()
+        }
+      } )
     }
   },
-  beforeUnmount () {
-    this.setPageInStorage( this.pagination.page )
-  },
+
   computed: {
     defaultSectionCode () {
       return productSectionFilters.keys().next().value
@@ -74,11 +95,14 @@ export default {
       return productSectionFilters.get( this.sectionCode )
     },
   },
-  async created () {
+  created () {
     this.redirectOnWrongSectionName()
 
     this.setPageNumber()
     this.setPage( this.pagination.page )
+  },
+  beforeUnmount () {
+    this.setPageInStorage( this.pagination.page )
   },
   methods: {
     redirectOnWrongSectionName () {
@@ -128,6 +152,10 @@ export default {
 
       return productsDispatch.data
     },
+
+  },
+  directives: {
+    observable: reactiveObserver.observableDirective
   },
   components: {
     zShopProductCard,
@@ -136,6 +164,6 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 
 </style>
