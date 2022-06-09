@@ -12,7 +12,7 @@
         @change-sidebar-visibility="setSidebarVibility" />
 
       <router-view
-        id="shop-root-content "
+        id="shop-root-content"
         class="layout-content" />
     </div>
   </div>
