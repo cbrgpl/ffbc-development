@@ -5,11 +5,13 @@ import { getDirective, OBSERVABLE_ATTR } from './observableDirective'
 class ReactiveObserver {
   #observer = null
   #observerBuffer = new ObserverBuffer()
+  #inited = false
 
   init ( root = null, rootMargin = '0px 0px 0px 0px', threshold = 0.0 ) {
     const options = { root, rootMargin, threshold }
     this.#observer = new IntersectionObserver( ( ...args ) => this.#addIntersections( ...args ), options )
     this.#startObserving()
+    this.#inited = true
   }
 
   #addIntersections ( entries ) {
@@ -40,6 +42,10 @@ class ReactiveObserver {
 
   get observablesSchema () {
     return this.#observerBuffer.observablesSchema
+  }
+
+  get inited () {
+    return this.#inited
   }
 }
 
