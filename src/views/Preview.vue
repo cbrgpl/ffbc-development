@@ -1,61 +1,43 @@
 <template >
-  <div class="relative p-3" >
-    <div class="w-96 " >
-      <zSelect
-        class="w-36"
-        v-model="selectedItem"
-        :list="list"
-        :item-accesser="(item) => item.num" >
-
-        <template #visible="{ value }" >
-
-          <div class="px-5" >
-            {{ value }}
-          </div>
-        </template>
-
-      </zSelect>
+  <div class="relative flex-col p-3" >
+    <div class="flex w-full flex-wrap" >
+      <div
+        v-for="i of 120"
+        :key="i"
+        class="w-1/4 h-32 bg-white mb-2 border border-solid border-black-lightest"
+        v-observable ></div>
     </div>
+
+    <zButton @click="resetReactiveObserver" >
+      reset
+    </zButton>
   </div>
 </template>
 
 <script>
-import zSelect from '@components/atomic/zSelect.vue'
-import { arrayUtils } from '@js_utils'
+import { ReactiveObserver } from '@/helpers/modules/reactiveObserver'
+
+const reactiveObserver = new ReactiveObserver()
 
 export default {
+  reactiveObserver,
   data () {
     return {
-      visible: false,
-      loading: false,
-      list: [
-        {
-          num: 'one',
-        },
-        {
-          num: 'two',
-        },
-        {
-          num: 'three',
-        },
-        {
-          num: 'four',
-        },
-        {
-          num: 'five',
-        },
-        {
-          num: 'six',
-        },
-      ],
-      selectedItem: null,
+      bufferItems: 0,
     }
   },
   mounted () {
+    const $shopRoot = document.querySelector( '#shop-root-content' )
+    this.$options.reactiveObserver.init( $shopRoot )
   },
-  components: {
-    zSelect
+  methods: {
+    resetReactiveObserver () {
+      this.$options.reactiveObserver.reset()
+    }
   },
+  directives: {
+    observable: reactiveObserver.observableDirective
+  }
 }
 </script>
 
