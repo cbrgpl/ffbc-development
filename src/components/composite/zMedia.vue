@@ -24,6 +24,8 @@ import { extenderMix } from '@mixins/index'
 export default {
   name: 'zMedia',
   mixins: [ extenderMix ],
+  expose: [ 'startLoading' ],
+  templateImage: require( '@images/shop/blur-template.png' ),
   props: {
     mediaType: {
       type: String,
@@ -49,30 +51,32 @@ export default {
       default: false,
     },
   },
-  watch: {
-    loadDisplaySrc: {
-      handler ( newValue ) {
-        if ( newValue ) {
-          this.loadDisplayMedia()
-        }
-      },
-      immediate: true
-    },
-    src ( newValue ) {
-      this.activeSrc = newValue
-    },
+  data () {
+    return {
+      activeSrc: this.$options.templateImage,
+    }
   },
   computed: {
     mediaComponent () {
       return 'z' + this.mediaType.charAt( 0 ).toUpperCase() + this.mediaType.slice( 1 )
     },
   },
-  data () {
-    return {
-      activeSrc: this.preview || this.src,
-    }
-  },
   methods: {
+    startLoading () {
+      this.$watch(
+        'loadDisplaySrc',
+        async ( loadDisplaySrc ) => {
+          await this.loadImage( this.preview )
+
+          if ( loadDisplaySrc ) {
+            this.loadDisplayMedia()
+          }
+        },
+        {
+          immediate: true,
+        }
+      )
+    },
     loadDisplayMedia () {
       switch ( this.mediaType ) {
       case 'image':
@@ -85,13 +89,17 @@ export default {
         throw TypeError( `Invalid mediaType value with ${ this.mediaType }` )
       }
     },
-    loadImage ( src ) {
-      const displayImage = new Image()
-      displayImage.onload = () => {
-        this.activeSrc = src
-      }
+    async loadImage ( src ) {
+      return new Promise( ( resolve ) => {
+        const displayImage = new Image()
 
-      displayImage.src = src
+        displayImage.onload = () => {
+          resolve()
+          this.activeSrc = src
+        }
+
+        displayImage.src = src
+      } )
     },
     loadVideo ( src ) {
       // TODO Complete video src loading
