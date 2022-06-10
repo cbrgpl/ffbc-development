@@ -16,7 +16,7 @@
         :key="media.display"
         title="A Media of product"
         class="mr-2 flex-shrink-0 h-full max-w-full w-auto last:mr-0"
-        :src="media.display" />
+        :original="media.display" />
 
       <div
         v-if="loader"

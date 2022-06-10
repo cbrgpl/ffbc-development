@@ -7,8 +7,8 @@
         @update:modelValue="$emit('productSelectChanged', $event)" ></zCheckboxSingle>
       <zMedia
         class="ml-3 mr-2 w-28 md:w-60 flex-shrink-0 self-stretch"
-        :load-display-src="loadDisplaySrc"
-        :src="product.media[0].display"
+        :show-original="showOriginal"
+        :original="product.media[0].display"
         :preview="product.media[0].preview" />
       <div >
         <h4 class="leading-5 mb-3" >
@@ -56,12 +56,13 @@ export default {
   },
   data () {
     return {
-      loadDisplaySrc: false
+      showOriginal: false
     }
   },
   mounted () {
+    // TODO Не понятно зачем нужно
     setTimeout( () => {
-      this.loadDisplaySrc = true
+      this.showOriginal = true
     }, 0 )
   },
 }

@@ -4,9 +4,9 @@
     class="relative" >
 
     <component
-      @click="showInMediaOverlay"
+      @click="showInOverlay"
       v-bind="attrs"
-      :src="activeSrc"
+      :src="src"
       :is="mediaComponent" />
 
     <span class="absolute z-10 top-0 left-0 w-full h-full pointer-events-none" >
@@ -27,14 +27,7 @@ export default {
   expose: [ 'startLoading' ],
   templateImage: require( '@images/shop/blur-template.png' ),
   props: {
-    mediaType: {
-      type: String,
-      default: 'image',
-      validator ( value ) {
-        return [ 'image', 'video' ].includes( value )
-      }
-    },
-    src: {
+    original: {
       type: String,
       required: true,
     },
@@ -42,18 +35,29 @@ export default {
       type: String,
       default: null
     },
-    loadDisplaySrc: {
+    showOriginal: {
       type: Boolean,
       default: null,
     },
-    disableMediaOverlay: {
+    disableOverlay: {
       type: Boolean,
       default: false,
+    },
+    autoLoading: {
+      type: Boolean,
+      default: true,
+    },
+    mediaType: {
+      type: String,
+      default: 'image',
+      validator ( value ) {
+        return [ 'image', 'video' ].includes( value )
+      }
     },
   },
   data () {
     return {
-      activeSrc: this.$options.templateImage,
+      src: this.$options.templateImage,
     }
   },
   computed: {
@@ -61,15 +65,29 @@ export default {
       return 'z' + this.mediaType.charAt( 0 ).toUpperCase() + this.mediaType.slice( 1 )
     },
   },
+  mounted () {
+    if ( this.autoLoading ) {
+      this.startLoading()
+    }
+  },
   methods: {
     startLoading () {
+      if ( this.preview ) {
+        this.makeWatcher()
+      } else {
+        this.loadOriginal()
+      }
+    },
+    makeWatcher () {
       this.$watch(
-        'loadDisplaySrc',
-        async ( loadDisplaySrc ) => {
-          await this.loadImage( this.preview )
+        'showOriginal',
+        async ( showOriginal ) => {
+          if ( this.src !== this.preview ) {
+            await this.loadImage( this.preview )
+          }
 
-          if ( loadDisplaySrc ) {
-            this.loadDisplayMedia()
+          if ( showOriginal ) {
+            this.loadOriginal()
           }
         },
         {
@@ -77,13 +95,13 @@ export default {
         }
       )
     },
-    loadDisplayMedia () {
+    loadOriginal () {
       switch ( this.mediaType ) {
       case 'image':
-        this.loadImage( this.src )
+        this.loadImage( this.original )
         break
       case 'video':
-        this.loadVideo( this.src )
+        this.loadVideo( this.original )
         break
       default:
         throw TypeError( `Invalid mediaType value with ${ this.mediaType }` )
@@ -95,7 +113,7 @@ export default {
 
         displayImage.onload = () => {
           resolve()
-          this.activeSrc = src
+          this.src = src
         }
 
         displayImage.src = src
@@ -104,8 +122,8 @@ export default {
     loadVideo ( src ) {
       // TODO Complete video src loading
     },
-    showInMediaOverlay () {
-      if ( this.disableMediaOverlay ) {
+    showInOverlay () {
+      if ( this.disableOverlay ) {
         return
       }
 

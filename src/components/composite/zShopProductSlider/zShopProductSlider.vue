@@ -10,9 +10,10 @@
       <zMedia
         :ref="pushMediaToBuffer"
         class="h-full"
-        :src="aMedia.display"
+        :original="aMedia.display"
         :preview="aMedia.preview"
-        :load-display-src="displaySrcsVisiblity[i]"
+        :show-original="originalsVisibility[i]"
+        :auto-loading="mediaAutoLoading"
         media-type="image" />
     </div>
   </zSlider>
@@ -30,17 +31,21 @@ export default {
     },
     intersected: {
       type: Boolean,
+      default: null,
     },
   },
   data () {
     return {
-      displaySrcsVisiblity: []
+      originalsVisibility: [],
     }
   },
   computed: {
     mediaCount () {
       return this.media.length
     },
+    mediaAutoLoading () {
+      return this.intersected === null
+    }
   },
   watch: {
     intersected: {
@@ -60,14 +65,14 @@ export default {
   },
   methods: {
     setDisplaySrcsVisibility () {
-      const srcsVisibility = new Array( this.mediaCount )
-      this.displaySrcsVisiblity = srcsVisibility.fill( false )
+      const originalsVisibility = new Array( this.mediaCount )
+      this.originalsVisibility = originalsVisibility.fill( false )
     },
     setNonReactiveMediaBuffer () {
       this.mediaBuffer = []
     },
     setProductMediaShownByIndex ( mediaIndex ) {
-      this.displaySrcsVisiblity[ mediaIndex ] = true
+      this.originalsVisibility[ mediaIndex ] = true
     },
     pushMediaToBuffer ( vNode ) {
       if ( !this.mediaBuffer.includes( vNode ) ) {

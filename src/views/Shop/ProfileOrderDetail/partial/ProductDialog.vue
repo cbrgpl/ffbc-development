@@ -13,7 +13,7 @@
       <zMedia
         @click="goToProductDetails"
         class="mr-3 flex-grow"
-        :src="mediaSrc" />
+        :original="mediaSrc" />
       <div class="flex flex-col w-2/4 flex-shrink-0" >
         <h5 ><strong >{{ priceString }}</strong></h5>
         <div >
