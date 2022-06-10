@@ -7,9 +7,9 @@
       :key="bindedOrderItem.orderItem.id"
       @click="showProductDetail(bindedOrderItem)"
       class="h-36 whitespace-normal flex-shrink-0 mr-4 last:mr-0"
-      :src="getProductMedia(bindedOrderItem)"
+      :original="getProductMedia(bindedOrderItem)"
       :title="getProductTitle(bindedOrderItem)"
-      disable-media-overlay />
+      disable-overlay />
   </zTape>
   <ProductDialog
     v-if="productDialog.visible"
