@@ -7,10 +7,6 @@
       background
       title />
 
-    <pre class="fixed text-white z-140" >
-      {{ $options.reactiveObserver.observablesSchema }}
-    </pre>
-
     <div
       ref="contentContainer"
       class="h-full w-full overflow-auto" >
@@ -37,7 +33,7 @@
 </template>
 
 <script>
-import { defineAsyncComponent, nextTick } from 'vue'
+import { defineAsyncComponent } from 'vue'
 
 import zShopProductCard from '@components/composite/zShopProductCard.vue'
 
@@ -74,19 +70,20 @@ export default {
       this.pagination.page = 1
       this.setPage( 1 )
     },
-    products () {
-      nextTick( ( ) => {
+    products: {
+      handler () {
         const reactiveObserver = this.$options.reactiveObserver
+
         if ( !reactiveObserver.inited ) {
           const $contentContainer = this.$refs.contentContainer
-          reactiveObserver.init( $contentContainer, '0px 0px 300px 0px' )
+          reactiveObserver.init( $contentContainer, '0px 0px 150px 0px' )
         } else {
           reactiveObserver.reset()
         }
-      } )
+      },
+      flush: 'post'
     }
   },
-
   computed: {
     defaultSectionCode () {
       return productSectionFilters.keys().next().value

@@ -54,7 +54,7 @@ import ContentStrip from './partial/ContentStrip.vue'
 import Navigation from './partial/Navigation'
 
 export default {
-  name: 'zShopProductSlider',
+  name: 'zSlider',
   emits: [ 'newActiveElementNumber' ],
   props: {
     attributableControlSize: {
@@ -102,7 +102,6 @@ export default {
         this.activeElementNumber += delta
       }
     },
-
   },
   components: {
     ControlButton,

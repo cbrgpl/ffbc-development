@@ -8,10 +8,11 @@
       :key="aMedia.original"
       class="bg-black-lightest h-full w-full flex-shrink-0" >
       <zMedia
+        :ref="pushMediaToBuffer"
         class="h-full"
         :src="aMedia.display"
         :preview="aMedia.preview"
-        :load-display-src="originalMediaVisibilityArray[i]"
+        :load-display-src="displaySrcsVisiblity[i]"
         media-type="image" />
     </div>
   </zSlider>
@@ -26,6 +27,14 @@ export default {
     media: {
       type: Array,
       required: true
+    },
+    intersected: {
+      type: Boolean,
+    },
+  },
+  data () {
+    return {
+      displaySrcsVisiblity: []
     }
   },
   computed: {
@@ -33,21 +42,38 @@ export default {
       return this.media.length
     },
   },
-  data () {
-    return {
-      originalMediaVisibilityArray: null
+  watch: {
+    intersected: {
+      handler ( intersected ) {
+        if ( intersected ) {
+          for ( const mediaVNode of this.mediaBuffer ) {
+            mediaVNode.startLoading()
+          }
+        }
+      },
+      immediate: true,
     }
   },
   created () {
-    this.initOriginalMediaVisibilityArray()
+    this.setDisplaySrcsVisibility()
+    this.setNonReactiveMediaBuffer()
   },
   methods: {
-    initOriginalMediaVisibilityArray () {
-      this.originalMediaVisibilityArray = ( new Array( this.mediaCount ) ).fill( false )
+    setDisplaySrcsVisibility () {
+      const srcsVisibility = new Array( this.mediaCount )
+      this.displaySrcsVisiblity = srcsVisibility.fill( false )
+    },
+    setNonReactiveMediaBuffer () {
+      this.mediaBuffer = []
     },
     setProductMediaShownByIndex ( mediaIndex ) {
-      this.originalMediaVisibilityArray[ mediaIndex ] = true
+      this.displaySrcsVisiblity[ mediaIndex ] = true
     },
+    pushMediaToBuffer ( vNode ) {
+      if ( !this.mediaBuffer.includes( vNode ) ) {
+        this.mediaBuffer.push( vNode )
+      }
+    }
   },
   components: {
     zSlider
