@@ -3,8 +3,9 @@
     <div class="h-full flex items-start" >
       <zCheckboxSingle
         v-if="showActions"
-        :checked="productSelected"
-        @update:modelValue="$emit('productSelectChanged', $event)" ></zCheckboxSingle>
+        :checked="selected"
+        @update:modelValue="toggleSelectState" />
+
       <zMedia
         ref="media"
         class="ml-3 mr-2 w-28 md:w-60 flex-shrink-0 self-stretch"
@@ -12,6 +13,7 @@
         :original="product.media[0].display"
         :preview="product.media[0].preview"
         :auto-loading="false" />
+
       <div >
         <h4 class="leading-5 mb-3" >
           {{ product.title }}
@@ -37,8 +39,13 @@
 <script>
 export default {
   name: 'zShopProfileProduct',
-  emits: [ 'productSelectChanged', 'mounted' ],
+  emits: [ 'toggleSelectState' ],
+  inject: [ 'selectedItemIds' ],
   props: {
+    cartItemId: {
+      type: Number,
+      required: true,
+    },
     product: {
       type: Object,
       required: true,
@@ -51,17 +58,18 @@ export default {
       type: Boolean,
       default: true,
     },
-    productSelected: {
-      type: Boolean,
-      default: false,
-    },
     intersected: {
       type: Boolean,
     }
   },
   data () {
     return {
-      showOriginal: false
+      showOriginal: false,
+    }
+  },
+  computed: {
+    selected () {
+      return this.selectedItemIds.value.includes( this.cartItemId )
     }
   },
   watch: {
@@ -75,8 +83,10 @@ export default {
       immediate: true,
     }
   },
-  mounted () {
-    this.$emit( 'mounted' )
+  methods: {
+    toggleSelectState () {
+      this.$emit( 'toggleSelectState', this.cartItemId )
+    }
   }
 }
 </script>
