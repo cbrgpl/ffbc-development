@@ -7,7 +7,9 @@
       background
       size="120px" />
 
-    <div class="shop-main_padding flex-grow overflow-y-auto" >
+    <div
+      ref="contentContainer"
+      class="shop-main_padding flex-grow overflow-y-auto" >
       <CartActions
         @toggleAllProducts="toggleAllProducts"
         @deleteProducts="deleteSelectedProducts"
@@ -15,12 +17,15 @@
         :disabled="actionsDisabled" />
 
       <zShopProfileProduct
-        v-for="bindedCartItem of bindedCartItems"
+        v-for="(bindedCartItem, i) of bindedCartItems"
         :key="bindedCartItem.cartItem.id"
         :product="bindedCartItem.product"
         :product-features="bindedCartItem.features"
         :product-selected="selectedIds[bindedCartItem.cartItem.id]"
+        @mounted="showContent"
         @productSelectChanged="toggleSelectedId($event, bindedCartItem.cartItem.id)"
+        v-observable="i"
+        :intersected="$options.reactiveObserver.observablesSchema[i]"
         show-actions />
     </div>
 
@@ -36,26 +41,21 @@ import CartActions from './partial/CartActions.vue'
 import zShopProfileProduct from '@components/composite/zShopProfileProduct.vue'
 import CartFooter from './partial/CartFooter.vue'
 
+import { ReactiveObserver } from '@/helpers/modules/reactiveObserver'
+
 import { mapGetters } from 'vuex'
 import { computed } from 'vue'
 
+const reactiveObserver = new ReactiveObserver()
+
 export default {
   name: 'ProfileCart',
+  reactiveObserver,
   data () {
     return {
       selectedIds: {},
       loading: true,
       actionsDisabled: false,
-    }
-  },
-  watch: {
-    cartLoaded: {
-      handler ( newValue ) {
-        if ( newValue ) {
-          this.loading = false
-        }
-      },
-      immediate: true,
     }
   },
   provide () {
@@ -88,13 +88,23 @@ export default {
       return cartCalculation
     },
   },
+  beforeUnmount () {
+    this.$options.reactiveObserver.reset()
+  },
   methods: {
-    toggleSelectedId ( selectState, id ) {
-      if ( selectState ) {
-        this.selectedIds[ id ] = true
-      } else {
-        this.selectedIds[ id ] = false
+    showContent ( ) {
+      if ( this.loading ) {
+        this.initObserver()
+        this.loading = false
       }
+    },
+    initObserver () {
+      const reactiveObserver = this.$options.reactiveObserver
+      const $contentContainer = this.$refs.contentContainer
+      reactiveObserver.init( $contentContainer, '0px 0px 300px 0px' )
+    },
+    toggleSelectedId ( selectState, id ) {
+      this.selectedIds[ id ] = selectState
     },
     toggleAllProducts () {
       const selectAll = this.selectedProductsEmpty === true
@@ -121,6 +131,9 @@ export default {
         }
       } )
     }
+  },
+  directives: {
+    observable: reactiveObserver.observableDirective
   },
   components: {
     zShopProfileProduct,

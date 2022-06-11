@@ -6,10 +6,12 @@
         :checked="productSelected"
         @update:modelValue="$emit('productSelectChanged', $event)" ></zCheckboxSingle>
       <zMedia
+        ref="media"
         class="ml-3 mr-2 w-28 md:w-60 flex-shrink-0 self-stretch"
         :show-original="showOriginal"
         :original="product.media[0].display"
-        :preview="product.media[0].preview" />
+        :preview="product.media[0].preview"
+        :auto-loading="false" />
       <div >
         <h4 class="leading-5 mb-3" >
           {{ product.title }}
@@ -35,7 +37,7 @@
 <script>
 export default {
   name: 'zShopProfileProduct',
-  emits: [ 'productSelectChanged' ],
+  emits: [ 'productSelectChanged', 'mounted' ],
   props: {
     product: {
       type: Object,
@@ -53,18 +55,29 @@ export default {
       type: Boolean,
       default: false,
     },
+    intersected: {
+      type: Boolean,
+    }
   },
   data () {
     return {
       showOriginal: false
     }
   },
-  mounted () {
-    // TODO Не понятно зачем нужно
-    setTimeout( () => {
-      this.showOriginal = true
-    }, 0 )
+  watch: {
+    intersected: {
+      handler ( intersected ) {
+        if ( intersected ) {
+          this.$refs.media.startLoading()
+          this.showOriginal = true
+        }
+      },
+      immediate: true,
+    }
   },
+  mounted () {
+    this.$emit( 'mounted' )
+  }
 }
 </script>
 
