@@ -14,7 +14,7 @@
       <h4 class="font-mono mr-5 leading-tight" >
         № {{ order.data.id }}
       </h4>
-      <zShopOrderStatus :status-id="order.data.orderStatus" />
+      <zShopOrderStatus :status-value="order.data.orderStatus" />
     </header>
 
     <zDivider class="my-3" />
@@ -63,7 +63,7 @@ export default {
         data: {},
         products: [],
       },
-      loader: false
+      loader: true
     }
   },
   provide () {
