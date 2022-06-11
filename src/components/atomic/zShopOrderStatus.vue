@@ -11,18 +11,17 @@ import orderStatusClasses from '@/enums/info/orderStatusClasses'
 export default {
   name: 'zShopOrderStatus',
   props: {
-    statusId: {
+    statusValue: {
       type: Number,
       required: true,
     }
   },
   computed: {
-    orderStatusTypes () {
+    statuses () {
       return this.$store.getters[ 'order/orderStatusTypes' ]
     },
     status () {
-      const typeKeyword = Object.keys( this.orderStatusTypes ).find( ( typeKeyword ) => this.orderStatusTypes[ typeKeyword ].value === this.statusId )
-      return this.orderStatusTypes[ typeKeyword ]
+      return this.statuses.find( ( status ) => status.value === this.statusValue )
     },
     statusClasses () {
       return orderStatusClasses[ this.status.label ]
