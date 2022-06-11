@@ -11,9 +11,9 @@
       ref="contentContainer"
       class="shop-main_padding flex-grow overflow-y-auto" >
       <CartActions
-        @toggleAllProducts="toggleAllProducts"
-        @deleteProducts="deleteSelectedProducts"
-        :selected-products-empty="selectedProductsEmpty"
+        @toggleAllItems="toggleAllItems"
+        @deleteProducts="deleteSelectedItems"
+        :no-selected-items="noSelectedItems"
         :disabled="actionsDisabled" />
 
       <zShopProfileProduct
@@ -23,7 +23,7 @@
         :product-features="bindedCartItem.features"
         :product-selected="selectedIds[bindedCartItem.cartItem.id]"
         @mounted="showContent"
-        @productSelectChanged="toggleSelectedId($event, bindedCartItem.cartItem.id)"
+        @productSelectChanged="selectItem(bindedCartItem.cartItem.id, $event)"
         v-observable="i"
         :intersected="$options.reactiveObserver.observablesSchema[i]"
         show-actions />
@@ -31,7 +31,7 @@
 
     <CartFooter
       class="flex-shrink-0 px-2.5 md:px-5 xl:px-7"
-      @buy="goToOrderCheckout"
+      @buy="pushToOrderCheckout"
       :cart-calculation="cartCalculation" />
   </div>
 </template>
@@ -60,7 +60,17 @@ export default {
   },
   provide () {
     return {
-      actionsDisabled: computed( () => this.actionsDisabled ),
+      actionsDisabled: computed( () => this.actionsDisabled || this.noSelectedItems ),
+    }
+  },
+  watch: {
+    cartLoaded: {
+      handler ( cartLoaded ) {
+        if ( cartLoaded && this.cartEmpty ) {
+          this.showContent()
+        }
+      },
+      immediate: true,
     }
   },
   computed: {
@@ -68,10 +78,13 @@ export default {
       bindedCartItems: 'cart/bindedCartItems',
       cartLoaded: 'cart/cartLoaded',
     } ),
-    selectedProductsEmpty () {
-      return this.selectedCartItems.length === 0
+    cartEmpty () {
+      return this.bindedCartItems.length === 0
     },
-    selectedCartItems () {
+    noSelectedItems () {
+      return this.selectedItems.length === 0
+    },
+    selectedItems () {
       return this.bindedCartItems.filter( ( bindedCartItem ) => this.selectedIds[ bindedCartItem.cartItem.id ] )
     },
     cartCalculation () {
@@ -80,7 +93,7 @@ export default {
         price: 0,
       }
 
-      for ( const bindedCartItem of this.selectedCartItems ) {
+      for ( const bindedCartItem of this.selectedItems ) {
         cartCalculation.qnt++
         cartCalculation.price += parseFloat( bindedCartItem.cartItem.price )
       }
@@ -103,26 +116,26 @@ export default {
       const $contentContainer = this.$refs.contentContainer
       reactiveObserver.init( $contentContainer, '0px 0px 300px 0px' )
     },
-    toggleSelectedId ( selectState, id ) {
-      this.selectedIds[ id ] = selectState
+    selectItem ( id, state ) {
+      this.selectedIds[ id ] = state
     },
-    toggleAllProducts () {
-      const selectAll = this.selectedProductsEmpty === true
+    toggleAllItems () {
+      const selectState = this.noSelectedItems === true
 
       for ( const bindedCartItem of this.bindedCartItems ) {
-        this.selectedIds[ bindedCartItem.cartItem.id ] = selectAll
+        this.selectedIds[ bindedCartItem.cartItem.id ] = selectState
       }
     },
-    async deleteSelectedProducts () {
+    async deleteSelectedItems () {
       this.actionsDisabled = true
 
-      const cartItemIds = this.selectedCartItems.map( ( bindedCartItem ) => bindedCartItem.cartItem.id )
+      const cartItemIds = this.selectedItems.map( ( bindedCartItem ) => bindedCartItem.cartItem.id )
       await this.$store.dispatch( 'cart/removeCartItems', cartItemIds )
 
       this.actionsDisabled = false
     },
-    goToOrderCheckout () {
-      const bindedCartItemIds = this.selectedCartItems.map( ( bindedCartItem ) => bindedCartItem.cartItem.id )
+    pushToOrderCheckout () {
+      const bindedCartItemIds = this.selectedItems.map( ( bindedCartItem ) => bindedCartItem.cartItem.id )
 
       this.$router.push( {
         name: 'ShopCheckout',

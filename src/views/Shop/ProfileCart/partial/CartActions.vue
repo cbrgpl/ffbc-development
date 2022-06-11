@@ -2,13 +2,13 @@
   <div class="w-full flex justify-between py-3 border-b boder-white border-opacity-40 border-solid" >
     <zCheckboxSingle
       class="py-2"
-      :checked="!selectedProductsEmpty"
-      @update:modelValue="$emit('toggleAllProducts')"
+      :checked="!noSelectedItems"
+      @update:modelValue="$emit('toggleAllItems')"
       label="Select All" />
 
     <transition name="delete-button" >
       <zLoaderButton
-        v-if="!selectedProductsEmpty"
+        v-if="!noSelectedItems"
         :loader="actionsDisabled.value"
         @click="$emit('deleteProducts')"
         variant="danger"
@@ -23,14 +23,14 @@
 
 export default {
   name: 'CartActions',
+  inject: [ 'actionsDisabled' ],
+  emits: [ 'toggleAllItems', 'deleteProducts' ],
   props: {
-    selectedProductsEmpty: {
+    noSelectedItems: {
       type: Boolean,
       required: true,
     },
   },
-  inject: [ 'actionsDisabled' ],
-  emits: [ 'toggleAllProducts', 'deleteProducts' ],
 }
 </script>
 

@@ -23,7 +23,7 @@
     </div>
 
     <zButton
-      :disabled="cartCalculationEmpty || actionsDisabled.value"
+      :disabled="actionsDisabled.value"
       @click="$emit('buy')"
       class="px-12 py-3.5"
       variant="safety" >
@@ -36,18 +36,13 @@
 export default {
   name: 'CartFooter',
   emits: [ 'buy' ],
+  inject: [ 'actionsDisabled' ],
   props: {
     cartCalculation: {
       type: Object,
       required: true,
     },
   },
-  inject: [ 'actionsDisabled' ],
-  computed: {
-    cartCalculationEmpty () {
-      return this.cartCalculation.qnt === 0
-    }
-  }
 }
 </script>
 
