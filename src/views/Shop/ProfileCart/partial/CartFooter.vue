@@ -38,11 +38,26 @@ export default {
   emits: [ 'buy' ],
   inject: [ 'actionsDisabled' ],
   props: {
-    cartCalculation: {
+    selectedItems: {
       type: Object,
       required: true,
     },
   },
+  computed: {
+    cartCalculation () {
+      const cartCalculation = {
+        qnt: 0,
+        price: 0,
+      }
+
+      for ( const bindedCartItem of this.selectedItems ) {
+        cartCalculation.qnt++
+        cartCalculation.price += parseFloat( bindedCartItem.cartItem.price )
+      }
+
+      return cartCalculation
+    },
+  }
 }
 </script>
 

@@ -3,7 +3,7 @@
     <zCheckboxSingle
       class="py-2"
       :checked="!noSelectedItems"
-      @update:modelValue="$emit('toggleAllItems')"
+      @update:modelValue="$emit('toggleAllSelectStates')"
       label="Select All" />
 
     <transition name="delete-button" >
@@ -24,7 +24,7 @@
 export default {
   name: 'CartActions',
   inject: [ 'actionsDisabled' ],
-  emits: [ 'toggleAllItems', 'deleteProducts' ],
+  emits: [ 'toggleAllSelectStates', 'deleteProducts' ],
   props: {
     noSelectedItems: {
       type: Boolean,
