@@ -16,6 +16,7 @@ import subAppEnterGuard from './subAppEnter.guard'
 import getRedirectOnLargeScreen from './getRedirectOnLargeScreen'
 import getVerifyEmailGuardParams from './getVerifyEmailGuardParams'
 import GuardMetaAccesser from './guardMetaAccesser'
+import ignoreBackendDecorator from './ignoreBackendDecorator'
 
 export {
   getHiddenPartials,
@@ -35,5 +36,6 @@ export {
 
   getRedirectOnLargeScreen,
   getVerifyEmailGuardParams,
-  GuardMetaAccesser
+  GuardMetaAccesser,
+  ignoreBackendDecorator
 }

@@ -61,9 +61,6 @@ export default {
     setSidebarVibility ( visibilityState ) {
       this.sidebarVisiblity = visibilityState
     },
-    closeFn () {
-      this.setSidebarVibility( false )
-    }
   },
   components: {
     TheHeader,
