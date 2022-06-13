@@ -77,8 +77,6 @@ export default {
         if ( !reactiveObserver.inited ) {
           const $contentContainer = this.$refs.contentContainer
           reactiveObserver.init( $contentContainer, '0px 0px 150px 0px' )
-        } else {
-          reactiveObserver.reset()
         }
       },
       flush: 'post'
@@ -99,9 +97,13 @@ export default {
     this.setPage( this.pagination.page )
   },
   beforeUnmount () {
+    this.resetReactiveObserver()
     this.setPageInStorage( this.pagination.page )
   },
   methods: {
+    resetReactiveObserver () {
+      this.$options.reactiveObserver.reset()
+    },
     redirectOnWrongSectionName () {
       if ( !productSectionFilters.has( this.sectionCode ) ) {
         this.$router.push( { name: 'ShopProductCatalog', params: { sectionCode: this.defaultSectionCode } } )
@@ -128,6 +130,8 @@ export default {
     },
     async setPage ( pageNumber ) {
       const productsResponse = await this.getProducts( pageNumber )
+
+      this.resetReactiveObserver()
 
       this.pagination.itemCount = productsResponse.count
       this.pagination.page = pageNumber

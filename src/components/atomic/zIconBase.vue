@@ -1,5 +1,6 @@
 <template >
   <svg
+    v-if="iconLoaded"
     class="inline-block align-middle"
     xmlns="http://www.w3.org/2000/svg"
     :viewBox="viewBox"
@@ -35,6 +36,9 @@ export default {
     },
     iconFileName () {
       return this.icon
+    },
+    iconLoaded () {
+      return !!this.path
     }
   },
   data () {

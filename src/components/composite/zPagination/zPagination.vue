@@ -1,8 +1,17 @@
 <template >
-  <div :class="['flex items-center select-none', paginationDisabledClasses]" >
+  <div :class="['flex items-center justify-center select-none relative', paginationDisabledClasses]" >
+
+    <div
+      v-if="loading"
+      class="absolute right-2/4 bottom-2/4 transform translate-x-2/4 translate-y-2/4" >
+      <div class="relative w-12 h-12" >
+        <zLoader size="48px" ></zLoader>
+      </div>
+    </div>
+
     <PaginationButton
       class="pagination-surface"
-      @click="emitChangePage(-1)" >
+      @click="changePageByDirection(-1)" >
       <zIconBase
         class="transform rotate-180"
         width="26px"
@@ -22,7 +31,7 @@
 
     <PaginationButton
       class="pagination-surface"
-      @click="emitChangePage(1)" >
+      @click="changePageByDirection(1)" >
       Next
       <zIconBase
         width="26px"
@@ -36,23 +45,19 @@ import PaginationButton from './partial/PaginationButton.vue'
 
 export default {
   name: 'zPagination',
-  emits: [ 'change-page', 'set-page' ],
+  emits: [ 'setPage' ],
   props: {
-    page: {
+    currentPage: {
       type: Number,
       required: true,
     },
-    perPage: {
+    totalPages: {
       type: Number,
       required: true,
     },
-    itemCount: {
-      type: Number,
-      required: true,
-    },
-    disabled: {
+    loading: {
       type: Boolean,
-      default: false,
+      required: true,
     }
   },
   data () {
@@ -68,16 +73,13 @@ export default {
     }
   },
   computed: {
-    totalPages () {
-      return Math.ceil( this.itemCount / this.perPage )
-    },
     endOfMiddle () {
       return this.totalPages - 2
     },
     scenario () {
-      if ( this.page < this.startOfMiddle ) {
+      if ( this.currentPage < this.startOfMiddle ) {
         return this.scenarios.aboutStart
-      } else if ( this.startOfMiddle <= this.page && this.page <= this.endOfMiddle ) {
+      } else if ( this.startOfMiddle <= this.currentPage && this.currentPage <= this.endOfMiddle ) {
         return this.scenarios.middle
       } else {
         return this.scenarios.aboutEnd
@@ -89,8 +91,8 @@ export default {
 
         return this.getArrayOfPages( 1, displayMax )
       } else if ( this.scenario === this.scenarios.middle ) {
-        const min = this.page - this.distanceToEdge
-        const max = this.page + this.distanceToEdge
+        const min = this.currentPage - this.distanceToEdge
+        const max = this.currentPage + this.distanceToEdge
 
         return this.getArrayOfPages( min, max )
       } else {
@@ -105,7 +107,7 @@ export default {
     },
     paginationDisabledClasses () {
       return {
-        pagination_disabled: this.disabled
+        pagination_loading: this.loading
       }
     }
   },
@@ -119,33 +121,29 @@ export default {
 
       return array
     },
-    emitChangePage ( direction ) {
+    changePageByDirection ( direction ) {
       if ( !this.checkEmergencyCase( direction ) ) {
         return
       }
 
-      this.emitEvent( 'change-page', direction )
+      const newPage = this.currentPage + direction
+      this.emitSetPage( newPage )
     },
     checkEmergencyCase ( direction ) {
-      if ( direction === -1 && this.page === 1 ) {
+      if ( direction === -1 && this.currentPage === 1 ) {
         return false
-      } else if ( direction === 1 && this.page === this.totalPages ) {
+      } else if ( direction === 1 && this.currentPage === this.totalPages ) {
         return false
       }
 
       return true
     },
-    emitSetPage ( pageNum ) {
-      this.emitEvent( 'set-page', pageNum )
-    },
-    emitEvent ( eventName, ...params ) {
-      if ( !this.disabled ) {
-        this.$emit( eventName, ...params )
-      }
+    emitSetPage ( page ) {
+      this.$emit( 'setPage', page )
     },
     getPageNumberClasses ( nodePage ) {
       return {
-        'text-primary': nodePage === this.page
+        'text-primary': nodePage === this.currentPage
       }
     }
   },
@@ -157,13 +155,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.pagination_disabled {
-  .pagination-surface {
-    @apply text-black-lightest cursor-default;
-  }
-}
-
 .pagination-surface {
   @apply bg-black-lighten border border-black border-solid rounded-md;
 }
+
+.pagination_loading {
+  .pagination-surface {
+    @apply text-black-lightest cursor-default pointer-events-none;
+  }
+}
+
 </style>
