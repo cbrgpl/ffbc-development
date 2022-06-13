@@ -14,15 +14,17 @@ import {
   shopEnumsGuard,
   aggregateGuard,
   cartGuard,
-  fromRootGuard,
   userMeasuresGuard,
   subAppEnterGuard,
 
-  GuardMetaAccesser
+  GuardMetaAccesser,
+  ignoreBackendDecorator
 } from './helpers/index'
 
 import { verificateEmailGuardStrategy } from '@/helpers/strategy'
 
+// TODO Несколько значений для гуарда можно ставить через массив в поле гуарда
+// TODO Вместо использования убогого декоратора, нужно будет при помощи абстрактной фабрики создавать разные адаптеры, одни из которых будут возврщаать локальные шаблонные данные, а другие производить реальное общение с АПИ. Получится слой из адаптеров.
 const routes = [
   {
     path: '/',
@@ -32,10 +34,8 @@ const routes = [
     meta: {
       aggregate: GuardMetaAccesser.defineParam( {
         guards: [
-          getUserGuard,
+          ignoreBackendDecorator( getUserGuard ),
         ],
-        // TODO Убрать endGuard
-        endGuard: fromRootGuard,
       }, true ),
     },
     children: [
@@ -140,8 +140,8 @@ const routes = [
           aggregate: GuardMetaAccesser.defineParam( {
             guards: [
               subAppEnterGuard,
-              shopEnumsGuard,
-              cartGuard,
+              ignoreBackendDecorator( shopEnumsGuard ),
+              ignoreBackendDecorator( cartGuard ),
             ],
           } )
         },
@@ -154,7 +154,7 @@ const routes = [
             meta: {
               aggregate: GuardMetaAccesser.defineParam( {
                 guards: [
-                  userMeasuresGuard,
+                  ignoreBackendDecorator( userMeasuresGuard ),
                 ],
               } )
             },
@@ -309,7 +309,7 @@ const router = createRouter( {
   routes,
 } )
 
-router.beforeEach( authGuard )
+router.beforeEach( ignoreBackendDecorator( authGuard ) )
 router.beforeEach( rolesGuard )
 
 export default router
