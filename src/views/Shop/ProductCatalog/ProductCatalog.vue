@@ -160,7 +160,7 @@ export default {
   },
   components: {
     zShopProductCard,
-    zPagination: defineAsyncComponent( () => import( '@/components/composite/zPagination/zPagination.vue' ) )
+    zPagination: defineAsyncComponent( () => import( '@/components/composite/zPagination.vue' ) )
   }
 }
 </script>

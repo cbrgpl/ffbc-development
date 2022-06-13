@@ -1,5 +1,5 @@
 <template >
-  <div :class="['flex items-center justify-center select-none relative', paginationDisabledClasses]" >
+  <div :class="['flex items-stretch justify-center select-none relative', paginationDisabledClasses]" >
 
     <div
       v-if="loading"
@@ -9,40 +9,36 @@
       </div>
     </div>
 
-    <PaginationButton
-      class="pagination-surface"
+    <button
+      class="pagination-surface pagination-item"
       @click="changePageByDirection(-1)" >
       <zIconBase
         class="transform rotate-180"
         width="26px"
         icon="doubleArrow" />
-      Prev
-    </PaginationButton>
+    </button>
 
-    <div class="mx-4" >
+    <div class="flex mx-4" >
       <span
         v-for="pageNum of getPages"
         :key="pageNum"
         @click="emitSetPage(pageNum)"
-        :class="['pagination-surface cursor-pointer w-7 mr-2.5 last:mr-0 p-3', getPageNumberClasses(pageNum)]" >
+        :class="['pagination-surface pagination-item mr-2.5 last:mr-0', getPageNumberClasses(pageNum)]" >
         {{ pageNum }}
       </span>
     </div>
 
-    <PaginationButton
-      class="pagination-surface"
+    <button
+      class="pagination-surface pagination-item"
       @click="changePageByDirection(1)" >
-      Next
       <zIconBase
         width="26px"
         icon="doubleArrow" />
-    </PaginationButton>
+    </button>
   </div>
 </template>
 
 <script>
-import PaginationButton from './partial/PaginationButton.vue'
-
 export default {
   name: 'zPagination',
   emits: [ 'setPage' ],
@@ -64,7 +60,7 @@ export default {
     return {
       displayPageQnt: 5,
       startOfMiddle: 3,
-      distanceToEdge: 2,
+      distanceToEdge: 1,
       scenarios: {
         aboutStart: -1,
         middle: 0,
@@ -143,20 +139,27 @@ export default {
     },
     getPageNumberClasses ( nodePage ) {
       return {
-        'text-primary': nodePage === this.currentPage
+        'pagination-item_active': nodePage === this.currentPage
       }
     }
   },
 
-  components: {
-    PaginationButton
-  }
 }
 </script>
 
 <style lang="scss" scoped>
 .pagination-surface {
-  @apply bg-black-lighten border border-black border-solid rounded-md;
+  @apply bg-black-lighten border border-black border-solid rounded-md hover:bg-black-lightest;
+}
+
+.pagination-item {
+  @apply flex justify-center items-center cursor-pointer px-2.5 py-2;
+
+  min-width: rem(44px);
+}
+
+.pagination-item_active {
+  @apply text-primary-lightest pointer-events-none;
 }
 
 .pagination_loading {
