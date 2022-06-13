@@ -1,0 +1,91 @@
+<template >
+  <div class="flex flex-col w-full h-max min-h-full" >
+
+    <div class="mb-auto" >
+      <slot />
+    </div>
+
+    <zPagination
+      @setPage="emitSetPage"
+      :current-page="page"
+      :total-pages="paginationTotalPages"
+      :loading="loading" />
+  </div>
+</template>
+
+<script>
+import zPagination from '@components/composite/zPagination/zPagination.vue'
+import DomHandler from '@classes/DomHandler.class'
+
+export default {
+  name: 'zPaginationPage',
+  emits: [ 'setPage' ],
+  expose: [ 'setLoadingState', 'setFirstPage', 'scrollToTop' ],
+  props: {
+    totalPages: {
+      type: [ Number, null ],
+      default: null
+    },
+    perPage: {
+      type: Number,
+      default: 24,
+    },
+  },
+  data () {
+    return {
+      page: null,
+      loading: false,
+    }
+  },
+  computed: {
+    paginationTotalPages () {
+      const totalPagesWasPassed = this.totalPages !== null
+      return totalPagesWasPassed ? this.totalPages : 1
+    }
+  },
+  created () {
+    this.setStartPage()
+  },
+  mounted () {
+    this.emitSetPage( this.page )
+  },
+  methods: {
+    // public
+    setLoadingState ( state ) {
+      this.loading = state
+    },
+    setFirstPage () {
+      this.emitSetPage( 1 )
+    },
+    scrollToTop () {
+      const scrollableParent = DomHandler.getScrollableParents( this.$el )[ 0 ]
+      scrollableParent.scrollTo( 0, 0 )
+    },
+    // private
+    setStartPage () {
+      const hash = location.hash
+      const numberMatch = hash.match( /\d+/ )
+      const startPage = numberMatch !== null ? parseInt( numberMatch[ 0 ] ) : 1
+      this.page = startPage
+    },
+    emitSetPage ( currentPage ) {
+      this.page = currentPage
+
+      this.setLocationHash( currentPage )
+
+      this.$emit( 'setPage', currentPage, this.perPage )
+    },
+    setLocationHash ( currentPage ) {
+      location.hash = '#' + currentPage
+    },
+
+  },
+  components: {
+    zPagination
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+
+</style>
