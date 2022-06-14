@@ -4,12 +4,13 @@
     class="relative" >
 
     <component
+      v-show="src"
       @click="showInOverlay"
       v-bind="attrs"
       :src="src"
       :is="mediaComponent" />
 
-    <span class="absolute z-10 top-0 left-0 w-full h-full pointer-events-none" >
+    <span :class="['absolute z-10 top-0 left-0 w-full h-full', { 'pointer-events-none': !actionsSlotPassed  }]" >
       <slot name="actions" />
     </span>
   </div>
@@ -24,8 +25,8 @@ import { extenderMix } from '@mixins/index'
 export default {
   name: 'zMedia',
   mixins: [ extenderMix ],
+  emits: [ 'loaded' ],
   expose: [ 'startLoading' ],
-  templateImage: require( '@images/shop/blur-template.png' ),
   props: {
     original: {
       type: String,
@@ -57,12 +58,15 @@ export default {
   },
   data () {
     return {
-      src: this.$options.templateImage,
+      src: '',
     }
   },
   computed: {
     mediaComponent () {
       return 'z' + this.mediaType.charAt( 0 ).toUpperCase() + this.mediaType.slice( 1 )
+    },
+    actionsSlotPassed () {
+      return !!this.$slots.actions
     },
   },
   mounted () {
@@ -82,13 +86,9 @@ export default {
       this.$watch(
         'showOriginal',
         async ( showOriginal ) => {
-          if ( this.src !== this.preview ) {
-            await this.loadImage( this.preview )
-          }
+          await this.loadImage( this.preview )
 
-          if ( showOriginal ) {
-            this.loadOriginal()
-          }
+          this.loadOriginal()
         },
         {
           immediate: true,
@@ -112,8 +112,9 @@ export default {
         const displayImage = new Image()
 
         displayImage.onload = () => {
-          resolve()
           this.src = src
+          this.$emit( 'loaded' )
+          resolve()
         }
 
         displayImage.src = src
@@ -138,5 +139,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>

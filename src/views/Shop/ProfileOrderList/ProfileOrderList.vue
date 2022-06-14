@@ -28,7 +28,7 @@
           @open-order-detail="openOrderDetail"
           :order="order"
           v-observable="i"
-          :intersected="$options.reactiveObserver[i]" />
+          :intersected="$options.reactiveObserver.schema[i]" />
       </div>
 
       <zDialogNonLayoutWrapper
