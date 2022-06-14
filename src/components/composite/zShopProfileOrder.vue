@@ -12,12 +12,16 @@
 
     <div class="flex w-full relative h-80 xl:h-72 overflow-x-auto select-none" >
       <zMediaWithTitle
+        @VnodeMounted="createIntersectedWatcher"
+        :ref="pushMediaToBuffer"
         v-for="media of media"
         :key="media.display"
         title="A Media of product"
-        class="mr-2 flex-shrink-0 h-full max-w-full w-auto last:mr-0"
+        class="mr-2 flex-shrink-0 h-full w-full max-w-full w-auto last:mr-0"
         :original="media.display"
-        :intersected="intersected" />
+        :preview="media.preview"
+        :intersected="intersected"
+        :auto-loading="false"  />
 
       <div
         v-if="loader"
@@ -56,6 +60,7 @@ export default {
     },
     intersected: {
       type: Boolean,
+      defaut: null
     },
   },
   data () {
@@ -76,6 +81,7 @@ export default {
     }
   },
   created () {
+    this.setNonReactiveMediaBuffer()
     this.setOrderMedia()
   },
   methods: {
@@ -91,10 +97,37 @@ export default {
 
           return accumulator
         }, [] )
+
       this.loader = false
+    },
+    createIntersectedWatcher () {
+      if ( !this.intersectedWatcher ) {
+        this.intersectedWatcher = this.$watch(
+          'intersected',
+          ( intersected ) => {
+            if ( intersected ) {
+              for ( const mediaVNode of this.mediaBuffer ) {
+                mediaVNode.startLoading()
+              }
+            }
+          },
+          {
+            immediate: true,
+            flush: 'post'
+          }
+        )
+      }
+    },
+    setNonReactiveMediaBuffer () {
+      this.mediaBuffer = []
     },
     emitOpenOrderDetail () {
       this.$emit( 'open-order-detail', this.order.id )
+    },
+    pushMediaToBuffer ( vNode ) {
+      if ( !this.mediaBuffer.includes( vNode ) ) {
+        this.mediaBuffer.push( vNode )
+      }
     }
   },
   components: {
