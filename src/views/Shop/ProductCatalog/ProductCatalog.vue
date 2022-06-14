@@ -19,10 +19,10 @@
         <div class="grid grid-cols-2 gap-x-2 gap-y-8 md:grid-cols-3 2xl:grid-cols-4 items-stretch mb-6" >
           <zShopProductCard
             v-observable="i"
-            v-for="(product, i) of products"
             :key="product.title"
+            v-for="(product, i) of products"
             :product="product"
-            :intersected="$options.reactiveObserver.observablesSchema[i]" />
+            :intersected="$options.reactiveObserver.schema[i]" />
         </div>
       </zPaginationPage>
     </div>
@@ -60,12 +60,7 @@ export default {
     },
     products: {
       handler () {
-        const reactiveObserver = this.$options.reactiveObserver
-
-        if ( !reactiveObserver.inited ) {
-          const $contentContainer = this.$refs.contentContainer
-          reactiveObserver.init( $contentContainer, '0px 0px 150px 0px' )
-        }
+        this.$options.reactiveObserver.observe()
       },
       flush: 'post'
     }
@@ -79,14 +74,20 @@ export default {
     },
   },
   created () {
+    // TODO Переделать в гуард
     this.redirectOnWrongSectionName()
   },
+  mounted () {
+    this.initReactiveObserver()
+  },
   beforeUnmount () {
-    this.resetReactiveObserver()
+    this.$options.reactiveObserver.unobserve()
   },
   methods: {
-    resetReactiveObserver () {
-      this.$options.reactiveObserver.reset()
+    initReactiveObserver () {
+      const $contentContainer = this.$refs.contentContainer
+
+      this.$options.reactiveObserver.init( $contentContainer, '0px 0px 150px 0px' )
     },
     redirectOnWrongSectionName () {
       if ( !productSectionFilters.has( this.sectionCode ) ) {
@@ -98,12 +99,13 @@ export default {
 
       const response = await this.getProducts( page, perPage )
       if ( !response.success ) {
+        this.toast$.warn( { summary: 'Was not found', detail: `The page with number ${ page } is not exists` } )
         this.$refs.paginationPage.setFirstPage()
         return
       }
 
+      this.$options.reactiveObserver.unobserve()
       this.$refs.paginationPage.scrollToTop()
-      this.resetReactiveObserver()
 
       const data = response.data
       this.products = data.products
@@ -124,7 +126,7 @@ export default {
 
   },
   directives: {
-    observable: reactiveObserver.observableDirective
+    observable: reactiveObserver.directive
   },
   components: {
     zShopProductCard,

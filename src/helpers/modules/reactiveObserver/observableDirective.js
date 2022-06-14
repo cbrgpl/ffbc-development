@@ -1,16 +1,29 @@
-const OBSERVABLE_ATTR = 'observable'
+class ObservableDirective {
+  nodeBuffer = []
 
-const getDirective = ( addObservable ) => {
-  return {
-    created: ( $el, bindings ) => {
-      $el.setAttribute( `data-${ OBSERVABLE_ATTR }`, bindings.value )
+  static OBSERVABLE_ATTR = 'observable'
 
-      addObservable( bindings.value )
+  constructor ( addObservable ) {
+    this.addObservable = addObservable
+  }
+
+  clearNodeBuffer () {
+    this.nodeBuffer.splice( 0 )
+  }
+
+  get vueDirective () {
+    return {
+      created: ( $el, bindings ) => {
+        $el.setAttribute( `data-${ ObservableDirective.OBSERVABLE_ATTR }`, bindings.value )
+
+        this.nodeBuffer.push( $el )
+
+        this.addObservable( bindings.value )
+      }
     }
   }
 }
 
 export {
-  getDirective,
-  OBSERVABLE_ATTR
+  ObservableDirective,
 }

@@ -1,5 +1,8 @@
 <template >
   <div  >
+    <zButton @click="reset" >
+      reset
+    </zButton>
     <zPaginationPage
       ref="paginationPage"
       :total-pages="totalPages"
@@ -23,9 +26,11 @@
 
 <script>
 import zPaginationPage from '@components/composite/zPaginationPage.vue'
+import { ReactiveObserver } from '@/helpers/modules/reactiveObserver'
 
 export default {
   name: 'Preview',
+  reactiveObserver: new ReactiveObserver(),
   data () {
     return {
       products: [],
@@ -72,6 +77,11 @@ export default {
         return { products, totalPages }
       }
     },
+    reset () {
+      const reactiveObserver = this.$options.reactiveObserver
+
+      reactiveObserver.reset()
+    }
   },
   components: {
     zPaginationPage
