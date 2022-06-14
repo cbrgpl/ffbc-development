@@ -1,16 +1,16 @@
 /* eslint-disable no-dupe-class-members */
 import { reactive, watch } from 'vue'
 
-export default class ObserverBuffer {
+class ObservableNodeSchema {
     #intersections = reactive( [] )
-    #observablesSchema = reactive( {} )
+    #schema = reactive( {} )
     #watcher = watch(
       this.#intersections,
       ( newIntersectedElems ) => this.#setElemsIntersectedState( newIntersectedElems )
     )
 
     addObservable ( number ) {
-      this.#observablesSchema[ number ] = false
+      this.#schema[ number ] = false
     }
 
     addIntersections ( numbers ) {
@@ -18,29 +18,21 @@ export default class ObserverBuffer {
     }
 
     resetState () {
-      this.#resetObservablesSchema()
-      this.#clearIntersections()
-    }
-
-    #resetObservablesSchema () {
-      const numbers = Object.keys( this.#observablesSchema )
-
-      for ( const number of numbers ) {
-        this.#observablesSchema[ number ] = false
-      }
-    }
-
-    #clearIntersections () {
+      this.#schema = reactive( {} )
       this.#intersections.splice( 0 )
     }
 
-    #setElemsIntersectedState ( newIntersectedElems ) {
-      for ( const intersectedElem of newIntersectedElems ) {
-        this.#observablesSchema[ intersectedElem ] = true
+    #setElemsIntersectedState ( intersectedElems ) {
+      for ( const intersectedElem of intersectedElems ) {
+        this.#schema[ intersectedElem ] = true
       }
     }
 
-    get observablesSchema () {
-      return this.#observablesSchema
+    get schema () {
+      return this.#schema
     }
+}
+
+export {
+  ObservableNodeSchema
 }
