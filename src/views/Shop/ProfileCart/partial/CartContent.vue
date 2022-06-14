@@ -6,10 +6,10 @@
       :cart-item-id="bindedCartItem.cartItem.id"
       :product="bindedCartItem.product"
       :product-features="bindedCartItem.features"
-      @VnodeMounted="showContent"
+      @VnodeMounted="showCartContent"
       @toggleSelectState="$emit('toggleSelectState', $event)"
       v-observable="i"
-      :intersected="$options.reactiveObserver.observablesSchema[i]" />
+      :intersected="$options.reactiveObserver.schema[i]" />
   </div>
 </template>
 
@@ -37,7 +37,7 @@ export default {
     cartLoaded: {
       handler ( cartLoaded ) {
         if ( cartLoaded && this.cartEmpty ) {
-          this.showContent()
+          this.showCartContent()
         }
       },
       immediate: true,
@@ -45,7 +45,7 @@ export default {
   },
   data () {
     return {
-      contentMounted: false,
+      contentShown: false,
     }
   },
   computed: {
@@ -57,24 +57,27 @@ export default {
     },
   },
   beforeUnmount () {
-    this.$options.reactiveObserver.reset()
+    this.$options.reactiveObserver.unobserve()
   },
   methods: {
-    showContent ( ) {
-      if ( !this.contentMounted ) {
-        this.contentMounted = true
+    showCartContent () {
+      if ( !this.contentShown ) {
+        this.contentShown = true
+
         this.initObserver()
         this.$emit( 'disableLoader' )
       }
     },
     initObserver () {
       const reactiveObserver = this.$options.reactiveObserver
+
       const $contentContainer = DomHandler.getScrollableParents( this.$el )[ 0 ]
       reactiveObserver.init( $contentContainer, '0px 0px 300px 0px' )
+      reactiveObserver.observe()
     },
   },
   directives: {
-    observable: reactiveObserver.observableDirective
+    observable: reactiveObserver.directive
   },
   components: {
     zShopProfileProduct,
