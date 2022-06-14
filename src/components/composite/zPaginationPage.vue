@@ -8,7 +8,7 @@
     <zPagination
       @setPage="emitSetPage"
       :current-page="page"
-      :total-pages="paginationTotalPages"
+      :total-pages="totalPages"
       :loading="loading" />
   </div>
 </template>
@@ -22,7 +22,7 @@ export default {
   emits: [ 'setPage' ],
   expose: [ 'setLoadingState', 'setFirstPage', 'scrollToTop' ],
   props: {
-    totalPages: {
+    itemCount: {
       type: [ Number, null ],
       default: null
     },
@@ -38,9 +38,9 @@ export default {
     }
   },
   computed: {
-    paginationTotalPages () {
-      const totalPagesWasPassed = this.totalPages !== null
-      return totalPagesWasPassed ? this.totalPages : 1
+    totalPages () {
+      const itemCountWasPassed = this.itemCount !== null
+      return itemCountWasPassed ? Math.ceil( this.itemCount / this.perPage ) : 1
     }
   },
   created () {
@@ -59,7 +59,9 @@ export default {
     },
     scrollToTop () {
       const scrollableParent = DomHandler.getScrollableParents( this.$el )[ 0 ]
-      scrollableParent.scrollTo( 0, 0 )
+      if ( scrollableParent ) {
+        scrollableParent.scrollTo( 0, 0 )
+      }
     },
     // private
     setStartPage () {

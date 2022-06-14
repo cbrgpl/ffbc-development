@@ -1,17 +1,22 @@
 <template >
   <div class="relative" >
-    <zLoader
+    <!-- <zLoader
       v-if="loading"
       class="bg-opacity-60 z-10 w-full h-full"
       size="160px"
       background
-      title />
+      title /> -->
 
     <div
       ref="contentContainer"
       class="h-full w-full overflow-auto" >
-      <div class="flex flex-col min-h-full container shop-main_padding mx-auto" >
-        <div class="grid grid-cols-2 gap-x-2 gap-y-8 md:grid-cols-3 2xl:grid-cols-4 items-stretch mb-auto" >
+      <zPaginationPage
+        ref="paginationPage"
+        class="flex flex-col min-h-full container shop-main_padding mx-auto"
+        @setPage="loadNewPage"
+        :item-count="totalProducts"
+        :per-page="2" >
+        <div class="grid grid-cols-2 gap-x-2 gap-y-8 md:grid-cols-3 2xl:grid-cols-4 items-stretch mb-6" >
           <zShopProductCard
             v-observable="i"
             v-for="(product, i) of products"
@@ -19,22 +24,14 @@
             :product="product"
             :intersected="$options.reactiveObserver.observablesSchema[i]" />
         </div>
-
-        <zPagination
-          class="mt-4 mx-auto"
-          @change-page="changePage"
-          @set-page="setPage"
-          :disabled="loading"
-          v-bind="pagination" />
-      </div>
+      </zPaginationPage>
     </div>
   </div>
 
 </template>
 
 <script>
-import { defineAsyncComponent } from 'vue'
-
+import zPaginationPage from '@/components/composite/zPaginationPage.vue'
 import zShopProductCard from '@components/composite/zShopProductCard.vue'
 
 import { ReactiveObserver } from '@/helpers/modules/reactiveObserver'
@@ -54,21 +51,12 @@ export default {
   data () {
     return {
       products: [],
-      count: 0,
-      pagination: {
-        page: null,
-        perPage: 24,
-        itemCount: 0,
-      },
-      loading: true,
+      totalProducts: null,
     }
   },
   watch: {
     sectionCode () {
       this.redirectOnWrongSectionName()
-
-      this.pagination.page = 1
-      this.setPage( 1 )
     },
     products: {
       handler () {
@@ -92,13 +80,9 @@ export default {
   },
   created () {
     this.redirectOnWrongSectionName()
-
-    this.setPageNumber()
-    this.setPage( this.pagination.page )
   },
   beforeUnmount () {
     this.resetReactiveObserver()
-    this.setPageInStorage( this.pagination.page )
   },
   methods: {
     resetReactiveObserver () {
@@ -109,49 +93,33 @@ export default {
         this.$router.push( { name: 'ShopProductCatalog', params: { sectionCode: this.defaultSectionCode } } )
       }
     },
-    setPageInStorage ( pageNum ) {
-      sessionStorage.setItem( 'section_page', pageNum )
-    },
-    setPageNumber () {
-      const pageNumber = this.shiftPageFromStorage() || 1
+    async loadNewPage ( page, perPage ) {
+      this.$refs.paginationPage.setLoadingState( true )
 
-      this.pagination.page = pageNumber
-    },
-    shiftPageFromStorage () {
-      const pageNum = sessionStorage.getItem( 'section_page' )
-      sessionStorage.removeItem( 'section_page' )
-      return parseInt( pageNum )
-    },
+      const response = await this.getProducts( page, perPage )
+      if ( !response.success ) {
+        this.$refs.paginationPage.setFirstPage()
+        return
+      }
 
-    async changePage ( direction ) {
-      const newPage = this.pagination.page + direction
-
-      await this.setPage( newPage )
-    },
-    async setPage ( pageNumber ) {
-      const productsResponse = await this.getProducts( pageNumber )
-
+      this.$refs.paginationPage.scrollToTop()
       this.resetReactiveObserver()
 
-      this.pagination.itemCount = productsResponse.count
-      this.pagination.page = pageNumber
+      const data = response.data
+      this.products = data.products
+      this.totalProducts = data.count
 
-      this.products = productsResponse.products
+      this.$refs.paginationPage.setLoadingState( false )
     },
-    async getProducts ( page ) {
+    async getProducts ( page, perPage ) {
       const requestQueryParams = {
         ...this.sectionFilters,
         page,
-        perPage: this.pagination.perPage
+        perPage
       }
 
-      this.loading = true
-
-      const productsDispatch = await this.$store.dispatch( 'product/outGetProducts', requestQueryParams )
-
-      this.loading = false
-
-      return productsDispatch.data
+      const dispatchResult = await this.$store.dispatch( 'product/outGetProducts', requestQueryParams )
+      return dispatchResult
     },
 
   },
@@ -160,7 +128,7 @@ export default {
   },
   components: {
     zShopProductCard,
-    zPagination: defineAsyncComponent( () => import( '@/components/composite/zPagination.vue' ) )
+    zPaginationPage,
   }
 }
 </script>

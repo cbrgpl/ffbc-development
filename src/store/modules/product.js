@@ -57,7 +57,7 @@ export default {
     },
     async outGetProducts ( context, filters ) {
       const getProductsRequest = await productService.getProducts( filters )
-      if ( getProductsRequest.httpResponse.status !== 200 ) {
+      if ( getProductsRequest.httpResponse.status === 500 ) {
         throw new NetworkAttemptError( getProductsRequest.httpResponse )
       }
 

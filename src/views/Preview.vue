@@ -24,8 +24,6 @@
 <script>
 import zPaginationPage from '@components/composite/zPaginationPage.vue'
 
-// TODO СДЕЛАТЬ АДАПТИВ ДЛЯ СТРАНИЦ
-
 export default {
   name: 'Preview',
   data () {
