@@ -10,7 +10,9 @@
 
     </div>
 
-    <div class="h-fit w-full flex flex-col shop-main_padding" >
+    <div
+      ref="scrollableContainer"
+      class="h-full w-full overflow-y-auto flex flex-col shop-main_padding" >
       <zPseudoSelect
         class="md:w-72"
         @click="showCategoriesList"
@@ -21,10 +23,12 @@
       <div class="mt-3 grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-y-5 md:gap-4 2xl:gap-y-8" >
 
         <zShopProfileOrder
-          @open-order-detail='openOrderDetail'
-          v-for="order of ordersList"
           :key="order.id"
-          :order="order" />
+          v-for="(order, i) of orderList"
+          @open-order-detail="openOrderDetail"
+          :order="order"
+          v-observable="i"
+          :intersected="$options.reactiveObserver[i]" />
       </div>
 
       <zDialogNonLayoutWrapper
@@ -51,8 +55,13 @@
 <script>
 import zShopProfileOrder from '@components/composite/zShopProfileOrder.vue'
 
+import { ReactiveObserver } from '@/helpers/modules/reactiveObserver'
+
+const reactiveObserver = new ReactiveObserver()
+
 export default {
   name: 'ProfileOrderList',
+  reactiveObserver,
   data () {
     return {
       categoryListVisibile: false,
@@ -64,18 +73,40 @@ export default {
         'Is made',
         'Sent'
       ],
-      ordersList: [
-      ],
+      orderList: [],
       loader: true,
     }
   },
   created () {
+    this.createOrderListWatcher()
     this.requestOrders()
+  },
+  beforeUnmount () {
+    this.$options.reactiveObserver.unobserve()
   },
   methods: {
     async requestOrders () {
-      this.ordersList = await this.$store.dispatch( 'order/outFetchOrderList' )
-      this.loader = false
+      this.orderList = await this.$store.dispatch( 'order/outFetchOrderList' )
+    },
+    createOrderListWatcher () {
+      const unwatch = this.$watch(
+        'orderList',
+        () => {
+          this.initObserver()
+          unwatch()
+          this.loader = false
+        },
+        {
+          flush: 'post'
+        }
+      )
+    },
+    initObserver () {
+      const reactiveObserver = this.$options.reactiveObserver
+      const $container = this.$refs.scrollableContainer
+
+      reactiveObserver.init( $container, '0px 0px 0px 0px' )
+      reactiveObserver.observe()
     },
     showCategoriesList () {
       this.categoryListVisibile = true
@@ -98,6 +129,9 @@ export default {
     openOrderDetail ( orderId ) {
       this.$router.push( { name: 'ShopProfileOrderDetail', params: { orderId } } )
     }
+  },
+  directives: {
+    observable: reactiveObserver.directive
   },
   components: {
     zShopProfileOrder
