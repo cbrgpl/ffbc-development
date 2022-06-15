@@ -410,6 +410,43 @@ Flag which means inited or not
 
 <br><br><br><br>
 
+## Pagination Page
+
+Used to implement pagination in some component. Encapsulates pagination logic in it and expose some public methods and event to load new data.
+
+### Props
+
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| itemCount | Number or null  | null | Total count of items |
+| perPage | Number | 24 | Quantity of items per page |
+
+### Emits
+- setPage [page : number, perPage : number] - emits when need to load new content
+
+### Methods
+
+#### **setLoadingState( state : boolean )**
+
+Sets inner loading state accordance to the `state` value
+
+<br>
+
+#### **setFirstPage()**
+
+Emits `setPage` event with value of `firstPage` equal to 1
+
+<br>
+
+#### **scrollToTop()**
+
+Scrolls first scrollable parent node to top
+
+<br>
+
+<br><br><br><br>
+
 [^complex_operation]:
 	Цепочка действий или запросов, смысл которой можно объяснить одни действием. <br>
 	**Пример:** <br>
