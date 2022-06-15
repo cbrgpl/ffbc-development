@@ -29,11 +29,11 @@
 
 		ИСПОЛЬЗОВАНИЕ УСТАНОВКИ КЛЮЧА ПРИ ПОМОЩИ СТРОКИ СТРОГО ЗАПРЕЩАЕТСЯ!
 
-</br></br></br></br>
+<br><br><br><br>
 
 # Project run:
 
-</br>
+<br>
 
 ### Для запуска в режиме разработчика `npm run serve`
 
@@ -41,11 +41,11 @@
 
 ### Чтобы сбилдить проект `npm run build`
 
-</br></br></br></br>
+<br><br><br><br>
 
 # Linters:
 
-</br>
+<br>
 
 ### Фикс vue-cli-service `npm run lint`
 
@@ -57,7 +57,7 @@
 
 ### Фикс stylelint `npm run stylelint-fix`
 
-</br></br></br></br>
+<br><br><br><br>
 
 # Project directory map:
 
@@ -117,92 +117,92 @@
 	- views/
 		- Shop/ - директория для views, относящихся к shop
 
-</br></br></br></br>
+<br><br><br><br>
 
 # Git Rules:
 
-</br>
+<br>
 
 ## Issues:
 
-</br>
+<br>
 
-1. Если Issue успешно закрывается: </br>
-	Перед закрытием указывайте коммит, в котором она была решена, можно использовать следующий паттерн: </br>
+1. Если Issue успешно закрывается: <br>
+	Перед закрытием указывайте коммит, в котором она была решена, можно использовать следующий паттерн: <br>
 	Поправил в коммите 986ee1a
 
-2. Если Issue закрывается не успешно: </br>
+2. Если Issue закрывается не успешно: <br>
 	Повесьте лэйбл wontfix и объясните причину закрытия issue
 
-3. Если Issue была исправлена кем-то другим и вы не знаете где искать этот коммит: </br>
+3. Если Issue была исправлена кем-то другим и вы не знаете где искать этот коммит: <br>
 	Напишите, что Issue уже была исправлена, ссылка на коммит потеряна
 
-</br></br>
+<br><br>
 
 ## Возможные task-type:
 
-</br>
+<br>
 
 	- fix
 	- feat
 	- rework
 
-</br></br>
+<br><br>
 
 ## Branches:
 
 1. При создании новой ветки используйте следующий паттер "task-type/name"
 
-</br></br>
+<br><br>
 
 ## Commits:
 
-</br>
+<br>
 
-1. При коммите используйте следующий паттерн "task-type(область работы): сообщение" </br>
+1. При коммите используйте следующий паттерн "task-type(область работы): сообщение" <br>
 
-</br></br>
+<br><br>
 
 ## Pull Requests:
 
-</br>
+<br>
 
 1. В случае, если вы начали работу над одним функционалом и плавно незаметно выполнили еще несколько задач, то разделите всю работу на несколько веток вручную, после чего создайте несколько Pull Request'ов. Не нужно перегружать один пулл огромными массивами кода.
 
 **Инструкция будет позже...**
 
-</br></br></br></br>
+<br><br><br><br>
 
-# Project service classes API:
+# Project util services API:
 
 ## Console
 
-</br>
+<br>
 
 #### **object( object, title 	)**
 
-</br>
+<br>
 
 | Arg | Type | Default | Description |
 | --- | --- | --- | --- |
 | object | Object | undefined | Object that should be displayed in console |
 | title | String | empty string | String before object |
 
-</br></br>
+<br><br>
 
 #### **log( message )**
 
-</br>
+<br>
 
 | Arg | Type | Default | Description |
 | --- | --- | --- | --- |
 | message | string | undefined | Message that should be displayed in console |
 
-</br></br>
+<br><br>
 
 #### **error ( message )**; **warn ( message )**
 
-</br>
+<br>
 
 | Arg | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -212,7 +212,7 @@
 
 Use **Console.separator** property to change separator symbol;
 
-</br></br>
+<br><br>
 
 
 
@@ -220,38 +220,38 @@ Use **Console.separator** property to change separator symbol;
 
 Insterted[^inserted_in_app] service;
 
-</br>
+<br>
 
 #### **register ( dialogName )**
 
-</br>
+<br>
 
 | Arg | Type | Default | Description |
 | --- | --- | --- | --- |
 | dialogName | string | undefined | The name of dialog; Binds to component and helps to manipulate with dialog component throw the interface |
 
-</br></br>
+<br><br>
 
 #### **show( dialogName, modal )**
 
-</br>
+<br>
 
 | Arg | Type | Default | Description |
 | --- | --- | --- | --- |
 | dialogName | string | undefined | The name of dialog which will be shown |
 | modal | boolean | true | The flag that controls whether or not display dialog window wrapper with background or not |
 
-</br></br>
+<br><br>
 
 #### **hide( dialogName )**
 
-</br>
+<br>
 
 | Arg | Type | Default | Description |
 | --- | --- | --- | --- |
 | dialogName | string | undefined | The name of dialog which will be hidden |
 
-</br></br>
+<br><br>
 
 ### **addWatcher( dialogName, watcher, watcherOptions )**
 
@@ -261,7 +261,7 @@ Insterted[^inserted_in_app] service;
 | watcherCallback | function | null | The function which will be called at dialog visibility changes |
 | watcherOptions | object | {} | Vue watcher options |
 
-</br>
+<br>
 
 #### *watcherCallback( { newValue, oldValue, unwatch } )*
 
@@ -271,17 +271,17 @@ Insterted[^inserted_in_app] service;
 | oldValue | any | Old value of watched value |
 | unwatch | function | The function which stops watcher |
 
-</br></br></br></br>
+<br><br><br><br>
 
 ## MediaViewOverlay
 
 Insterted[^inserted_in_app] service;
 
-</br>
+<br>
 
 #### **show( mediaSrc, mediaType )**
 
-</br>
+<br>
 
 | Arg | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -292,20 +292,20 @@ Insterted[^inserted_in_app] service;
 - image
 - video
 
-</br></br></br></br>
+<br><br><br><br>
 
 ## Toast
 
 Insterted[^inserted_in_app] service;
 
-</br>
+<br>
 
 #### **warn( { sumary, detail, life } )**
 #### **success( { sumary, detail, life } )**
 #### **error( { sumary, detail, life } )**
 #### **info( { sumary, detail, life } )**
 
-</br>
+<br>
 
 | Arg | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -313,21 +313,106 @@ Insterted[^inserted_in_app] service;
 |detail | string | undefined | toast detail message |
 | life | number | undefined | Time of live of toast in ms |
 
-</br></br>
+<br><br>
 
 #### **remove( id )**
 
-</br>
+<br>
 
 | Arg | Type | Default | Description |
 | --- | --- | --- | --- |
 | id | number | undefined | ID of toast that must be deleted  |
 
-</br></br></br></br>
+<br><br><br><br>
+
+## Reactive observer
+
+<br>
+
+That is a module which expose class to observe intersection of vue components (that is using [intersection observing](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) as a core);
+
+You need to create singleton on component level (that means there is no need to recreate it each time, when component renders) and bind it to $options, then you need to expose directive to vue component
+
+```js
+import { ReactiveObserver } from '../reactiveObserver'
+
+const reactiveObserver = new ReactiveObserver()
+
+export default {
+	name: 'SomeComponentName',
+	reactiveObserver,
+	directives: {
+		observable: reactiveObserver.directive,
+	}
+}
+```
+
+### API
+
+<br>
+
+#### **init(root, rootMargin, thershold)**
+
+Initialize observer
+
+| Arg | Type | Default |
+| --- | --- | --- |
+| root | Element or Document or null  | null |
+| rootMargin | string | '0px 0px 0px 0px' |
+| threshold | number | 0.0 |
+
+[args decription](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/IntersectionObserver)
+
+<br>
+
+#### **observe()**
+
+Starts to observe elements **CALL ONLY AFTER init() method**
+
+<br>
+
+#### **unobserve()**
+
+Call to stop observing, reset instance state
+
+<br>
+
+#### **get schema**
+
+Returns object which describes which components has seen
+
+Example:
+```js
+{
+	1: true,
+	2: true,
+	3: false
+}
+```
+
+<br>
+
+#### **get directive**
+
+Returns vue directive. You need to pass unique value in it. That value used to describe schema
+
+```html
+<div :key="i" v-for="(item, i) of items" v-observable="i">
+	{{ item }}
+</div>
+```
+
+<br>
+
+#### **get inited**
+
+Flag which means inited or not
+
+<br><br><br><br>
 
 [^complex_operation]:
-	Цепочка действий или запросов, смысл которой можно объяснить одни действием. </br>
-	**Пример:** </br>
+	Цепочка действий или запросов, смысл которой можно объяснить одни действием. <br>
+	**Пример:** <br>
 	*getUser* разделяется на 3 действия: getUserInfo; getUserOrders; getUserCart
 
 [^pseudo_abstract_class]:
