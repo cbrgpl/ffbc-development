@@ -54,13 +54,15 @@ export default {
     loading: {
       type: Boolean,
       required: true,
-    }
+    },
+    displayPageQnt: {
+      type: Number,
+      default: 5,
+      validator: ( val ) => val % 2 === 1
+    },
   },
   data () {
     return {
-      displayPageQnt: 5,
-      startOfMiddle: 3,
-      distanceToEdge: 1,
       scenarios: {
         aboutStart: -1,
         middle: 0,
@@ -69,22 +71,9 @@ export default {
     }
   },
   computed: {
-    endOfMiddle () {
-      return this.totalPages - 2
-    },
-    scenario () {
-      if ( this.currentPage < this.startOfMiddle ) {
-        return this.scenarios.aboutStart
-      } else if ( this.startOfMiddle <= this.currentPage && this.currentPage <= this.endOfMiddle ) {
-        return this.scenarios.middle
-      } else {
-        return this.scenarios.aboutEnd
-      }
-    },
     getPages () {
       if ( this.scenario === this.scenarios.aboutStart ) {
         const displayMax = this.totalPages > this.displayPageQnt ? this.displayPageQnt : this.totalPages
-
         return this.getArrayOfPages( 1, displayMax )
       } else if ( this.scenario === this.scenarios.middle ) {
         const min = this.currentPage - this.distanceToEdge
@@ -100,6 +89,24 @@ export default {
 
         return this.getArrayOfPages( min, this.totalPages )
       }
+    },
+    scenario () {
+      if ( this.currentPage < this.startOfMiddle ) {
+        return this.scenarios.aboutStart
+      } else if ( this.startOfMiddle <= this.currentPage && this.currentPage <= this.endOfMiddle ) {
+        return this.scenarios.middle
+      } else {
+        return this.scenarios.aboutEnd
+      }
+    },
+    endOfMiddle () {
+      return this.totalPages - 2
+    },
+    distanceToEdge () {
+      return Math.floor( this.displayPageQnt / 2 )
+    },
+    startOfMiddle () {
+      return Math.ceil( this.displayPageQnt / 2 )
     },
     paginationDisabledClasses () {
       return {
