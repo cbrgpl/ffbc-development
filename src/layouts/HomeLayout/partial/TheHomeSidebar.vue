@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import homeNavigation from '@enums/nav/homeNavigation.options.js'
+import homeNavigation from '@enums/nav/router.competitionsHome.js'
 
 export default {
   name: 'TheHomeSidebar',

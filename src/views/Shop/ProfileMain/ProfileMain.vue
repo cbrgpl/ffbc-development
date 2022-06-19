@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import profileNavigation from '@enums/nav/profileNavigation.options'
+import profileNavigation from '@enums/nav/router.shopProfile'
 
 import UserData from './partial/UserData.vue'
 

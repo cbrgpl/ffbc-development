@@ -8,13 +8,12 @@
 
 <script>
 import zTabRouteNavigation from '@/components/composite/zTabRouteNavigation.vue'
-import userNavigation from '@enums/nav/userNavigation'
 
 export default {
   name: 'userNavigation',
   data () {
     return {
-      userNavigation,
+      userNavigation: [],
     }
   },
   components: {

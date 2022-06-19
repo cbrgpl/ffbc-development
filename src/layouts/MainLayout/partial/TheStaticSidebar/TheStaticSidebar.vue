@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import siteNavOptions from '@enums/nav/staticbar.options.js'
+import siteNavOptions from '@enums/nav/router.competitonsStaticbar.js'
 import UserNavigation from './partial/UserNavigation.vue'
 
 import { mapGetters } from 'vuex'

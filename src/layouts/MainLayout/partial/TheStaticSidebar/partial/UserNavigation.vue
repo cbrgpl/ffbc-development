@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import userNavOptions from '@enums/nav/userNavigation.options.js'
+import userNavOptions from '@enums/nav/router.competitionsUser.options.js'
 
 export default {
   props: {

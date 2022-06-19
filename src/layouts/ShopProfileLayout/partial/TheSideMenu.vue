@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import profileNavigation from '@enums/nav/profileNavigation.options'
+import profileNavigation from '@enums/nav/router.shopProfile'
 
 export default {
   name: 'TheSideMenu',

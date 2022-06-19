@@ -59,7 +59,7 @@
         "src/views/*"
       ],
       "#TailwindColors": [
-        "src/enums/tailwind.colors.js"
+        "src/enums/info/tailwindColors.js"
       ],
       "@js_utils": [
         "src/helpers/js_utils/index.js"

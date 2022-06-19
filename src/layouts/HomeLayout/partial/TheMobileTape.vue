@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import homeNavigation from '@enums/nav/homeNavigation.options.js'
+import homeNavigation from '@enums/nav/router.competitionsHome.js'
 import zTape from '@components/atomic/zTape.vue'
 
 export default {

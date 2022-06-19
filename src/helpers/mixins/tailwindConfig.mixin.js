@@ -1,4 +1,4 @@
-import tailwindColors from '#TailwindColors'
+import tailwindColors from '@/enums/info/tailwindColors'
 
 export default {
   data () {

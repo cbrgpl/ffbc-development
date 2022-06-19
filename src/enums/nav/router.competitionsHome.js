@@ -1,4 +1,3 @@
-// TODO Более логично будет разделить nav дирректорию на 2 части - router navigation enums && tabs navigation enums
 export default [
   {
     text: 'Home Main',
