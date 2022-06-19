@@ -23,7 +23,7 @@
 
 <script>
 import { computed } from 'vue'
-import checkoutNavigation from '@enums/info/navigation.checkout.js'
+import checkoutNavigation from '@enums/nav/tabs.shopCheckout.js'
 
 import Navigation from './partial/Navigation.vue'
 

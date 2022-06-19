@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import navOptions from '@enums/nav/sidebar.options.js'
+import navOptions from '@enums/nav/router.competitionsSidebar.js'
 import Profile from './partial/Profile.vue'
 
 export default {

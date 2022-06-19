@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import shopNavigation from '@enums/nav/shopNavigation.options'
+import shopNavigation from '@enums/nav/router.shopSidebarSubsystems'
 import goodSections from '@/enums/info/productSections'
 import SidemenuNavigationList from './TheSidemenuNavigationList.vue'
 
