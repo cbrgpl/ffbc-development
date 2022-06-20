@@ -1,5 +1,7 @@
-import registerCustomVueFunctional from './register_custom_vue_functional'
+import { registrateGlobals } from './registrateGlobals.js'
+import { registrateVueFunctionality } from './registrateVueFunctionality.js'
 
 export {
-  registerCustomVueFunctional
+  registrateGlobals,
+  registrateVueFunctionality
 }
