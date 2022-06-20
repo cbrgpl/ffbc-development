@@ -88,7 +88,7 @@ const customFunctional = {
   }
 }
 
-export default ( app ) => {
+export const registrateVueFunctionality = ( app ) => {
   for ( const functionalType in customFunctional ) {
     const functionalInner = customFunctional[ functionalType ]
 

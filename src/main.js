@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 
-import { registerCustomVueFunctional } from '@/helpers/app_configuration'
+import * as appConfiguration from '@/helpers/app_configuration'
 
 import router from './router'
 import store from './store'
@@ -14,7 +14,8 @@ import( /* webpackPreload: true */'@scss/_predefined.scss' )
 
 const app = createApp( App )
 
-registerCustomVueFunctional( app )
+appConfiguration.registrateGlobals()
+appConfiguration.registrateVueFunctionality( app )
 
 app.use( store ).use( router )
 
