@@ -8,8 +8,6 @@
   "globals": {
     "bus": true,
     "NOT_ERROR": true,
-    "API_URL": true,
-    "CLIENT_URL": true,
     "STORAGE_NAMES": true,
     "STATUS_WORDS": true,
     "REDIRECT_URLS": true,

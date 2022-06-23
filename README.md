@@ -445,6 +445,59 @@ Scrolls first scrollable parent node to top
 
 <br>
 
+## Consts
+
+All consts are available globally. See **src/helpers/app_configuration/consts/index.js** to explore all of them.
+
+To add new const you need create variable in file on path which been mentioned above and add it to *consts* variable.
+
+```js
+const NEW_CONST = "NEW_CONST_VALUE"
+
+const consts = deepFreeze({
+	...,
+	NEW_CONST
+})
+```
+
+<br>
+
+**All consts MUST BE named in uppercase kebab format!**
+
+<br>
+
+## Event Bus
+
+### emit(eventName, ...args)
+
+Emits event with passed name and pass there args.
+Throws error if event name is not set.
+
+| Arg | Type | Description |
+| --- | --- | --- |
+| eventName | String  | undefined |
+
+<br>
+
+### on(eventName, handler)
+
+Adds handler to event. If handler is not a function throws error
+
+| Arg | Type | Description |
+| --- | --- | --- |
+| eventName | String  | undefined |
+| handler | Function | undefined |
+
+<br>
+
+### remove(eventName)
+
+Removes all handlers for event
+
+| Arg | Type | Description |
+| --- | --- | --- |
+| eventName | String  | undefined |
+
 <br><br><br><br>
 
 [^complex_operation]:
