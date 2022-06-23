@@ -1,9 +1,7 @@
-import { API_URL } from 'consts'
-
 const cartApiModule = [
   {
     method: 'GET',
-    url: API_URL + '/cart/',
+    url: process.env.VUE_APP_API_URL + '/cart/',
     secure: true,
     roles: [],
     handler: 'getCart',
@@ -13,7 +11,7 @@ const cartApiModule = [
   },
   {
     method: 'POST',
-    url: API_URL + '/cart-items/',
+    url: process.env.VUE_APP_API_URL + '/cart-items/',
     secure: true,
     roles: [],
     handler: 'addCartItem',
@@ -39,7 +37,7 @@ const cartApiModule = [
   },
   {
     method: 'POST',
-    url: API_URL + '/cart-items/delete-multiple/',
+    url: process.env.VUE_APP_API_URL + '/cart-items/delete-multiple/',
     secure: true,
     roles: [],
     handler: 'removeCartItems',

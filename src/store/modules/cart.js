@@ -2,7 +2,6 @@ import CartAuthStrategy from '../helpers/cartAuthStrategy'
 import CartUnAuthStrategy from '../helpers/cartUnAuthStrategy'
 
 import { arrayUtils } from '@/helpers/js_utils/index'
-import { STORAGE_NAMES } from '@/enums/consts'
 
 import getCartProducts from '../helpers/getCartProducts'
 import getLocalCartDifference from '../helpers/getLocalCartDifference'

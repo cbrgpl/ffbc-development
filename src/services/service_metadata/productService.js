@@ -1,9 +1,7 @@
-import { API_URL } from 'consts'
-
 const productApiModule = [
   {
     method: 'GET',
-    url: API_URL + '/products/',
+    url: process.env.VUE_APP_API_URL + '/products/',
     secure: false,
     roles: [],
     handler: 'getProducts',
@@ -34,7 +32,7 @@ const productApiModule = [
   },
   {
     method: 'GET',
-    url: API_URL + '/products/{{id}}/',
+    url: process.env.VUE_APP_API_URL + '/products/{{id}}/',
     secure: false,
     roles: [],
     handler: 'getProductById',
@@ -44,7 +42,7 @@ const productApiModule = [
   },
   {
     method: 'GET',
-    url: API_URL + '/product-features/',
+    url: process.env.VUE_APP_API_URL + '/product-features/',
     secure: false,
     roles: [],
     handler: 'getProductFeatures',
@@ -54,7 +52,7 @@ const productApiModule = [
   },
   {
     method: 'GET',
-    url: API_URL + '/product-types/',
+    url: process.env.VUE_APP_API_URL + '/product-types/',
     secure: false,
     roles: [],
     handler: 'getProductTypes',

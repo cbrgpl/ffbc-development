@@ -19,7 +19,6 @@
 
 <script>
 import ProductDialog from './ProductDialog.vue'
-import { TEMPLATE_IMG } from 'consts'
 
 export default {
   name: 'OrderProducts',

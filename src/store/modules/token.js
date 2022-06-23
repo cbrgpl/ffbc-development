@@ -1,5 +1,3 @@
-import { STORAGE_NAMES } from 'consts'
-
 export default {
   namespaced: true,
   clearable: true,

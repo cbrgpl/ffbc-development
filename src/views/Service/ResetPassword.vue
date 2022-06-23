@@ -36,7 +36,6 @@ import useVuelidate from '@vuelidate/core'
 import { required, sameAs } from '@vuelidate/validators'
 import { getPasswordValidator } from '@validators'
 
-import { STATUS_WORDS } from 'consts'
 import { authService } from '@services'
 
 import { ErrorWithDescription } from '@errors'

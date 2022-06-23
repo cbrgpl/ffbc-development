@@ -1,9 +1,7 @@
-import { API_URL } from 'consts'
-
 const authApiModule = [
   {
     method: 'POST',
-    url: API_URL + '/auth/register/',
+    url: process.env.VUE_APP_API_URL + '/auth/register/',
     secure: false,
     roles: [],
     handler: 'signIn',
@@ -32,7 +30,7 @@ const authApiModule = [
   },
   {
     method: 'POST',
-    url: API_URL + '/auth/verify-email/',
+    url: process.env.VUE_APP_API_URL + '/auth/verify-email/',
     secure: false,
     roles: [],
     handler: 'verifyEmail',
@@ -52,7 +50,7 @@ const authApiModule = [
   },
   {
     method: 'POST',
-    url: API_URL + '/auth/resend-verification-link/',
+    url: process.env.VUE_APP_API_URL + '/auth/resend-verification-link/',
     secure: false,
     roles: [],
     handler: 'resendVerificationLink',
@@ -75,7 +73,7 @@ const authApiModule = [
   },
   {
     method: 'POST',
-    url: API_URL + '/auth/login/',
+    url: process.env.VUE_APP_API_URL + '/auth/login/',
     secure: false,
     roles: [],
     handler: 'logIn',
@@ -98,7 +96,7 @@ const authApiModule = [
   },
   {
     method: 'POST',
-    url: API_URL + '/auth/logout/',
+    url: process.env.VUE_APP_API_URL + '/auth/logout/',
     secure: true,
     roles: [],
     handler: 'logOut',
@@ -119,7 +117,7 @@ const authApiModule = [
   },
   {
     method: 'POST',
-    url: API_URL + '/auth/request-reset-password/',
+    url: process.env.VUE_APP_API_URL + '/auth/request-reset-password/',
     secure: false,
     roles: [],
     handler: 'requestResetPassword',
@@ -142,7 +140,7 @@ const authApiModule = [
   },
   {
     method: 'POST',
-    url: API_URL + '/auth/set-new-password/',
+    url: process.env.VUE_APP_API_URL + '/auth/set-new-password/',
     secure: false,
     roles: [],
     handler: 'setNewPassword',
@@ -171,7 +169,7 @@ const authApiModule = [
   },
   {
     method: 'POST',
-    url: API_URL + '/auth/login/refresh/',
+    url: process.env.VUE_APP_API_URL + '/auth/login/refresh/',
     secure: false,
     roles: [],
     handler: 'updateTokens',
@@ -191,7 +189,7 @@ const authApiModule = [
   },
   {
     method: 'POST',
-    url: API_URL + '/auth/update-user-password/',
+    url: process.env.VUE_APP_API_URL + '/auth/update-user-password/',
     secure: true,
     roles: [],
     handler: 'updatePassword',

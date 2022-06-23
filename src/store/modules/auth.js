@@ -1,5 +1,3 @@
-import { STORAGE_NAMES } from 'consts'
-
 import getActionResultDTO from '../helpers/getActionResultDTO'
 import { NetworkAttemptError } from '@errors'
 import { authService } from '@services'

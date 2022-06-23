@@ -3,5 +3,5 @@ import { registrateVueFunctionality } from './registrateVueFunctionality.js'
 
 export {
   registrateGlobals,
-  registrateVueFunctionality
+  registrateVueFunctionality,
 }

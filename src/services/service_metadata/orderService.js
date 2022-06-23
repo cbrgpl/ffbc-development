@@ -1,9 +1,7 @@
-import { API_URL } from 'consts'
-
 const orderApiModule = [
   {
     method: 'GET',
-    url: API_URL + '/orders/',
+    url: process.env.VUE_APP_API_URL + '/orders/',
     secure: true,
     roles: [],
     handler: 'getOrders',
@@ -13,7 +11,7 @@ const orderApiModule = [
   },
   {
     method: 'GET',
-    url: API_URL + '/orders/specs/',
+    url: process.env.VUE_APP_API_URL + '/orders/specs/',
     secure: false,
     roles: [],
     handler: 'getOrderSpecs',
@@ -23,7 +21,7 @@ const orderApiModule = [
   },
   {
     method: 'GET',
-    url: API_URL + '/orders/{{id}}/',
+    url: process.env.VUE_APP_API_URL + '/orders/{{id}}/',
     secure: false,
     roles: [],
     handler: 'getOrderDetails',
@@ -33,7 +31,7 @@ const orderApiModule = [
   },
   {
     method: 'POST',
-    url: API_URL + '/orders/',
+    url: process.env.VUE_APP_API_URL + '/orders/',
     secure: false,
     roles: [],
     handler: 'orderCreate',
@@ -74,7 +72,7 @@ const orderApiModule = [
   },
   {
     method: 'POST',
-    url: API_URL + '/order-items/',
+    url: process.env.VUE_APP_API_URL + '/order-items/',
     secure: false,
     roles: [],
     handler: 'orderItemsCreate',
@@ -88,7 +86,7 @@ const orderApiModule = [
   },
   {
     method: 'POST',
-    url: API_URL + '/order-measures/',
+    url: process.env.VUE_APP_API_URL + '/order-measures/',
     secure: false,
     roles: [],
     handler: 'orderMeasuresCreate',

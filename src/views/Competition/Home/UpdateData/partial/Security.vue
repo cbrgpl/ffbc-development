@@ -29,7 +29,6 @@
 <script>
 import useVuelidate from '@vuelidate/core'
 import { required, password } from '@validators'
-import { STATUS_WORDS } from 'consts'
 
 export default {
   name: 'Security',

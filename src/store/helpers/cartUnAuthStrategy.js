@@ -1,5 +1,4 @@
 import CartStrategy from './cartStrategy'
-import { STORAGE_NAMES } from '@/enums/consts'
 import { arrayUtils } from '@js_utils'
 
 export default class CartAnAuthStrategy extends CartStrategy {
