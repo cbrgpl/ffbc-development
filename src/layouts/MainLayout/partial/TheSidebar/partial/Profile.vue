@@ -33,8 +33,6 @@
 import { mapGetters } from 'vuex'
 import { authService } from '@services'
 
-import { STORAGE_NAMES } from 'consts'
-
 export default {
   computed: {
     ...mapGetters( {

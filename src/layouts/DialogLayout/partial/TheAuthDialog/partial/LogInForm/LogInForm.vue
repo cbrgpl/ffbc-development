@@ -53,7 +53,6 @@ import logInValidation from './validations/logIn'
 
 import { mapActions } from 'vuex'
 
-import { STATUS_WORDS } from 'consts'
 import { setRefreshInStorage } from '@functions'
 
 export default {

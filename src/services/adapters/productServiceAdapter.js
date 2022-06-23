@@ -1,5 +1,4 @@
 import ServiceAdapter from './serviceAdapter'
-import { TEMPLATE_IMG } from 'consts'
 
 export default class ProductServiceAdapter extends ServiceAdapter {
   getProducts ( requestResult ) {

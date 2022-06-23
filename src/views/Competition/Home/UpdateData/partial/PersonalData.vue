@@ -55,7 +55,6 @@
 import useVuelidate from '@vuelidate/core'
 import { minLength, phone, date, adultDate, minValue } from '@validators'
 import { userService } from '@services'
-import { STATUS_WORDS } from 'consts'
 
 export default {
   name: 'PersonalData',

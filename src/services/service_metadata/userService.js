@@ -1,9 +1,7 @@
-import { API_URL } from 'consts'
-
 const userApiModule = [
   {
     method: 'GET',
-    url: API_URL + '/user/me/',
+    url: process.env.VUE_APP_API_URL + '/user/me/',
     secure: true,
     roles: [],
     handler: 'getUser',
@@ -13,7 +11,7 @@ const userApiModule = [
   },
   {
     method: 'POST',
-    url: API_URL + '/user/me/edit/',
+    url: process.env.VUE_APP_API_URL + '/user/me/edit/',
     secure: true,
     roles: [],
     handler: 'updateUser',

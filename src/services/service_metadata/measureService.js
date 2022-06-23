@@ -1,9 +1,7 @@
-import { API_URL } from 'consts'
-
 const measureApiModule = [
   {
     method: 'GET',
-    url: API_URL + '/measures/',
+    url: process.env.VUE_APP_API_URL + '/measures/',
     secure: false,
     roles: [],
     handler: 'getMeasures',
@@ -13,7 +11,7 @@ const measureApiModule = [
   },
   {
     method: 'GET',
-    url: API_URL + '/user-measures/',
+    url: process.env.VUE_APP_API_URL + '/user-measures/',
     secure: true,
     roles: [],
     handler: 'getUserMeasures',
@@ -23,7 +21,7 @@ const measureApiModule = [
   },
   {
     method: 'POST',
-    url: API_URL + '/user-measures/',
+    url: process.env.VUE_APP_API_URL + '/user-measures/',
     secure: true,
     roles: [],
     handler: 'postUserMeasure',
@@ -49,7 +47,7 @@ const measureApiModule = [
   },
   {
     method: 'PATCH',
-    url: API_URL + '/user-measures/{{id}}/',
+    url: process.env.VUE_APP_API_URL + '/user-measures/{{id}}/',
     secure: true,
     roles: [],
     handler: 'patchUserMeasure',

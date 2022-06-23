@@ -71,7 +71,6 @@ import useValidation from '@vuelidate/core'
 import signInValidation from './validation/signIn'
 
 import passwordRequirements from '@enums/info/passwordRequirements'
-import { STATUS_WORDS, REDIRECT_URLS } from 'consts'
 
 import { deleteUnneededObjProperties } from '@functions'
 

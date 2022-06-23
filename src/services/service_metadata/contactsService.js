@@ -1,9 +1,7 @@
-import { API_URL } from 'consts'
-
 const contactsApiModule = [
   {
     method: 'GET',
-    url: API_URL + '/contact-services/',
+    url: process.env.VUE_APP_API_URL + '/contact-services/',
     secure: false,
     roles: [],
     handler: 'getContactTypes',
@@ -13,7 +11,7 @@ const contactsApiModule = [
   },
   {
     method: 'POST',
-    url: API_URL + '/user-contact-services/',
+    url: process.env.VUE_APP_API_URL + '/user-contact-services/',
     secure: true,
     roles: [],
     handler: 'setUserContacts',
@@ -36,7 +34,7 @@ const contactsApiModule = [
   },
   {
     method: 'PATCH',
-    url: API_URL + '/user-contact-services/{{id}}/',
+    url: process.env.VUE_APP_API_URL + '/user-contact-services/{{id}}/',
     secure: true,
     roles: [],
     handler: 'patchContactService',

@@ -200,7 +200,6 @@ import useVuelidate from '@vuelidate/core'
 import userFormValidation from './validations/userForm'
 
 import { getBackendFormatDate } from '@filters'
-import { STATUS_WORDS } from 'consts'
 
 import bustTypes from '@/enums/backend/bustTypes.js'
 

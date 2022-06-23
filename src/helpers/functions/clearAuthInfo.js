@@ -1,4 +1,3 @@
-import { STORAGE_NAMES } from 'consts'
 import store from '@/store'
 
 function deleteBrowserStorageRefresh () {

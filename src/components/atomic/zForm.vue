@@ -20,8 +20,6 @@
 </template>
 
 <script>
-import { STATUS_WORDS } from 'consts'
-
 export default {
   name: 'zForm',
   emits: [ 'validate' ],

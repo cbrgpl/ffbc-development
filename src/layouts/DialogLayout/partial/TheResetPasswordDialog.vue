@@ -37,8 +37,6 @@ import zDialog from '@components/composite/zDialog/zDialog.vue'
 import useVuelidate from '@vuelidate/core'
 import { email, required } from '@vuelidate/validators'
 
-import { STATUS_WORDS, REDIRECT_URLS } from 'consts'
-
 export default {
   name: 'TheResetPasswordDialog',
   data () {

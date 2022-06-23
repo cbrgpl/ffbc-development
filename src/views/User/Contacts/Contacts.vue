@@ -35,8 +35,6 @@ import filledContacts from './validations/filledContacts'
 
 import ContactField from './partial/ContactField.vue'
 
-import { STATUS_WORDS } from 'consts'
-
 export default {
   name: 'UserContact',
   setup () {

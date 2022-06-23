@@ -72,8 +72,6 @@ import { getPasswordValidator } from '@validators'
 
 import passwordRequirements from '@enums/info/passwordRequirements'
 
-import { STATUS_WORDS } from 'consts'
-
 export default {
   name: 'ChangePasswordSection',
   setup () {

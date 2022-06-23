@@ -1,6 +1,5 @@
-const BACKEND_ADDRESS = 'rainbow-siege-developers.ru'
-
-const API_URL = `https://${ BACKEND_ADDRESS }/api`
+import deepFreeze from '@functions/deepFreeze'
+import { registrateGlobalSafely } from '../_utils/registrateGlobalSafely'
 
 const CLIENT_URL = location.origin
 
@@ -26,12 +25,17 @@ const STORAGE_NAMES = {
 
 const TEMPLATE_IMG = require( '@images/shop/blur-template.png' )
 
-export {
+const consts = deepFreeze( {
   NOT_ERROR,
-  API_URL,
   CLIENT_URL,
   STORAGE_NAMES,
   STATUS_WORDS,
   REDIRECT_URLS,
   TEMPLATE_IMG
+} )
+
+export const registrateConstsGlobally = () => {
+  for ( const constName in consts ) {
+    registrateGlobalSafely( constName, consts[ constName ] )
+  }
 }
