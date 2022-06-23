@@ -1,19 +1,15 @@
 import { app } from '@/main.js'
-import { STORAGE_NAMES } from '@/enums/consts'
 
-import toastByState from './commandToastByState'
+import toastStrategyResult from './commandToastByState'
 
-const notificateAppComponent = () => localStorage.setItem( STORAGE_NAMES.EMAIL_VERIFICATION, true )
-const isServerDisabled = ( commandResult ) => commandResult.nextRoute === 'ServerDisabled'
+const isServerDisabled = ( strategyResult ) => strategyResult.nextRoute === 'ServerDisabled'
 
 export default async function ( to, from, next ) {
-  notificateAppComponent()
-
   const strategy = to.meta.strategy
-  const strategyResult = await strategy.execute()
+  const strategyResult = await strategy()
 
   if ( !isServerDisabled( strategyResult ) ) {
-    toastByState( app, strategyResult )
+    toastStrategyResult( app, strategyResult )
   }
 
   next( { name: strategyResult.nextRoute } )

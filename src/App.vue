@@ -77,23 +77,14 @@ export default {
         () => this.appInitialized && this.subAppLoaded,
         ( newVal ) => {
           if ( newVal ) {
-            this.disableTemplatePreloader()
+            this.removeTemplateLoader()
             unwatch()
           }
         },
+        {
+          flush: 'post'
+        }
       )
-    },
-    async disableTemplatePreloader () {
-      const isVerificateRoute = !!this.$route.meta.verificateEmail
-
-      if ( isVerificateRoute ) {
-        window.addEventListener( 'storage', this.removeTemplateLoader, { once: true } )
-      } else {
-        this.removeTemplateLoaderWithTimeout( 160 )
-      }
-    },
-    removeTemplateLoaderWithTimeout ( ms ) {
-      setTimeout( this.removeTemplateLoader, ms )
     },
     removeTemplateLoader () {
       document.body.removeChild( document.body.querySelector( '#template-preloader' ) )

@@ -17,6 +17,7 @@ import getRedirectOnLargeScreen from './getRedirectOnLargeScreen'
 import getVerifyEmailGuardParams from './getVerifyEmailGuardParams'
 import GuardMetaAccesser from './guardMetaAccesser'
 import ignoreBackendDecorator from './ignoreBackendDecorator'
+import { verificateEmail } from './verificateEmailStrategy'
 
 export {
   getHiddenPartials,
@@ -37,5 +38,6 @@ export {
   getRedirectOnLargeScreen,
   getVerifyEmailGuardParams,
   GuardMetaAccesser,
-  ignoreBackendDecorator
+  ignoreBackendDecorator,
+  verificateEmail
 }

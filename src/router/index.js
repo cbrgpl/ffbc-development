@@ -18,10 +18,9 @@ import {
   subAppEnterGuard,
 
   GuardMetaAccesser,
-  ignoreBackendDecorator
+  ignoreBackendDecorator,
+  verificateEmail
 } from './helpers/index'
-
-import { verificateEmailGuardStrategy } from '@/helpers/strategy'
 
 // TODO Несколько значений для гуарда можно ставить через массив в поле гуарда
 // TODO Вместо использования убогого декоратора, нужно будет при помощи абстрактной фабрики создавать разные адаптеры, одни из которых будут возврщаать локальные шаблонные данные, а другие производить реальное общение с АПИ. Получится слой из адаптеров.
@@ -284,11 +283,10 @@ const routes = [
   },
   {
     path: '/verificate',
-    component: EmptyLayout,
     beforeEnter: strategyGuard,
     meta: {
       verificateEmail: true,
-      strategy: verificateEmailGuardStrategy
+      strategy: verificateEmail
     }
   },
   {
