@@ -8,7 +8,7 @@
 <script>
 import { rootLayoutMixin } from '@mixins'
 
-import BackLayout from '@layouts/BackLayout/BackLayout.vue'
+import BackLayout from '@layouts/partials/BackLayout/BackLayout.vue'
 
 export default {
   name: 'checkout-root-layout',

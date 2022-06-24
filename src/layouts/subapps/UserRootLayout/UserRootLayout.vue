@@ -16,7 +16,7 @@
 
 import { rootLayoutMixin } from '@mixins'
 
-import BackLayout from '@layouts/BackLayout/BackLayout.vue'
+import BackLayout from '@layouts/partials/BackLayout/BackLayout.vue'
 import UserNavigation from './partial/UserNavigation.vue'
 
 export default {

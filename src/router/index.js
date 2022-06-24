@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import EmptyLayout from '@layouts/EmptyLayout/EmptyLayout.vue'
+import EmptyLayout from '@layouts/subapps/EmptyLayout/EmptyLayout.vue'
 
 import {
   getHiddenPartials,
@@ -23,7 +23,6 @@ import {
 } from './helpers/index'
 
 // TODO Несколько значений для гуарда можно ставить через массив в поле гуарда
-// TODO Вместо использования убогого декоратора, нужно будет при помощи абстрактной фабрики создавать разные адаптеры, одни из которых будут возврщаать локальные шаблонные данные, а другие производить реальное общение с АПИ. Получится слой из адаптеров.
 const routes = [
   {
     path: '/',
@@ -90,7 +89,7 @@ const routes = [
           },
           {
             path: 'home',
-            component: () => import( '@layouts/HomeLayout/HomeLayout.vue' ),
+            component: () => import( '@layouts/subapps/HomeLayout/HomeLayout.vue' ),
             name: 'Home',
             redirect: { name: 'HomeMain' },
             meta: {
@@ -133,7 +132,7 @@ const routes = [
       },
       {
         path: '/shop',
-        component: () => import( '@layouts/EmptyLayout/EmptyLayout.vue' ),
+        component: EmptyLayout,
         beforeEnter: aggregateGuard,
         meta: {
           aggregate: GuardMetaAccesser.defineParam( {
@@ -147,7 +146,7 @@ const routes = [
         children: [
           {
             path: '',
-            component: () => import( '@layouts/ShopRootLayout/ShopRootLayout' ),
+            component: () => import( '@layouts/subapps/ShopRootLayout/ShopRootLayout' ),
             props: getHiddenPartials( 'Shop' ),
             beforeEnter: aggregateGuard,
             meta: {
@@ -165,7 +164,7 @@ const routes = [
               },
               {
                 path: 'profile',
-                component: () => import( '@layouts/ShopProfileLayout/ShopProfileLayout.vue' ),
+                component: () => import( '@layouts/subapps/ShopProfileLayout/ShopProfileLayout.vue' ),
                 name: 'ShopProfile',
                 props: getHiddenPartials( 'ShopProfile' ),
                 redirect: { name: 'ShopProfileMain' },
@@ -217,7 +216,7 @@ const routes = [
           },
           {
             path: 'checkout',
-            component: () => import( '@layouts/CheckoutRootLayout/CheckoutRootLayout.vue' ),
+            component: () => import( '@layouts/subapps/CheckoutRootLayout/CheckoutRootLayout.vue' ),
             props: getHiddenPartials( 'Checkout' ),
             beforeEnter: aggregateGuard,
             meta: {
@@ -249,7 +248,7 @@ const routes = [
       },
       {
         path: '/user',
-        component: () => import( '@layouts/UserRootLayout/UserRootLayout' ),
+        component: () => import( '@layouts/subapps/UserRootLayout/UserRootLayout' ),
         redirect: { name: 'UserMe' },
         beforeEnter: aggregateGuard,
         meta: {

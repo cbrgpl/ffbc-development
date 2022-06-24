@@ -27,10 +27,9 @@
 </template>
 
 <script>
-import DialogLayout from '@layouts/DialogLayout/DialogLayout.vue'
+import DialogLayout from '@layouts/singletons/DialogLayout/DialogLayout.vue'
 
 import TheMediaViewOverlay from '@/components/composite/TheMediaViewOverlay/TheMediaViewOverlay.vue'
-
 import TheToast from '@components/composite/TheToast/TheToast.vue'
 
 import Console from '@/helpers/classes/Console'
