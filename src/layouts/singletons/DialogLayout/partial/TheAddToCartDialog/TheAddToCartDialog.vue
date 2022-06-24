@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import zDialog from '@components/composite/zDialog/zDialog.vue'
+import zDialog from '@general_components/composite/zDialog/zDialog.vue'
 import FeatureSection from './partial/FeatureSection.vue'
 
 import { mapGetters } from 'vuex'

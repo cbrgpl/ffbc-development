@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import UserForm from '@components/composite/UserForm/UserForm.vue'
+import UserForm from '@general_components/composite/UserForm/UserForm.vue'
 import SectionActions from './SectionActions.vue'
 
 export default {

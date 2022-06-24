@@ -209,8 +209,6 @@ import { getBackendFormatDate } from '@filters'
 
 import bustTypes from '@/enums/backend/bustTypes.js'
 
-// TODO Вернуть zipcode, когда он появится в АПИ
-
 export default {
   name: 'UserMe',
   setup () {

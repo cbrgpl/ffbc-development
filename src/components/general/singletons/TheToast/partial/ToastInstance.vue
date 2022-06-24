@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import zProgressBar from '@components/atomic/zProgressBar.vue'
+import zProgressBar from '@general_components/atomic/zProgressBar.vue'
 
 export default {
   emits: [ 'remove' ],

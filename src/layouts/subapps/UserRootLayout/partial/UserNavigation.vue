@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import zTabRouteNavigation from '@/components/composite/zTabRouteNavigation.vue'
+import zTabRouteNavigation from '@general_components/composite/zTabRouteNavigation.vue'
 
 export default {
   name: 'userNavigation',

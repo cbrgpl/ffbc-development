@@ -32,7 +32,7 @@
   </zDialog>
 </template>
 <script>
-import zDialog from '@components/composite/zDialog/zDialog.vue'
+import zDialog from '@general_components/composite/zDialog/zDialog.vue'
 
 import useVuelidate from '@vuelidate/core'
 import { email, required } from '@vuelidate/validators'

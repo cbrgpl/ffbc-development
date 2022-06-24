@@ -40,8 +40,8 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import zDocumentImage from '@components/composite/zDocumentImage.vue'
-import zImagesCollection from '@components/atomic/zImagesCollection.vue'
+import zDocumentImage from '@general_components/composite/zDocumentImage.vue'
+import zImagesCollection from '@general_components/atomic/zImagesCollection.vue'
 
 export default {
   name: 'Documents',

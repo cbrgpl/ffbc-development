@@ -37,8 +37,8 @@
 </template>
 
 <script>
-import zMeasureForm from '@components/composite/zMeasureForm.vue'
-import zMeasureFieldInput from '@components/composite/zMeasureFieldInput.vue'
+import zMeasureForm from '@shop_components/composite/zMeasureForm/zMeasureForm.vue'
+import zMeasureFieldInput from '@shop_components/composite/zMeasureForm/zMeasureFieldInput.vue'
 
 export default {
   name: 'ProfileMeasures',

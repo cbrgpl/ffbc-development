@@ -18,7 +18,7 @@
 <script>
 import { ref } from 'vue'
 
-import zTabNav from '@components/atomic/zTabNav.vue'
+import zTabNav from '@general_components/atomic/zTabNav.vue'
 
 export default {
   name: 'zBlockableTabNav',

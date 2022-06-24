@@ -123,7 +123,7 @@ export default {
     } )
   },
   components: {
-    zCompetetionCard: defineAsyncComponent( () => import( '@/components/composite/zCompetitionCard.vue' ) ),
+    zCompetetionCard: defineAsyncComponent( () => import( '@/components/competitions/composite/zCompetitionCard.vue' ) ),
     CompetitionCardActions,
     Ticket,
     ServiceSection,

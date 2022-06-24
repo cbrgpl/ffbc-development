@@ -119,7 +119,7 @@ export default {
     mask
   },
   components: {
-    zIconBrand: defineAsyncComponent( () => import( '@components/composite/zBrandIcon.vue' ) ),
+    zIconBrand: defineAsyncComponent( () => import( '@general_components/composite/zBrandIcon.vue' ) ),
   },
 }
 </script>

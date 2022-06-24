@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import zImage from '@components/atomic/zImage.vue'
-import zVideo from '@components/atomic/zVideo.vue'
+import zImage from '@general_components/atomic/zImage.vue'
+import zVideo from '@general_components/atomic/zVideo.vue'
 
 import { extenderMix } from '@mixins/index'
 

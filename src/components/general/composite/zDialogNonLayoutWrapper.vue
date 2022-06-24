@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import zDialog from '@components/composite/zDialog/zDialog'
+import zDialog from '@general_components/composite/zDialog/zDialog'
 
 import escCloseMix from '@/helpers/mixins/escClose.mixin'
 

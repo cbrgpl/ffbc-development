@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import zSelectItem from '@components/atomic/zSelectItem.vue'
+import zSelectItem from '@general_components/atomic/zSelectItem.vue'
 
 export default {
   name: 'zSelect',

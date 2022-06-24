@@ -30,8 +30,8 @@
 </template>
 
 <script>
-import zDialog from '@components/composite/zDialog/zDialog.vue'
-import zTimer from '@components/atomic/zTimer.vue'
+import zDialog from '@general_components/composite/zDialog/zDialog.vue'
+import zTimer from '@general_components/atomic/zTimer.vue'
 import { authService } from '@services'
 
 export default {

@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import zBlockableTabNav from '@components/composite/zBlockableTabNav'
+import zBlockableTabNav from '@general_components/composite/zBlockableTabNav'
 
 export default {
   name: 'Navigation',

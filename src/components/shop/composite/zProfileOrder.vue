@@ -34,7 +34,7 @@
 
     <div class="flex flex-col items-stretch sm:flex-row sm:items-center justify-between" >
 
-      <zShopOrderStatus
+      <zOrderStatus
         class="mb-1.5"
         :status-value="order.orderStatus" />
 
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import zShopOrderStatus from '@components/atomic/zShopOrderStatus.vue'
+import zOrderStatus from '@shop_components/atomic/zOrderStatus.vue'
 
 export default {
   name: 'zShopProfileOrder',
@@ -131,7 +131,7 @@ export default {
     }
   },
   components: {
-    zShopOrderStatus
+    zOrderStatus
   }
 }
 </script>

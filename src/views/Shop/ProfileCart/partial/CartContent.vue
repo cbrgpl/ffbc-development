@@ -1,6 +1,6 @@
 <template >
   <div >
-    <zShopProfileProduct
+    <zProfileProduct
       v-for="(bindedCartItem, i) of bindedCartItems"
       :key="bindedCartItem.cartItem.id"
       :cart-item-id="bindedCartItem.cartItem.id"
@@ -16,7 +16,7 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import zShopProfileProduct from '@components/composite/zShopProfileProduct.vue'
+import zProfileProduct from '@shop_components/composite/zProfileProduct.vue'
 
 import DomHandler from '@/helpers/classes/DomHandler.class'
 import { ReactiveObserver } from '@/helpers/modules/reactiveObserver'
@@ -80,7 +80,7 @@ export default {
     observable: reactiveObserver.directive
   },
   components: {
-    zShopProfileProduct,
+    zProfileProduct,
   }
 }
 </script>

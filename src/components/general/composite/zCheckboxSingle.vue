@@ -7,7 +7,7 @@
 
 <script>
 import preventModel from '@mixins/preventModel.mixin.js'
-import zCheckbox from '@components/atomic/zCheckbox.vue'
+import zCheckbox from '@general_components/atomic/zCheckbox.vue'
 
 export default {
   name: 'zCheckboxSingle',

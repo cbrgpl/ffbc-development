@@ -34,8 +34,8 @@
 </template>
 
 <script>
-import zFilesList from '@components/atomic/zFilesList.vue'
-import zLoader from '@components/atomic/zLoader.vue'
+import zFilesList from '@general_components/atomic/zFilesList.vue'
+import zLoader from '@general_components/atomic/zLoader.vue'
 
 export default {
   name: 'zInputFile',

@@ -28,7 +28,7 @@
 <script>
 import SectionActions from './SectionActions.vue'
 
-import zMeasureForm from '@components/composite/zMeasureForm.vue'
+import zMeasureForm from '@shop_components/composite/zMeasureForm/zMeasureForm.vue'
 
 export default {
   name: 'Measures',

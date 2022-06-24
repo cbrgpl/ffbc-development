@@ -22,7 +22,7 @@
 
       <div class="mt-3 grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-y-5 md:gap-4 2xl:gap-y-8" >
 
-        <zShopProfileOrder
+        <zProfileOrder
           :key="order.id"
           v-for="(order, i) of orderList"
           @open-order-detail="openOrderDetail"
@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import zShopProfileOrder from '@components/composite/zShopProfileOrder.vue'
+import zProfileOrder from '@shop_components/composite/zProfileOrder.vue'
 
 import { ReactiveObserver } from '@/helpers/modules/reactiveObserver'
 
@@ -134,7 +134,7 @@ export default {
     observable: reactiveObserver.directive
   },
   components: {
-    zShopProfileOrder
+    zProfileOrder
   }
 }
 </script>

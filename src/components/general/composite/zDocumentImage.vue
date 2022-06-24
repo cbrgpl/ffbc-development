@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import zImage from '@components/atomic/zImage.vue'
+import zImage from '@general_components/atomic/zImage.vue'
 
 export default {
   name: 'zDocumentImage',
