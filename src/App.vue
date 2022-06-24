@@ -29,8 +29,8 @@
 <script>
 import DialogLayout from '@layouts/singletons/DialogLayout/DialogLayout.vue'
 
-import TheMediaViewOverlay from '@/components/composite/TheMediaViewOverlay/TheMediaViewOverlay.vue'
-import TheToast from '@components/composite/TheToast/TheToast.vue'
+import TheMediaViewOverlay from '@general_components/singletons/TheMediaViewOverlay/TheMediaViewOverlay.vue'
+import TheToast from '@general_components/singletons/TheToast/TheToast.vue'
 
 import Console from '@/helpers/classes/Console'
 

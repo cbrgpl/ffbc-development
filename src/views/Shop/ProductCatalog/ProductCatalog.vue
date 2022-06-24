@@ -17,7 +17,7 @@
         :item-count="totalProducts"
         :per-page="2" >
         <div class="grid grid-cols-2 gap-x-2 gap-y-8 md:grid-cols-3 2xl:grid-cols-4 items-stretch mb-6" >
-          <zShopProductCard
+          <zProductCard
             v-observable="i"
             :key="product.title"
             v-for="(product, i) of products"
@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import zPaginationPage from '@/components/composite/zPaginationPage.vue'
-import zShopProductCard from '@components/composite/zShopProductCard.vue'
+import zPaginationPage from '@/components/general/composite/zPaginationPage.vue'
+import zProductCard from '@shop_components/composite/zProductCard.vue'
 
 import { ReactiveObserver } from '@/helpers/modules/reactiveObserver'
 import productSectionFilters from '@enums/info/productSectionFilters'
@@ -129,7 +129,7 @@ export default {
     observable: reactiveObserver.directive
   },
   components: {
-    zShopProductCard,
+    zProductCard,
     zPaginationPage,
   }
 }

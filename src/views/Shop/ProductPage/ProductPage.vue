@@ -11,7 +11,7 @@
     <div
       class="flex flex-col lg:flex-row lg:h-full shop-main_padding"
       v-if="product !== null" >
-      <zShopProductSlider
+      <zProductSlider
         class="w-full lg:w-2/5 flex-shrink-0 h-96 lg:h-full"
         :media="product.media" />
 
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import zShopProductSlider from '@components/composite/zShopProductSlider/zShopProductSlider.vue'
+import zProductSlider from '@shop_components/composite/zProductSlider.vue'
 
 import AvailableFeatures from './partial/AvailableFeatures.vue'
 import Description from './partial/Description.vue'
@@ -98,7 +98,7 @@ export default {
     }
   },
   components: {
-    zShopProductSlider,
+    zProductSlider,
     AvailableFeatures,
     Description,
   }

@@ -19,7 +19,7 @@
 <script>
 import { defineAsyncComponent } from 'vue'
 
-import zButton from '@components/atomic/zButton.vue'
+import zButton from '@general_components/atomic/zButton.vue'
 
 export default {
   name: 'zLoaderButton',
@@ -31,7 +31,7 @@ export default {
   },
   components: {
     zButton,
-    zLoader: defineAsyncComponent( () => import( '@components/atomic/zLoader.vue' ) )
+    zLoader: defineAsyncComponent( () => import( '@general_components/atomic/zLoader.vue' ) )
   },
 }
 </script>

@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import zTabNav from '@/components/atomic/zTabNav.vue'
+import zTabNav from '@/components/general/atomic/zTabNav.vue'
 
 export default {
   name: 'zTabRouteNavigation',

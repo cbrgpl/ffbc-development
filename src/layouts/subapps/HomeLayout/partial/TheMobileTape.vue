@@ -19,7 +19,7 @@
 
 <script>
 import homeNavigation from '@enums/nav/router.competitionsHome.js'
-import zTape from '@components/atomic/zTape.vue'
+import zTape from '@general_components/atomic/zTape.vue'
 
 export default {
   name: 'TheMobileTape',

@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import zPaginationPage from '@components/composite/zPaginationPage.vue'
+import zPaginationPage from '@general_components/composite/zPaginationPage.vue'
 import { ReactiveObserver } from '@/helpers/modules/reactiveObserver'
 
 export default {

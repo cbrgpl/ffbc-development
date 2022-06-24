@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import zPagination from '@components/composite/zPagination.vue'
+import zPagination from '@general_components/composite/zPagination.vue'
 import DomHandler from '@classes/DomHandler.class'
 
 export default {

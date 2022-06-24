@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import zFeatureIcon from '@components/atomic/zFeatureIcon.vue'
+import zFeatureIcon from '@general_components/atomic/zFeatureIcon.vue'
 
 export default {
   name: 'AvailableFeatures',

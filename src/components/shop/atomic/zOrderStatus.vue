@@ -2,7 +2,6 @@
   <h5 :class="['inline-flex text-lg sm:font-semibold', statusClasses]" >
     {{ status.label }}
   </h5>
-
 </template>
 
 <script>

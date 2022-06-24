@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import zButton from '@components/atomic/zButton.vue'
+import zButton from '@general_components/atomic/zButton.vue'
 
 export default {
   name: 'zIconButton',

@@ -14,7 +14,7 @@
       <h4 class="font-mono mr-5 leading-tight" >
         № {{ order.data.id }}
       </h4>
-      <zShopOrderStatus :status-value="order.data.orderStatus" />
+      <zOrderStatus :status-value="order.data.orderStatus" />
     </header>
 
     <zDivider class="my-3" />
@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import zShopOrderStatus from '@components/atomic/zShopOrderStatus.vue'
+import zOrderStatus from '@shop_components/atomic/zOrderStatus.vue'
 
 import Section from './partial/Section.vue'
 import OrderProducts from './partial/OrderProducts.vue'
@@ -104,7 +104,7 @@ export default {
 
   },
   components: {
-    zShopOrderStatus,
+    zOrderStatus,
     Section,
     OrderProducts,
     OrderSummary,

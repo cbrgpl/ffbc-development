@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import zSlider from '@components/composite/zSlider/zSlider.vue'
+import zSlider from '@general_components/composite/zSlider/zSlider.vue'
 
 export default {
   name: 'zShopProductSlider',

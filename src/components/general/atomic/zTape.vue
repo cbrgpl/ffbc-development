@@ -86,12 +86,6 @@ export default {
     transform: translateX(calc(-100% - 10vw));
   }
 }
-//   animation-play-state: var(--play-state-no-hover);
-
-//   &:hover {
-//     animation-play-state: var(--play-state-hover);
-//   }
-// }
 
 .wrapper:hover {
   .auto-scrolling--automated {

@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import zLoader from '@components/atomic/zLoader.vue'
+import zLoader from '@general_components/atomic/zLoader.vue'
 export default {
   inheritAttrs: false,
   name: 'zImagesCollection',

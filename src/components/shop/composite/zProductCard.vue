@@ -1,7 +1,7 @@
 <template >
   <div class="flex flex-col bg-black-lighten border-placeholder border-opacity-75 border-solid border rounded-md overflow-hidden" >
 
-    <zShopProductSlider
+    <zProductSlider
       class="h-72 md:h-96"
       :media="product.media"
       :intersected="intersected" />
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import zShopProductSlider from '@components/composite/zShopProductSlider/zShopProductSlider.vue'
+import zProductSlider from '@shop_components/composite/zProductSlider.vue'
 
 export default {
   name: 'ShopProductCard',
@@ -74,7 +74,7 @@ export default {
     },
   },
   components: {
-    zShopProductSlider,
+    zProductSlider,
   }
 }
 </script>
