@@ -23,7 +23,7 @@ export default {
       return state.roles
     },
     fullName ( state ) {
-      return state.userData.firstName + ' ' + state.userData.lastName
+      return ( state.userData.firstName || 'Anonymous' ) + ' ' + ( state.userData.lastName || '' )
     },
     email ( state ) {
       return state.userData.email

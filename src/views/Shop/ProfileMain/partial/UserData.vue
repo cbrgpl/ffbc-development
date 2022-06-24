@@ -2,7 +2,7 @@
   <div class="flex items-center bg-black-primary" >
 
     <span class="flex items-center justify-center flex-shrink-0 text-2xl font-semibold w-20 h-20 md:w-28 md:h-28 rounded-full bg-secondary-lighten bg-opacity-30 select-none" >
-      {{ getNameInitials }}
+      {{ nameInitials }}
     </span>
     <div class="flex justify-between flex-grow overflow-hidden py-3 pl-3" >
       <div class="flex flex-col flex-grow overflow-hidden text-lg pr-2" >
@@ -36,7 +36,7 @@ export default {
     names () {
       return this.fullName.split( ' ' )
     },
-    getNameInitials () {
+    nameInitials () {
       let nameInitials = ''
 
       for ( const name of this.names ) {
