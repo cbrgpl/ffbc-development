@@ -15,7 +15,6 @@ export default class CartProductBuilder extends RequestStrategy {
 
   async bindProductToCartItem ( bindedCartItem ) {
     const productBuffer = store.getters[ 'cart/productBuffer' ]
-
     const cartItemProductId = bindedCartItem.cartItem.product
     const cartItemProduct = productBuffer.find( ( product ) => product.id === cartItemProductId )
 

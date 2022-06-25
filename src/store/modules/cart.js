@@ -87,7 +87,7 @@ export default {
       commit( 'setCartId', apiCart.id )
       commit( 'setCartIdToStrategy' )
 
-      dispatch( 'addCartItemProducts', apiCart.cartItems )
+      await dispatch( 'addCartItemProducts', apiCart.cartItems )
 
       const bindedCartItems = apiCart.cartItems.map( ( cartItem ) => getBindedCartItem( cartItem ) )
       commit( 'setBindedCartItems', bindedCartItems )
