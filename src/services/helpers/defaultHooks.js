@@ -1,5 +1,6 @@
 import CamelKebabTranslator from './camelCaseKebabTranslator'
 import store from '@/store'
+
 function onBeforeRequest ( { handlerName, data, id } ) {
   const result = {
     handlerName,

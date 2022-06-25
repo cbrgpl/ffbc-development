@@ -4,6 +4,7 @@ import { reactive, watch } from 'vue'
 class ObservableNodeSchema {
     #intersections = reactive( [] )
     #schema = reactive( {} )
+
     #watcher = watch(
       this.#intersections,
       ( newIntersectedElems ) => this.#setElemsIntersectedState( newIntersectedElems )
