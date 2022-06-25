@@ -34,6 +34,10 @@ export default {
     }
   },
   watch: {
+    bindedCartItems () {
+      this.$options.reactiveObserver.unobserve()
+      this.contentShown = false
+    },
     cartLoaded: {
       handler ( cartLoaded ) {
         if ( cartLoaded && this.cartEmpty ) {

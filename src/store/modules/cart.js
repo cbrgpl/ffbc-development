@@ -20,7 +20,7 @@ export default {
       cartLoaded: false,
       cartId: null,
       bindedCartItems: [],
-      // TODO Вынести product buffer в отдельный модуль со своим функционалом
+      // TODO Убрать product buffer
       productBuffer: [],
     }
   },

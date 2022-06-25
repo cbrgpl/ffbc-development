@@ -2,7 +2,6 @@ import { arrayUtils } from '@js_utils'
 
 import { NetworkAttemptError } from '@errors'
 
-import { getUserServiceCommand } from '@commands'
 import { userService } from '@/services/services'
 import getActionResultDTO from '@/store/helpers/getActionResultDTO'
 
@@ -34,9 +33,10 @@ export default {
   },
   actions: {
     async getUser ( { commit } ) {
-      const userData = await getUserServiceCommand.execute()
+      const request = await userService.getUser()
+      const user = request.parsedBody
 
-      commit( 'setUserData', userData.getUser.parsedBody )
+      commit( 'setUserData', user )
     },
     async updateUser ( { commit }, user ) {
       const updateUserRequest = await userService.updateUser( user )
