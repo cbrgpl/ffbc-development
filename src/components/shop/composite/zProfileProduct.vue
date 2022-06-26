@@ -1,10 +1,9 @@
 <template >
   <div class="py-4 border-b last:border-none border-placeholder border-solid border-opacity-40" >
     <div class="h-full flex items-start" >
-      <zCheckboxSingle
-        v-if="showActions"
-        :checked="selected"
-        @update:modelValue="toggleSelectState" />
+      <div v-if="$slots.actions" >
+        <slot name="actions" />
+      </div>
 
       <zMedia
         ref="media"
@@ -38,14 +37,8 @@
 
 <script>
 export default {
-  name: 'zShopProfileProduct',
-  emits: [ 'toggleSelectState' ],
-  inject: [ 'selectedItemIds' ],
+  name: 'zProfileProduct',
   props: {
-    cartItemId: {
-      type: Number,
-      required: true,
-    },
     product: {
       type: Object,
       required: true,
@@ -54,10 +47,6 @@ export default {
       type: Array,
       required: true,
     },
-    showActions: {
-      type: Boolean,
-      default: true,
-    },
     intersected: {
       type: Boolean,
     }
@@ -65,11 +54,6 @@ export default {
   data () {
     return {
       showOriginal: false,
-    }
-  },
-  computed: {
-    selected () {
-      return this.selectedItemIds.value.includes( this.cartItemId )
     }
   },
   watch: {
@@ -83,11 +67,6 @@ export default {
       immediate: true,
     }
   },
-  methods: {
-    toggleSelectState () {
-      this.$emit( 'toggleSelectState', this.cartItemId )
-    }
-  }
 }
 </script>
 

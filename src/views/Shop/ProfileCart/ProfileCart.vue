@@ -40,7 +40,8 @@ export default {
   name: 'ProfileCart',
   data () {
     return {
-      selectedItemIds: [],
+      selectedIds: [],
+      bindedCartItems: [],
       loading: true,
       actionsDisabled: false,
     }
@@ -48,51 +49,72 @@ export default {
   provide () {
     return {
       actionsDisabled: computed( () => this.actionsDisabled || this.noSelectedItems ),
-      selectedItemIds: computed( () => this.selectedItemIds )
+      selectedIds: computed( () => this.selectedIds )
+    }
+  },
+  watch: {
+    cartLoaded: {
+      handler ( cartLoaded ) {
+        if ( cartLoaded ) {
+          this.updateBindedCartItems()
+        }
+      },
+      immediate: true,
     }
   },
   computed: {
     ...mapGetters( {
-      bindedCartItems: 'cart/bindedCartItems',
+      cartLoaded: 'cart/cartLoaded',
+      cartItems: 'cart/cartItems',
     } ),
     noSelectedItems () {
-      return this.selectedItemIds.length === 0
+      return this.selectedIds.length === 0
     },
     selectedItems () {
-      return this.bindedCartItems.filter( ( bindedCartItem ) => this.selectedItemIds.includes( bindedCartItem.cartItem.id ) )
+      return this.cartItems.filter( ( cartItem ) => this.selectedIds.includes( cartItem.id ) )
     }
   },
   methods: {
+    async updateBindedCartItems () {
+      this.bindedCartItems = await this.$store.dispatch( 'cart/outBindedCartItems' )
+    },
     toggleSelectState ( id ) {
-      if ( !this.selectedItemIds.includes( id ) ) {
-        this.selectedItemIds.push( id )
+      if ( !this.selectedIds.includes( id ) ) {
+        this.selectedIds.push( id )
       } else {
-        arrayUtils.remove( this.selectedItemIds, id )
+        arrayUtils.remove( this.selectedIds, id )
       }
     },
     toggleAllSelectStates () {
       if ( this.noSelectedItems ) {
-        this.selectedItemIds = this.bindedCartItems.map( ( bindedCartItem ) => bindedCartItem.cartItem.id )
+        this.selectedIds = this.cartItems.map( ( cartItem ) => cartItem.id )
       } else {
-        this.selectedItemIds = []
+        this.selectedIds = []
       }
     },
     async deleteSelectedItems () {
       this.actionsDisabled = true
 
-      await this.$store.dispatch( 'cart/removeCartItems', this.selectedItemIds )
-      this.selectedItemIds = []
+      await this.$store.dispatch( 'cart/removeCartItems', this.selectedIds )
+      this.excludeRemovedBindedItems( this.selectedIds )
+
+      this.selectedIds = []
 
       this.actionsDisabled = false
+    },
+    excludeRemovedBindedItems ( removedIds ) {
+      const formattedIds = removedIds.map( ( id ) => ( { cartItem: { id } } ) )
+      arrayUtils.exclude( this.bindedCartItems, formattedIds, ( bindedItem ) => bindedItem.cartItem.id )
     },
     pushToOrderCheckout () {
       this.$router.push( {
         name: 'ShopCheckout',
         params: {
-          bindedCartItemIds: JSON.stringify( this.selectedItemIds )
+          cartItemIds: JSON.stringify( this.selectedIds )
         }
       } )
     }
+
   },
 
   components: {

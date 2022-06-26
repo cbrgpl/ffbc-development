@@ -50,9 +50,9 @@ export default {
         price: 0,
       }
 
-      for ( const bindedCartItem of this.selectedItems ) {
+      for ( const cartItem of this.selectedItems ) {
         cartCalculation.qnt++
-        cartCalculation.price += parseFloat( bindedCartItem.cartItem.price )
+        cartCalculation.price += parseFloat( cartItem.price )
       }
 
       return cartCalculation
