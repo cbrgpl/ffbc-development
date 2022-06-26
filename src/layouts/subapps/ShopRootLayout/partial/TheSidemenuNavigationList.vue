@@ -3,10 +3,9 @@
     <li
       class="mb-1.5"
       v-for="(value, key) in navigationOptions"
-      :key="key + value" >
+      :key="key" >
       <slot
-        :key="key"
-        :value="value" ></slot>
+        :value="value" />
     </li>
   </ul>
 </template>
@@ -16,7 +15,7 @@ export default {
   name: 'SidemenuNavigationList',
   props: {
     navigationOptions: {
-      type: [ Array, Object ],
+      type: Array,
       required: true,
     }
   },

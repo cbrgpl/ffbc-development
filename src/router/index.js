@@ -201,10 +201,10 @@ const routes = [
                 ]
               },
               {
-                path: 'products/:sectionCode',
+                path: 'products/:urn',
                 component: () => import( '@/views/Shop/ProductCatalog/ProductCatalog.vue' ),
                 name: 'ShopProductCatalog',
-                props: true,
+                props: true
               },
               {
                 path: 'product/:productId',
