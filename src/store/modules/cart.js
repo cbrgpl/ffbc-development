@@ -3,36 +3,35 @@ import CartUnAuthStrategy from '../helpers/cartUnAuthStrategy'
 
 import { arrayUtils } from '@/helpers/js_utils/index'
 
-import getCartProducts from '../helpers/getCartProducts'
-import getLocalCartDifference from '../helpers/getLocalCartDifference'
-import getBindedCartItem from '../helpers/getBindedCartItem'
+import getNotAddedCartItems from '../helpers/getNotAddedCartItems'
 import cartContainsItem from '../helpers/cartContainsItem'
 
-import { productService } from '@services'
+import { getBindedCartItem } from '../helpers/getBindedCartItems'
+
+import cartProducts from './cartProducts'
 
 let cartStrategy = new CartUnAuthStrategy()
 
 export default {
   namespaced: true,
   clearable: true,
+  modules: {
+    products: cartProducts
+  },
   state () {
     return {
       cartLoaded: false,
       cartId: null,
-      bindedCartItems: [],
-      // TODO Убрать product buffer
-      productBuffer: [],
+      cartItems: [],
     }
   },
   getters: {
     cartLoaded: ( state ) => state.cartLoaded,
-    productBuffer: ( state ) => state.productBuffer,
-    productBufferIncludesProduct: ( state ) => ( productId ) => !!state.productBuffer.find( ( product ) => product.id === productId ),
-    bindedCartItems: ( state ) => state.bindedCartItems,
     cartId: ( state ) => state.cartId,
+    cartItems: ( state ) => state.cartItems
   },
   mutations: {
-    cartLoaded ( state, loadedState ) {
+    setCartLoaded ( state, loadedState ) {
       state.cartLoaded = loadedState
     },
     setCartIdToStrategy ( state ) {
@@ -41,28 +40,21 @@ export default {
     setCartId ( state, cartId ) {
       state.cartId = cartId
     },
-    setBindedCartItems ( state, bindedCartItems ) {
-      state.bindedCartItems = bindedCartItems
+    setCartItems ( state, cartItems ) {
+      state.cartItems = cartItems
     },
-    addBindedCartItem ( state, bindedCartItem ) {
-      state.bindedCartItems.push( bindedCartItem )
+    addCartItem ( state, cartItem ) {
+      state.cartItems.push( cartItem )
     },
-    addCartItemProducts ( state, cartItemProducts ) {
-      state.productBuffer.push( ...cartItemProducts )
-    },
-    addCartItemProduct ( state, cartItemProduct ) {
-      state.productBuffer.push( cartItemProduct )
-    },
-    removeBindedCartItems ( state, cartItemIds ) {
-      const formatedIds = cartItemIds.map( ( cartItemId ) => ( { cartItem: { id: cartItemId } } ) )
+    removeCartItems ( state, ids ) {
+      const formatedIds = ids.map( ( id ) => ( { id } ) )
 
-      arrayUtils.exclude( state.bindedCartItems, formatedIds, ( bindedCartItem ) => bindedCartItem.cartItem.id )
+      arrayUtils.exclude( state.cartItems, formatedIds, ( cartItem ) => cartItem.id )
     },
     clearModule ( state ) {
       state.cartLoaded = true
       state.cartId = null
-      state.bindedCartItems = []
-      state.productBuffer = []
+      state.cartItems = []
     }
   },
   actions: {
@@ -73,97 +65,55 @@ export default {
       const cart = await cartStrategy.initCart()
       commit( 'setCartId', cart.id )
 
-      await dispatch( 'addCartItemProducts', cart.cartItems )
-
-      const bindedCartItems = cart.cartItems.map( ( cartItem ) => getBindedCartItem( cartItem ) )
-
-      commit( 'setBindedCartItems', bindedCartItems )
-      commit( 'cartLoaded', true )
+      commit( 'setCartItems', cart.cartItems )
+      commit( 'setCartLoaded', true )
     },
     async mergeLocalAndApiCarts ( { commit, getters, dispatch } ) {
-      const localCartItems = getters.bindedCartItems.map( ( bindedCartItem ) => bindedCartItem.cartItem )
-      const apiCart = await cartStrategy.initCart()
+      commit( 'setCartLoaded', false )
+      const localCartItems = getters.cartItems
+      const backendCart = await cartStrategy.initCart()
 
-      commit( 'setCartId', apiCart.id )
+      commit( 'setCartId', backendCart.id )
       commit( 'setCartIdToStrategy' )
 
-      await dispatch( 'addCartItemProducts', apiCart.cartItems )
+      commit( 'setCartItems', backendCart.cartItems )
 
-      const bindedCartItems = apiCart.cartItems.map( ( cartItem ) => getBindedCartItem( cartItem ) )
-      commit( 'setBindedCartItems', bindedCartItems )
-
-      const localCartDifference = getLocalCartDifference( localCartItems, apiCart.cartItems )
-
-      for ( const cartItem of localCartDifference ) {
-        dispatch( 'addCartItem', cartItem )
-      }
-
-      localStorage.removeItem( STORAGE_NAMES.LOCAL_CART )
-    },
-    async addCartItemProducts ( { commit, dispatch, getters }, cartItems ) {
-      const productBufferIncludesProduct = getters.productBufferIncludesProduct
-      const cartItemProductIds = getCartProducts( cartItems )
+      const notAddedCartItems = getNotAddedCartItems( localCartItems, backendCart.cartItems )
 
       const dispatches = []
-      for ( const productId of cartItemProductIds ) {
-        if ( !productBufferIncludesProduct( productId ) ) {
-          dispatches.push( dispatch( 'fetchCartItemProduct', productId ) )
-        }
+      for ( const cartItem of notAddedCartItems ) {
+        dispatches.push( dispatch( 'addCartItem', cartItem ) )
       }
 
-      const cartItemProducts = ( await Promise.allSettled( dispatches ) )
-        .map( ( dispatch ) => dispatch.value )
+      await Promise.allSettled( dispatches )
 
-      commit( 'addCartItemProducts', cartItemProducts )
+      localStorage.removeItem( STORAGE_NAMES.LOCAL_CART )
+      commit( 'setCartLoaded', true )
     },
-    async addCartItem ( { commit, dispatch, getters }, newCartItem ) {
-      const cartItems = getters.bindedCartItems.map( ( bindedCartItem ) => bindedCartItem.cartItem )
-      if ( cartContainsItem( cartItems, newCartItem ) ) {
+    async addCartItem ( { commit, dispatch, getters }, cartItem ) {
+      if ( cartContainsItem( getters.cartItems, cartItem ) ) {
         return false
       }
 
-      const createdCartItem = await cartStrategy.addCartItem( newCartItem )
+      const createdCartItem = await cartStrategy.addCartItem( cartItem )
 
-      await dispatch( 'addCartItemProduct', newCartItem )
-
-      const bindedCartItem = getBindedCartItem( createdCartItem )
-
-      commit( 'addBindedCartItem', bindedCartItem )
-
+      commit( 'addCartItem', createdCartItem )
       return true
     },
-    async addCartItemProduct ( { getters, dispatch, commit }, cartItem ) {
-      const productBufferIncludesProduct = getters.productBufferIncludesProduct
+    async removeCartItems ( { commit }, ids ) {
+      await cartStrategy.removeCartItems( ids )
 
-      if ( !productBufferIncludesProduct( cartItem.product ) ) {
-        const product = await dispatch( 'fetchCartItemProduct', cartItem.product )
-        commit( 'addCartItemProduct', product )
-      }
+      commit( 'removeCartItems', ids )
     },
-    async fetchCartItemProduct ( { commit }, productId ) {
-      const request = await productService.getProductById( null, productId )
-      return request.parsedBody
-    },
-    async removeCartItems ( { commit }, cartItemIds ) {
-      await cartStrategy.removeCartItems( cartItemIds )
+    async outBindedCartItems ( { dispatch, rootGetters } ) {
+      const cartItems = rootGetters[ 'cart/cartItems' ]
 
-      commit( 'removeBindedCartItems', cartItemIds )
-    },
-    // --------------PRODUCT BUFFER FUNCTIONALLITY---------------------
-    async addProductsByIds ( { commit, getters, dispatch }, productIds ) {
-      const productBufferIncludesProduct = getters.productBufferIncludesProduct
+      await dispatch( 'products/loadProducts', cartItems )
 
-      const dispatches = []
-      for ( const productId of productIds ) {
-        if ( !productBufferIncludesProduct( productId ) ) {
-          dispatches.push( dispatch( 'fetchCartItemProduct', productId ) )
-        }
-      }
+      const products = rootGetters[ 'cart/products/buffer' ]
+      const getFeaturesWithField = rootGetters[ 'product/getFeaturesAndFields' ]
 
-      const products = ( await Promise.allSettled( dispatches ) )
-        .map( ( dispatch ) => dispatch.value )
-
-      commit( 'addCartItemProducts', products )
+      return getBindedCartItem( cartItems, products, getFeaturesWithField )
     }
   },
 }
