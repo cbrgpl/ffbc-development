@@ -3,7 +3,7 @@
     <h3 class="sidemenu-list-title" >
       Site Navigation:
     </h3>
-    <SidemenuNavigationList :navigation-options="shopNavigation" >
+    <SidemenuNavigationList :navigation-options="subsystemNavigation" >
       <template v-slot:default="{ value: route }" >
         <router-link
           exact-active-class="text-primary border-primary"
@@ -19,13 +19,13 @@
     <h3 class="sidemenu-list-title" >
       Goods Navigation:
     </h3>
-    <SidemenuNavigationList :navigation-options="goodSections" >
-      <template v-slot:default="{ value: section, key: sectionCode  }" >
+    <SidemenuNavigationList :navigation-options="productSections" >
+      <template v-slot:default="{ value: section  }" >
         <router-link
           exact-active-class="text-primary"
           class="sidemenu-list-link"
-          :to="{name: 'ShopProductCatalog', params: {sectionCode} }" >
-          {{ section }}
+          :to="{name: 'ShopProductCatalog', params: { urn: section.urn } }" >
+          {{ section.name }}
         </router-link>
       </template>
     </SidemenuNavigationList>
@@ -37,14 +37,14 @@
         Actions:
       </h3>
       <SidemenuNavigationList :navigation-options="systemActions" >
-        <template v-slot:default="{value: submissionOfAction, key: actionName}" >
+        <template v-slot:default="{value: action}" >
           <a
             :class="['sidemenu-list-link items-center transition-colors duration-75', disabledActionClasses]"
-            @click.prevent="executeStategy(actionName)" >
+            @click.prevent="executeStategy(action.name)" >
             <zIconBase
               class="sidemenu-list-link-icon h-7 mr-1.5"
-              :icon="submissionOfAction.icon" />
-            {{ submissionOfAction.title }}
+              :icon="action.icon" />
+            {{ action.title }}
 
           </a>
         </template>
@@ -54,8 +54,8 @@
 </template>
 
 <script>
-import shopNavigation from '@enums/nav/router.shopSidebarSubsystems'
-import goodSections from '@/enums/info/productSections'
+import subsystemNavigation from '@enums/nav/router.shopSidebarSubsystems'
+import productSections from '@/enums/info/productSections.js'
 import SidemenuNavigationList from './TheSidemenuNavigationList.vue'
 
 import StrategyContext from '@classes/strategy.js'
@@ -72,16 +72,17 @@ export default {
   },
   data () {
     return {
-      shopNavigation,
-      goodSections,
+      subsystemNavigation,
+      productSections,
       contextOfStrategyActions: new StrategyContext(),
       actionExecuting: false,
-      systemActions: {
-        logOut: {
+      systemActions: [
+        {
+          name: 'logOut',
           title: 'Log Out',
-          icon: 'logout'
-        },
-      },
+          icon: 'logout',
+        }
+      ],
     }
   },
   computed: {

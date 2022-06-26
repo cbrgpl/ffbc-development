@@ -35,7 +35,7 @@ import zPaginationPage from '@/components/general/composite/zPaginationPage.vue'
 import zProductCard from '@shop_components/composite/zProductCard.vue'
 
 import { ReactiveObserver } from '@/helpers/modules/reactiveObserver'
-import productSectionFilters from '@enums/info/productSectionFilters'
+import productSections from '@/enums/info/productSections.js'
 
 const reactiveObserver = new ReactiveObserver()
 
@@ -43,7 +43,7 @@ export default {
   name: 'ProductCatalog',
   reactiveObserver,
   props: {
-    sectionCode: {
+    urn: {
       type: String,
       required: true,
     }
@@ -55,27 +55,24 @@ export default {
     }
   },
   watch: {
-    sectionCode () {
-      this.redirectOnWrongSectionName()
-    },
-    products: {
-      handler () {
-        this.$options.reactiveObserver.observe()
+    urn: {
+      handler  () {
+        this.redirectOnWrongSectionName()
+
+        if ( this.$refs.paginationPage ) {
+          this.$refs.paginationPage.setFirstPage()
+        }
       },
-      flush: 'post'
-    }
+      immediate: true,
+    },
   },
   computed: {
-    defaultSectionCode () {
-      return productSectionFilters.keys().next().value
+    defaultSectionUrn () {
+      return productSections[ 0 ].urn
     },
     sectionFilters () {
-      return productSectionFilters.get( this.sectionCode )
+      return productSections.find( ( section ) => section.urn === this.urn ).filters
     },
-  },
-  created () {
-    // TODO Переделать в гуард
-    this.redirectOnWrongSectionName()
   },
   mounted () {
     this.initReactiveObserver()
@@ -90,8 +87,8 @@ export default {
       this.$options.reactiveObserver.init( $contentContainer, '0px 0px 150px 0px' )
     },
     redirectOnWrongSectionName () {
-      if ( !productSectionFilters.has( this.sectionCode ) ) {
-        this.$router.push( { name: 'ShopProductCatalog', params: { sectionCode: this.defaultSectionCode } } )
+      if ( !productSections.find( ( section ) => section.urn === this.urn ) ) {
+        this.$router.push( { name: 'ShopProductCatalog', params: { urn: this.defaultSectionUrn } } )
       }
     },
     async loadNewPage ( page, perPage ) {
@@ -111,7 +108,10 @@ export default {
       this.products = data.products
       this.totalProducts = data.count
 
-      this.$refs.paginationPage.setLoadingState( false )
+      setTimeout( () => {
+        this.$refs.paginationPage.setLoadingState( false )
+        this.$options.reactiveObserver.observe()
+      }, 0 )
     },
     async getProducts ( page, perPage ) {
       const requestQueryParams = {
