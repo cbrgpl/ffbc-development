@@ -8,7 +8,7 @@
       <zMedia
         ref="media"
         class="ml-3 mr-2 w-28 md:w-60 flex-shrink-0 self-stretch"
-        :show-original="showOriginal"
+        :show-original="originalShown"
         :original="product.media[0].display"
         :preview="product.media[0].preview"
         :auto-loading="false" />
@@ -38,6 +38,7 @@
 <script>
 export default {
   name: 'zProfileProduct',
+  expose: [ 'startMediaLoading' ],
   props: {
     product: {
       type: Object,
@@ -53,18 +54,15 @@ export default {
   },
   data () {
     return {
-      showOriginal: false,
+      originalShown: false,
     }
   },
-  watch: {
-    intersected: {
-      handler ( intersected ) {
-        if ( intersected ) {
-          this.$refs.media.startLoading()
-          this.showOriginal = true
-        }
-      },
-      immediate: true,
+  methods: {
+    startMediaLoading () {
+      if ( !this.originalShown ) {
+        this.$refs.media.startLoading()
+        this.originalShown = true
+      }
     }
   },
 }

@@ -27,6 +27,7 @@ export default {
   },
   getters: {
     cartLoaded: ( state ) => state.cartLoaded,
+    cartEmpty: ( state ) => state.cartItems.length === 0,
     cartId: ( state ) => state.cartId,
     cartItems: ( state ) => state.cartItems
   },
@@ -64,7 +65,6 @@ export default {
     async initCart ( { commit, dispatch } ) {
       const cart = await cartStrategy.initCart()
       commit( 'setCartId', cart.id )
-
       commit( 'setCartItems', cart.cartItems )
       commit( 'setCartLoaded', true )
     },
