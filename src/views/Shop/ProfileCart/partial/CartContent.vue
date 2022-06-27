@@ -3,6 +3,7 @@
     <CartContentProduct
       v-for="(bindedCartItem, i) of bindedCartItems"
       :key="bindedCartItem.cartItem.id"
+      :ref="'product-' + i"
       :cart-item-id="bindedCartItem.cartItem.id"
       :product="bindedCartItem.product"
       :product-features="bindedCartItem.features"
@@ -26,6 +27,7 @@ const reactiveObserver = new ReactiveObserver()
 export default {
   name: 'CartContent',
   reactiveObserver,
+  productBuffer: [],
   emits: [ 'toggleSelectState', 'disableLoader' ],
   props: {
     bindedCartItems: {
@@ -34,9 +36,13 @@ export default {
     }
   },
   watch: {
-    bindedCartItems () {
-      this.$options.reactiveObserver.unobserve()
-      this.contentShown = false
+    bindedCartItems ( newV, oldValue ) {
+      const componentInitization = oldValue.length === 0
+
+      if ( !componentInitization ) {
+        this.$options.reactiveObserver.unobserve()
+        this.contentShown = false
+      }
     },
     cartLoaded: {
       handler ( cartLoaded ) {
@@ -45,6 +51,17 @@ export default {
         }
       },
       immediate: true,
+    },
+    '$options.reactiveObserver.schema': {
+      handler ( observerSchema ) {
+        for ( const number in observerSchema ) {
+          const ref = 'product-' + number
+          if ( observerSchema[ number ] ) {
+            this.$refs[ ref ].startMediaLoading()
+          }
+        }
+      },
+      deep: true,
     }
   },
   data () {
@@ -55,10 +72,8 @@ export default {
   computed: {
     ...mapGetters( {
       cartLoaded: 'cart/cartLoaded',
+      cartEmpty: 'cart/cartEmpty'
     } ),
-    cartEmpty () {
-      return this.bindedCartItems.length === 0
-    },
   },
   beforeUnmount () {
     this.$options.reactiveObserver.unobserve()

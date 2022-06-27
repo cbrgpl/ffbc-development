@@ -1,5 +1,5 @@
 <template >
-  <zProfileProduct >
+  <zProfileProduct ref="profileProduct" >
     <template #actions >
       <zCheckboxSingle
         :checked="selected"
@@ -14,6 +14,7 @@ import zProfileProduct from '@shop_components/composite/zProfileProduct.vue'
 export default {
   name: 'CartContentProduct',
   emits: [ 'toggleSelectState' ],
+  expose: [ 'startMediaLoading' ],
   inject: [ 'selectedIds' ],
   props: {
     cartItemId: {
@@ -29,6 +30,9 @@ export default {
   methods: {
     toggleSelectState () {
       this.$emit( 'toggleSelectState', this.cartItemId )
+    },
+    startMediaLoading () {
+      this.$refs.profileProduct.startMediaLoading()
     }
   },
   components: {

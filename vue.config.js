@@ -1,6 +1,5 @@
 const tailwindConfig = require( './tailwind.config' )
 
-const webpack = require( 'webpack' )
 const path = require( 'path' )
 
 const BundleAnalyzerPlugin = require( 'webpack-bundle-analyzer' ).BundleAnalyzerPlugin
@@ -9,10 +8,6 @@ const ImageminWebpWebpackPlugin = require( 'imagemin-webp-webpack-plugin' )
 const plugins = ( () => {
   const analyzer = false
   const plugins = [
-    new webpack.ProvidePlugin( {
-      'window.Quill': 'quill/dist/quill.js',
-      Quill: 'quill/dist/quill.js'
-    } ),
     new ImageminWebpWebpackPlugin( {
       config: [ {
         test: /\.(jpe?g|png)/,
@@ -53,7 +48,7 @@ function generateSCSSVars ( themeColors ) {
 
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production'
-    ? '/lena-fitness-competition/'
+    ? '/ffbc-development/'
     : '/',
   lintOnSave: true,
   productionSourceMap: false,

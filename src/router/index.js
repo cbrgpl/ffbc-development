@@ -29,6 +29,7 @@ const routes = [
     component: EmptyLayout,
     name: 'Root',
     beforeEnter: aggregateGuard,
+    redirect: { name: 'ShopProductCatalog', params: { urn: 'evening-gown' } },
     meta: {
       aggregate: GuardMetaAccesser.defineParam( {
         guards: [
