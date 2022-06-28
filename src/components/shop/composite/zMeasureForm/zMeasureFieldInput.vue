@@ -1,6 +1,6 @@
 <template >
-  <label >
-    <h5 class="break-words mb-1" >
+  <label class="relative" >
+    <h5 class="break-words pl-2 mb-1" >
       {{ formField }}
     </h5>
 
@@ -11,7 +11,17 @@
       v-bind="$attrs"
       @input="emitUpdateModelValue"
       size="sm"
-      type="text" />
+      type="text" >
+
+      <template
+        #error-label= "{errorState, onError}" >
+        <h5
+          v-if="errorState"
+          class="absolute text-danger right-2 top-0" >
+          {{ onError }}
+        </h5>
+      </template>
+    </zInput>
   </label>
 </template>
 
