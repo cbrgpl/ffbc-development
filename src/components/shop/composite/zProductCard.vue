@@ -7,7 +7,7 @@
       :intersected="intersected" />
 
     <div
-      @click="routeToProductPage"
+      @click="navigateToProduct"
       class="flex flex-col flex-grow px-3 pt-1.5 pb-4 cursor-pointer" >
       <h4 class="text-sm leading-4 sm:text-lg font-medium sm:leading-6 mb-4" >
         {{ product.title }}
@@ -64,14 +64,14 @@ export default {
     addToCard () {
       this.dialog$.show( 'addToCart', { product: this.product } )
     },
-    routeToProductPage () {
+    navigateToProduct () {
       this.$router.push( {
         name: 'ShopProductPage',
         params: {
           productId: this.product.id,
         },
       } )
-    },
+    }
   },
   components: {
     zProductSlider,

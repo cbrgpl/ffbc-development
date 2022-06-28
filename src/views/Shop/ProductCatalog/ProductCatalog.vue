@@ -123,7 +123,6 @@ export default {
       const dispatchResult = await this.$store.dispatch( 'product/outGetProducts', requestQueryParams )
       return dispatchResult
     },
-
   },
   directives: {
     observable: reactiveObserver.directive
