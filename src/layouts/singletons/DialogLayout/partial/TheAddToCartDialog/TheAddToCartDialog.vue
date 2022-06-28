@@ -30,7 +30,7 @@ import FeatureSection from './partial/FeatureSection.vue'
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'AddToCartDialog',
+  name: 'TheAddToCartDialog',
   props: {
     product: {
       type: Object,
@@ -75,6 +75,7 @@ export default {
 
       const cartItem = {
         product: this.product.id,
+        price: this.product.price,
         featureFields
       }
 

@@ -15,7 +15,8 @@ export default class CartAnAuthStrategy extends CartStrategy {
     }
   }
 
-  addCartItem ( cartItem ) {
+  addCartItem ( item ) {
+    const cartItem = Object.assign( {}, item )
     cartItem.id = this.cartItemCounter++
 
     const localCartItems = this.getLocalCartItems()

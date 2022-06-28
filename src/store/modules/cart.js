@@ -90,12 +90,12 @@ export default {
       localStorage.removeItem( STORAGE_NAMES.LOCAL_CART )
       commit( 'setCartLoaded', true )
     },
-    async addCartItem ( { commit, dispatch, getters }, cartItem ) {
-      if ( cartContainsItem( getters.cartItems, cartItem ) ) {
+    async addCartItem ( { commit, dispatch, getters }, item ) {
+      if ( cartContainsItem( getters.cartItems, item ) ) {
         return false
       }
 
-      const createdCartItem = await cartStrategy.addCartItem( cartItem )
+      const createdCartItem = await cartStrategy.addCartItem( item )
 
       commit( 'addCartItem', createdCartItem )
       return true
