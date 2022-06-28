@@ -13,9 +13,10 @@
         v-for="(field, fieldId) in form"
         :key="fieldId"
         :form-field="field.name"
-        v-model.trim="field.value"
+        v-model.number="field.value"
         :error="v$[fieldId].$error"
         :is="measureFieldComponent" />
+
     </div>
 
     <div >
@@ -29,42 +30,43 @@
 import useVuelidate from '@vuelidate/core'
 import { required, numeric } from '@vuelidate/validators'
 
-import { reactive, computed, ref } from 'vue'
+import { reactive, computed } from 'vue'
 import zMeasureFieldInput from './zMeasureFieldInput.vue'
 
-const generateMeasureObject = ( measureFields, measureFieldCallback ) => {
+const getFormPartials = ( props ) => {
+  const form = computed( () => reactive( createMeasureBasedObject( props.formFields, createField ) ) )
+  const validations = computed( () => createMeasureBasedObject( props.formFields, createFieldValidation ) )
+
+  return { form, validations }
+}
+
+const createMeasureBasedObject = ( measureFields, create ) => {
   const result = {}
 
   for ( const field of measureFields ) {
-    result[ field.id ] = measureFieldCallback( field )
+    result[ field.id ] = create( field )
   }
 
   return result
 }
 
-const getMeasureFormField = ( field ) => ( {
+const createField = ( field ) => ( {
   value: field.value,
   id: field.id,
   name: field.name
 } )
 
-const getMeasureFieldValidation = () => ( {
+const createFieldValidation = () => ( {
   value: {
     required,
     numeric
   }
 } )
 
-const getFormVariables = ( props ) => {
-  const form = computed( () => reactive( generateMeasureObject( props.formFields, getMeasureFormField ) ) )
-  const validations = computed( () => generateMeasureObject( props.formFields, getMeasureFieldValidation ) )
-
-  return { form, validations }
-}
-
 export default {
   name: 'MeasureForm',
   emit: [ 'measureSubmit' ],
+  expose: [ 'submitForm' ],
   props: {
     formFields: {
       type: Array,
@@ -79,17 +81,26 @@ export default {
       default: ''
     },
   },
+  watch: {
+    formFields: {
+      handler () {
+        this.v$.$reset()
+      },
+      flush: 'post'
+    },
+  },
   setup ( props ) {
-    const { form, validations } = getFormVariables( props )
-    const v$ = ref( useVuelidate( validations, form ) )
+    const { form, validations } = getFormPartials( props )
+    const v$ = useVuelidate( validations, form )
 
-    return { v$, form, validations }
+    return { v$, form }
   },
 
   methods: {
     submitForm () {
       this.v$.$reset()
       this.v$.$touch()
+
       if ( this.v$.$error ) {
         return
       }

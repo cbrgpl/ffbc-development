@@ -1,30 +1,75 @@
 <template >
-  <div  >
-    <h4 >Test page</h4>
+  <div  class="flex flex-col" >
+    <h4 class="mb-3" >
+      Test page
+    </h4>
+
+    <zMultipleMeasures
+      @submitted="test"
+      ref="form"
+      class="mb-8"
+      :measures="measures" >
+
+    </zMultipleMeasures>
+
+    <pre >
+      {{ measures }}
+    </pre>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import zMultipleMeasures from '@shop_components/composite/zMeasureForm/zMultipleMeasures.vue'
 
 export default {
   name: 'Preview',
   data () {
     return {
       loading: true,
+      measures: [
+        [
+          {
+            id: 'q',
+            name: 'q',
+            value: 10
+          },
+          {
+            id: 'w',
+            name: 'w'
+          },
+          {
+            id: 'e',
+            name: 'e'
+          }
+        ],
+        [
+          {
+            id: 'a',
+            name: 'a',
+            value: 65
+          },
+          {
+            id: 'd',
+            name: 'd'
+          },
+          {
+            id: 'c',
+            name: 'c'
+          }
+        ]
+      ],
     }
-  },
-  created () {
-    this.loadCartProducts()
   },
   methods: {
-    async loadCartProducts () {
-      const bindedCartItems = await this.$store.dispatch( 'cart/outBindedCartItems' )
-      console.log( bindedCartItems )
-      this.loading = false
-    }
+    submitForm () {
+      this.$refs.form.submitForm()
+    },
+    test ( ev ) {
+      console.log( ev )
+    },
   },
   components: {
+    zMultipleMeasures,
   }
 
 }
