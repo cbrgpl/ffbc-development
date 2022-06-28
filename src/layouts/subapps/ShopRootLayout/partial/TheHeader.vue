@@ -51,7 +51,7 @@
     </div>
 
     <div
-      class="flex"
+      class="flex items-center"
       v-else >
       <router-link
         active-class="text-primary-darken text-opacity-80"
@@ -63,7 +63,7 @@
 
       <zIconButton
         @click="showAuthDialog"
-        class="h-full md:h-auto py-2 px-1.5"
+        class="h-full md:h-auto py-2.5 px-2.5"
         shrink
         icon="login"
         unshrink-breakpoint="sm" >
