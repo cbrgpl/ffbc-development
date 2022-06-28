@@ -2,7 +2,7 @@
   <label
     class="block"
     v-bind="wrapperAttrs" >
-    <div :class="['relative'] " >
+    <div class="relative" >
       <input
         placeholder=" "
         :class="['z-input', inputSizeClasses]"
@@ -25,11 +25,16 @@
       </h5>
     </div>
 
-    <small
-      v-show="errorState"
-      class="inline-block text-danger text-sm mt-2.5" >
-      {{ onError }}
-    </small>
+    <slot
+      name="error-label"
+      :error-state="errorState"
+      :on-error="onError" >
+      <small
+        v-show="errorState"
+        class="inline-block text-danger text-sm mt-2.5" >
+        {{ onError }}
+      </small>
+    </slot>
   </label>
 </template>
 
@@ -145,8 +150,8 @@ export default {
     @apply top-2/4 -translate-y-2/4;
   }
 
-  &[data-error-state="true"] + .z-input__label {
-    @apply text-danger-darken text-opacity-80;
+  &[data-error-state="true"] {
+    @apply border-danger-darken border-opacity-80;
   }
 }
 
