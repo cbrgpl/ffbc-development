@@ -1,27 +1,25 @@
 <template >
   <section class="px-3 py-4" >
     <Navigation
-      class="mb-4 max-w-md md:max-w-lg mx-auto"
       v-model="currentSectionIndex"
+      class="mb-4 max-w-md md:max-w-lg mx-auto"
       :checkout-navigation="checkoutNavigation" />
 
     <component
+      :is="sectionName"
       class="container mx-auto"
-      @section-complete="sendSectionData"
       :binded-cart-items="bindedCartItems"
-      :is="sectionName" >
-
+      @section-complete="sendSectionData" >
       <template #actions >
         <zButton >
           change
         </zButton>
       </template>
     </component>
-
   </section>
 </template>
 
-<script>
+<script >
 import { computed } from 'vue'
 import checkoutNavigation from '@enums/nav/tabs.shopCheckout.js'
 
@@ -37,6 +35,19 @@ import { NetworkAttemptError } from '@/helpers/errors'
 
 export default {
   name: 'Checkout',
+  components: {
+    Navigation,
+
+    BasicInformation,
+    Measures
+  },
+  provide () {
+    return {
+      actionsDisabled: computed( () => this.currentSectionIndex === this.checkoutNavigation.tabs.length - 1 ),
+      actionsLoader: computed( () => this.actionsLoader ),
+      orderId: computed( () => this.orderId )
+    }
+  },
   props: {
     bindedCartItemIds: {
       type: Array,
@@ -51,13 +62,6 @@ export default {
       activeStrategy: null,
       orderId: null,
       actionsLoader: false
-    }
-  },
-  provide () {
-    return {
-      actionsDisabled: computed( () => this.currentSectionIndex === this.checkoutNavigation.tabs.length - 1 ),
-      actionsLoader: computed( () => this.actionsLoader ),
-      orderId: computed( () => this.orderId )
     }
   },
   computed: {
@@ -169,12 +173,6 @@ export default {
 
       return generalPart + partByUserType
     }
-  },
-  components: {
-    Navigation,
-
-    BasicInformation,
-    Measures
   }
 }
 </script>

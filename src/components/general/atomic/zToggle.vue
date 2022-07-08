@@ -7,19 +7,19 @@
       ref="checkbox"
       class="hidden"
       :checked="modelValue"
-      @change="$emit('update:modelValue', $event.target.checked, value)"
-      type="checkbox" >
+      type="checkbox"
+      @change="$emit('update:modelValue', $event.target.checked, value)" >
     <span
       class="z-toggle__slider" ></span>
   </label>
 </template>
 
-<script>
+<script >
 import extender from '@mixins/extender.mixin.js'
 
 export default {
+  name: 'ZToggle',
   mixins: [ extender ],
-  name: 'zToggle',
   props: {
     modelValue: {
       type: [ Boolean, String ],
@@ -33,7 +33,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .z-toggle {
   @apply block cursor-pointer;
 }
@@ -45,7 +45,8 @@ export default {
 
     // left-1
     @apply block rounded-full w-3 h-3 bg-secondary absolute transform bottom-2/4 translate-y-2/4 left-1 transition-all;
-    content: "";
+
+    content: '';
   }
 }
 

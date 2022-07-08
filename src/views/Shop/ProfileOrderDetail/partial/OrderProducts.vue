@@ -5,11 +5,11 @@
     <zMediaWithTitle
       v-for="bindedOrderItem of bindedOrderItems"
       :key="bindedOrderItem.orderItem.id"
-      @click="showProductDetail(bindedOrderItem)"
       class="h-36 whitespace-normal flex-shrink-0 mr-4 last:mr-0"
       :original="getProductMedia(bindedOrderItem)"
       :title="getProductTitle(bindedOrderItem)"
-      disable-overlay />
+      disable-overlay
+      @click="showProductDetail(bindedOrderItem)" />
   </zTape>
   <ProductDialog
     v-if="productDialog.visible"
@@ -17,13 +17,16 @@
     :binded-order-item="productDialog.bindedOrderItem" />
 </template>
 
-<script>
+<script >
 import ProductDialog from './ProductDialog.vue'
 
 export default {
   name: 'OrderProducts',
-  inheritAttrs: false,
+  components: {
+    ProductDialog,
+  },
   inject: [ 'orderData', 'orderProducts' ],
+  inheritAttrs: false,
   data () {
     return {
       productDialog: {
@@ -68,13 +71,10 @@ export default {
       this.productDialog.visibile = false
       this.productDialog.bindedOrderItem = null
     }
-  },
-  components: {
-    ProductDialog,
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

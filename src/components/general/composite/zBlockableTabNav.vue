@@ -4,7 +4,7 @@
     :keyword-getter="keywordGetter"
     :model-value="keyword"
     @update:modelValue="changeTab" >
-    <template v-slot="{tab, active}" >
+    <template #default="{tab, active}" >
       <slot
         :tab="tab"
         :active="active"
@@ -15,13 +15,16 @@
   </zTabNav>
 </template>
 
-<script>
+<script >
 import { ref } from 'vue'
 
 import zTabNav from '@general_components/atomic/zTabNav.vue'
 
 export default {
-  name: 'zBlockableTabNav',
+  name: 'ZBlockableTabNav',
+  components: {
+    zTabNav
+  },
   props: {
     modelValue: {
       type: Number,
@@ -45,6 +48,20 @@ export default {
       passedTabMap: [],
     }
   },
+  computed: {
+    keyword () {
+      return this.tabs[ this.modelValue ].keyword
+    },
+    activeBlock () {
+      return this.blocks.find( ( block ) => block[ 0 ] <= this.modelValue && this.modelValue <= block[ 1 ] )
+    },
+    blockStart () {
+      return this.activeBlock[ 0 ]
+    },
+    blockEnd () {
+      return this.activeBlock[ 1 ]
+    }
+  },
   watch: {
     modelValue () {
       const passedTabIndex = this.modelValue === this.blockStart ? this.blockStart : this.modelValue - 1
@@ -59,20 +76,6 @@ export default {
   },
   created () {
     this.initPassedTabMap()
-  },
-  computed: {
-    keyword () {
-      return this.tabs[ this.modelValue ].keyword
-    },
-    activeBlock () {
-      return this.blocks.find( ( block ) => block[ 0 ] <= this.modelValue && this.modelValue <= block[ 1 ] )
-    },
-    blockStart () {
-      return this.activeBlock[ 0 ]
-    },
-    blockEnd () {
-      return this.activeBlock[ 1 ]
-    }
   },
   methods: {
     initPassedTabMap () {
@@ -126,13 +129,10 @@ export default {
         this.passedTabMap[ i ].passed = false
       }
     }
-  },
-  components: {
-    zTabNav
   }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" >
 
 </style>

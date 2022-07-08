@@ -6,32 +6,30 @@
     <zSpacer space="2" ></zSpacer>
 
     <zForm
-      @validate="sendCode"
       :state="form.state"
       :error-message="form.errorMessage"
-      :vuelidate-object="v$" >
+      :vuelidate-object="v$"
+      @validate="sendCode" >
       <zInput
+        v-model="email"
         v-autofocus
         class="mb-8"
-        v-model="email"
         label="Email"
         :error-state="v$.email.$error"
         on-error="Incorrect email format" />
 
       <template #actions >
-
         <zLoaderButton
           class="w-full py-4 md:w-48 mt-1.5"
           type="submit"
           :loader="form.loading" >
           Send mail
         </zLoaderButton>
-
       </template>
     </zForm>
   </zDialog>
 </template>
-<script>
+<script >
 import zDialog from '@general_components/composite/zDialog/zDialog.vue'
 
 import useVuelidate from '@vuelidate/core'
@@ -39,6 +37,9 @@ import { email, required } from '@vuelidate/validators'
 
 export default {
   name: 'TheResetPasswordDialog',
+  components: {
+    zDialog,
+  },
   data () {
     return {
       email: '',
@@ -85,12 +86,9 @@ export default {
         this.form.errorMessage = resetCodeResult.data.errors[ 0 ].message
       }
     }
-  },
-  components: {
-    zDialog,
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" >
 
 </style>

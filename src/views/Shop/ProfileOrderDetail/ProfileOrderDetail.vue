@@ -32,14 +32,13 @@
 
     <zDivider class="my-3" />
 
-    <Section  >
+    <Section >
       <OrdererDetails />
     </Section>
   </div>
-
 </template>
 
-<script>
+<script >
 import zOrderStatus from '@shop_components/atomic/zOrderStatus.vue'
 
 import Section from './partial/Section.vue'
@@ -51,6 +50,20 @@ import { computed } from 'vue'
 
 export default {
   name: 'ProfileOrderDetail',
+  components: {
+    zOrderStatus,
+    Section,
+    OrderProducts,
+    OrderSummary,
+    OrdererDetails
+  },
+  provide () {
+    return {
+      orderData: computed( () => this.order.data ),
+      orderProducts: computed( () => this.order.products ),
+      orderMeasures: computed( () => this.order.data.measures || [] )
+    }
+  },
   props: {
     orderId: {
       type: String,
@@ -66,16 +79,6 @@ export default {
       loader: true
     }
   },
-  provide () {
-    return {
-      orderData: computed( () => this.order.data ),
-      orderProducts: computed( () => this.order.products ),
-      orderMeasures: computed( () => this.order.data.measures || [] )
-    }
-  },
-  created () {
-    this.fetchOrder()
-  },
   computed: {
     orderProductIds () {
       const productIds = []
@@ -87,6 +90,9 @@ export default {
 
       return productIds
     },
+  },
+  created () {
+    this.fetchOrder()
   },
   methods: {
     async fetchOrder () {
@@ -102,19 +108,12 @@ export default {
       this.order.products = productBuffer.filter( ( product ) => this.orderProductIds.includes( product.id ) )
     },
 
-  },
-  components: {
-    zOrderStatus,
-    Section,
-    OrderProducts,
-    OrderSummary,
-    OrdererDetails
   }
 
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .information-field {
   @apply font-mono;
 }

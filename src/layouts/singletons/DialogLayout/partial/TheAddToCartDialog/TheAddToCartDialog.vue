@@ -5,12 +5,12 @@
     </template>
 
     <FeatureSection
-      class="mb-3 last:mb-6"
-      @setFeatureValue="putFeatureValue"
       v-for="feature of productFeatures"
       :key="feature.id"
+      class="mb-3 last:mb-6"
       :section-valid="features[feature.name].valid"
-      v-bind="feature" />
+      v-bind="feature"
+      @setFeatureValue="putFeatureValue" />
 
     <template #footer >
       <zLoaderButton
@@ -23,7 +23,7 @@
   </zDialog>
 </template>
 
-<script>
+<script >
 import zDialog from '@general_components/composite/zDialog/zDialog.vue'
 import FeatureSection from './partial/FeatureSection.vue'
 
@@ -136,5 +136,5 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 </style>

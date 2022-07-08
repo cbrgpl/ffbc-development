@@ -8,23 +8,22 @@
         :height="72" />
     </div>
     <div
-      @view="showImage"
       v-bind="$attrs"
-      @resource-load="count"
-      :class="['z-images-collection', {'z-images-collection--loading': loader}]" >
+      :class="['z-images-collection', {'z-images-collection--loading': loader}]"
+      @view="showImage"
+      @resource-load="count" >
       <slot ></slot>
     </div>
     <div
-      @click="viewerSrc = null"
       v-if="viewerSrc !== null && images.length > 0"
-      class="z-images-collection__viewer" >
-
+      class="z-images-collection__viewer"
+      @click="viewerSrc = null" >
       <div
-        @click.stop
-        class="z-images-collection__viewer-inner" >
+        class="z-images-collection__viewer-inner"
+        @click.stop >
         <button
-          @click="prevSrc"
-          class="z-images-collection__button" >
+          class="z-images-collection__button"
+          @click="prevSrc" >
           &#10156;
         </button>
         <div class="z-images-collection__viewer-wrapper" >
@@ -39,21 +38,23 @@
         </span>
 
         <button
-          @click="nextSrc"
-          class="z-images-collection__button" >
+          class="z-images-collection__button"
+          @click="nextSrc" >
           &#10156;
         </button>
       </div>
-
     </div>
   </div>
 </template>
 
-<script>
+<script >
 import zLoader from '@general_components/atomic/zLoader.vue'
 export default {
+  name: 'ZImagesCollection',
+  components: {
+    zLoader,
+  },
   inheritAttrs: false,
-  name: 'zImagesCollection',
   props: {
     images: {
       type: Array,
@@ -92,23 +93,20 @@ export default {
         return this.images.length - 1
       } else if ( newIndex === this.images.length ) {
         return 0
-      } else return newIndex
+      } else {return newIndex}
     },
-    count ( eve ) {
+    count () {
       this.loadedResources += 1
 
       if ( this.loadedResources === this.images.length ) {
         this.$emit( 'loaded', true )
       }
     },
-  },
-  components: {
-    zLoader,
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .z-images-collection {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -128,18 +126,15 @@ export default {
 }
 
 .z-images-collection__loader {
-
   position: absolute;
   top: 0;
   left: 0;
   z-index: 10;
-
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100%;
-
   background: rgba($black-DEFAULT, 0.8);
 }
 
@@ -147,21 +142,15 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-
   z-index: 100;
-
   display: flex;
-
   width: 100%;
   height: 100%;
-
   background: rgba($black-lighten, 0.8);
 }
 
 .z-images-collection__viewer-inner {
-
   position: relative;
-
   display: flex;
   align-items: stretch;
   margin: auto;
@@ -170,22 +159,17 @@ export default {
 .z-images-collection__view-image {
   max-width: rem(320px);
   max-height: 80vh;
-
   font-size: rem(52px);
 }
 
 .z-images-collection__button {
-
   position: absolute;
   z-index: 1;
   width: 33%;
   min-width: rem(35px);
-
   height: 100%;
-
   color: transparent;
   font-size: rem(64px);
-
   transition: background 0.15s;
 
   &:active {
@@ -211,13 +195,10 @@ export default {
   top: 5px;
   right: 25px;
   display: flex;
-  align-items: center;
   justify-content: flex-end;
-
+  align-items: center;
   width: 100%;
-
   text-shadow: $black-DEFAULT 0 0 4px;
-
   pointer-events: none;
   user-select: none;
 }
@@ -238,7 +219,6 @@ export default {
     border-radius: 100%;
     background: rgba($placeholder, 0.8);
     color: $black-DEFAULT;
-
     font-size: rem(72px);
 
     &:active {

@@ -8,12 +8,12 @@
         :ref="indicatorRef"
         :class="indicatorClasses" ></li>
       <li
-        :ref="selectedRef"
         v-for="keyword of tabKeywords"
+        :ref="selectedRef"
         :key="keyword"
-        @click="$emit( 'update:modelValue', keyword )"
         :class="['z-tabs-menu__tab', {'z-tabs-menu__tab--selected': keyword === modelValue}]"
-        role="tab" >
+        role="tab"
+        @click="$emit( 'update:modelValue', keyword )" >
         <slot
           :tab="getTabByKeyword(keyword)"
           :active="keyword === modelValue" >
@@ -24,11 +24,11 @@
   </div>
 </template>
 
-<script>
+<script >
 import DomHandler from '@classes/DomHandler.class.js'
 
 export default {
-  name: 'zTabNav',
+  name: 'ZTabNav',
   props: {
     modelValue: {},
     tabs: {
@@ -56,9 +56,6 @@ export default {
   },
   list: null,
   indicator: null,
-  mounted () {
-    this.startTabWatch()
-  },
   computed: {
     indicatorClasses () {
       return [
@@ -70,6 +67,9 @@ export default {
       return this.tabs.map( ( tab ) => this.keywordGetter( tab ) )
     },
 
+  },
+  mounted () {
+    this.startTabWatch()
   },
   methods: {
     startTabWatch () {
@@ -124,7 +124,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .z-tabs-menu {
   --indicator-shift: 0;
   --indicator-width: 0;
@@ -146,6 +146,7 @@ export default {
 
 .z-tabs-menu__indicator {
   @apply absolute ease-in-out bottom-0 w-5 h-0.5 rounded-lg bg-current;
+
   width: var(--indicator-width);
   transform: translateX(var(--indicator-shift));
 }

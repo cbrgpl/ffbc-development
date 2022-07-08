@@ -1,21 +1,19 @@
 <template >
   <div class="flex flex-col bg-black-lighten border-placeholder border-opacity-75 border-solid border rounded-md overflow-hidden" >
-
     <zProductSlider
       class="h-72 md:h-96"
       :media="product.media"
       :intersected="intersected" />
 
     <div
-      @click="navigateToProduct"
-      class="flex flex-col flex-grow px-3 pt-1.5 pb-4 cursor-pointer" >
+      class="flex flex-col flex-grow px-3 pt-1.5 pb-4 cursor-pointer"
+      @click="navigateToProduct" >
       <h4 class="text-sm leading-4 sm:text-lg font-medium sm:leading-6 mb-4" >
         {{ product.title }}
       </h4>
 
       <div class="mt-auto select-none" >
         <div class="flex flex-col lg:flex-row lg:items-end justify-between" >
-
           <div class="flex flex-col sm:flex-row lg:flex-col justify-between mb-1.5 lg:mb-0" >
             <div
               v-if="containsInStock"
@@ -28,12 +26,12 @@
           </div>
 
           <zIconButton
-            @click.stop="addToCard"
             class="w-full py-1.5 sm:py-3 lg:w-auto lg:py-1.5 lg:px-3"
             variant="safety"
             icon="cart"
             icon-title="Add To Cart"
-            :icon-size="20" >
+            :icon-size="20"
+            @click.stop="addToCard" >
           </zIconButton>
         </div>
       </div>
@@ -41,11 +39,14 @@
   </div>
 </template>
 
-<script>
+<script >
 import zProductSlider from '@shop_components/composite/zProductSlider.vue'
 
 export default {
   name: 'ShopProductCard',
+  components: {
+    zProductSlider,
+  },
   props: {
     product: {
       type: Object,
@@ -72,13 +73,10 @@ export default {
         },
       } )
     }
-  },
-  components: {
-    zProductSlider,
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

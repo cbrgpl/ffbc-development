@@ -1,13 +1,12 @@
 <template >
   <div class="h-screen  bg-black text-white" >
-
     <router-view v-slot="{Component}" >
       <component
-        class="layout-content flex-col"
-        :is="Component" >
+        :is="Component"
+        class="layout-content flex-col" >
         <router-view
-          class="layout-content"
-          id="sub-app-root" ></router-view>
+          id="sub-app-root"
+          class="layout-content" ></router-view>
       </component>
     </router-view>
 
@@ -26,7 +25,7 @@
   </div>
 </template>
 
-<script>
+<script >
 import DialogLayout from '@layouts/singletons/DialogLayout/DialogLayout.vue'
 
 import TheMediaViewOverlay from '@general_components/singletons/TheMediaViewOverlay/TheMediaViewOverlay.vue'
@@ -36,9 +35,15 @@ import Console from '@/helpers/classes/Console'
 
 export default {
   name: 'App',
-  created () {
-    this.startWatchAppInitStatus()
-    this.$store.dispatch( 'app/initWindowEscListener' )
+  components: {
+    DialogLayout,
+    TheMediaViewOverlay,
+    TheToast,
+  },
+  data () {
+    return {
+      errorsNumber: 0,
+    }
   },
   computed: {
     appInitialized () {
@@ -48,10 +53,9 @@ export default {
       return this.$store.getters[ 'app/subAppLoaded' ]
     }
   },
-  data () {
-    return {
-      errorsNumber: 0,
-    }
+  created () {
+    this.startWatchAppInitStatus()
+    this.$store.dispatch( 'app/initWindowEscListener' )
   },
   errorCaptured ( error, vnode, info ) {
     for ( const prop in error ) {
@@ -90,15 +94,7 @@ export default {
       document.body.classList.remove( 'body-template-preloader' )
     },
   },
-
-  components: {
-    DialogLayout,
-    TheMediaViewOverlay,
-    TheToast,
-  },
 }
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss" ></style>

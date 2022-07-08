@@ -18,24 +18,22 @@
         <small class="text-base font-semibold" >
           {{ cartCalculation.qnt }}
         </small>
-
       </div>
     </div>
 
     <zButton
       :disabled="actionsDisabled.value"
-      @click="$emit('buy')"
       class="px-12 py-3.5"
-      variant="safety" >
+      variant="safety"
+      @click="$emit('buy')" >
       Buy Selected
     </zButton>
   </div>
 </template>
 
-<script>
+<script >
 export default {
   name: 'CartFooter',
-  emits: [ 'buy' ],
   inject: [ 'actionsDisabled' ],
   props: {
     selectedItems: {
@@ -43,6 +41,7 @@ export default {
       required: true,
     },
   },
+  emits: [ 'buy' ],
   computed: {
     cartCalculation () {
       const cartCalculation = {
@@ -61,6 +60,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

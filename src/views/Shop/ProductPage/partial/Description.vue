@@ -40,9 +40,9 @@
         </ul>
 
         <zButton
-          @click="emitShowAddToCart"
           class="w-full py-4 px-3"
-          variant="safety" >
+          variant="safety"
+          @click="emitShowAddToCart" >
           Add To Cart
         </zButton>
       </div>
@@ -60,15 +60,13 @@
           {{ description }}
         </p>
       </div>
-
     </div>
   </div>
 </template>
 
-<script>
+<script >
 export default {
   name: 'Description',
-  emits: [ 'showAddToCart' ],
   props: {
     title: {
       type: String,
@@ -91,6 +89,7 @@ export default {
       required: true,
     }
   },
+  emits: [ 'showAddToCart' ],
   methods: {
     emitShowAddToCart () {
       this.$emit( 'showAddToCart' )
@@ -99,13 +98,14 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .product-feature {
   @apply flex items-center;
 
   &::before {
     @apply inline-block w-2 h-2 rounded-sm bg-primary-lightest mr-2;
-    content: "";
+
+    content: '';
   }
 }
 </style>

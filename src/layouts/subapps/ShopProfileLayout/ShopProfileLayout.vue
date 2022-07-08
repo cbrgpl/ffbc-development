@@ -3,8 +3,8 @@
     <TheBackBar
       v-if="partialVisible('TheBackBar')"
       class="lg:hidden flex-shrink-0 px-2.5 md:px-5"
-      @goBack="$router.go(-1)"
-      :page-name="getPageName" />
+      :page-name="getPageName"
+      @goBack="$router.go(-1)" />
 
     <div class="layout-content-wrapper" >
       <TheSideMenu
@@ -13,24 +13,28 @@
       <router-view
         v-slot="{Component, route}" >
         <component
+          :is="Component"
           id="shop-profile-content"
+          :key="route.meta.usePathKey ? route.path : undefined"
           class="layout-content"
-          include="ProfileCart"
-          :is='Component'
-          :key="route.meta.usePathKey ? route.path : undefined" />
+          include="ProfileCart" />
       </router-view>
     </div>
   </div>
 </template>
 
-<script>
+<script >
 import TheBackBar from './partial/TheBackBar.vue'
 import TheSideMenu from './partial/TheSideMenu.vue'
 
 import { hidePartialsMixin } from '@mixins'
 
 export default {
-  name: 'shop-profile-layout',
+  name: 'ShopProfileLayout',
+  components: {
+    TheBackBar,
+    TheSideMenu
+  },
   mixins: [ hidePartialsMixin ],
   computed: {
     getLastRouteMatchName () {
@@ -43,14 +47,10 @@ export default {
     isAuth ( ) {
       return this.$store.getters[ 'auth/isAuth' ]
     }
-  },
-  components: {
-    TheBackBar,
-    TheSideMenu
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

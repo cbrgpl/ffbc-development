@@ -9,12 +9,12 @@
       on-error="Field is required"
       mask="9999"
       v-bind="$attrs"
-      @input="emitUpdateModelValue"
       size="sm"
-      type="text" >
+      type="text"
+      @input="emitUpdateModelValue" >
 
       <template
-        #error-label= "{errorState, onError}" >
+        #error-label="{errorState, onError}" >
         <h5
           v-if="errorState"
           class="absolute text-danger right-2 top-0" >
@@ -25,7 +25,7 @@
   </label>
 </template>
 
-<script>
+<script >
 export default {
   name: 'MeasureFieldInput',
   inheritAttrs: false,
@@ -47,6 +47,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

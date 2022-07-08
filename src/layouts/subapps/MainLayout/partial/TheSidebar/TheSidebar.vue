@@ -1,32 +1,30 @@
 <template >
   <div
-    @click="$emit('update:isSidebarVisible', false)"
-    :class="['sidebar__wrapper', {'sidebar--visible': isSidebarVisible}]" >
+    :class="['sidebar__wrapper', {'sidebar--visible': isSidebarVisible}]"
+    @click="$emit('update:isSidebarVisible', false)" >
     <aside
       :data-visible="isSidebarVisible"
       class="sidebar" >
       <div
-        @click.stop
-        class="sidebar__inner" >
-
+        class="sidebar__inner"
+        @click.stop >
         <zIconBase
-          @click="$emit('update:isSidebarVisible', false)"
           class="text-white cursor-pointer ml-4 mb-8"
           width="40"
           height="40"
+          icon="menu"
 
-          icon="menu" />
+          @click="$emit('update:isSidebarVisible', false)" />
 
         <ul
           class="sidebar__site-navigation"
           type="none" >
           <router-link
-            class="sidebar__site-nav"
             v-for="option of options.site"
             :key="option.name"
+            class="sidebar__site-nav"
             :to="{name: option.name}"
             exact-active-class="sidebar__site-nav--selected" >
-
             <zIconBase
               class="sidebar__site-nav-icon"
               :icon="option.iconName" />
@@ -39,22 +37,30 @@
 
         <Profile ></Profile>
       </div>
-
     </aside>
   </div>
 </template>
 
-<script>
+<script >
 import navOptions from '@enums/nav/router.competitionsSidebar.js'
 import Profile from './partial/Profile.vue'
 
 export default {
   name: 'TheSidebar',
-  emits: [ 'update:isSidebarVisible' ],
+
+  components: {
+    Profile
+  },
   props: {
     isSidebarVisible: {
       type: Boolean,
       required: true,
+    }
+  },
+  emits: [ 'update:isSidebarVisible' ],
+  data () {
+    return {
+      options: navOptions,
     }
   },
   watch: {
@@ -62,26 +68,18 @@ export default {
       this.$emit( 'update:isSidebarVisible', false )
     }
   },
-  data () {
-    return {
-      options: navOptions,
-    }
-  },
-
-  components: {
-    Profile
-  },
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .sidebar__wrapper {
   @apply fixed left-0 top-0 w-screen h-screen invisible;
 
   &::after {
     @apply absolute left-0 top-0 w-screen h-screen bg-black bg-opacity-70
       -z-10 invisible opacity-0 transition-all duration-300;
-    content: "";
+
+    content: '';
   }
 }
 
@@ -107,7 +105,8 @@ export default {
 
   &::before {
     @apply block w-full h-full absolute left-0 top-0 bg-primary-darkest opacity-20 filter blur-lg -z-10;
-    content: "";
+
+    content: '';
   }
 }
 
@@ -120,7 +119,8 @@ export default {
 
   &::after {
     @apply block w-10/12 absolute left-0 bottom-0 border-b border-white border-solid border-opacity-30;
-    content: "";
+
+    content: '';
   }
 
   &--selected {

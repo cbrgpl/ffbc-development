@@ -1,12 +1,12 @@
 <template >
   <label
-    :class="{'pointer-events-none': loader}"  >
+    :class="{'pointer-events-none': loader}" >
     <input
-      class="absolute -top-96 -left-96 -translate-y-96 -translate-x-96"
       ref="input"
-      @change="handleSelectedFiles"
+      class="absolute -top-96 -left-96 -translate-y-96 -translate-x-96"
       multiple
-      type="file" >
+      type="file"
+      @change="handleSelectedFiles" >
     <span
       :disabled="loader"
       class="relative inline-flex items-stretch justify-start border border-solid border-black rounded-md cursor-pointer bg-primary-darken bg-opacity-30 hover:bg-opacity-80 transition-colors overflow-hidden mb-3" >
@@ -33,12 +33,16 @@
   </label>
 </template>
 
-<script>
+<script >
 import zFilesList from '@general_components/atomic/zFilesList.vue'
 import zLoader from '@general_components/atomic/zLoader.vue'
 
 export default {
-  name: 'zInputFile',
+  name: 'ZInputFile',
+  components: {
+    zFilesList,
+    zLoader,
+  },
   props: {
     fileFormats: {
       type: Array,
@@ -109,14 +113,10 @@ export default {
         return accumulator
       }, [] ) )
     },
-  },
-  components: {
-    zFilesList,
-    zLoader,
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

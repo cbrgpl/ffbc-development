@@ -8,7 +8,6 @@
       <div class="w-full flex-grow-1 overflow-auto" >
         <zTable
           class="w-full" >
-
           <zTr class="bg-black-primary" >
             <zTh >
               id
@@ -25,9 +24,9 @@
             <zTh >
               <div class="p-1.5 invisible pointer-events-none" >
                 <zButton
-                  @click="buyStockCopy"
                   variant="ghost"
-                  class="px-3 py-2" >
+                  class="px-3 py-2"
+                  @click="buyStockCopy" >
                   Buy
                 </zButton>
               </div>
@@ -55,9 +54,9 @@
               <zTd >
                 <div class="p-1.5" >
                   <zButton
-                    @click="buyStockCopy"
                     variant="ghost"
-                    class="px-3 py-2" >
+                    class="px-3 py-2"
+                    @click="buyStockCopy" >
                     Buy
                   </zButton>
                 </div>
@@ -65,11 +64,10 @@
             </zTr>
           </tbody>
         </zTable>
-
       </div>
     </template>
 
-    <template  v-else >
+    <template v-else >
       <h3 class="text-left text-2xl underline mb-3" >
         There is no in stock products yet...
       </h3>
@@ -77,12 +75,19 @@
   </div>
 </template>
 
-<script>
+<script >
 import { zTable, zTh, zTd, zTr } from '@components/composite/zTable'
 import zFeatureIcon from '@general_components/atomic/zFeatureIcon.vue'
 
 export default {
   name: 'Stock',
+  components: {
+    zTable,
+    zTh,
+    zTd,
+    zTr,
+    zFeatureIcon
+  },
   props: {
     features: {
       type: Array,
@@ -102,17 +107,10 @@ export default {
     buyStockCopy () {
       console.log( 'going to but stock productInventory' )
     }
-  },
-  components: {
-    zTable,
-    zTh,
-    zTd,
-    zTr,
-    zFeatureIcon
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

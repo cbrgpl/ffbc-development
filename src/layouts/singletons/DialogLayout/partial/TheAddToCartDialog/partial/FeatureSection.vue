@@ -6,12 +6,12 @@
 
     <ul class="flex flex-col md:flex-row md:space-x-4 lg:space-x-6 flex-wrap" >
       <li
-        class="mb-1.5 py-2 last:mb-0"
         v-for="feature of featureFields"
-        :key="feature.id" >
+        :key="feature.id"
+        class="mb-1.5 py-2 last:mb-0" >
         <zRadioButton
-          class="w-full md:w-auto"
           v-model="featureValue"
+          class="w-full md:w-auto"
           :name="name"
           :value="feature.id" >
           {{ feature.name }}
@@ -21,7 +21,7 @@
   </section>
 </template>
 
-<script>
+<script >
 export default {
   name: 'FeatureSection',
   props: {
@@ -43,17 +43,17 @@ export default {
       featureValue: ''
     }
   },
-  watch: {
-    featureValue ( newValue ) {
-      this.emitFeatureValue( this.name, newValue )
-    },
-  },
   computed: {
     titleErrorClasses () {
       return {
         'text-danger': !this.sectionValid
       }
     }
+  },
+  watch: {
+    featureValue ( newValue ) {
+      this.emitFeatureValue( this.name, newValue )
+    },
   },
   methods: {
     emitFeatureValue ( name, featureValue ) {
@@ -63,6 +63,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

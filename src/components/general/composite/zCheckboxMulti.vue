@@ -1,16 +1,19 @@
 <template >
   <zCheckbox
-    @update:modelValue="handleValue"
     :checked="modelValue"
-    v-bind="attrs" />
+    v-bind="attrs"
+    @update:modelValue="handleValue" />
 </template>
 
-<script>
+<script >
 import preventModel from '@mixins/preventModel.mixin.js'
 import zCheckbox from '@general_components/atomic/zCheckbox.vue'
 
 export default {
-  name: 'zCheckboxMulti',
+  name: 'ZCheckboxMulti',
+  components: {
+    zCheckbox,
+  },
   mixins: [ preventModel ],
   props: {
     value: {
@@ -32,12 +35,9 @@ export default {
       this.$emit( 'update:modelValue', modelCopy )
     }
   },
-  components: {
-    zCheckbox,
-  },
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

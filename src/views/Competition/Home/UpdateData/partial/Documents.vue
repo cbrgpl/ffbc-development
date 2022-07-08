@@ -6,11 +6,11 @@
     </h3>
 
     <zInputFile
-      @filesInputed="uploadDocuments"
       :max-files="3"
       :max-file-size="3145728"
       :file-formats="fileFormats"
-      :loader="inputLoader" />
+      :loader="inputLoader"
+      @filesInputed="uploadDocuments" />
 
     <zSpacer :space="12" />
     <zDivider />
@@ -23,21 +23,20 @@
     </h3>
 
     <zImagesCollection
-      @loaded="disableCollectionLoader"
       :loader="collectionLoader"
       :images="documents"
-      class="documents_images-grid" >
+      class="documents_images-grid"
+      @loaded="disableCollectionLoader" >
       <zDocumentImage
         v-for="src of documents"
         :key="src"
         class="documents__image"
         :src="src" />
-
     </zImagesCollection>
   </div>
 </template>
 
-<script>
+<script >
 import { mapGetters } from 'vuex'
 
 import zDocumentImage from '@general_components/composite/zDocumentImage.vue'
@@ -98,7 +97,7 @@ export default {
           3 - Фото для документа(второе)
           4 - Фото для документа(третье)
          */
-        if ( this.userData[ documentsKeys[ i ] ] === null ) return i + 2
+        if ( this.userData[ documentsKeys[ i ] ] === null ) {return i + 2}
       }
     },
     uploadDocuments ( files ) {
@@ -133,7 +132,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 ::v-deep(.documents_images-grid) {
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }

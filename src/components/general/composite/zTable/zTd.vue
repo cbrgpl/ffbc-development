@@ -5,9 +5,9 @@
   </td>
 </template>
 
-<script>
+<script >
 export default {
-  name: 'zTd',
+  name: 'ZTd',
 }
 </script>
 

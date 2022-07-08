@@ -2,8 +2,8 @@
   <div >
     <div class="mb-6" >
       <zMeasureForm
-        :key="i"
         v-for="(measure, i ) of measures"
+        :key="i"
         :ref="'measure-' + i"
         :form-fields="measure"
         @measureSubmit="collectMeasure" />
@@ -14,23 +14,25 @@
       @click="submit" >
       Submit
     </zButton>
-
   </div>
 </template>
 
-<script>
+<script >
 import zMeasureForm from './zMeasureForm'
 
 export default {
-  name: 'zMultipleMeasures',
+  name: 'ZMultipleMeasures',
   expose: [ 'submit' ],
-  emits: [ 'submitted' ],
+  components: {
+    zMeasureForm
+  },
   props: {
     measures: {
       type: Array,
       required: true,
     }
   },
+  emits: [ 'submitted' ],
   data () {
     return {
       measureValues: []
@@ -54,13 +56,10 @@ export default {
         this.$refs[ ref ].submitForm()
       }
     },
-  },
-  components: {
-    zMeasureForm
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

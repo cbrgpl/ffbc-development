@@ -6,11 +6,11 @@
     class="object-cover w-full h-full" >
 </template>
 
-<script>
+<script >
 export default {
-  name: 'zImage',
+  name: 'ZImage',
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 </style>

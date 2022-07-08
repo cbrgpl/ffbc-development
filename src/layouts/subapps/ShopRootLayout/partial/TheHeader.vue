@@ -43,7 +43,6 @@
       <router-link
         :to="{name: 'ShopProfile'}"
         class="h-12 w-12 flex p-1 border-2 border-white border-solid rounded-full bg-black" >
-
         <zIconBase
           class="m-auto"
           icon="user" />
@@ -51,8 +50,8 @@
     </div>
 
     <div
-      class="flex items-center"
-      v-else >
+      v-else
+      class="flex items-center" >
       <router-link
         active-class="text-primary-darken text-opacity-80"
         class="w-12 h-12 p-2.5 cursor-pointer hover:bg-black-lightest hover:bg-opacity-40 transition-colors rounded-full md:w-12 md:h-12 mr-4"
@@ -62,19 +61,18 @@
       </router-link>
 
       <zIconButton
-        @click="showAuthDialog"
         class="h-full md:h-auto py-2.5 px-2.5"
         shrink
         icon="login"
-        unshrink-breakpoint="sm" >
+        unshrink-breakpoint="sm"
+        @click="showAuthDialog" >
         Sign In
       </zIconButton>
     </div>
-
   </div>
 </template>
 
-<script>
+<script >
 import { mapGetters } from 'vuex'
 
 const lgBreakpointMinWidth = 1024
@@ -113,6 +111,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

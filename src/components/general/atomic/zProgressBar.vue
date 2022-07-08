@@ -3,19 +3,18 @@
     :ref="setWrapperWidth"
     class="w-full overflow-hidden bg-black-lightest" >
     <div
-      @transitionend="emitFinish"
       ref="bar"
       :style="barStyles"
-      class="progress-bar__progress w-0 h-full bg-current" ></div>
+      class="progress-bar__progress w-0 h-full bg-current"
+      @transitionend="emitFinish" ></div>
   </span>
 </template>
 
-<script>
+<script >
 import { ErrorWithDescription } from '@errors'
 
 export default {
-  emits: [ 'finished' ],
-  name: 'zProgressBar',
+  name: 'ZProgressBar',
   props: {
     progress: {
       type: Number,
@@ -30,6 +29,7 @@ export default {
       required: true,
     }
   },
+  emits: [ 'finished' ],
   data () {
     return {
       barWidth: 0,
@@ -104,7 +104,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .progress-bar__progress {
   transition-timing-function: linear;
   transition-property: width;

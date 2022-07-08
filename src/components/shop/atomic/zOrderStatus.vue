@@ -4,11 +4,11 @@
   </h5>
 </template>
 
-<script>
+<script >
 import orderStatusClasses from '@/enums/info/orderStatusClasses'
 
 export default {
-  name: 'zShopOrderStatus',
+  name: 'ZShopOrderStatus',
   props: {
     statusValue: {
       type: Number,
@@ -29,6 +29,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

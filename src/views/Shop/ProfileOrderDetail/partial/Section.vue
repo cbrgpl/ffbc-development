@@ -7,10 +7,9 @@
     </h4>
 
     <slot />
-
   </section>
 </template>
-<script>
+<script >
 export default {
   name: 'OrderDetailSection',
   props: {
@@ -21,6 +20,6 @@ export default {
   }
 }
 </script>
-<style lang="">
+<style lang="" >
 
 </style>

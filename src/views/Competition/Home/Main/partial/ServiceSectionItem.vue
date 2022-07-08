@@ -16,7 +16,7 @@
   </div>
 </template>
 
-<script>
+<script >
 export default {
   name: 'ServiceSectionItem',
   props: {
@@ -28,7 +28,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .service-section-item {
   display: grid;
   grid-template-columns: #{rem(32px)} minmax(#{rem(168px)}, 1fr) minmax(#{rem(40px)}, #{rem(120px)});

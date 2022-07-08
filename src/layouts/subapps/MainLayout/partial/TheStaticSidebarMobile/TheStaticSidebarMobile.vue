@@ -49,7 +49,7 @@
   </ul>
 </template>
 
-<script>
+<script >
 import CentralButton from './partial/CentralButton.vue'
 
 export default {
@@ -60,7 +60,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" >
 .static-sidebar-mobile__center-button {
   @apply w-20 h-20 bg-primary-darkest rounded-full flex cursor-pointer;
 }

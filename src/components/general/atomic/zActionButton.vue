@@ -10,17 +10,17 @@
   </div>
 </template>
 
-<script>
+<script >
 import { extenderMix } from '@mixins'
 
 export default {
-  inheritAttrs: false,
-  name: 'actionButton',
-  mixins: [ extenderMix ]
+  name: 'ActionButton',
+  mixins: [ extenderMix ],
+  inheritAttrs: false
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .z-action-button {
   margin-right: rem(10px);
   padding: 4px;
@@ -28,7 +28,6 @@ export default {
   background: rgba($black-primary, 0.5);
   cursor: pointer;
   pointer-events: auto;
-
   transition: background 200ms;
 
   &:last-child {

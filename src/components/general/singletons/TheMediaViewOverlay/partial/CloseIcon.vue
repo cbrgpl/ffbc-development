@@ -4,12 +4,12 @@
   </span>
 </template>
 
-<script>
+<script >
 export default {
   name: 'MediaViewOverlayCloseIcon',
 }
 </script>
 
-<style>
+<style >
 
 </style>

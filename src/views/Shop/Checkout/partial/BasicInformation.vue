@@ -1,20 +1,23 @@
 <template >
   <div >
-    <UserForm  @form-submitted="emitSectionComplete" >
+    <UserForm @form-submitted="emitSectionComplete" >
       <template #actions >
         <SectionActions />
       </template>
     </UserForm>
-
   </div>
 </template>
 
-<script>
+<script >
 import UserForm from '@general_components/composite/UserForm/UserForm.vue'
 import SectionActions from './SectionActions.vue'
 
 export default {
   name: 'BasicInformation',
+  components: {
+    SectionActions,
+    UserForm
+  },
   emits: [ 'section-complete' ],
   methods: {
     emitSectionComplete ( userData ) {
@@ -23,15 +26,11 @@ export default {
         payload: userData
       } )
     }
-  },
-  components: {
-    SectionActions,
-    UserForm
   }
 
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" >
 
 </style>

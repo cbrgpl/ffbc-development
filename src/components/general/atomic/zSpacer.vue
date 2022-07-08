@@ -4,9 +4,9 @@
   </span>
 </template>
 
-<script>
+<script >
 export default {
-  name: 'zSpacer',
+  name: 'ZSpacer',
   props: {
     space: {
       type: [ Number, String ],
@@ -21,6 +21,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

@@ -1,7 +1,7 @@
 <template >
   <div
-    class="h-8 w-8 inline-block bg-black-primary p-1.5 rounded-full border border-solid border-primary-lightest select-none"
-    v-tooltip.top="featureIconData.name" >
+    v-tooltip.top="featureIconData.name"
+    class="h-8 w-8 inline-block bg-black-primary p-1.5 rounded-full border border-solid border-primary-lightest select-none" >
     <img
       class="w-full h-full"
       width="1"
@@ -10,9 +10,9 @@
   </div>
 </template>
 
-<script>
+<script >
 export default {
-  name: 'zFeatureIcon',
+  name: 'ZFeatureIcon',
   props: {
     featureIconData: {
       type: Object,
@@ -22,6 +22,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

@@ -2,9 +2,9 @@
   <div :class="['border-solid border-white opacity-50', dividerVariantStyles]" ></div>
 </template>
 
-<script>
+<script >
 export default {
-  name: 'zDivider',
+  name: 'ZDivider',
   props: {
     vertical: {
       type: Boolean,
@@ -19,6 +19,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

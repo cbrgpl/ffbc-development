@@ -1,9 +1,9 @@
 <template >
   <div
+    :class="toastClasses"
     @click="destroySelf"
     @mouseenter="pauseProgressAnimation"
-    @mouseleave="continueProgressAnimation"
-    :class="toastClasses" >
+    @mouseleave="continueProgressAnimation" >
     <div class="flex items-stretch flex-grow" >
       <div class="w-full pt-1 pb-1.5 px-2" >
         <div class="flex items-center pb-1 mb-1 border-b border-solid border-black-lightest" >
@@ -15,11 +15,10 @@
           <h5 class="font-mono text-white" >
             {{ data.summary }}
           </h5>
-
         </div>
         <p
-          v-html="data.detail"
-          class="text-white text-md font-medium sm:font-normal sm:text-sm leading-tight" >
+          class="text-white text-md font-medium sm:font-normal sm:text-sm leading-tight"
+          v-html="data.detail" >
         </p>
       </div>
     </div>
@@ -32,18 +31,21 @@
   </div>
 </template>
 
-<script>
+<script >
 import zProgressBar from '@general_components/atomic/zProgressBar.vue'
 
 export default {
-  emits: [ 'remove' ],
   name: 'ToastInstance',
+  components: {
+    zProgressBar,
+  },
   props: {
     data: {
       type: Object,
       required: true,
     },
   },
+  emits: [ 'remove' ],
   data () {
     return {
       progressAnimationPaused: false,
@@ -79,13 +81,10 @@ export default {
       this.$emit( 'remove', this.data.id )
     }
   },
-  components: {
-    zProgressBar,
-  },
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .toast {
   @apply flex flex-col bg-black w-full border-2 border-b-0 border-solid border-white border-opacity-20
     rounded-md overflow-hidden pointer-events-auto select-none cursor-pointer;

@@ -5,7 +5,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 20%);
+  background: rgb(0 0 0 / 20%);
 }
 ::-webkit-scrollbar-track-piece { background: transparent; }
 
@@ -24,10 +24,9 @@
 }
 
 html {
-  scrollbar-color: rgba(#f0f1f2, 0.9) rgba(0, 0, 0, 20%);
-  scrollbar-width: thin;
-
   scroll-behavior: smooth;
+  scrollbar-color: rgba(#f0f1f2, 0.9) rgb(0 0 0 / 20%);
+  scrollbar-width: thin;
 }
 
 .absolute-center {
@@ -35,17 +34,13 @@ html {
 }
 
 .z-tooltip {
-
   position: fixed;
-
   z-index: 999;
-
   max-width: rem(160px);
   padding: 0.25rem 0.5rem;
   border-radius: 0.25rem;
-  background: theme("colors.black.lightest");
-
-  color: theme("colors.white");
+  background: theme('colors.black.lightest');
+  color: theme('colors.white');
 }
 
 h1 {

@@ -1,26 +1,23 @@
 <template >
-
   <div >
-
     <!-- :checked="showInput" -->
     <zCheckboxSingle
-      class="mb-4"
-      @change="emitUnselectService"
       v-model="showInput"
-      :label="contactType.name" />
+      class="mb-4"
+      :label="contactType.name"
+      @change="emitUnselectService" />
     <zInput
-      @input="emitUpdateServiceId"
+      v-if="showInput"
       :value="modelValue"
       label="Enter your identificator in service"
-      v-if="showInput"
-      class="flex-grow" />
+      class="flex-grow"
+      @input="emitUpdateServiceId" />
   </div>
 </template>
 
-<script>
+<script >
 export default {
   name: 'UserContactField',
-  emits: [ 'update:modelValue' ],
   props: {
     contactType: {
       type: Object,
@@ -34,6 +31,7 @@ export default {
       required: true,
     }
   },
+  emits: [ 'update:modelValue' ],
   data () {
     return {
       fieldSelected: false,
@@ -60,6 +58,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

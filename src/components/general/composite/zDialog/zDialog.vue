@@ -1,22 +1,21 @@
-<template  >
+<template >
   <teleport to="body" >
     <div
       ref="mask"
       :style="dialogZIndex"
       :class="['dialog__mask', maskOverlowClass]"
       @click="hideWindow" >
-
       <Transition
         :name="appearAnimation"
+        appear
         @enter="animateMaskAppear"
-        @leave="animateMaskDisappear"
-        appear >
+        @leave="animateMaskDisappear" >
         <span
           v-if="windowVisible"
-          role='dialog'
-          @click.stop
+          role="dialog"
           :class="['dialog__window px-4 py-5', windowPositionClass]"
-          v-bind="$attrs" >
+          v-bind="$attrs"
+          @click.stop >
 
           <div class="relative w-full h-full" >
             <div
@@ -44,14 +43,16 @@
   </teleport>
 </template>
 
-<script>
+<script >
 import DialogClose from './partial/DialogClose.vue'
 import getZIndex from '@functions/getZIndex.function.js'
 
 export default {
   name: 'Dialog',
+  components: {
+    DialogClose,
+  },
   inheritAttrs: false,
-  emits: [ 'close' ],
   props: {
     visible: {
       type: Boolean,
@@ -73,16 +74,7 @@ export default {
       required: true,
     }
   },
-  watch: {
-    removeBuffer: {
-      handler ( newValue ) {
-        if ( newValue.includes( this.name ) ) {
-          this.hideWindow()
-        }
-      },
-      deep: true,
-    }
-  },
+  emits: [ 'close' ],
   data () {
     return {
       windowVisible: this.visible,
@@ -104,6 +96,16 @@ export default {
       return {
         zIndex: defaultDialogZIndex + getZIndex()
       }
+    }
+  },
+  watch: {
+    removeBuffer: {
+      handler ( newValue ) {
+        if ( newValue.includes( this.name ) ) {
+          this.hideWindow()
+        }
+      },
+      deep: true,
     }
   },
   methods: {
@@ -133,13 +135,10 @@ export default {
       this.$emit( 'close', this.name )
     }
   },
-  components: {
-    DialogClose,
-  },
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .dialog__mask {
   @apply fixed left-0 top-0 flex w-screen h-screen bg-black bg-opacity-0 transition-all duration-300;
 }
@@ -168,7 +167,7 @@ export default {
 .appear_top {
   &-enter-from {
     opacity: 0;
-    transform: translateY(-10px)
+    transform: translateY(-10px);
   }
 
   &-leave-to {
@@ -179,7 +178,7 @@ export default {
   &-leave-from,
   &-enter-to {
     opacity: 1;
-    transform: translateY(0)
+    transform: translateY(0);
   }
 
   &-leave-active {
@@ -198,7 +197,7 @@ export default {
 .appear_bottom {
   &-enter-from {
     opacity: 0;
-    transform: translateY(10px)
+    transform: translateY(10px);
   }
 
   &-leave-to {
@@ -209,7 +208,7 @@ export default {
   &-leave-from,
   &-enter-to {
     opacity: 1;
-    transform: translateY(0)
+    transform: translateY(0);
   }
 
   &-leave-active {

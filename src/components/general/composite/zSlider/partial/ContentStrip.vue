@@ -2,7 +2,6 @@
   <div
     ref="strip-wrapper"
     class="content-strip overflow-hidden" >
-
     <div
       :style="stripTranslateStyle"
       class="h-full flex flex-nowrap transition-transform duration-300 ease-out" >
@@ -11,7 +10,7 @@
   </div>
 </template>
 
-<script>
+<script >
 export default {
   name: 'ContentStrip',
   props: {
@@ -25,13 +24,6 @@ export default {
       translateDelta: 0,
     }
   },
-  mounted () {
-    this.updateTranslateDelta()
-    this.setResizeEvent( this.onResizeHandler )
-  },
-  beforeDestroy () {
-    this.removeResizeEvent( this.onResizeHandler )
-  },
   computed: {
     translatedDistance () {
       return this.translateDelta * this.activeElement
@@ -41,6 +33,13 @@ export default {
         transform: `translateX(-${ this.translatedDistance }px)`
       }
     }
+  },
+  mounted () {
+    this.updateTranslateDelta()
+    this.setResizeEvent( this.onResizeHandler )
+  },
+  beforeUnmount () {
+    this.removeResizeEvent( this.onResizeHandler )
   },
   methods: {
     updateTranslateDelta () {
@@ -68,7 +67,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .content-strip > div {
   @apply flex-shrink-0;
 }

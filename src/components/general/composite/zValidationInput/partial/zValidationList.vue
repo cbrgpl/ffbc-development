@@ -1,18 +1,18 @@
 <template >
   <ul >
     <li
-      class="flex items-center mb-2"
       v-for="validation of validations"
-      :key="validation" >
+      :key="validation"
+      class="flex items-center mb-2" >
       <span class="w-2 h-2 bg-danger-darken rounded-sm mr-1.5" ></span>
       {{ validation }}
     </li>
   </ul>
 </template>
 
-<script>
+<script >
 export default {
-  name: 'zValidationList',
+  name: 'ZValidationList',
   props: {
     validations: {
       type: Array,
@@ -21,6 +21,6 @@ export default {
 }
 </script>
 
-<style>
+<style >
 
 </style>

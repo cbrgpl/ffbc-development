@@ -5,12 +5,12 @@
   </zIconBase>
 </template>
 
-<script>
+<script >
 export default {
-  name: 'zBrandIcon',
+  name: 'ZBrandIcon',
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

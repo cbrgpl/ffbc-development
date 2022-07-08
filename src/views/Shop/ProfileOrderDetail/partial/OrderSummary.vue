@@ -18,7 +18,7 @@
   </ul>
 </template>
 
-<script>
+<script >
 export default {
   name: 'OrdererSummary',
   inject: [ 'orderData', 'orderProducts' ],
@@ -35,6 +35,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

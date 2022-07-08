@@ -2,12 +2,11 @@
   <div >
     <zForm
       class="lg:grid grid-cols-1 lg:grid-cols-4 lg:gap-x-20"
-      @validate="updateUser"
       :state="form.state"
       :error-message="form.errorMessage"
       :success-message="form.successMessage"
-      :vuelidate-object="v$" >
-
+      :vuelidate-object="v$"
+      @validate="updateUser" >
       <section >
         <h4 class="mb-3.5 underline" >
           My name:
@@ -58,8 +57,8 @@
         </div>
 
         <zInput
-          class="form-field"
           v-model.number="userForm.age"
+          class="form-field"
           label="Age"
           mask="99"
           :error-state="v$.userForm.age.$error"
@@ -112,8 +111,8 @@
           </div>
 
           <zInput
-            class="form-field"
             v-model.trim="userForm.state"
+            class="form-field"
             label="State" />
 
           <!-- <div class="form-field" >
@@ -137,8 +136,8 @@
         </h4>
 
         <zInput
-          class="form-field"
           v-model="userForm.phoneNumber"
+          class="form-field"
           label="Phone number"
           mask="+9 (999) 999 99-99"
           :error-state="v$.userForm.phoneNumber.$error"
@@ -158,17 +157,17 @@
         </div>
 
         <zInput
-          class="form-field"
           v-model="userForm.birthDate"
+          class="form-field"
           mask="99.99.9999"
           label="Birth date mm.dd.yyyy"
           on-error="required" />
 
         <zSelect
+          v-model="userForm.bustType"
           class="form-field"
           :list="bustTypes"
-          :item-accesser="(bustType) => bustType[1].id"
-          v-model="this.userForm.bustType" >
+          :item-accesser="(bustType) => bustType[1].id" >
           <template #visible="{ value }" >
             <div class="pl-4 py-3 pr-2" >
               {{ typeof value === 'string' ? value : value[1].value }}
@@ -184,7 +183,6 @@
       </section>
 
       <template #actions >
-
         <div class="form-actions flex justify-end col-start-3 col-span-2" >
           <zLoaderButton
             class="form-button"
@@ -193,14 +191,12 @@
             Update
           </zLoaderButton>
         </div>
-
       </template>
-
     </zForm>
   </div>
 </template>
 
-<script>
+<script >
 import useVuelidate from '@vuelidate/core'
 import userFormValidation from './validations/userForm'
 
@@ -297,7 +293,7 @@ export default {
 }
 </script>
 
-<style>
+<style >
 .form-field {
   @apply mb-7;
 }

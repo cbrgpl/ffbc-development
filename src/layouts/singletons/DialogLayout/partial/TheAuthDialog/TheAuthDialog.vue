@@ -6,7 +6,6 @@
         v-model="selectedTab"
         :tabs="authTabs"
         indicator-movement >
-
       </zTabsNav>
     </template>
     <zSpacer space="8" />
@@ -19,14 +18,19 @@
   </zDialog>
 </template>
 
-<script>
+<script >
 import zDialog from '@general_components/composite/zDialog/zDialog.vue'
 
 import LogInForm from './partial/LogInForm/LogInForm.vue'
 import SignInForm from './partial/SignInForm/SignInForm.vue'
 
 export default {
-  name: 'auth-dialog',
+  name: 'AuthDialog',
+  components: {
+    zDialog,
+    SignInForm,
+    LogInForm
+  },
   data () {
     return {
       selectedTab: 'Log In',
@@ -40,16 +44,11 @@ export default {
     currentFormName () {
       return this.selectedTab.replace( ' ', '' ) + 'Form'
     },
-  },
-  components: {
-    zDialog,
-    SignInForm,
-    LogInForm
   }
 }
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

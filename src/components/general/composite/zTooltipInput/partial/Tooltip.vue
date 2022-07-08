@@ -4,9 +4,9 @@
     class="absolute top-full transform translate-y-2.5 border border-white border-solid bg-black rounded-md select-none cursor-pointer" >
     <ul class="px-2 py-3.5 -mb-2.5" >
       <li
-        class="mb-2.5 flex items-center"
         v-for="requirement of passwordRequirements"
-        :key="requirement" >
+        :key="requirement"
+        class="mb-2.5 flex items-center" >
         <div class="w-2 h-2 mr-1 bg-primary rounded-sm flex-shrink-0" ></div>
         {{ requirement }}
       </li>
@@ -14,7 +14,7 @@
   </div>
 </template>
 
-<script>
+<script >
 import getZIndex from '@functions/getZIndex.function'
 
 export default {
@@ -34,6 +34,6 @@ export default {
 }
 </script>
 
-<style>
+<style >
 
 </style>

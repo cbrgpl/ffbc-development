@@ -1,11 +1,10 @@
 <template >
   <div class="mb-12" >
-
     <div class="icons-grid" >
       <span
-        class="flex flex-col justify-center items-center"
         v-for="icon of icons"
-        :key="icon" >
+        :key="icon"
+        class="flex flex-col justify-center items-center" >
         <zIconBase
           width="24"
           height="24"
@@ -13,11 +12,10 @@
         {{ icon }}
       </span>
     </div>
-
   </div>
 </template>
 
-<script>
+<script >
 import icons from '@/enums/info/icons.js'
 
 export default {
@@ -30,7 +28,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" >
 .icons-grid {
   display: grid;
   grid-template-columns: repeat(8, 1fr);

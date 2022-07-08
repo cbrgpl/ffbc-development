@@ -4,12 +4,12 @@
   </table>
 </template>
 
-<script>
+<script >
 export default {
-  name: 'zTable',
+  name: 'ZTable',
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

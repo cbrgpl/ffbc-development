@@ -1,54 +1,53 @@
 <template >
   <zForm
-    @validate="signIn"
     :state="form.state"
     :error-message="form.errorMessage"
     :success-message="form.successMessage"
-    :vuelidate-object="v$" >
+    :vuelidate-object="v$"
+    @validate="signIn" >
     <zInput
+      v-model="signInForm.email"
       v-autofocus
       class="form-field"
-      v-model="signInForm.email"
       label="Email"
       :error-state="v$.signInForm.email.$error"
       on-error="Incorrect email format" />
 
     <zTooltipInput
+      v-model.trim="signInForm.password"
       class="form-field"
       type="password"
-      v-model.trim="signInForm.password"
       label="Password"
       :error-state="v$.signInForm.password.$error"
       on-error="Password does not match to requirements"
       :password-requirements="passwordRequirements" />
 
     <zInput
+      v-model.trim="signInForm.passwordConfirmation"
       class="form-field"
       type="password"
-      v-model.trim="signInForm.passwordConfirmation"
       label="Repeat password"
       :error-state="v$.signInForm.passwordConfirmation.$error"
       on-error="The passwords are different" />
 
     <zInput
-      class="form-field"
       v-model.trim="signInForm.phoneNumber"
+      class="form-field"
       label="Phone number"
       mask="+9 (999) 999 99-99"
       :error-state="v$.signInForm.phoneNumber.$error"
       on-error="Invalid phone number" />
 
     <zCheckboxSingle
+      v-model="signInForm.policyAgreement"
       class="form-field"
       :error-state="v$.signInForm.policyAgreement.$error"
-      v-model="signInForm.policyAgreement"
       label="Consent to the processing of personal data" />
     <template #actions >
       <div class="form-actions flex flex-col justify-center lg:justify-start" >
-
         <zLink
-          class="form-link"
           v-if="isFormSuccessed"
+          class="form-link"
           :disabled="resendVerificationDisabled"
           @click="sendVerificationLink" >
           Resend Verification Link
@@ -60,13 +59,12 @@
           :loader="form.loading" >
           Sign In
         </zLoaderButton>
-
       </div>
     </template>
   </zForm>
 </template>
 
-<script>
+<script >
 import useValidation from '@vuelidate/core'
 import signInValidation from './validation/signIn'
 
@@ -100,14 +98,14 @@ export default {
       resendVerificationDisabled: false
     }
   },
-  watch: {
-    'signInForm.email': function resetFormValidation ( newValue, oldValue ) {
-      this.form.state = null
-    }
-  },
   computed: {
     isFormSuccessed () {
       return this.form.state
+    }
+  },
+  watch: {
+    'signInForm.email': function resetFormValidation ( newValue, oldValue ) {
+      this.form.state = null
     }
   },
   methods: {
@@ -166,6 +164,6 @@ export default {
 }
 </script>
 
-<style>
+<style >
 
 </style>

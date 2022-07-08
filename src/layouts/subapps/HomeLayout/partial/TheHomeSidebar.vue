@@ -1,27 +1,28 @@
 <template >
   <div class="hidden md:flex flex-col flex-shrink-0 bg-black-primary pl-2 md:w-52 lg:w-72 border-r border-solid border-white border-opacity-25 select-none" >
     <div
-      :style="indicatorStyles"
       v-if="indicatorParams.top !== 0"
+      :style="indicatorStyles"
       class="fixed left-0 top-0 w-1 bg-secondary-lighten opacity-50 rounded-lg transition-all ease-out" ></div>
     <router-link
+      v-for="option in homeNavigation"
       :ref="addToLinksList"
-      @click="updateIndicatorPosition($event.target)"
+      :key="option.routeName"
       active-class="text-secondary"
       class="flex items-center py-3 my-2 transition-colors duration-200 ease-in-out leading-tight md:text-md lg:text-lg"
-      v-for="option in homeNavigation"
-      :key="option.routeName"
-      :to="{name: option.routeName}" >
+      :to="{name: option.routeName}"
+      @click="updateIndicatorPosition($event.target)" >
       <zIconBase
         :width="32"
         :height="32"
         class="mr-2"
         :icon="option.iconName" />
-      {{ option.text }} </router-link>
+      {{ option.text }}
+    </router-link>
   </div>
 </template>
 
-<script>
+<script >
 import homeNavigation from '@enums/nav/router.competitionsHome.js'
 
 export default {
@@ -70,5 +71,5 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 </style>

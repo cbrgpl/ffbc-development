@@ -6,21 +6,21 @@
   </div>
 </template>
 
-<script>
+<script >
 import zTabRouteNavigation from '@general_components/composite/zTabRouteNavigation.vue'
 
 export default {
-  name: 'userNavigation',
+  name: 'UserNavigation',
+  components: {
+    zTabRouteNavigation
+  },
   data () {
     return {
       userNavigation: [],
     }
-  },
-  components: {
-    zTabRouteNavigation
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" >
 
 </style>

@@ -6,13 +6,13 @@
   </div>
 </template>
 
-<script>
+<script >
 export default {
-  name: 'layout-empty'
+  name: 'LayoutEmpty'
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .layout-empty {
   width: 100%;
   height: 100%;

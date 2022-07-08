@@ -11,15 +11,15 @@
       :id="icon"
       lang="en" >{{ title }}</title>
     <g
-      v-html="path"
-      fill="currentColor" >
+      fill="currentColor"
+      v-html="path" >
     </g>
   </svg>
 </template>
 
-<script>
+<script >
 export default {
-  name: 'zIconBase',
+  name: 'ZIconBase',
   props: {
     title: {
       type: String,
@@ -28,6 +28,12 @@ export default {
     icon: {
       type: String,
       required: true,
+    }
+  },
+  data () {
+    return {
+      path: '',
+      viewBox: '0 0 0 0'
     }
   },
   computed: {
@@ -39,12 +45,6 @@ export default {
     },
     iconLoaded () {
       return !!this.path
-    }
-  },
-  data () {
-    return {
-      path: '',
-      viewBox: '0 0 0 0'
     }
   },
   created () {
@@ -61,6 +61,6 @@ export default {
 }
 </script>
 
-<style>
+<style >
 
 </style>

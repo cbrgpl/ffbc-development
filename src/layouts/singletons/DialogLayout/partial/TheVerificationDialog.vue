@@ -4,24 +4,24 @@
       <h4 >Confirmation link</h4>
     </template>
 
-    <div class="text-lg leading-tight mb-4" > The confirmation link was sent to <strong >{{ email }}</strong>, please confirm the mail before continuing
-
+    <div class="text-lg leading-tight mb-4" >
+      The confirmation link was sent to <strong >{{ email }}</strong>, please confirm the mail before continuing
     </div>
     <template #footer >
       <div class="flex flex-col w-min ml-auto" >
         <zTimer
+          :ref="timerRef"
           :style="{'opacity': buttonDisabled & true}"
           class="items-center mb-1 opacity-0"
-          :ref="timerRef"
           title="Send again in"
           title-styles="mr-2"
           :sec="60"
           @timeUp="unableButton" />
         <zLoaderButton
-          @click="sendConfirmation"
           :disabled="buttonDisabled"
           :loader="buttonLoader"
-          class="default-button" >
+          class="default-button"
+          @click="sendConfirmation" >
           Resend verification link
         </zLoaderButton>
       </div>
@@ -29,13 +29,17 @@
   </zDialog>
 </template>
 
-<script>
+<script >
 import zDialog from '@general_components/composite/zDialog/zDialog.vue'
 import zTimer from '@general_components/atomic/zTimer.vue'
 import { authService } from '@services'
 
 export default {
   timer: null,
+  components: {
+    zDialog,
+    zTimer
+  },
   data () {
     return {
       email: localStorage.getItem( 'var_regEmail' ) || 'email@example.com',
@@ -71,12 +75,8 @@ export default {
       this.buttonDisabled = false
     }
   },
-  components: {
-    zDialog,
-    zTimer
-  },
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 </style>

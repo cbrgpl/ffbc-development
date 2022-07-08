@@ -1,8 +1,8 @@
 <template >
   <div class="flex flex-col" >
     <div
-      @click="routerPushBack"
-      class="flex items-center w-full py-3 bg-black-primary text-xl select-none" >
+      class="flex items-center w-full py-3 bg-black-primary text-xl select-none"
+      @click="routerPushBack" >
       <zIconBase
         class="w-6 mr-2"
         icon="backArrow" />
@@ -15,11 +15,11 @@
   </div>
 </template>
 
-<script>
+<script >
 import preventLayoutExtendMixin from '@/helpers/mixins/preventLayoutExtend.mixin'
 
 export default {
-  name: 'user-layout',
+  name: 'UserLayout',
   mixins: [ preventLayoutExtendMixin ],
   methods: {
     routerPushBack () {
@@ -29,5 +29,5 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 </style>

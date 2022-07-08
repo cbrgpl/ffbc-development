@@ -1,8 +1,8 @@
 <template >
   <zSlider
-    @newActiveElementNumber="setProductMediaShownByIndex( $event )"
     :elements-count="mediaCount"
-    class="w-full h-36 border-b border-placeholder border-solid" >
+    class="w-full h-36 border-b border-placeholder border-solid"
+    @newActiveElementNumber="setProductMediaShownByIndex( $event )" >
     <div
       v-for="(aMedia, i) of media"
       :key="aMedia.original"
@@ -19,11 +19,14 @@
   </zSlider>
 </template>
 
-<script>
+<script >
 import zSlider from '@general_components/composite/zSlider/zSlider.vue'
 
 export default {
-  name: 'zShopProductSlider',
+  name: 'ZShopProductSlider',
+  components: {
+    zSlider
+  },
   props: {
     media: {
       type: Array,
@@ -79,13 +82,10 @@ export default {
         this.mediaBuffer.push( vNode )
       }
     }
-  },
-  components: {
-    zSlider
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

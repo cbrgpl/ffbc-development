@@ -2,13 +2,12 @@
   <div >
     <div >
       <zMeasureForm
-        class="mb-8 border-b border-solid border-placeholder last:border-none"
         v-for="measure of orderMeasures"
         :key="measure.id"
+        class="mb-8 border-b border-solid border-placeholder last:border-none"
         :title="measure.name"
         :form-fields="measure.measureFields"
         @measureSubmit="setMeasureData(measure.name, $event)" >
-
         <template #formActions >
           <zButton
             class="px-2.5 py-2 my-3"
@@ -17,7 +16,6 @@
             Submit
           </zButton>
         </template>
-
       </zMeasureForm>
     </div>
 
@@ -25,21 +23,25 @@
   </div>
 </template>
 
-<script>
+<script >
 import SectionActions from './SectionActions.vue'
 
 import zMeasureForm from '@shop_components/composite/zMeasureForm/zMeasureForm.vue'
 
 export default {
   name: 'Measures',
-  emits: [ 'section-complete' ],
+  components: {
+    SectionActions,
+    zMeasureForm
+  },
+  inject: [ 'orderId' ],
   props: {
     bindedCartItems: {
       type: Object,
       required: true,
     }
   },
-  inject: [ 'orderId' ],
+  emits: [ 'section-complete' ],
   data () {
     return {
       filledMeasures: {}
@@ -145,15 +147,11 @@ export default {
         measureField.order = this.orderId
       }
     }
-  },
-  components: {
-    SectionActions,
-    zMeasureForm
   }
 
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" >
 
 </style>

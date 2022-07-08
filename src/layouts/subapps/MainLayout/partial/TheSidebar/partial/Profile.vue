@@ -15,10 +15,10 @@
       </span>
 
       <div
-        class="border border-white border-solid border-opacity-40 cursor-pointer rounded-md p-1.5 transition-colors duration-300 hover:text-secondary"
-        @click="logout"
         v-if="isAuth"
-        v-tooltip.top="'Log out'" >
+        v-tooltip.top="'Log out'"
+        class="border border-white border-solid border-opacity-40 cursor-pointer rounded-md p-1.5 transition-colors duration-300 hover:text-secondary"
+        @click="logout" >
         <zIconBase
           title="Sign Out"
           icon="logout"
@@ -29,7 +29,7 @@
   </div>
 </template>
 
-<script>
+<script >
 import { mapGetters } from 'vuex'
 import { authService } from '@services'
 
@@ -66,6 +66,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

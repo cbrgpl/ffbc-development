@@ -1,15 +1,15 @@
 <template >
   <div >
     <zTabsNav
-      class="w-3/4 max-w-xs mx-auto mb-5"
       v-model="activeTab"
+      class="w-3/4 max-w-xs mx-auto mb-5"
       :tabs="tabs" />
 
     <component :is="activeComponentName" />
   </div>
 </template>
 
-<script>
+<script >
 import tabs from '@enums/nav/tabs.shopOrderDetails.js'
 
 import OrdererDetailsMeasures from './OrdererDetailsMeasures.vue'
@@ -17,6 +17,10 @@ import OrdererDetailsYou from './OrdererDetailsYou.vue'
 
 export default {
   name: 'OrderData',
+  components: {
+    OrdererDetailsMeasures,
+    OrdererDetailsYou
+  },
   data () {
     return {
       tabs,
@@ -27,14 +31,10 @@ export default {
     activeComponentName () {
       return 'OrdererDetails' + this.activeTab
     }
-  },
-  components: {
-    OrdererDetailsMeasures,
-    OrdererDetailsYou
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

@@ -1,30 +1,30 @@
 <template >
   <zForm
-    @validate="logIn"
     :state="form.state"
     :error-message="form.errorMessage"
     :success-message="form.successMessage"
-    :vuelidate-object="v$" >
+    :vuelidate-object="v$"
+    @validate="logIn" >
     <zInput
+      v-model.trim="logInForm.email"
       v-autofocus
       class="form-field"
-      v-model.trim="logInForm.email"
       label="Email"
       :error-state="v$.logInForm.email.$error"
       on-error="Incorrect email format" />
 
     <zInput
+      v-model.trim="logInForm.password"
       class="form-field"
       type="password"
-      v-model.trim="logInForm.password"
       label="Password"
       :error-state="v$.logInForm.password.$error"
       on-error="Input correct password" />
 
     <div class="form-field flex justify-between flex-col sm:flex-row sm:items-center" >
       <zCheckboxSingle
-        class="mb-2 sm:mb-0"
         v-model="rememberMe"
+        class="mb-2 sm:mb-0"
         label="Remember me" />
 
       <zLink @click="dialog$.show('resetPassword')" >
@@ -33,7 +33,6 @@
     </div>
 
     <template #actions >
-
       <div class="form-actions" >
         <zLoaderButton
           class="form-button"
@@ -42,12 +41,11 @@
           Log in
         </zLoaderButton>
       </div>
-
     </template>
   </zForm>
 </template>
 
-<script>
+<script >
 import useVuelidate from '@vuelidate/core'
 import logInValidation from './validations/logIn'
 
@@ -108,6 +106,6 @@ export default {
 }
 </script>
 
-<style>
+<style >
 
 </style>

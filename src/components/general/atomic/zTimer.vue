@@ -9,9 +9,9 @@
   </div>
 </template>
 
-<script>
+<script >
 export default {
-  name: 'zTimer',
+  name: 'ZTimer',
   props: {
     sec: {
       type: Number,
@@ -54,6 +54,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

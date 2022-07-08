@@ -6,10 +6,10 @@
   </div>
 </template>
 
-<script>
+<script >
 
 export default {
-  name: 'zSelectItem',
+  name: 'ZSelectItem',
   props: {
     item: {
       type: [ Object, String ],
@@ -20,6 +20,6 @@ export default {
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

@@ -12,7 +12,6 @@
           class="md:text-lg font-mono" >
           {{ title }}
         </h5>
-
       </slot>
     </template>
 
@@ -26,15 +25,17 @@
   </zDialog>
 </template>
 
-<script>
+<script >
 import zDialog from '@general_components/composite/zDialog/zDialog'
 
 import escCloseMix from '@/helpers/mixins/escClose.mixin'
 
 export default {
-  name: 'zDialogList',
+  name: 'ZDialogList',
+  components: {
+    zDialog
+  },
   mixins: [ escCloseMix ],
-  emits: [ 'update:visible' ],
   props: {
     visible: {
       type: Boolean,
@@ -45,6 +46,7 @@ export default {
       default: null
     },
   },
+  emits: [ 'update:visible' ],
   data () {
     return {
       fakeRemoveBuffer: [],
@@ -63,12 +65,9 @@ export default {
     closeFn () {
       this.fakeRemoveBuffer.push( this.fakeName )
     }
-  },
-  components: {
-    zDialog
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 </style>

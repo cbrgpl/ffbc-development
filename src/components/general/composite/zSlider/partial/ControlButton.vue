@@ -4,12 +4,12 @@
   </button>
 </template>
 
-<script>
+<script >
 export default {
   name: 'ControlButton',
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>
