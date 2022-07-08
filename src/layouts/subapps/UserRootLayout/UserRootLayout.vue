@@ -9,10 +9,9 @@
       </div>
     </div>
   </BackLayout>
-
 </template>
 
-<script>
+<script >
 
 import { rootLayoutMixin } from '@mixins'
 
@@ -20,14 +19,14 @@ import BackLayout from '@layouts/partials/BackLayout/BackLayout.vue'
 import UserNavigation from './partial/UserNavigation.vue'
 
 export default {
-  name: 'user-root-layout',
-  mixins: [ rootLayoutMixin ],
+  name: 'UserRootLayout',
   components: {
     BackLayout,
     UserNavigation
-  }
+  },
+  mixins: [ rootLayoutMixin ]
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 </style>

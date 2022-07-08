@@ -1,6 +1,5 @@
 <template >
   <div class="bg-black-lighten border border-solid border-white rounded-md px-3 py-4" >
-
     <div >
       <h3 > {{ order.title }} </h3>
       <h5 class="font-mono tracking-widest leading-none" >
@@ -12,16 +11,16 @@
 
     <div class="flex w-full relative h-80 xl:h-72 overflow-x-auto select-none" >
       <zMediaWithTitle
-        @VnodeMounted="createIntersectedWatcher"
-        :ref="pushMediaToBuffer"
         v-for="media of media"
+        :ref="pushMediaToBuffer"
         :key="media.display"
         title="A Media of product"
         class="mr-2 flex-shrink-0 h-full w-full max-w-full w-auto last:mr-0"
         :original="media.display"
         :preview="media.preview"
         :intersected="intersected"
-        :auto-loading="false"  />
+        :auto-loading="false"
+        @VnodeMounted="createIntersectedWatcher" />
 
       <div
         v-if="loader"
@@ -33,7 +32,6 @@
     <zDivider class="my-3.5" />
 
     <div class="flex flex-col items-stretch sm:flex-row sm:items-center justify-between" >
-
       <zOrderStatus
         class="mb-1.5"
         :status-value="order.orderStatus" />
@@ -47,12 +45,14 @@
   </div>
 </template>
 
-<script>
+<script >
 import zOrderStatus from '@shop_components/atomic/zOrderStatus.vue'
 
 export default {
-  name: 'zShopProfileOrder',
-  emits: [ 'open-order-detail' ],
+  name: 'ZShopProfileOrder',
+  components: {
+    zOrderStatus
+  },
   props: {
     order: {
       type: Object,
@@ -63,6 +63,7 @@ export default {
       defaut: null
     },
   },
+  emits: [ 'open-order-detail' ],
   data () {
     return {
       media: [],
@@ -129,13 +130,10 @@ export default {
         this.mediaBuffer.push( vNode )
       }
     }
-  },
-  components: {
-    zOrderStatus
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

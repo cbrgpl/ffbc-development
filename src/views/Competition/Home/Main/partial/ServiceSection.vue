@@ -12,15 +12,17 @@
         :data="beauty" />
     </div>
   </div>
-
 </template>
 
-<script>
+<script >
 import serviceTypes from '@enums/info/serviceTypes.js'
 import ServiceSectionItem from './ServiceSectionItem.vue'
 
 export default {
   name: 'ServiceSection',
+  components: {
+    ServiceSectionItem
+  },
   props: {
     competitionId: {
       type: [ String, Number ],
@@ -69,13 +71,10 @@ export default {
         }
       ]
     }
-  },
-  components: {
-    ServiceSectionItem
   }
 }
 </script>
 
-<style>
+<style >
 
 </style>

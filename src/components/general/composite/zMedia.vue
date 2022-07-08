@@ -2,31 +2,32 @@
   <div
     v-bind="wrapperAttrs"
     class="relative" >
-
     <component
-      v-show="src"
-      @click="showInOverlay"
       v-bind="attrs"
+      :is="mediaComponent"
+      v-show="src"
       :src="src"
-      :is="mediaComponent" />
+      @click="showInOverlay" />
 
-    <span :class="['absolute z-10 top-0 left-0 w-full h-full', { 'pointer-events-none': !actionsSlotPassed  }]" >
+    <span :class="['absolute z-10 top-0 left-0 w-full h-full', { 'pointer-events-none': !actionsSlotPassed }]" >
       <slot name="actions" />
     </span>
   </div>
 </template>
 
-<script>
+<script >
 import zImage from '@general_components/atomic/zImage.vue'
 import zVideo from '@general_components/atomic/zVideo.vue'
 
 import { extenderMix } from '@mixins/index'
 
 export default {
-  name: 'zMedia',
+  name: 'ZMedia',
+  components: {
+    zImage,
+    zVideo
+  },
   mixins: [ extenderMix ],
-  emits: [ 'loaded' ],
-  expose: [ 'startLoading' ],
   props: {
     original: {
       type: String,
@@ -56,6 +57,8 @@ export default {
       }
     },
   },
+  emits: [ 'loaded' ],
+  expose: [ 'startLoading' ],
   data () {
     return {
       src: '',
@@ -130,13 +133,9 @@ export default {
 
       this.mediaViewOverlay$.show( this.src )
     },
-  },
-  components: {
-    zImage,
-    zVideo
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 </style>

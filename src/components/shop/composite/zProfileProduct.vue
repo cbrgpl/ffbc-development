@@ -35,9 +35,9 @@
   </div>
 </template>
 
-<script>
+<script >
 export default {
-  name: 'zProfileProduct',
+  name: 'ZProfileProduct',
   expose: [ 'startMediaLoading' ],
   props: {
     product: {
@@ -68,6 +68,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

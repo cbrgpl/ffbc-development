@@ -12,27 +12,26 @@
     </div>
 
     <ChangePasswordSection />
-
   </div>
 </template>
 
-<script>
+<script >
 import ChangePasswordSection from './partial/ChangePasswordSection.vue'
 
 export default {
   name: 'UserAccount',
+  components: {
+    ChangePasswordSection,
+  },
   computed: {
     email () {
       return this.$store.getters[ 'user/userData' ].email
     },
-  },
-  components: {
-    ChangePasswordSection,
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 ::v-deep(.locale-text-white) {
   @apply text-white;
 }

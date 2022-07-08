@@ -10,15 +10,15 @@
   </div>
 </template>
 
-<script>
+<script >
 
 export default {
   name: 'SectionActions',
-  emits: [ 'show-next' ],
   inject: [
     'actionsDisabled',
     'actionsLoader'
   ],
+  emits: [ 'show-next' ],
   methods: {
     showNext () {
       this.$emit( 'show-next' )
@@ -27,6 +27,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" >
 
 </style>

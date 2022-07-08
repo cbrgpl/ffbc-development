@@ -1,31 +1,34 @@
 <template >
   <transition name="overlay-appear" >
     <div
-      @click="closeMediaOverlay"
       v-if="overlayVisibility"
-      class="fixed z-110 left-0 top-0 flex w-screen h-screen bg-black bg-opacity-80 transition-all duration-300" >
+      class="fixed z-110 left-0 top-0 flex w-screen h-screen bg-black bg-opacity-80 transition-all duration-300"
+      @click="closeMediaOverlay" >
       <div
-        @click.stop
-        class="relative w-full max-w-3xl m-auto" >
+        class="relative w-full max-w-3xl m-auto"
+        @click.stop >
         <zMedia
           class="media transition-opacity duration-300"
           :media-type="mediaInfo.type"
           :original="mediaInfo.src" />
 
         <CloseIcon
-          @click="closeMediaOverlay"
-          class="absolute right-2 top-2" />
+          class="absolute right-2 top-2"
+          @click="closeMediaOverlay" />
       </div>
     </div>
   </transition>
 </template>
 
-<script>
+<script >
 import CloseIcon from './partial/CloseIcon.vue'
 import { escCloseMix } from '@mixins'
 
 export default {
   name: 'TheMediaViewOverlay',
+  components: {
+    CloseIcon,
+  },
   mixins: [ escCloseMix ],
   computed: {
     mediaInfo () {
@@ -42,14 +45,11 @@ export default {
     closeFn () {
       this.closeMediaOverlay()
     }
-  },
-  components: {
-    CloseIcon,
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .overlay-appear {
   &-enter-from,
   &-leave-to {

@@ -9,8 +9,8 @@
       </div>
     </div>
     <div
-      class="flex flex-col lg:flex-row lg:h-full shop-main_padding"
-      v-if="product !== null" >
+      v-if="product !== null"
+      class="flex flex-col lg:flex-row lg:h-full shop-main_padding" >
       <zProductSlider
         class="w-full lg:w-2/5 flex-shrink-0 h-96 lg:h-full"
         :media="product.media" />
@@ -19,26 +19,25 @@
         class="flex flex-col px-1.5 pt-3 sm:px-3 lg:w-full lg:p-0 lg:ml-3" >
         <div class="mb-4 md:mb-6 lg:mb-8" >
           <zTabsNav
-            :tabs="inPageNavigation.tabs"
-            v-model="inPageNavigation.activeTab" />
+            v-model="inPageNavigation.activeTab"
+            :tabs="inPageNavigation.tabs" />
         </div>
         <h2 class="mb-3" >
           {{ product.title }}
         </h2>
 
         <component
-          @showAddToCart="showAddToCart"
           :is="activeTabName"
           v-bind="product"
           :features="productFeatures"
-          :type="productType" />
+          :type="productType"
+          @showAddToCart="showAddToCart" />
       </div>
-
     </div>
   </div>
 </template>
 
-<script>
+<script >
 import zProductSlider from '@shop_components/composite/zProductSlider.vue'
 
 import AvailableFeatures from './partial/AvailableFeatures.vue'
@@ -105,6 +104,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

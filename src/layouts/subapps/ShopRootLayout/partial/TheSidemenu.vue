@@ -4,7 +4,7 @@
       Site Navigation:
     </h3>
     <SidemenuNavigationList :navigation-options="subsystemNavigation" >
-      <template v-slot:default="{ value: route }" >
+      <template #default="{ value: route }" >
         <router-link
           exact-active-class="text-primary border-primary"
           class="sidemenu-list-link"
@@ -20,7 +20,7 @@
       Goods Navigation:
     </h3>
     <SidemenuNavigationList :navigation-options="productSections" >
-      <template v-slot:default="{ value: section  }" >
+      <template #default="{ value: section }" >
         <router-link
           exact-active-class="text-primary"
           class="sidemenu-list-link"
@@ -37,7 +37,7 @@
         Actions:
       </h3>
       <SidemenuNavigationList :navigation-options="systemActions" >
-        <template v-slot:default="{value: action}" >
+        <template #default="{value: action}" >
           <a
             :class="['sidemenu-list-link items-center transition-colors duration-75', disabledActionClasses]"
             @click.prevent="executeStategy(action.name)" >
@@ -53,7 +53,7 @@
   </aside>
 </template>
 
-<script>
+<script >
 import subsystemNavigation from '@enums/nav/router.shopSidebarSubsystems'
 import productSections from '@/enums/info/productSections.js'
 import SidemenuNavigationList from './TheSidemenuNavigationList.vue'
@@ -63,13 +63,16 @@ import { clearAuthInfo } from '@functions'
 
 export default {
   name: 'TheSidemenu',
-  emits: [ 'change-sidebar-visibility' ],
+  components: {
+    SidemenuNavigationList
+  },
   props: {
     visible: {
       type: Boolean,
       required: true,
     }
   },
+  emits: [ 'change-sidebar-visibility' ],
   data () {
     return {
       subsystemNavigation,
@@ -121,14 +124,11 @@ export default {
     emitSidebarHiding () {
       this.$emit( 'change-sidebar-visibility', false )
     }
-  },
-  components: {
-    SidemenuNavigationList
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .sidemenu-list-title {
   @apply inline-block mb-2 mx-4 lg:mx-6 xl:text-2xl xl:border-b xl:border-white xl:border-solid;
 }

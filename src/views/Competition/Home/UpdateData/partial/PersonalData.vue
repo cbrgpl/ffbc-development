@@ -3,42 +3,41 @@
     <zForm
       :vuelidate-object="v$"
       @validate="updateData" >
-
       <div class="w-full flex flex-col lg:flex-row justify-between" >
         <zInput
+          v-model.trim="userData.firstName"
           class="personal-data__input lg:mr-8"
           on-error="The name must be greater than 2 characters"
           :error-state="v$.userData.firstName.$error"
-          v-model.trim="userData.firstName"
           label="Name" />
         <zInput
+          v-model.trim="userData.lastName"
           class="personal-data__input"
           on-error="The surname must be greater than 2 characters"
           :error-state="v$.userData.lastName.$error"
-          v-model.trim="userData.lastName"
           label="Surname" />
       </div>
 
       <zInput
+        v-model="userData.phoneNumber"
         class="personal-data__input"
         mask="+# (###) ###-##-##"
         on-error="Wrong phone format"
         :error-state="v$.userData.phoneNumber.$error"
-        v-model="userData.phoneNumber"
         label="Phone Number" />
       <zInput
+        v-model="userData.birthDate"
         class="personal-data__input"
         :error-state="v$.userData.birthDate.$error"
-        v-model="userData.birthDate"
         on-error="Wrong date format"
         mask="####.##.##"
         label="year.mm.dd" />
       <div class="flex flex-col lg:flex-row items-stretch justify-between" >
         <zInput
+          v-model.number="userData.age"
           class="input--mb-0 lg:mr-8"
           :error-state="v$.userData.age.$error"
           on-error="You must be over 18 years old"
-          v-model.number="userData.age"
           label="age" />
 
         <zLoaderButton
@@ -51,7 +50,7 @@
   </div>
 </template>
 
-<script>
+<script >
 import useVuelidate from '@vuelidate/core'
 import { minLength, phone, date, adultDate, minValue } from '@validators'
 import { userService } from '@services'
@@ -111,7 +110,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .personal-data__input {
   @apply mb-14;
 }

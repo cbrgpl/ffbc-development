@@ -1,7 +1,7 @@
 <template >
   <form
-    class="w-full"
     :ref="formRef"
+    class="w-full"
     @submit.prevent="validateFields"
     @keydown.enter.prevent="controlFocus" >
     <slot />
@@ -14,15 +14,13 @@
     </div>
 
     <slot name="actions" >
-
     </slot>
   </form>
 </template>
 
-<script>
+<script >
 export default {
-  name: 'zForm',
-  emits: [ 'validate' ],
+  name: 'ZForm',
   props: {
     vuelidateObject: {
       type: Object,
@@ -50,6 +48,7 @@ export default {
       default: ''
     }
   },
+  emits: [ 'validate' ],
 
   computed: {
     childInputs () {
@@ -88,7 +87,7 @@ export default {
 
       if ( this.vuelidateObject.$invalid ) {
         this.$emit( 'validate', STATUS_WORDS.ERROR )
-      } else this.$emit( 'validate', STATUS_WORDS.SUCCESS )
+      } else {this.$emit( 'validate', STATUS_WORDS.SUCCESS )}
     },
     controlFocus ( event ) {
       if ( !this.enterable ) {
@@ -113,6 +112,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

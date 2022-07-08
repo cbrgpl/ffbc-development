@@ -13,24 +13,23 @@
       <zPaginationPage
         ref="paginationPage"
         class="flex flex-col min-h-full container shop-main_padding mx-auto"
-        @setPage="loadNewPage"
         :item-count="totalProducts"
-        :per-page="2" >
+        :per-page="2"
+        @setPage="loadNewPage" >
         <div class="grid grid-cols-2 gap-x-2 gap-y-8 md:grid-cols-3 2xl:grid-cols-4 items-stretch mb-6" >
           <zProductCard
-            v-observable="i"
-            :key="product.title"
             v-for="(product, i) of products"
+            :key="product.title"
+            v-observable="i"
             :product="product"
             :intersected="$options.reactiveObserver.schema[i]" />
         </div>
       </zPaginationPage>
     </div>
   </div>
-
 </template>
 
-<script>
+<script >
 import zPaginationPage from '@/components/general/composite/zPaginationPage.vue'
 import zProductCard from '@shop_components/composite/zProductCard.vue'
 
@@ -42,6 +41,13 @@ const reactiveObserver = new ReactiveObserver()
 export default {
   name: 'ProductCatalog',
   reactiveObserver,
+  directives: {
+    observable: reactiveObserver.directive
+  },
+  components: {
+    zProductCard,
+    zPaginationPage,
+  },
   props: {
     urn: {
       type: String,
@@ -54,6 +60,14 @@ export default {
       totalProducts: null,
     }
   },
+  computed: {
+    defaultSectionUrn () {
+      return productSections[ 0 ].urn
+    },
+    sectionFilters () {
+      return productSections.find( ( section ) => section.urn === this.urn ).filters
+    },
+  },
   watch: {
     urn: {
       handler  () {
@@ -64,14 +78,6 @@ export default {
         }
       },
       immediate: true,
-    },
-  },
-  computed: {
-    defaultSectionUrn () {
-      return productSections[ 0 ].urn
-    },
-    sectionFilters () {
-      return productSections.find( ( section ) => section.urn === this.urn ).filters
     },
   },
   mounted () {
@@ -123,17 +129,10 @@ export default {
       const dispatchResult = await this.$store.dispatch( 'product/outGetProducts', requestQueryParams )
       return dispatchResult
     },
-  },
-  directives: {
-    observable: reactiveObserver.directive
-  },
-  components: {
-    zProductCard,
-    zPaginationPage,
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

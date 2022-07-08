@@ -6,9 +6,9 @@
 
     <ul >
       <li
-        class="mb-2 last:mb-0"
+        v-for="infoInstance of info"
         :key="infoInstance.label"
-        v-for="infoInstance of info" >
+        class="mb-2 last:mb-0" >
         <strong > {{ infoInstance.label }}:&nbsp;</strong> {{ infoInstance.value }}
       </li>
 
@@ -17,7 +17,7 @@
   </div>
 </template>
 
-<script>
+<script >
 export default {
   name: 'DetailsYouSubsection',
   props: {
@@ -33,6 +33,6 @@ export default {
 }
 </script>
 
-<style lang="">
+<style lang="" >
 
 </style>

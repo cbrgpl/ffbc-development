@@ -1,8 +1,8 @@
 <template >
   <div class="py-12 px-4 sm:px-11" >
     <zTabsNav
-      class="text-lg sm:text-2xl"
       v-model="selectedTab"
+      class="text-lg sm:text-2xl"
       :tabs="tabs" />
 
     <zSpacer />
@@ -15,7 +15,7 @@
   </div>
 </template>
 
-<script>
+<script >
 import { defineAsyncComponent } from 'vue'
 export default {
   name: 'UpdateData',
@@ -76,6 +76,6 @@ export default {
 }
 </script>
 
-<style>
+<style >
 
 </style>

@@ -15,11 +15,14 @@
   </zButton>
 </template>
 
-<script>
+<script >
 import zButton from '@general_components/atomic/zButton.vue'
 
 export default {
-  name: 'zIconButton',
+  name: 'ZIconButton',
+  components: {
+    zButton,
+  },
   props: {
     shrink: {
       type: Boolean,
@@ -58,12 +61,9 @@ export default {
       return `${ this.unshrinkBreakpoint }:${ defaultClass }`
     }
   },
-  components: {
-    zButton,
-  },
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

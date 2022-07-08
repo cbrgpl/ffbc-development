@@ -3,12 +3,12 @@
     <div class="flex items-center h-full" >
       <div class="w-10 h-10 sm:h-12 sm:w-12 p-1 mr-4" >
         <zIconBase
-          @click="$emit('toggleSidebar')"
           class="text-white cursor-pointer flex-shrink-0"
           width="100%"
           height="100%"
+          icon="menu"
 
-          icon="menu" />
+          @click="$emit('toggleSidebar')" />
       </div>
       <router-link
         class="h-full"
@@ -40,27 +40,26 @@
       class="flex" >
       <zIconButton
         shrink
-        @click="dialog$.show('login')"
         class="py-2 px-2 sm:px-3 md:py-2.5 text-sm uppercase font-semibold mr-2"
         :icon-size="20"
-        icon="login" >
+        icon="login"
+        @click="dialog$.show('login')" >
         Log In
       </zIconButton>
       <zIconButton
         shrink
-        @click="dialog$.show('registration')"
         variant="ghost"
         class="py-2 px-2 sm:px-3 md:py-2.5 text-sm uppercase font-semibold"
         :icon-size="20"
-        icon="signUp" >
+        icon="signUp"
+        @click="dialog$.show('registration')" >
         Sign up
       </zIconButton>
-
     </div>
   </div>
 </template>
 
-<script>
+<script >
 import { mapGetters } from 'vuex'
 export default {
   data ( ) {
@@ -76,9 +75,10 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .header__logo {
   @apply w-auto h-full cursor-pointer;
+
   aspect-ratio: 5 / 3;
 }
 

@@ -11,9 +11,9 @@
   </div>
 </template>
 
-<script>
+<script >
 export default {
-  name: 'zTape',
+  name: 'ZTape',
   props: {
     scrollable: {
       type: Boolean,
@@ -76,7 +76,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 @keyframes auto-scrolling {
   0% {
     transform: translateX(var(--positive-translate));

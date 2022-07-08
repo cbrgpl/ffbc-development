@@ -1,26 +1,26 @@
 <template >
   <div class="flex flex-col w-full h-max min-h-full" >
-
     <div class="mb-auto" >
       <slot />
     </div>
 
     <zPagination
-      @setPage="emitSetPage"
       :current-page="page"
       :total-pages="totalPages"
-      :loading="loading" />
+      :loading="loading"
+      @setPage="emitSetPage" />
   </div>
 </template>
 
-<script>
+<script >
 import zPagination from '@general_components/composite/zPagination.vue'
 import DomHandler from '@classes/DomHandler.class'
 
 export default {
-  name: 'zPaginationPage',
-  emits: [ 'setPage' ],
-  expose: [ 'setLoadingState', 'setFirstPage', 'scrollToTop' ],
+  name: 'ZPaginationPage',
+  components: {
+    zPagination
+  },
   props: {
     itemCount: {
       type: [ Number, null ],
@@ -31,6 +31,8 @@ export default {
       default: 24,
     },
   },
+  emits: [ 'setPage' ],
+  expose: [ 'setLoadingState', 'setFirstPage', 'scrollToTop' ],
   data () {
     return {
       page: null,
@@ -81,13 +83,10 @@ export default {
       location.hash = '#' + currentPage
     },
 
-  },
-  components: {
-    zPagination
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

@@ -25,15 +25,17 @@
     <OrdererDetailsYouSubsection
       title="Physical Info:"
       :info="physicalInfo" />
-
   </div>
 </template>
 
-<script>
+<script >
 import OrdererDetailsYouSubsection from './OrdererDetailsYouSubsection.vue'
 
 export default {
   name: 'OrdererDetailsYou',
+  components: {
+    OrdererDetailsYouSubsection
+  },
   inject: [ 'orderData' ],
   computed: {
     order () {
@@ -110,13 +112,10 @@ export default {
         return accumulator
       }, [] )
     },
-  },
-  components: {
-    OrdererDetailsYouSubsection
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

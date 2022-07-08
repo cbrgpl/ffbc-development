@@ -2,24 +2,23 @@
   <div
     class="competition-card w-full lg:w-5/12 relative rounded-md shadow-md overflow-hidden" >
     <img
-      @click="navigate"
       class="w-full h-full object-cover select-none cursor-pointer"
       :src="url"
-      alt="" >
+      alt=""
+      @click="navigate" >
 
     <!-- content -->
     <div
       :style="cardStyles"
       class="competition-card__inner transition-transform duration-500 flex flex-col w-full absolute top-full left-0 bg-black-lighten pt-2.5 pb-3 px-1.5" >
-
       <div class="h-52" >
         <zTape
           class="pb-1.5"
           :scrollable="true" >
           <zChip
-            class="competition-card__chip"
             v-for="category of categories"
-            :key="category" >
+            :key="category"
+            class="competition-card__chip" >
             {{ category }}
           </zChip>
         </zTape>
@@ -45,7 +44,6 @@
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nisi, sunt. Nulla qui, eveniet ad tempora deserunt eaque odio eos. Debitis exercitationem magnam libero consequatur illo vitae sequi sunt, quo quod veritatis at totam doloremque eveniet pariatur minima nesciunt maiores quis, iusto atque dolorum molestiae aspernatur fuga! Odio quaerat dolorem inventore illum voluptates aliquam eligendi quia culpa dolor eos iste saepe ut, commodi repudiandae nemo sed, minus assumenda! Obcaecati enim dolorum reiciendis ipsa dignissimos praesentium et voluptas officia, tempore molestias perferendis quo dicta natus eaque in eveniet quis quia odit dolor tenetur quasi harum vitae? Nisi alias rerum qui ex, consequuntur minima consectetur officiis itaque sit explicabo quisquam omnis repudiandae quibusdam nobis? Voluptas deserunt, non odit maiores illum veritatis fuga at, eos molestias minima dolor doloremque recusandae assumenda minus. Vero iusto accusantium delectus eius, tenetur aut molestiae pariatur voluptatem est modi nam explicabo quasi quod harum cum cumque perspiciatis deserunt nobis sequi labore hic? Itaque velit repellat veritatis ab? Sunt ullam omnis debitis harum expedita veritatis doloremque, culpa repudiandae, quae optio eaque illo sequi molestias velit ipsam. Excepturi ab repellendus voluptatibus aperiam qui repellat dicta! Quam aliquam beatae id quos adipisci asperiores laudantium voluptatem, eligendi quia optio fugiat laboriosam vel eaque!
         </p>
       </div>
-
     </div>
 
     <!-- date -->
@@ -62,21 +60,19 @@
 
     <!-- actions -->
     <div
-      @click.stop
-      class="absolute right-0 top-0" >
-
+      class="absolute right-0 top-0"
+      @click.stop >
       <slot name="actions" ></slot>
-
     </div>
   </div>
 </template>
 
-<script>
+<script >
 import { DomHandler } from '@classes'
 import { getIntlPartFormatFunction } from '@filters'
 
 export default {
-  name: 'zCompetitionCard',
+  name: 'ZCompetitionCard',
   data () {
     return {
       categories: [ 'cat1', 'categori2', 'category', 'cat5' ],
@@ -119,7 +115,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .competition-card__inner {
   transform: translateY(calc(-1 * var(--content-height)));
 }

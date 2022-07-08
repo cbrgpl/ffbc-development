@@ -1,16 +1,16 @@
 <template >
   <ul class="text-xl select-none" >
     <li
-      class="mb-1.5"
       v-for="(value, key) in navigationOptions"
-      :key="key" >
+      :key="key"
+      class="mb-1.5" >
       <slot
         :value="value" />
     </li>
   </ul>
 </template>
 
-<script>
+<script >
 export default {
   name: 'SidemenuNavigationList',
   props: {
@@ -22,6 +22,6 @@ export default {
 }
 </script>
 
-<style>
+<style >
 
 </style>

@@ -1,6 +1,5 @@
 <template >
   <div :class="['flex items-stretch justify-center select-none relative', paginationDisabledClasses]" >
-
     <div
       v-if="loading"
       class="absolute right-2/4 bottom-2/4 transform translate-x-2/4 translate-y-2/4" >
@@ -22,8 +21,8 @@
       <span
         v-for="pageNum of getPages"
         :key="pageNum"
-        @click="emitSetPage(pageNum)"
-        :class="['pagination-surface pagination-item mr-2.5 last:mr-0', getPageNumberClasses(pageNum)]" >
+        :class="['pagination-surface pagination-item mr-2.5 last:mr-0', getPageNumberClasses(pageNum)]"
+        @click="emitSetPage(pageNum)" >
         {{ pageNum }}
       </span>
     </div>
@@ -38,10 +37,9 @@
   </div>
 </template>
 
-<script>
+<script >
 export default {
-  name: 'zPagination',
-  emits: [ 'setPage' ],
+  name: 'ZPagination',
   props: {
     currentPage: {
       type: Number,
@@ -61,6 +59,7 @@ export default {
       validator: ( val ) => val % 2 === 1
     },
   },
+  emits: [ 'setPage' ],
   data () {
     return {
       scenarios: {
@@ -154,7 +153,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .pagination-surface {
   @apply bg-black-lighten border border-black border-solid rounded-md hover:bg-black-lightest;
 }

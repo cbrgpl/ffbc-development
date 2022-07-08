@@ -1,13 +1,13 @@
 <template >
-  <teleport to='body' >
+  <teleport to="body" >
     <div class="toast-container w-full sm:w-80 px-3 sm:px-0 h-full fixed top-2 right-0 sm:right-3 pointer-events-none" >
       <div class="w-full relative" >
         <transition-group name="toast-animation" >
           <ToastInstance
-            :style="toastCusomStyles"
-
             v-for="toast of toastList"
+
             :key="toast.id"
+            :style="toastCusomStyles"
 
             :data="toast"
 
@@ -16,14 +16,16 @@
       </div>
     </div>
   </teleport>
-
 </template>
 
-<script>
+<script >
 import ToastInstance from './partial/ToastInstance.vue'
 
 export default {
   name: 'TheToast',
+  components: {
+    ToastInstance,
+  },
   data () {
     return {
       toastMargin: 15,
@@ -44,13 +46,10 @@ export default {
       this.toast$.remove( id )
     },
   },
-  components: {
-    ToastInstance,
-  },
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .toast-container {
   z-index: 999999;
 }
@@ -70,6 +69,7 @@ export default {
 
   &-leave-active {
     @apply transform-gpu duration-300 origin-right ease-out;
+
     position: absolute;
   }
 

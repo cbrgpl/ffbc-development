@@ -4,14 +4,14 @@
     v-bind="wrapperAttrs" >
     <div class="relative" >
       <input
+        v-mask="mask"
         placeholder=" "
         :class="['z-input', inputSizeClasses]"
         :value="modelValue"
-        @input="emitModelValue"
-        v-mask="mask"
         type="text"
         :data-error-state="errorState"
-        v-bind="attrs" >
+        v-bind="attrs"
+        @input="emitModelValue" >
 
       <h5
         ref="inputLabel"
@@ -38,7 +38,7 @@
   </label>
 </template>
 
-<script>
+<script >
 import { defineAsyncComponent } from 'vue'
 import { mask } from '@directives/index.js'
 import extenderMixin from '@mixins/extender.mixin.js'
@@ -46,8 +46,10 @@ import extenderMixin from '@mixins/extender.mixin.js'
 import DomHandler from '@classes/DomHandler.class'
 
 export default {
-  name: 'zInput',
-  emits: [ 'update:modelValue' ],
+  name: 'ZInput',
+  directives: {
+    mask
+  },
   mixins: [ extenderMixin ],
   inheritAttrs: false,
   props: {
@@ -83,6 +85,7 @@ export default {
       default: false,
     },
   },
+  emits: [ 'update:modelValue' ],
   computed: {
     inputSizeClasses () {
       switch ( this.size ) {
@@ -120,16 +123,13 @@ export default {
       this.$emit( 'update:modelValue', event.target.value )
     }
   },
-  directives: {
-    mask
-  },
   components: {
     zIconBrand: defineAsyncComponent( () => import( '@general_components/composite/zBrandIcon.vue' ) ),
   },
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .z-input {
   @apply bg-transparent border-2  border-primary-lighten border-solid
     text-white rounded-md cursor-pointer w-full;
@@ -150,7 +150,7 @@ export default {
     @apply top-2/4 -translate-y-2/4;
   }
 
-  &[data-error-state="true"] {
+  &[data-error-state='true'] {
     @apply border-danger-darken border-opacity-80;
   }
 }

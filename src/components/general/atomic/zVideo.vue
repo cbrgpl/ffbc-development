@@ -2,12 +2,12 @@
   <div ></div>
 </template>
 
-<script>
+<script >
 export default {
-  name: 'zVideo'
+  name: 'ZVideo'
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

@@ -6,9 +6,9 @@
 
     <ul >
       <li
-        class="mb-1"
         v-for="measureFieldWithName of measureFieldsWithName"
-        :key="measureFieldWithName.measureField.measureField" >
+        :key="measureFieldWithName.measureField.measureField"
+        class="mb-1" >
         <b >{{ measureFieldWithName.name }}:&nbsp;</b>
         <i >{{ measureFieldWithName.measureField.value }}</i>
       </li>
@@ -16,7 +16,7 @@
   </section>
 </template>
 
-<script>
+<script >
 export default {
   name: 'OrderDetailsMeasuresSection',
   props: {
@@ -39,6 +39,6 @@ export default {
 }
 </script>
 
-<style lang="">
+<style lang="" >
 
 </style>

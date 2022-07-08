@@ -4,14 +4,14 @@
   </div>
 </template>
 
-<script>
+<script >
 export default {
-  name: 'zChip',
+  name: 'ZChip',
 }
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .chip {
   min-width: rem(128px);
 }

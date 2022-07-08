@@ -4,17 +4,17 @@
       v-for="(bindedCartItem, i) of bindedCartItems"
       :key="bindedCartItem.cartItem.id"
       :ref="'product-' + i"
+      v-observable="i"
       :cart-item-id="bindedCartItem.cartItem.id"
       :product="bindedCartItem.product"
       :product-features="bindedCartItem.features"
+      :intersected="$options.reactiveObserver.schema[i]"
       @VnodeMounted="showCartContent"
-      @toggleSelectState="$emit('toggleSelectState', $event)"
-      v-observable="i"
-      :intersected="$options.reactiveObserver.schema[i]" />
+      @toggleSelectState="$emit('toggleSelectState', $event)" />
   </div>
 </template>
 
-<script>
+<script >
 import { mapGetters } from 'vuex'
 
 import CartContentProduct from './CartContentProduct.vue'
@@ -28,11 +28,16 @@ export default {
   name: 'CartContent',
   reactiveObserver,
   productBuffer: [],
-  emits: [ 'toggleSelectState', 'disableLoader' ],
   props: {
     bindedCartItems: {
       type: Array,
       required: true,
+    }
+  },
+  emits: [ 'toggleSelectState', 'disableLoader' ],
+  data () {
+    return {
+      contentShown: false,
     }
   },
   watch: {
@@ -62,11 +67,6 @@ export default {
         }
       },
       deep: true,
-    }
-  },
-  data () {
-    return {
-      contentShown: false,
     }
   },
   computed: {
@@ -104,6 +104,6 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

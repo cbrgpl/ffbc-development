@@ -8,13 +8,13 @@
   </div>
 </template>
 
-<script>
+<script >
 
 export default {
   name: 'DialogClose',
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

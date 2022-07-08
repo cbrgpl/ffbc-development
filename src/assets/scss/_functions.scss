@@ -1,9 +1,11 @@
+@use 'sass:math';
+
 // Принимает пиксели на вход. font-size: rem(15px);
 @function rem($size) {
-  @return $size / 16px * 1rem;
+  @return math.div($size, 16px) * 1rem;
 }
 
 // Принимает пиксели на вход. font-size: em(15px);
-@function em($pixels, $context: $browser-context) {
-  @return #{$pixels / $context}em;
+@function em($pixels, $context: 16px) {
+  @return math.div($pixels, $context) * 1em;
 }

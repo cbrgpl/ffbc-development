@@ -4,12 +4,12 @@
   </th>
 </template>
 
-<script>
+<script >
 export default {
-  name: 'zTh'
+  name: 'ZTh'
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

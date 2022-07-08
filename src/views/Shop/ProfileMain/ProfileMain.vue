@@ -1,9 +1,9 @@
 <template >
   <div class="flex-col" >
     <UserData
-      @click="pushToUserRoute"
       class="shop-main_padding"
-      :full-name="$store.getters['user/fullName']" />
+      :full-name="$store.getters['user/fullName']"
+      @click="pushToUserRoute" />
 
     <div class="shop-main_padding" >
       <h4 class="underline mb-5" >
@@ -11,9 +11,9 @@
       </h4>
       <ul class="text-xl" >
         <li
-          class="border-b border-solid border-placeholder border-opacity-75 py-3.5 mb-2.5"
           v-for="navigation of profileNavigation"
-          :key="navigation.toRouteName" >
+          :key="navigation.toRouteName"
+          class="border-b border-solid border-placeholder border-opacity-75 py-3.5 mb-2.5" >
           <router-link
             class="flex items-center"
             :to="{name: navigation.toRouteName}" >
@@ -25,17 +25,19 @@
         </li>
       </ul>
     </div>
-
   </div>
 </template>
 
-<script>
+<script >
 import profileNavigation from '@enums/nav/router.shopProfile'
 
 import UserData from './partial/UserData.vue'
 
 export default {
   name: 'ProfileMain',
+  components: {
+    UserData,
+  },
   data () {
     return {
       profileNavigation
@@ -45,13 +47,10 @@ export default {
     pushToUserRoute () {
       this.$router.push( { name: 'UserMe' } )
     }
-  },
-  components: {
-    UserData,
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

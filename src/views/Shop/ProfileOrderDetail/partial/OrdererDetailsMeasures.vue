@@ -8,24 +8,24 @@
   </div>
 </template>
 
-<script>
+<script >
 import OrderDetailsMeasuresSection from './OrderDetailsMeasuresSection.vue'
 
 export default {
   name: 'OrdererDetailsMeasures',
+  components: {
+    OrderDetailsMeasuresSection
+  },
   inject: [ 'orderMeasures' ],
   computed: {
     measureGroups () {
       return this.$store.getters[ 'measure/groupMeasureFields' ]( this.orderMeasures.value, ( measureField ) => measureField.measureField )
     },
-  },
-  components: {
-    OrderDetailsMeasuresSection
   }
 
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

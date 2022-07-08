@@ -20,12 +20,12 @@
   </div>
 </template>
 
-<script>
+<script >
 export default {
   name: 'CompetitionsCardActions',
 }
 </script>
 
-<style>
+<style >
 
 </style>

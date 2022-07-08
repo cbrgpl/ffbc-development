@@ -1,33 +1,33 @@
 <template >
   <div class="flex-col relative" >
     <zLoader
-      class="z-10"
       v-if="loading"
+      class="z-10"
       title
       background
       size="120px" />
 
     <div class="shop-main_padding flex-grow overflow-y-auto" >
       <CartActions
-        @toggleAllSelectStates="toggleAllSelectStates"
-        @deleteProducts="deleteSelectedItems"
         :no-selected-items="noSelectedItems"
-        :disabled="actionsDisabled" />
+        :disabled="actionsDisabled"
+        @toggleAllSelectStates="toggleAllSelectStates"
+        @deleteProducts="deleteSelectedItems" />
 
       <CartContent
+        :binded-cart-items="bindedCartItems"
         @disableLoader="loading = false"
-        @toggleSelectState="toggleSelectState"
-        :binded-cart-items="bindedCartItems" />
+        @toggleSelectState="toggleSelectState" />
     </div>
 
     <CartFooter
       class="flex-shrink-0 px-2.5 md:px-5 xl:px-7"
-      @buy="pushToOrderCheckout"
-      :selected-items="selectedItems" />
+      :selected-items="selectedItems"
+      @buy="pushToOrderCheckout" />
   </div>
 </template>
 
-<script>
+<script >
 import CartActions from './partial/CartActions.vue'
 import CartContent from './partial/CartContent.vue'
 import CartFooter from './partial/CartFooter.vue'
@@ -38,18 +38,18 @@ import { arrayUtils } from '@js_utils'
 
 export default {
   name: 'ProfileCart',
+  provide () {
+    return {
+      actionsDisabled: computed( () => this.actionsDisabled || this.noSelectedItems ),
+      selectedIds: computed( () => this.selectedIds )
+    }
+  },
   data () {
     return {
       selectedIds: [],
       bindedCartItems: [],
       loading: true,
       actionsDisabled: false,
-    }
-  },
-  provide () {
-    return {
-      actionsDisabled: computed( () => this.actionsDisabled || this.noSelectedItems ),
-      selectedIds: computed( () => this.selectedIds )
     }
   },
   watch: {
@@ -125,6 +125,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

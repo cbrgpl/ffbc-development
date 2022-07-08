@@ -3,8 +3,8 @@
     class="flex flex-col overflow-x-hidden" >
     <TheHeader
       v-if="!hidden['TheHeader']"
-      @toggleSidebar="isSidebarVisible = !isSidebarVisible"
-      class="flex-shrink-0" />
+      class="flex-shrink-0"
+      @toggleSidebar="isSidebarVisible = !isSidebarVisible" />
     <teleport to="body" >
       <TheSidebar
         v-if="!hidden['TheSidebar']"
@@ -12,7 +12,7 @@
         :sidebar-visible-mobile="isSidebarVisible"
         class="flex flex-col flex-shrink-0 relative lg:fixed left-0 h-full z-20" />
     </teleport>
-    <div class="flex flex-grow flex-col lg:flex-row overflow-hidden max-w-full"  >
+    <div class="flex flex-grow flex-col lg:flex-row overflow-hidden max-w-full" >
       <TheStaticSidebar
         v-if="!hidden['TheStaticSidebar']"
         class="hidden lg:flex" />
@@ -27,7 +27,7 @@
   </div>
 </template>
 
-<script>
+<script >
 import TheSidebar from './partial/TheSidebar/TheSidebar.vue'
 import TheStaticSidebar from './partial/TheStaticSidebar/TheStaticSidebar.vue'
 import TheStaticSidebarMobile from './partial/TheStaticSidebarMobile/TheStaticSidebarMobile.vue'
@@ -36,7 +36,13 @@ import TheHeader from './partial/TheHeader.vue'
 import { hidePartialsMixin, escCloseMix } from '@mixins'
 
 export default {
-  name: 'main-layout',
+  name: 'MainLayout',
+  components: {
+    TheSidebar,
+    TheStaticSidebar,
+    TheStaticSidebarMobile,
+    TheHeader,
+  },
   mixins: [ hidePartialsMixin, escCloseMix ],
   data () {
     return {
@@ -48,15 +54,9 @@ export default {
       this.isSidebarVisible = false
     }
   },
-  components: {
-    TheSidebar,
-    TheStaticSidebar,
-    TheStaticSidebarMobile,
-    TheHeader,
-  },
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

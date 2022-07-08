@@ -7,7 +7,6 @@
         size="200px"
         background
         title />
-
     </div>
 
     <div
@@ -15,27 +14,26 @@
       class="h-full w-full overflow-y-auto flex flex-col shop-main_padding" >
       <zPseudoSelect
         class="md:w-72"
-        @click="showCategoriesList"
-        title="Show" >
+        title="Show"
+        @click="showCategoriesList" >
         {{ selectedOrderCategory }}
       </zPseudoSelect>
 
       <div class="mt-3 grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-y-5 md:gap-4 2xl:gap-y-8" >
-
         <zProfileOrder
-          :key="order.id"
           v-for="(order, i) of orderList"
-          @open-order-detail="openOrderDetail"
-          :order="order"
+          :key="order.id"
           v-observable="i"
-          :intersected="$options.reactiveObserver.schema[i]" />
+          :order="order"
+          :intersected="$options.reactiveObserver.schema[i]"
+          @open-order-detail="openOrderDetail" />
       </div>
 
       <zDialogNonLayoutWrapper
+        v-model:visible="categoryListVisibile"
         class="w-screen max-h-72 max-w-md"
         position="bottom"
-        title="Select order category:"
-        v-model:visible="categoryListVisibile" >
+        title="Select order category:" >
         <div
           v-for="category of orderCategories"
           :key="category"
@@ -49,10 +47,9 @@
       </zDialogNonLayoutWrapper>
     </div>
   </div>
-
 </template>
 
-<script>
+<script >
 import zProfileOrder from '@shop_components/composite/zProfileOrder.vue'
 
 import { ReactiveObserver } from '@/helpers/modules/reactiveObserver'
@@ -62,6 +59,12 @@ const reactiveObserver = new ReactiveObserver()
 export default {
   name: 'ProfileOrderList',
   reactiveObserver,
+  directives: {
+    observable: reactiveObserver.directive
+  },
+  components: {
+    zProfileOrder
+  },
   data () {
     return {
       categoryListVisibile: false,
@@ -129,16 +132,10 @@ export default {
     openOrderDetail ( orderId ) {
       this.$router.push( { name: 'ShopProfileOrderDetail', params: { orderId } } )
     }
-  },
-  directives: {
-    observable: reactiveObserver.directive
-  },
-  components: {
-    zProfileOrder
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

@@ -1,15 +1,14 @@
 <template >
   <div >
-
   </div>
 </template>
 
-<script>
+<script >
 export default {
-  name: 'layout-fixed'
+  name: 'LayoutFixed'
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

@@ -2,21 +2,18 @@
   <form
     class="container mx-auto"
     @submit.stop.prevent="submitForm" >
-
     <h4 class="underline mb-3" >
       {{ title }}
     </h4>
 
     <div class="grid grid-cols-1 justify-between items-end sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-4 md:gap-x-6 gap-y-3" >
-
       <component
+        :is="measureFieldComponent"
         v-for="(field, fieldId) in form"
         :key="fieldId"
-        :form-field="field.name"
         v-model.number="field.value"
-        :error="v$[fieldId].$error"
-        :is="measureFieldComponent" />
-
+        :form-field="field.name"
+        :error="v$[fieldId].$error" />
     </div>
 
     <div >
@@ -81,6 +78,12 @@ export default {
       default: ''
     },
   },
+  setup ( props ) {
+    const { form, validations } = getFormPartials( props )
+    const v$ = useVuelidate( validations, form )
+
+    return { v$, form }
+  },
   watch: {
     formFields: {
       handler () {
@@ -88,12 +91,6 @@ export default {
       },
       flush: 'post'
     },
-  },
-  setup ( props ) {
-    const { form, validations } = getFormPartials( props )
-    const v$ = useVuelidate( validations, form )
-
-    return { v$, form }
   },
 
   methods: {
@@ -111,5 +108,5 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 </style>

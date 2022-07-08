@@ -1,8 +1,8 @@
 <template >
   <div class="relative select-none" >
     <div
-      @click="toggleListVisible"
-      class="border-2 border-primary-darkest border-solid bg-black-lighten rounded-md p-1 cursor-pointer" >
+      class="border-2 border-primary-darkest border-solid bg-black-lighten rounded-md p-1 cursor-pointer"
+      @click="toggleListVisible" >
       <slot
         name="visible"
         :value="visibleValue" >
@@ -11,13 +11,13 @@
     </div>
     <Transition name="list-appear" >
       <ul
-        class="list w-full border border-primary-darkest border-solid bg-black-lighten rounded-md overflow-hidden"
-        v-if="listVisible" >
+        v-if="listVisible"
+        class="list w-full border border-primary-darkest border-solid bg-black-lighten rounded-md overflow-hidden" >
         <li
-          class="hover:bg-black-primary transition-colors"
-          @click="setItemAsSelected(item)"
           v-for="(item, i) of list"
-          :key="i" >
+          :key="i"
+          class="hover:bg-black-primary transition-colors"
+          @click="setItemAsSelected(item)" >
           <slot
             name="listItem"
             v-bind="getListItemSlotProps(item)" >
@@ -29,12 +29,14 @@
   </div>
 </template>
 
-<script>
+<script >
 import zSelectItem from '@general_components/atomic/zSelectItem.vue'
 
 export default {
-  name: 'zSelect',
-  emits: [ 'update:modelValue' ],
+  name: 'ZSelect',
+  components: {
+    zSelectItem
+  },
   props: {
     list: {
       type: Array,
@@ -49,6 +51,7 @@ export default {
       default: null,
     }
   },
+  emits: [ 'update:modelValue' ],
   data () {
     return {
       listVisible: false,
@@ -84,15 +87,12 @@ export default {
     toggleListVisible () {
       this.listVisible = !this.listVisible
     },
-  },
-  components: {
-    zSelectItem
   }
 }
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .list {
   position: absolute;
   top: calc(100% + 5px);

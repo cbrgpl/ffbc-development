@@ -2,9 +2,9 @@
   <AccountSection
     ref="account-section"
     :actions-disabled="showFormDisabled"
-    @formVisibilityToggled="toggleShowFormDisabled"
     class="flex flex-col items-start"
-    button-title="Change Password" >
+    button-title="Change Password"
+    @formVisibilityToggled="toggleShowFormDisabled" >
     <template #default >
       <h4 class="mb-1 underline" >
         Password:
@@ -26,23 +26,23 @@
 
     <template #form >
       <zForm
-        @validate="updatePassword"
         :state="form.state"
         :error-message="form.errorMessage"
         :success-message="form.successMessage"
-        :vuelidate-object="v$" >
+        :vuelidate-object="v$"
+        @validate="updatePassword" >
         <zTooltipInput
+          v-model.trim="changePasswordForm.password"
           class="form-field"
           type="password"
-          v-model.trim="changePasswordForm.password"
           label="Password"
           :error-state="v$.changePasswordForm.password.$error"
           on-error="Password does not match to requirements"
           :password-requirements="passwordRequirements" />
         <zInput
+          v-model.trim="changePasswordForm.passwordConfirmation"
           class="form-field"
           type="password"
-          v-model.trim="changePasswordForm.passwordConfirmation"
           label="Password Confirmation"
           :error-state="v$.changePasswordForm.passwordConfirmation.$error"
           on-error="Password does not match to requirements" />
@@ -62,7 +62,7 @@
   </AccountSection>
 </template>
 
-<script>
+<script >
 import AccountSection from './AccountSection.vue'
 
 import useVuelidate from '@vuelidate/core'
@@ -74,6 +74,9 @@ import passwordRequirements from '@enums/info/passwordRequirements'
 
 export default {
   name: 'ChangePasswordSection',
+  components: {
+    AccountSection
+  },
   setup () {
     return {
       v$: useVuelidate()
@@ -138,13 +141,10 @@ export default {
         }
       }
     }
-  },
-  components: {
-    AccountSection
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

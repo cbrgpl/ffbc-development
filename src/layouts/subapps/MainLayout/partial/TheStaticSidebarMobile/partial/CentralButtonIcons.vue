@@ -30,7 +30,7 @@
   </div>
 </template>
 
-<script>
+<script >
 export default {
   name: 'CentralButtonIcons',
   props: {
@@ -49,7 +49,7 @@ export default {
 }
 </script>
 
-<style>
+<style >
 .CentralButtonIcons__button {
   @apply bg-primary text-white rounded-full border-2
     border-solid border-white border-opacity-60 p-3 pointer-events-auto;

@@ -1,6 +1,5 @@
 <template >
   <div class="flex items-center bg-black-primary" >
-
     <span class="flex items-center justify-center flex-shrink-0 text-2xl font-semibold w-20 h-20 md:w-28 md:h-28 rounded-full bg-secondary-lighten bg-opacity-30 select-none" >
       {{ nameInitials }}
     </span>
@@ -17,13 +16,11 @@
       <zIconBase
         class="w-6 flex-shrink-0"
         icon="forwardArrow" />
-
     </div>
-
   </div>
 </template>
 
-<script>
+<script >
 export default {
   name: 'UserData',
   props: {
@@ -50,6 +47,6 @@ export default {
 }
 </script>
 
-<style>
+<style >
 
 </style>

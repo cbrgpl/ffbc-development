@@ -1,8 +1,8 @@
 <template >
   <zTabNav
-    :tabs="tabs"
-    v-model="modelValue" >
-    <template v-slot="{tab}" >
+    v-model="modelValue"
+    :tabs="tabs" >
+    <template #default="{tab}" >
       <slot :tab="tab" >
         <router-link
           :to="{name: tab.toRouteName}" >
@@ -13,11 +13,15 @@
   </zTabNav>
 </template>
 
-<script>
+<script >
 import zTabNav from '@/components/general/atomic/zTabNav.vue'
 
 export default {
-  name: 'zTabRouteNavigation',
+  name: 'ZTabRouteNavigation',
+
+  components: {
+    zTabNav
+  },
   props: {
     tabs: {
       type: Array,
@@ -28,9 +32,6 @@ export default {
     return {
       modelValue: this.initialValue,
     }
-  },
-  created () {
-    this.modelValue = this.currentTab
   },
   computed: {
     matchedRoutes () {
@@ -46,19 +47,18 @@ export default {
       return null
     }
   },
+  created () {
+    this.modelValue = this.currentTab
+  },
   methods: {
     tabRouteIsMatched ( tab ) {
       const matchedRouteIsTabRoute = ( matchedRoute ) => matchedRoute.name === tab.toRouteName
       return this.matchedRoutes.some( matchedRouteIsTabRoute )
     },
-  },
-
-  components: {
-    zTabNav
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

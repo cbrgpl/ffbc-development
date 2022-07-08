@@ -13,19 +13,19 @@
   </section>
 </template>
 
-<script>
+<script >
 export default {
   name: 'AccountSection',
   emits: [ 'formVisibilityToggled' ],
-  watch: {
-    formVisible ( newValue ) {
-      this.$emit( 'formVisibilityToggled', newValue )
-    },
-  },
   data () {
     return {
       formVisible: false,
     }
+  },
+  watch: {
+    formVisible ( newValue ) {
+      this.$emit( 'formVisibilityToggled', newValue )
+    },
   },
   methods: {
     toggleFormVisible () {
@@ -38,6 +38,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

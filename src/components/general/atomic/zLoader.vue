@@ -35,13 +35,12 @@
       class="text-white font-mono text-xl" >
       Loading...
     </h5>
-
   </div>
 </template>
 
-<script>
+<script >
 export default {
-  name: 'zLoader',
+  name: 'ZLoader',
   props: {
     size: {
       type: String,
@@ -67,6 +66,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

@@ -2,8 +2,8 @@
   <li class="self-stretch transform -translate-y-1/4" >
     <span
       ref="centralButton"
-      @click="isIconsVisible = !isIconsVisible"
-      class="relative bg-primary-darkest rounded-full flex cursor-pointer p-2.5" >
+      class="relative bg-primary-darkest rounded-full flex cursor-pointer p-2.5"
+      @click="isIconsVisible = !isIconsVisible" >
       <zIconBase
         :class="['m-auto transform transition-transform duration-200', doubleArrowClasses]"
         width="56"
@@ -16,7 +16,7 @@
   </li>
 </template>
 
-<script>
+<script >
 import { defineAsyncComponent } from 'vue'
 
 export default {
@@ -34,7 +34,7 @@ export default {
   mounted () {
     this.setBodyListener()
   },
-  beforeDestroy () {
+  beforeUnmount () {
     document.body.removeEventListener( 'click', this.hideContainer )
   },
   methods: {
@@ -53,6 +53,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" >
 
 </style>

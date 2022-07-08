@@ -2,8 +2,8 @@
   <zImage >
     <template #actions >
       <div
-        @click.stop
-        class="z-documents-image__actions" >
+        class="z-documents-image__actions"
+        @click.stop >
         <zActionButton
           class="z-documents-image__action"
           :is-title="true"
@@ -14,18 +14,18 @@
   </zImage>
 </template>
 
-<script>
+<script >
 import zImage from '@general_components/atomic/zImage.vue'
 
 export default {
-  name: 'zDocumentImage',
+  name: 'ZDocumentImage',
   components: {
     zImage,
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .z-documents-image__actions {
   display: flex;
   align-items: center;

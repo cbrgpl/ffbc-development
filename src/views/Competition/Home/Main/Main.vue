@@ -1,6 +1,5 @@
 <template >
   <div class="mb-32" >
-
     <section class="home-main__bg-gradient flex flex-col items-center justify-center pt-20 pb-36" >
       <img
         class="w-44 h-44 mb-1.5 rounded-full select-none shadow-2xl"
@@ -30,7 +29,6 @@
       <div class="flex items-center justify-around flex-wrap w-full" >
         <zCompetetionCard
           class="mb-8 lg:mb-0" >
-
           <template #actions >
             <CompetitionCardActions />
           </template>
@@ -38,7 +36,6 @@
 
         <zCompetetionCard
           class="mb-8 lg:mb-0" >
-
           <template #actions >
             <CompetitionCardActions />
           </template>
@@ -65,7 +62,6 @@
           :key="i"
           :data="ticketData" ></Ticket>
       </div>
-
     </section>
 
     <section >
@@ -89,12 +85,11 @@
           :competition-id="1"
           title="Competition 2" />
       </div>
-
     </section>
   </div>
 </template>
 
-<script>
+<script >
 import { mapGetters } from 'vuex'
 import { defineAsyncComponent } from 'vue'
 
@@ -131,7 +126,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 section {
   @apply px-4;
 
@@ -149,9 +144,9 @@ section {
 
   &::after {
     @apply block w-full h-full top-0 left-0 absolute -z-10;
-    content: "";
 
-    background: linear-gradient(to bottom, rgba(140, 19, 19, 89%) 0%, rgba(26, 25, 22, 29%) 100%);
+    content: '';
+    background: linear-gradient(to bottom, rgb(140 19 19 / 89%) 0%, rgb(26 25 22 / 29%) 100%);
     filter: blur(50px) brightness(0.85);
   }
 }

@@ -1,15 +1,14 @@
 <template >
-  <div  class="flex flex-col" >
+  <div class="flex flex-col" >
     <h4 class="mb-3" >
       Test page
     </h4>
 
     <zMultipleMeasures
-      @submitted="test"
       ref="form"
       class="mb-8"
-      :measures="measures" >
-
+      :measures="measures"
+      @submitted="test" >
     </zMultipleMeasures>
 
     <pre >
@@ -18,11 +17,14 @@
   </div>
 </template>
 
-<script>
+<script >
 import zMultipleMeasures from '@shop_components/composite/zMeasureForm/zMultipleMeasures.vue'
 
 export default {
   name: 'Preview',
+  components: {
+    zMultipleMeasures,
+  },
   data () {
     return {
       loading: true,
@@ -67,13 +69,10 @@ export default {
     test ( ev ) {
       console.log( ev )
     },
-  },
-  components: {
-    zMultipleMeasures,
   }
 
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 </style>

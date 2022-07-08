@@ -1,16 +1,16 @@
 <template >
   <a
-    @click="handleClick"
     class="z-link"
     :data-disabled="disabled"
-    :href="url" >
+    :href="url"
+    @click="handleClick" >
     <slot />
   </a>
 </template>
 
-<script>
+<script >
 export default {
-  name: 'zLink',
+  name: 'ZLink',
   props: {
     url: {
       type: [ String, Object ],
@@ -27,14 +27,14 @@ export default {
   },
   methods: {
     handleClick ( event ) {
-      if ( !this.url || !this.externalLink ) event.preventDefault()
-      if ( this.disabled ) event.stopPropagation()
+      if ( !this.url || !this.externalLink ) {event.preventDefault()}
+      if ( this.disabled ) {event.stopPropagation()}
     }
   }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" >
 .z-link {
   @apply text-primary-lightest cursor-pointer;
 
@@ -51,7 +51,7 @@ export default {
   }
 }
 
-.z-link[data-disabled="true"] {
+.z-link[data-disabled='true'] {
   @apply text-placeholder cursor-default;
 }
 </style>

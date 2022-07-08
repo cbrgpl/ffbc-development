@@ -13,9 +13,9 @@
   </div>
 </template>
 
-<script>
+<script >
 export default {
-  name: 'zPseudoSelect',
+  name: 'ZPseudoSelect',
   props: {
     title: {
       type: String,
@@ -25,6 +25,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

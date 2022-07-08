@@ -4,13 +4,12 @@
       class="flex flex-col flex-grow w-full"
       type="none" >
       <router-link
-        class="static-sidebar__nav mb-6 px-3 py-1"
         v-for="option of siteNav"
         :key="option.name"
+        v-tooltip.right.1="option.label"
+        class="static-sidebar__nav mb-6 px-3 py-1"
         :to="{name: option.name}"
-        exact-active-class="static-sidebar__nav--selected"
-        v-tooltip.right.1="option.label" >
-
+        exact-active-class="static-sidebar__nav--selected" >
         <zIconBase
           class="m-auto"
           width="40"
@@ -23,20 +22,20 @@
 
     <span
       v-if="isAuth"
-      class="m-auto relative"
-      v-tooltip.right="'Open user navigation'" >
+      v-tooltip.right="'Open user navigation'"
+      class="m-auto relative" >
 
       <zIconBase
-        @click="isUserNavigationVisible = !isUserNavigationVisible"
         class="text-white cursor-pointer transform transition-colors hover:text-secondary-darken"
         width="40"
         height="40"
-        icon="manageAccount" />
+        icon="manageAccount"
+        @click="isUserNavigationVisible = !isUserNavigationVisible" />
     </span>
   </aside>
 </template>
 
-<script>
+<script >
 import siteNavOptions from '@enums/nav/router.competitonsStaticbar.js'
 import UserNavigation from './partial/UserNavigation.vue'
 
@@ -61,14 +60,15 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .static-sidebar__nav {
   @apply flex relative text-white hover:text-secondary-lighten transition-colors;
 
   &::before {
     @apply block w-1 h-full absolute left-0 top-0 transform-gpu scale-x-0 origin-left
       transition-transform duration-200 ease-in-out bg-current;
-    content: "";
+
+    content: '';
   }
 
   &--selected {

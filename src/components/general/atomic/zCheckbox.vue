@@ -4,10 +4,10 @@
     v-bind="wrapperAttrs" >
     <input
       :checked="checked"
-      @change="$emit( 'update:modelValue', $event)"
       class="z-checkbox"
       v-bind="attrs"
-      type="checkbox" >
+      type="checkbox"
+      @change="$emit( 'update:modelValue', $event)" >
     <div
       class="z-checkbox__fiction w-6 h-6"
       :data-error-state="errorState" >
@@ -18,11 +18,11 @@
   </label>
 </template>
 
-<script>
+<script >
 import extenderMixin from '@mixins/extender.mixin.js'
 
 export default {
-  name: 'zCheckbox',
+  name: 'ZCheckbox',
   mixins: [ extenderMixin ],
   props: {
     checked: {
@@ -45,7 +45,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .z-checkbox {
   @apply absolute opacity-0 z-0;
 
@@ -61,18 +61,19 @@ export default {
 .z-checkbox__fiction {
   @apply bg-primary border-2 border-solid border-primary rounded-md mr-2 relative p-1;
 
-  &[data-error-state="true"] {
+  &[data-error-state='true'] {
     @apply border-danger;
   }
 
-  &[data-error-state="true"] + .z-checkbox__label {
+  &[data-error-state='true'] + .z-checkbox__label {
     @apply text-danger;
   }
 
   &::after {
     @apply block w-full h-full border-b-4 border-l-4 border-white rounded-bl-sm
       transform skew-y-6 -rotate-45 -translate-y-px opacity-0 transition-opacity;
-    content: "";
+
+    content: '';
   }
 }
 

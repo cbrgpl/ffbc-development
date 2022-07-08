@@ -5,7 +5,7 @@
       v-if="partialVisible('TheHeader')"
       @toggle-sidebar-visibility="toggleSidebarVisibility" />
 
-    <div class="layout-content-wrapper relative items-stretch"  >
+    <div class="layout-content-wrapper relative items-stretch" >
       <TheSidemenu
         v-if="partialVisible('TheSidemenu')"
         :visible="sidebarVisiblity"
@@ -18,14 +18,18 @@
   </div>
 </template>
 
-<script>
+<script >
 import TheHeader from './partial/TheHeader.vue'
 import TheSidemenu from './partial/TheSidemenu.vue'
 
 import { hidePartialsMixin, rootLayoutMixin, escCloseMix } from '@mixins'
 
 export default {
-  name: 'shop-root-layout',
+  name: 'ShopRootLayout',
+  components: {
+    TheHeader,
+    TheSidemenu
+  },
   mixins: [ hidePartialsMixin, rootLayoutMixin, escCloseMix ],
   data () {
     return {
@@ -62,12 +66,8 @@ export default {
       this.sidebarVisiblity = visibilityState
     },
   },
-  components: {
-    TheHeader,
-    TheSidemenu
-  },
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 </style>

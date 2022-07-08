@@ -2,13 +2,13 @@
   <div class="h-screen flex px-2.5 md:px-4" >
     <zForm
       class="m-auto md:max-w-md"
-      @validate="resetPassword"
       :state="form.state"
-      :vuelidate-object="v$" >
+      :vuelidate-object="v$"
+      @validate="resetPassword" >
       <zInput
+        v-model="resetPasswordForm.password"
         v-autofocus
         class="mb-5"
-        v-model="resetPasswordForm.password"
         label="Password"
         :error-state="v$.resetPasswordForm.password.$error"
         on-error="Incorrect password format" />
@@ -31,7 +31,7 @@
   </div>
 </template>
 
-<script>
+<script >
 import useVuelidate from '@vuelidate/core'
 import { required, sameAs } from '@vuelidate/validators'
 import { getPasswordValidator } from '@validators'
@@ -111,6 +111,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

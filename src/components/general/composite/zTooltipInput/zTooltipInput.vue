@@ -1,21 +1,24 @@
 <template >
   <div class="relative" >
     <zInput
-      @focus="inputFocused = true"
-      @blur="inputFocused = false"
       class="password-input"
-      v-bind="$attrs" />
+      v-bind="$attrs"
+      @focus="inputFocused = true"
+      @blur="inputFocused = false" />
     <Tooltip
       :class="['password-tooltip', passwordTooltipStyles]"
       :password-requirements="passwordRequirements" />
   </div>
 </template>
 
-<script>
+<script >
 import Tooltip from './partial/Tooltip.vue'
 
 export default {
-  name: 'zPasswordInput',
+  name: 'ZPasswordInput',
+  components: {
+    Tooltip
+  },
   inheritAttrs: false,
   props: {
     passwordRequirements: {
@@ -32,18 +35,14 @@ export default {
     passwordTooltipStyles () {
       return this.inputFocused ? 'password-tooltip_visible' : ''
     }
-  },
-  components: {
-    Tooltip
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .password-tooltip {
   opacity: 0;
   pointer-events: none;
-
   transition: all 450ms;
   transform: translateY(20px);
 

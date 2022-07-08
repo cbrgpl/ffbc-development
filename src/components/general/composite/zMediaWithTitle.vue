@@ -4,22 +4,21 @@
     @loaded="toggleMediaLoaded" >
     <template #actions >
       <div
-        class="bg-black bg-opacity-40 coarse:opacity-100 opacity-0 hover:opacity-100 transition-opacity h-full w-full"
-        v-if="showTitle" >
+        v-if="showTitle"
+        class="bg-black bg-opacity-40 coarse:opacity-100 opacity-0 hover:opacity-100 transition-opacity h-full w-full" >
         <div class="flex items-end break-all text-shadow h-full select-none py-3 px-2" >
           <slot name="title" >
             {{ title }}
           </slot>
-
         </div>
       </div>
     </template>
   </zMedia>
 </template>
 
-<script>
+<script >
 export default {
-  name: 'zMediaWithTitle',
+  name: 'ZMediaWithTitle',
   expose: [ 'startLoading' ],
   props: {
     title: {
@@ -50,6 +49,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

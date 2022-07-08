@@ -6,22 +6,26 @@
       ref="content"
       class="relative overflow-y-auto flex-grow" >
       <TheMobileLenta
+        v-if="!hidden['TheMobileLenta']"
         ref="tape"
-        :class="tapeClasses"
-        v-if="!hidden['TheMobileLenta']" />
+        :class="tapeClasses" />
       <router-view ></router-view>
     </div>
   </div>
 </template>
 
-<script>
+<script >
 import TheHomeSidebar from './partial/TheHomeSidebar.vue'
 import TheMobileLenta from './partial/TheMobileTape.vue'
 
 import { hidePartialsMixin } from '@mixins'
 
 export default {
-  name: 'home-layout',
+  name: 'HomeLayout',
+  components: {
+    TheHomeSidebar,
+    TheMobileLenta,
+  },
   mixins: [ hidePartialsMixin ],
   data () {
     return {
@@ -40,7 +44,7 @@ export default {
   mounted () {
     this.setMobileListeners()
   },
-  beforeDestroy () {
+  beforeUnmount () {
     this.removeMobileListeners()
   },
   methods: {
@@ -63,14 +67,10 @@ export default {
         this.tapeHidden = true
       }
     }
-  },
-  components: {
-    TheHomeSidebar,
-    TheMobileLenta,
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

@@ -23,7 +23,7 @@ const STORAGE_NAMES = {
   LOCAL_CART: 'var_localCart'
 }
 
-const TEMPLATE_IMG = require( '@images/shop/blur-template.png' )
+const TEMPLATE_IMG = require( './../../../assets/images/shop/logo.jpg' )
 
 const consts = deepFreeze( {
   NOT_ERROR,

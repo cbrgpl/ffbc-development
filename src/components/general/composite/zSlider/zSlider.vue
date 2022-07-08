@@ -6,8 +6,8 @@
       <slot />
     </ContentStrip>
     <ControlButton
-      @click="showPreviousElement"
-      class="left-0" >
+      class="left-0"
+      @click="showPreviousElement" >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         :height="attributableControlSize"
@@ -19,12 +19,11 @@
           fill="none" />
         <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
       </svg>
-
     </ControlButton>
 
     <ControlButton
-      @click="showNextElement"
-      class="right-0" >
+      class="right-0"
+      @click="showNextElement" >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         :height="attributableControlSize"
@@ -36,7 +35,6 @@
           fill="none" />
         <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
       </svg>
-
     </ControlButton>
 
     <!-- <div v-if="useNavigation" >
@@ -44,18 +42,21 @@
         <Navigation :images-count="imagesCount" />
       </slot>
     </div> -->
-
   </div>
 </template>
 
-<script>
+<script >
 import ControlButton from './partial/ControlButton'
 import ContentStrip from './partial/ContentStrip.vue'
 import Navigation from './partial/Navigation'
 
 export default {
-  name: 'zSlider',
-  emits: [ 'newActiveElementNumber' ],
+  name: 'ZSlider',
+  components: {
+    ControlButton,
+    ContentStrip,
+    Navigation
+  },
   props: {
     attributableControlSize: {
       type: String,
@@ -70,6 +71,7 @@ export default {
       default: 0,
     },
   },
+  emits: [ 'newActiveElementNumber' ],
   data () {
     return {
       activeElementNumber: 0,
@@ -102,15 +104,10 @@ export default {
         this.activeElementNumber += delta
       }
     },
-  },
-  components: {
-    ControlButton,
-    ContentStrip,
-    Navigation
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

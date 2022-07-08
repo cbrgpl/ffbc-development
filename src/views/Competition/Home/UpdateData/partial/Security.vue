@@ -26,7 +26,7 @@
   </div>
 </template>
 
-<script>
+<script >
 import useVuelidate from '@vuelidate/core'
 import { required, password } from '@validators'
 
@@ -59,6 +59,6 @@ export default {
 }
 </script>
 
-<style>
+<style >
 
 </style>

@@ -2,7 +2,6 @@
   <zDialogNonLayoutWrapper
     class="product-dialog__window w-screen max-w-md"
     position="bottom" >
-
     <template #title >
       <h4 class="font-semibold " >
         {{ bindedOrderItem.product.title }}
@@ -11,9 +10,9 @@
 
     <div class="flex" >
       <zMedia
-        @click="goToProductDetails"
         class="mr-3 flex-grow"
-        :original="mediaSrc" />
+        :original="mediaSrc"
+        @click="goToProductDetails" />
       <div class="flex flex-col w-2/4 flex-shrink-0" >
         <h5 ><strong >{{ priceString }}</strong></h5>
         <div >
@@ -28,7 +27,7 @@
   </zDialogNonLayoutWrapper>
 </template>
 
-<script>
+<script >
 export default {
   name: 'ProductDialog',
   props: {
@@ -56,7 +55,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" >
 .product-dialog__window {
   @apply px-4 py-2;
 }

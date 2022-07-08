@@ -2,13 +2,13 @@
   <div ></div>
 </template>
 
-<script>
+<script >
 export default {
   name: 'Navigation',
   emits: [ 'changeActiveImage' ]
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

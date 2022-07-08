@@ -3,10 +3,9 @@
     aria-label="List of features for the product:"
     class="features-list" >
     <li
-      class="mb-6"
       v-for="feature of features"
-      :key="feature.name" >
-
+      :key="feature.name"
+      class="mb-6" >
       <div class="flex items-center mb-3" >
         <zFeatureIcon
           class="mr-4"
@@ -16,36 +15,34 @@
 
       <ul class="ml-6" >
         <li
-          class="feature-value flex items-center mb-2.5"
           v-for="field of feature.featureFields"
-          :key="field.id" >
+          :key="field.id"
+          class="feature-value flex items-center mb-2.5" >
           <span >{{ field.name }}</span>
         </li>
       </ul>
-
     </li>
-
   </ul>
 </template>
 
-<script>
+<script >
 import zFeatureIcon from '@general_components/atomic/zFeatureIcon.vue'
 
 export default {
   name: 'AvailableFeatures',
+  components: {
+    zFeatureIcon,
+  },
   props: {
     features: {
       type: Array,
       required: true,
     },
-  },
-  components: {
-    zFeatureIcon,
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .features-list {
   &::before {
     @apply inline-block text-2xl underline mb-7;
@@ -57,7 +54,8 @@ export default {
 .feature-value {
   &::before {
     @apply inline-block w-2 h-2 rounded-sm bg-primary-lightest mr-2;
-    content: "";
+
+    content: '';
   }
 }
 </style>

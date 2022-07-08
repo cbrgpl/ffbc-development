@@ -1,13 +1,12 @@
 <template >
   <section class="flex-col shop-main_padding" >
-
     <div class="flex  max-w-full overflow-x-auto py-2.5" >
       <zTabsNav
         class="profile-measures__tab-nav"
         :tabs="measures"
         :model-value="activeMeasure"
         @update:modelValue="changeActiveMeasure" >
-        <template v-slot="{ tab }" >
+        <template #default="{ tab }" >
           <div class="profile-measures__tab flex justify-center" >
             {{ tab.name }}
           </div>
@@ -17,10 +16,9 @@
 
     <div >
       <zMeasureForm
-        @measureSubmit="updateMeasureForm"
         :form-fields="formFields"
-        :measure-field-component="$options.components.zMeasureFieldInput" >
-
+        :measure-field-component="$options.components.zMeasureFieldInput"
+        @measureSubmit="updateMeasureForm" >
         <template #formActions >
           <zDivider class="my-3" ></zDivider>
 
@@ -30,26 +28,26 @@
             Submit
           </zLoaderButton>
         </template>
-
       </zMeasureForm>
     </div>
   </section>
 </template>
 
-<script>
+<script >
 import zMeasureForm from '@shop_components/composite/zMeasureForm/zMeasureForm.vue'
 import zMeasureFieldInput from '@shop_components/composite/zMeasureForm/zMeasureFieldInput.vue'
 
 export default {
   name: 'ProfileMeasures',
+  components: {
+    zMeasureForm,
+    zMeasureFieldInput
+  },
   data () {
     return {
       activeMeasure: null,
       loading: false,
     }
-  },
-  created () {
-    this.setDefaultMeasure()
   },
   computed: {
     measures () {
@@ -77,6 +75,9 @@ export default {
       } )
     }
   },
+  created () {
+    this.setDefaultMeasure()
+  },
   methods: {
     changeActiveMeasure ( measure ) {
       this.activeMeasure = measure
@@ -97,15 +98,11 @@ export default {
       this.activeMeasure = this.measures[ 0 ]
     },
 
-  },
-  components: {
-    zMeasureForm,
-    zMeasureFieldInput
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .profile-measures__tab-nav {
   overflow: visible;
 }

@@ -7,9 +7,9 @@
   </button>
 </template>
 
-<script>
+<script >
 export default {
-  name: 'zButton',
+  name: 'ZButton',
   props: {
     text: {
       type: String,
@@ -37,7 +37,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scope>
+<style lang="scss" scope >
 .z-button {
   @apply rounded-md transition-colors whitespace-nowrap select-none;
 
@@ -85,7 +85,8 @@ export default {
 
       @apply block w-full h-48 origin-center bg-primary-lightest bg-opacity-10
         -skew-y-6 -rotate-12 scale-x-0 transition-all duration-300 -z-10;
-      content: "";
+
+      content: '';
     }
 
     &:hover {

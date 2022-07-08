@@ -1,8 +1,8 @@
 <template >
   <label
-    @change="updateModelValue"
     class="inline-flex items-center"
-    v-bind="wrapperAttrs" >
+    v-bind="wrapperAttrs"
+    @change="updateModelValue" >
     <span class="inline-block mr-1.5 relative cursor-pointer" >
       <input
         v-bind="attrs"
@@ -19,17 +19,17 @@
   </label>
 </template>
 
-<script>
+<script >
 import extenderMixin from '@/helpers/mixins/extender.mixin'
 
 export default {
-  name: 'zRadioButton',
+  name: 'ZRadioButton',
+  mixins: [ extenderMixin ],
   props: {
     value: {
       required: true,
     }
   },
-  mixins: [ extenderMixin ],
   methods: {
     updateModelValue () {
       this.$emit( 'update:modelValue', this.value )
@@ -38,7 +38,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .radio-button__input:checked + .radio-button__inner {
   opacity: 1;
 }

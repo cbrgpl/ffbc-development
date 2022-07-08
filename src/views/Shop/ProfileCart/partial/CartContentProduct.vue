@@ -8,13 +8,14 @@
   </zProfileProduct>
 </template>
 
-<script>
+<script >
 import zProfileProduct from '@shop_components/composite/zProfileProduct.vue'
 
 export default {
   name: 'CartContentProduct',
-  emits: [ 'toggleSelectState' ],
-  expose: [ 'startMediaLoading' ],
+  components: {
+    zProfileProduct,
+  },
   inject: [ 'selectedIds' ],
   props: {
     cartItemId: {
@@ -22,6 +23,8 @@ export default {
       required: true,
     },
   },
+  emits: [ 'toggleSelectState' ],
+  expose: [ 'startMediaLoading' ],
   computed: {
     selected () {
       return this.selectedIds.value.includes( this.cartItemId )
@@ -34,12 +37,9 @@ export default {
     startMediaLoading () {
       this.$refs.profileProduct.startMediaLoading()
     }
-  },
-  components: {
-    zProfileProduct,
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

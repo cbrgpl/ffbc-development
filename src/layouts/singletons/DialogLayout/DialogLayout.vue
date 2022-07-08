@@ -1,26 +1,26 @@
 <template >
   <component
+    :is="getComponentName(name)"
     v-for="name of shownDialogs"
     :key="name"
-    :is="getComponentName(name)"
-    @close="dialog$.close( $event )"
     :remove-buffer="removeBuffer"
     :name="name"
     :visible="true"
     :modal="dialogs[name].modal"
-    v-bind="param" >
+    v-bind="param"
+    @close="dialog$.close( $event )" >
   </component>
 </template>
 
-<script>
+<script >
 import { defineAsyncComponent } from 'vue'
 import { stringUtils } from '@js_utils'
 import escCloseMix from '@mixins/escClose.mixin'
 
 export default {
   name: 'DialogLayout',
-  inheritAttrs: false,
   mixins: [ escCloseMix ],
+  inheritAttrs: false,
   data () {
     return {
       dialogs: this.dialog$.getDialogs(),
@@ -28,13 +28,13 @@ export default {
       param: this.dialog$.getDialogParam()
     }
   },
-  created () {
-    this.registerComponents()
-  },
   computed: {
     shownDialogs () {
       return Object.keys( this.dialogs ).filter( ( name ) => this.dialogs[ name ].visible )
     },
+  },
+  created () {
+    this.registerComponents()
   },
   methods: {
     registerComponents () {
@@ -71,6 +71,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>

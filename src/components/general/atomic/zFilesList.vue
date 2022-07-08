@@ -1,16 +1,16 @@
 <template >
   <ul >
     <li
-      :key="fileName"
-      v-for="fileName of fileNames" >
+      v-for="fileName of fileNames"
+      :key="fileName" >
       {{ fileName }}
     </li>
   </ul>
 </template>
 
-<script>
+<script >
 export default {
-  name: 'zFileList',
+  name: 'ZFileList',
   props: {
     fileNames: {
       type: Array,
@@ -20,6 +20,6 @@ export default {
 }
 </script>
 
-<style>
+<style >
 
 </style>

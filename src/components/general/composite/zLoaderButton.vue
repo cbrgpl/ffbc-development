@@ -3,7 +3,6 @@
     class="relative"
     :disabled="loader"
     v-bind="$attrs" >
-
     <slot ></slot>
 
     <div
@@ -16,13 +15,13 @@
   </zButton>
 </template>
 
-<script>
+<script >
 import { defineAsyncComponent } from 'vue'
 
 import zButton from '@general_components/atomic/zButton.vue'
 
 export default {
-  name: 'zLoaderButton',
+  name: 'ZLoaderButton',
   props: {
     loader: {
       type: Boolean,
@@ -36,5 +35,5 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" >
 </style>

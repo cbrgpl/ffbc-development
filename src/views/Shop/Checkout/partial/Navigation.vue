@@ -4,10 +4,10 @@
     :blocks="checkoutNavigation.blocks"
     :keyword-getter="keywordGetter"
     :indicator-movement="false" >
-    <template v-slot="{ tab, active, passed }" >
+    <template #default="{ tab, active, passed }" >
       <div
-        :class="getTabClasses(active, passed)"
-        v-tooltip.right="tab.title" >
+        v-tooltip.right="tab.title"
+        :class="getTabClasses(active, passed)" >
         <zIconBase
           class="w-12 md:w-16"
           :icon="tab.icon" />
@@ -16,11 +16,14 @@
   </zBlockableTabNav>
 </template>
 
-<script>
+<script >
 import zBlockableTabNav from '@general_components/composite/zBlockableTabNav'
 
 export default {
   name: 'Navigation',
+  components: {
+    zBlockableTabNav
+  },
   props: {
     checkoutNavigation: {
       type: Object,
@@ -42,14 +45,11 @@ export default {
         }
       ]
     }
-  },
-  components: {
-    zBlockableTabNav
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 .tab {
   @apply transition-all duration-150 ease-linear;
 }

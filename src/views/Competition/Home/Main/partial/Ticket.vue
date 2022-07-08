@@ -7,7 +7,6 @@
 
     <div class="flex flex-col px-3 flex-grow pb-4" >
       <div class="relative flex flex-col mb-1.5" >
-
         <!-- place -->
         <div class="font-semibold text-lg" >
           {{ data.place }}
@@ -15,8 +14,8 @@
 
         <!-- vip -->
         <div
-          class="absolute right-0 top-2/4 bg-secondary-lighten p-2 rounded-md transform -translate-y-2/4 select-none"
-          v-if="data.vip" >
+          v-if="data.vip"
+          class="absolute right-0 top-2/4 bg-secondary-lighten p-2 rounded-md transform -translate-y-2/4 select-none" >
           VIP
         </div>
       </div>
@@ -35,7 +34,7 @@
   </div>
 </template>
 
-<script>
+<script >
 
 export default {
   name: 'Ticket',
@@ -48,6 +47,6 @@ export default {
 }
 </script>
 
-<style>
+<style >
 
 </style>

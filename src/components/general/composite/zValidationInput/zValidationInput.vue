@@ -7,24 +7,24 @@
   </div>
 </template>
 
-<script>
+<script >
 import zValidationList from './partial/zValidationList.vue'
 
 export default {
-  name: 'zValidationInput',
+  name: 'ZValidationInput',
+  components: {
+    zValidationList
+  },
   inheritAttrs: false,
   props: {
     validations: {
       type: Array,
       required: true,
     }
-  },
-  components: {
-    zValidationList
   }
 }
 </script>
 
-<style>
+<style >
 
 </style>

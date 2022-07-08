@@ -1,8 +1,7 @@
 <template >
   <zForm
-    @validate="setUserContacts"
-    :vuelidate-object="v$" >
-
+    :vuelidate-object="v$"
+    @validate="setUserContacts" >
     <div :class="['mb-5', titleErrorClass]" >
       <h5 class="leading-4" >
         Specify contact service:
@@ -13,13 +12,13 @@
     </div>
 
     <ContactField
-      class="mb-6"
       v-for="type of contactTypes"
       :key="type.id"
+      class="mb-6"
       :model-value="filledContacts[type.id]"
-      @update:modelValue="mutateUserContact"
       :contact-type="type"
-      :show-input-on-init="isFieldSelected(type.id)" />
+      :show-input-on-init="isFieldSelected(type.id)"
+      @update:modelValue="mutateUserContact" />
 
     <zLoaderButton
       :loader="form.loading"
@@ -29,7 +28,7 @@
   </zForm>
 </template>
 
-<script>
+<script >
 import useVulidate from '@vuelidate/core'
 import filledContacts from './validations/filledContacts'
 
@@ -56,9 +55,6 @@ export default {
       ],
     }
   },
-  created () {
-    this.fillForm()
-  },
   computed: {
     titleErrorClass () {
       return {
@@ -74,6 +70,9 @@ export default {
     selectedContacts () {
       return Object.keys( this.filledContacts ).map( ( id ) => parseInt( id ) )
     }
+  },
+  created () {
+    this.fillForm()
   },
   methods: {
     mutateUserContact ( { typeId, id } ) {
@@ -124,6 +123,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
 
 </style>
