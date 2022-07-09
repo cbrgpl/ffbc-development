@@ -1,3 +1,5 @@
+const bemMatching = /^[a-z]([a-z0-9-]+)?(__([a-z0-9]+-?)+)?(--([a-z0-9]+-?)+){0,2}$/
+
 module.exports = {
   'overrides': [
        
@@ -19,7 +21,19 @@ module.exports = {
     'function-no-unknown': [
       true,
       {
-        ignoreFunctions: [ 'em', 'rem' ]
+        'ignoreFunctions': [ 
+          'em', 'rem', 'theme'
+        ]
+      }
+    ],
+    'selector-class-pattern': bemMatching,
+    'max-nesting-depth': 2,
+    'selector-pseudo-element-no-unknown': [
+      true,
+      {
+        'ignorePseudoElements': [
+          'v-deep'
+        ]
       }
     ],
     // ORDER
@@ -37,6 +51,7 @@ module.exports = {
           'screen'
         ]
       }
-    ]
+    ],
+    
   }
 }
