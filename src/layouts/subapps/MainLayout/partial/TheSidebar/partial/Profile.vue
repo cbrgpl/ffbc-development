@@ -34,6 +34,7 @@ import { mapGetters } from 'vuex'
 import { authService } from '@services'
 
 export default {
+  name: 'SediberProfile',
   computed: {
     ...mapGetters( {
       isAuth: 'auth/isAuth',

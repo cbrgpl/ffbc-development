@@ -32,7 +32,7 @@ export default {
     const $observableElements = $el.querySelectorAll( '[data-observable]' )
 
     const controller = new EffectObserver( $el, binding.value )
-    const observerCallback = ( entries, observer ) => {
+    const observerCallback = ( entries ) => {
       entries.forEach( entry => {
         if ( entry.isIntersecting ) {
           controller.addTarget( entry.target )

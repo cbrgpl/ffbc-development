@@ -53,9 +53,4 @@ export default {
   }
 }
 
-@keyframes tooltip-appear {
-  100% {
-
-  }
-}
 </style>

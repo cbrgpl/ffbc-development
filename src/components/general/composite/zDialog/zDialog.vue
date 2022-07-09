@@ -48,7 +48,7 @@ import DialogClose from './partial/DialogClose.vue'
 import getZIndex from '@functions/getZIndex.function.js'
 
 export default {
-  name: 'Dialog',
+  name: 'ZDialog',
   components: {
     DialogClose,
   },
@@ -82,13 +82,13 @@ export default {
   },
   computed: {
     windowPositionClass () {
-      return 'dialog__window_' + this.position
+      return 'dialog__window--' + this.position
     },
     maskOverlowClass () {
       return this.position === 'center' ? 'overflow-auto' : 'overflow-hidden'
     },
     appearAnimation () {
-      return 'appear_' + this.position
+      return 'appear--' + this.position
     },
     dialogZIndex () {
       const defaultDialogZIndex = 1000
@@ -111,7 +111,7 @@ export default {
   methods: {
     animateMaskAppear () {
       setTimeout( () => {
-        this.$refs.mask.classList.add( 'dialog__mask_visbile' )
+        this.$refs.mask.classList.add( 'dialog__mask--visbile' )
       }, 0 )
     },
     animateMaskDisappear () {
@@ -119,7 +119,7 @@ export default {
 
       this.addOnceTransitionendListener( mask )
 
-      mask.classList.remove( 'dialog__mask_visbile' )
+      mask.classList.remove( 'dialog__mask--visbile' )
     },
     addOnceTransitionendListener ( mask ) {
       mask.addEventListener( 'transitionend', ( event ) => {
@@ -143,7 +143,7 @@ export default {
   @apply fixed left-0 top-0 flex w-screen h-screen bg-black bg-opacity-0 transition-all duration-300;
 }
 
-.dialog__mask_visbile {
+.dialog__mask--visbile {
   @apply bg-opacity-60;
 }
 
@@ -152,19 +152,19 @@ export default {
     bg-black-lighten text-white rounded-xl;
 }
 
-.dialog__window_top {
+.dialog__window--top {
   @apply origin-top mb-auto lg:m-auto;
 }
 
-.dialog__window_center {
+.dialog__window--center {
   @apply origin-center m-auto;
 }
 
-.dialog__window_bottom {
+.dialog__window--bottom {
   @apply origin-bottom mt-auto lg:m-auto;
 }
 
-.appear_top {
+.appear--top {
   &-enter-from {
     opacity: 0;
     transform: translateY(-10px);
@@ -194,7 +194,7 @@ export default {
   }
 }
 
-.appear_bottom {
+.appear--bottom {
   &-enter-from {
     opacity: 0;
     transform: translateY(10px);
@@ -224,7 +224,7 @@ export default {
   }
 }
 
-.appear_center {
+.appear--center {
   &-enter-from,
   &-leave-to {
     @apply opacity-0 scale-90;

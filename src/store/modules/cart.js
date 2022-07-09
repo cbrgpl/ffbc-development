@@ -62,7 +62,7 @@ export default {
     setCartStrategy ( state, isAuth ) {
       cartStrategy = isAuth ? new CartAuthStrategy() : new CartUnAuthStrategy()
     },
-    async initCart ( { commit, dispatch } ) {
+    async initCart ( { commit } ) {
       const cart = await cartStrategy.initCart()
       commit( 'setCartId', cart.id )
       commit( 'setCartItems', cart.cartItems )
@@ -90,7 +90,7 @@ export default {
       localStorage.removeItem( STORAGE_NAMES.LOCAL_CART )
       commit( 'setCartLoaded', true )
     },
-    async addCartItem ( { commit, dispatch, getters }, item ) {
+    async addCartItem ( { commit, getters }, item ) {
       if ( cartContainsItem( getters.cartItems, item ) ) {
         return false
       }

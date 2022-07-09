@@ -1,11 +1,11 @@
 <template >
   <div class="flex-col" >
     <UserData
-      class="shop-main_padding"
+      class="shop-main-padding"
       :full-name="$store.getters['user/fullName']"
       @click="pushToUserRoute" />
 
-    <div class="shop-main_padding" >
+    <div class="shop-main-padding" >
       <h4 class="underline mb-5" >
         Profile navigation:
       </h4>

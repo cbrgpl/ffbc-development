@@ -1,4 +1,4 @@
-import { NetworkAttemptError } from '@errors'
+import { NetworkAttemptError, AggregateError } from '@errors'
 
 export default class ArrayApiSender {
   constructor ( { fieldExists, postField, patchField, getFieldId, fieldIdKey } ) {

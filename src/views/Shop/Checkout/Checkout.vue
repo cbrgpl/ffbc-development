@@ -9,7 +9,7 @@
       :is="sectionName"
       class="container mx-auto"
       :binded-cart-items="bindedCartItems"
-      @section-complete="sendSectionData" >
+      @sectionComplete="sendSectionData" >
       <template #actions >
         <zButton >
           change
@@ -161,13 +161,13 @@ export default {
       payload.user = this.userId
       return [ payload ]
     },
-    finishOrderCheckout ( response ) {
+    finishOrderCheckout () {
       const toastDetail = this.getToastDetails( this.ids.userId )
       this.toast$.success( { summary: `Order #${ this.orderId } created`, detail: toastDetail, life: 15000 } )
       this.$router.push( { name: 'ShopTmp' } )
       this.$store.dispatch( 'cart/removeCartItems', this.bindedCartItemIds )
     },
-    getToastDetails ( userId ) {
+    getToastDetails () {
       const generalPart = 'Administrator soon will contact with you.<br>'
       const partByUserType = this.ids.userId !== null ? 'You can explore details in your profile.' : 'Unfortunately, you can\'t explore order detail.'
 

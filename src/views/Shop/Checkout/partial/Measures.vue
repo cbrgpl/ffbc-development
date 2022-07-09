@@ -19,7 +19,7 @@
       </zMeasureForm>
     </div>
 
-    <SectionActions @show-next="emitSectionComplete" />
+    <SectionActions @showNext="emitSectionComplete" />
   </div>
 </template>
 
@@ -41,7 +41,7 @@ export default {
       required: true,
     }
   },
-  emits: [ 'section-complete' ],
+  emits: [ 'sectionComplete' ],
   data () {
     return {
       filledMeasures: {}
@@ -102,7 +102,7 @@ export default {
       const measureFieldArray = this.getMeasureFieldArray( this.filledMeasures )
       this.mixOrderId( measureFieldArray )
 
-      this.$emit( 'section-complete', {
+      this.$emit( 'sectionComplete', {
         sectionName: this.$options.name,
         payload: measureFieldArray
       } )

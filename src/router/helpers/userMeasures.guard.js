@@ -1,6 +1,6 @@
 import store from '@/store'
 
-export default async function ( to, from ) {
+export default async function () {
   const isAuth = store.getters[ 'auth/isAuth' ]
 
   if ( isAuth ) {

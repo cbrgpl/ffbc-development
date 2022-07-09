@@ -48,14 +48,14 @@
 <script >
 import ControlButton from './partial/ControlButton'
 import ContentStrip from './partial/ContentStrip.vue'
-import Navigation from './partial/Navigation'
+
+// TODO Доделать навигацию
 
 export default {
   name: 'ZSlider',
   components: {
     ControlButton,
     ContentStrip,
-    Navigation
   },
   props: {
     attributableControlSize: {

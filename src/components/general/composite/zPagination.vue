@@ -109,7 +109,7 @@ export default {
     },
     paginationDisabledClasses () {
       return {
-        pagination_loading: this.loading
+        'pagination--loading': this.loading
       }
     }
   },
@@ -145,7 +145,7 @@ export default {
     },
     getPageNumberClasses ( nodePage ) {
       return {
-        'pagination-item_active': nodePage === this.currentPage
+        'pagination-item--active': nodePage === this.currentPage
       }
     }
   },
@@ -164,11 +164,11 @@ export default {
   min-width: rem(44px);
 }
 
-.pagination-item_active {
+.pagination-item--active {
   @apply text-primary-lightest pointer-events-none;
 }
 
-.pagination_loading {
+.pagination--loading {
   .pagination-surface {
     @apply text-black-lightest cursor-default pointer-events-none;
   }

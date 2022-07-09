@@ -36,6 +36,9 @@ import ContactField from './partial/ContactField.vue'
 
 export default {
   name: 'UserContact',
+  components: {
+    ContactField
+  },
   setup () {
     return {
       v$: useVulidate(),
@@ -117,9 +120,6 @@ export default {
     }
   },
   validations: filledContacts(),
-  components: {
-    ContactField
-  }
 }
 </script>
 

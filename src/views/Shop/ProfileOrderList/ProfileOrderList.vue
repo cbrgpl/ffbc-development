@@ -11,7 +11,7 @@
 
     <div
       ref="scrollableContainer"
-      class="h-full w-full overflow-y-auto flex flex-col shop-main_padding" >
+      class="h-full w-full overflow-y-auto flex flex-col shop-main-padding" >
       <zPseudoSelect
         class="md:w-72"
         title="Show"
@@ -26,7 +26,7 @@
           v-observable="i"
           :order="order"
           :intersected="$options.reactiveObserver.schema[i]"
-          @open-order-detail="openOrderDetail" />
+          @openOrderDetail="openOrderDetail" />
       </div>
 
       <zDialogNonLayoutWrapper

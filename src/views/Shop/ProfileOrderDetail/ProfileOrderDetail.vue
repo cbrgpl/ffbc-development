@@ -9,7 +9,7 @@
   </div>
   <div
     v-else
-    class="shop-main_padding flex-col" >
+    class="shop-main-padding flex-col" >
     <header class="flex justify-between items-center flex-wrap" >
       <h4 class="font-mono mr-5 leading-tight" >
         № {{ order.data.id }}

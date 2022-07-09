@@ -38,10 +38,10 @@ export default {
       return [
         'tab',
         {
-          tab_unpassed: passed === false,
-          tab_passed: passed === true,
-          tab_active: active,
-          tab_disabled: passed === null
+          'tab--unpassed': passed === false,
+          'tab--passed': passed === true,
+          'tab--active': active,
+          'tab--disabled': passed === null
         }
       ]
     }
@@ -54,19 +54,19 @@ export default {
   @apply transition-all duration-150 ease-linear;
 }
 
-.tab_unpassed {
+.tab--unpassed {
   @apply text-placeholder text-opacity-70;
 }
 
-.tab_passed {
+.tab--passed {
   @apply text-primary-darken text-opacity-90;
 }
 
-.tab_active {
+.tab--active {
   @apply text-primary;
 }
 
-.tab_disabled:first-child {
+.tab--disabled:first-child {
   @apply text-danger-darken;
 }
 </style>

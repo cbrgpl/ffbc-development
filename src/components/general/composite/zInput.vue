@@ -50,6 +50,9 @@ export default {
   directives: {
     mask
   },
+  components: {
+    zIconBrand: defineAsyncComponent( () => import( '@general_components/composite/zBrandIcon.vue' ) ),
+  },
   mixins: [ extenderMixin ],
   inheritAttrs: false,
   props: {
@@ -123,13 +126,15 @@ export default {
       this.$emit( 'update:modelValue', event.target.value )
     }
   },
-  components: {
-    zIconBrand: defineAsyncComponent( () => import( '@general_components/composite/zBrandIcon.vue' ) ),
-  },
 }
 </script>
 
 <style lang="scss" scoped >
+.z-input__label {
+  @apply flex items-center text-placeholder bg-black-lighten cursor-pointer select-none leading-5
+    absolute transform left-4 top-0 -translate-y-2/4 px-1 transition-all;
+}
+
 .z-input {
   @apply bg-transparent border-2  border-primary-lighten border-solid
     text-white rounded-md cursor-pointer w-full;
@@ -154,10 +159,4 @@ export default {
     @apply border-danger-darken border-opacity-80;
   }
 }
-
-.z-input__label {
-  @apply flex items-center text-placeholder bg-black-lighten cursor-pointer select-none leading-5
-    absolute transform left-4 top-0 -translate-y-2/4 px-1 transition-all;
-}
-
 </style>

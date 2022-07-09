@@ -26,10 +26,12 @@ export default {
   name: 'ZRadioButton',
   mixins: [ extenderMixin ],
   props: {
+    // eslint-disable-next-line vue/require-prop-types
     value: {
       required: true,
     }
   },
+  emits: [ 'update:modelValue' ],
   methods: {
     updateModelValue () {
       this.$emit( 'update:modelValue', this.value )

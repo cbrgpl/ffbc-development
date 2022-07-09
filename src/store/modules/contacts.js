@@ -1,4 +1,3 @@
-import getActionResultDTO from '../helpers/getActionResultDTO'
 import { NetworkAttemptError } from '@errors'
 import { contactsService } from '@services'
 

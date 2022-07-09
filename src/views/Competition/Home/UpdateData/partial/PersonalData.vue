@@ -51,7 +51,7 @@
 </template>
 
 <script >
-import useVuelidate from '@vuelidate/core'
+import { useVuelidate } from '@vuelidate/core'
 import { minLength, phone, date, adultDate, minValue } from '@validators'
 import { userService } from '@services'
 

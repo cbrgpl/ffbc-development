@@ -30,6 +30,7 @@ import DomHandler from '@classes/DomHandler.class.js'
 export default {
   name: 'ZTabNav',
   props: {
+    // eslint-disable-next-line vue/require-prop-types
     modelValue: {},
     tabs: {
       type: Array,
@@ -46,6 +47,7 @@ export default {
       default: true,
     },
   },
+  emits: [ 'update:modelValue' ],
   data () {
     return {
       indicatorParams: {
@@ -75,7 +77,7 @@ export default {
     startTabWatch () {
       this.$watch(
         () => this.modelValue,
-        function ( newTab ) {
+        function () {
           // из-за скролла немного криво позиционируется, ждем пока появится скролл, потом выполняем обновление
           setTimeout( () => {
             this.updateIndicator( this.searchElem() )

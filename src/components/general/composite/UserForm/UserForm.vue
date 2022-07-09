@@ -193,7 +193,7 @@
   </zForm>
 </template>
 <script >
-import useVuelidate from '@vuelidate/core'
+import { useVuelidate } from '@vuelidate/core'
 import userFormValidation from './validations/userForm'
 
 import { getBackendFormatDate } from '@filters'
@@ -202,7 +202,7 @@ import bustTypes from '@/enums/backend/bustTypes.js'
 
 export default {
   name: 'UserMe',
-  emits: [ 'form-submitted' ],
+  emits: [ 'formSubmitted' ],
   validations: userFormValidation(),
   setup () {
     return {
@@ -241,7 +241,7 @@ export default {
       }
 
       const formattedUserData = this.formatDataStruct( this.userForm )
-      this.$emit( 'form-submitted', formattedUserData )
+      this.$emit( 'formSubmitted', formattedUserData )
     },
     formatDataStruct ( data ) {
       const sendData = { ...data, ...data.address }

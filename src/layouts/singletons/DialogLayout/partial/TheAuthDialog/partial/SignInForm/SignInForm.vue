@@ -104,7 +104,7 @@ export default {
     }
   },
   watch: {
-    'signInForm.email': function resetFormValidation ( newValue, oldValue ) {
+    'signInForm.email': function resetFormValidation () {
       this.form.state = null
     }
   },

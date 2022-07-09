@@ -26,6 +26,7 @@ export default {
       default: ''
     }
   },
+  emits: [ 'timeUp' ],
   data () {
     return {
       timePassed: 1,

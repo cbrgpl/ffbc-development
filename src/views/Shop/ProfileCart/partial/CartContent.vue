@@ -28,6 +28,12 @@ export default {
   name: 'CartContent',
   reactiveObserver,
   productBuffer: [],
+  directives: {
+    observable: reactiveObserver.directive
+  },
+  components: {
+    CartContentProduct,
+  },
   props: {
     bindedCartItems: {
       type: Array,
@@ -39,6 +45,12 @@ export default {
     return {
       contentShown: false,
     }
+  },
+  computed: {
+    ...mapGetters( {
+      cartLoaded: 'cart/cartLoaded',
+      cartEmpty: 'cart/cartEmpty'
+    } ),
   },
   watch: {
     bindedCartItems ( newV, oldValue ) {
@@ -69,12 +81,6 @@ export default {
       deep: true,
     }
   },
-  computed: {
-    ...mapGetters( {
-      cartLoaded: 'cart/cartLoaded',
-      cartEmpty: 'cart/cartEmpty'
-    } ),
-  },
   beforeUnmount () {
     this.$options.reactiveObserver.unobserve()
   },
@@ -96,12 +102,6 @@ export default {
     },
 
   },
-  directives: {
-    observable: reactiveObserver.directive
-  },
-  components: {
-    CartContentProduct,
-  }
 }
 </script>
 <style lang="scss" scoped >

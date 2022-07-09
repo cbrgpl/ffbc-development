@@ -81,7 +81,7 @@ export default {
 
       commit( 'setProductTypes', productTypesRequest.parsedBody )
     },
-    async outFetchProductsByOrderId ( context, orderId ) {
+    async outFetchProductsByOrderId () {
       const filters = {
         perPage: 20,
         page: 1

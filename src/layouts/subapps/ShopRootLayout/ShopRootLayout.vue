@@ -3,13 +3,13 @@
     class="flex-col" >
     <TheHeader
       v-if="partialVisible('TheHeader')"
-      @toggle-sidebar-visibility="toggleSidebarVisibility" />
+      @toggleSidebarVisibility="toggleSidebarVisibility" />
 
     <div class="layout-content-wrapper relative items-stretch" >
       <TheSidemenu
         v-if="partialVisible('TheSidemenu')"
         :visible="sidebarVisiblity"
-        @change-sidebar-visibility="setSidebarVibility" />
+        @changeSidebarVisibility="setSidebarVibility" />
 
       <router-view
         id="shop-root-content"

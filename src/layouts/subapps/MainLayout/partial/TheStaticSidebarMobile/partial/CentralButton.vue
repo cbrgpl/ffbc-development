@@ -21,6 +21,9 @@ import { defineAsyncComponent } from 'vue'
 
 export default {
   name: 'CentralButton',
+  components: {
+    CentralButtonIcons: defineAsyncComponent( () => import( './CentralButtonIcons.vue' ) )
+  },
   data () {
     return {
       isIconsVisible: false,
@@ -47,9 +50,7 @@ export default {
       }
     }
   },
-  components: {
-    CentralButtonIcons: defineAsyncComponent( () => import( './CentralButtonIcons.vue' ) )
-  }
+
 }
 </script>
 

@@ -18,10 +18,10 @@ export default {
     'actionsDisabled',
     'actionsLoader'
   ],
-  emits: [ 'show-next' ],
+  emits: [ 'showNext' ],
   methods: {
     showNext () {
-      this.$emit( 'show-next' )
+      this.$emit( 'showNext' )
     }
   }
 }

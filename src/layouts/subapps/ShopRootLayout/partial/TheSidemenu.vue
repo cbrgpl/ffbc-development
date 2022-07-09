@@ -72,7 +72,7 @@ export default {
       required: true,
     }
   },
-  emits: [ 'change-sidebar-visibility' ],
+  emits: [ 'changeSidebarVisibility' ],
   data () {
     return {
       subsystemNavigation,
@@ -122,7 +122,7 @@ export default {
       this.$router.push( { name: 'ShopTmp' } )
     },
     emitSidebarHiding () {
-      this.$emit( 'change-sidebar-visibility', false )
+      this.$emit( 'changeSidebarVisibility', false )
     }
   }
 }

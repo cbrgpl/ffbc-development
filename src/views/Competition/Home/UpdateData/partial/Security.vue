@@ -27,7 +27,7 @@
 </template>
 
 <script >
-import useVuelidate from '@vuelidate/core'
+import { useVuelidate } from '@vuelidate/core'
 import { required, password } from '@validators'
 
 export default {

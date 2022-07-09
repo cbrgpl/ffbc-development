@@ -62,6 +62,7 @@
 <script >
 import { mapGetters } from 'vuex'
 export default {
+  emits: [ 'toggleSidebar' ],
   data ( ) {
     return {
       avatar: require( '@images/avatar.jpg' )

@@ -11,6 +11,6 @@ export default async ( app, commandResult ) => {
   } else if ( commandResult.state === 'rejected' ) {
     app.config.globalProperties.toast$.error( toastArgs )
   } else {
-    throw new ErrorWithDescription( `CommandResult state value is not expected; value is "${ state }"` )
+    throw new ErrorWithDescription( `CommandResult state value is not expected; value is "${ commandResult.state }"` )
   }
 }

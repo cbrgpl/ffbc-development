@@ -7,7 +7,7 @@
       background
       size="120px" />
 
-    <div class="shop-main_padding flex-grow overflow-y-auto" >
+    <div class="shop-main-padding flex-grow overflow-y-auto" >
       <CartActions
         :no-selected-items="noSelectedItems"
         :disabled="actionsDisabled"
@@ -38,6 +38,11 @@ import { arrayUtils } from '@js_utils'
 
 export default {
   name: 'ProfileCart',
+  components: {
+    CartActions,
+    CartContent,
+    CartFooter,
+  },
   provide () {
     return {
       actionsDisabled: computed( () => this.actionsDisabled || this.noSelectedItems ),
@@ -52,16 +57,6 @@ export default {
       actionsDisabled: false,
     }
   },
-  watch: {
-    cartLoaded: {
-      handler ( cartLoaded ) {
-        if ( cartLoaded ) {
-          this.updateBindedCartItems()
-        }
-      },
-      immediate: true,
-    }
-  },
   computed: {
     ...mapGetters( {
       cartLoaded: 'cart/cartLoaded',
@@ -72,6 +67,16 @@ export default {
     },
     selectedItems () {
       return this.cartItems.filter( ( cartItem ) => this.selectedIds.includes( cartItem.id ) )
+    }
+  },
+  watch: {
+    cartLoaded: {
+      handler ( cartLoaded ) {
+        if ( cartLoaded ) {
+          this.updateBindedCartItems()
+        }
+      },
+      immediate: true,
     }
   },
   methods: {
@@ -116,12 +121,6 @@ export default {
     }
 
   },
-
-  components: {
-    CartActions,
-    CartContent,
-    CartFooter,
-  }
 }
 </script>
 

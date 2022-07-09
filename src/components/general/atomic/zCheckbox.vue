@@ -42,20 +42,17 @@ export default {
       default: '',
     }
   },
+  emits: [ 'update:modelValue' ],
 }
 </script>
 
 <style lang="scss" scoped >
 .z-checkbox {
   @apply absolute opacity-0 z-0;
+}
 
-  &:checked {
-    + .z-checkbox__fiction {
-      &::after {
-        @apply opacity-100;
-      }
-    }
-  }
+.z-checkbox__label {
+  @apply text-white select-none;
 }
 
 .z-checkbox__fiction {
@@ -77,7 +74,12 @@ export default {
   }
 }
 
-.z-checkbox__label {
-  @apply text-white select-none;
+.z-checkbox:checked {
+  + .z-checkbox__fiction {
+    &::after {
+      @apply opacity-100;
+    }
+  }
 }
+
 </style>

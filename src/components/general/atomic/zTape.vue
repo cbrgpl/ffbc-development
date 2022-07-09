@@ -87,6 +87,10 @@ export default {
   }
 }
 
+.auto-scrolling--automated {
+  animation: auto-scrolling var(--auto-scrolling-duration) linear infinite;
+}
+
 .wrapper:hover {
   .auto-scrolling--automated {
     animation-play-state: paused;
@@ -97,7 +101,4 @@ export default {
   }
 }
 
-.auto-scrolling--automated {
-  animation: auto-scrolling var(--auto-scrolling-duration) linear infinite;
-}// .auto-scrolling {
 </style>

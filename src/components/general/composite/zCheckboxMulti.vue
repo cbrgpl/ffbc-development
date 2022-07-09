@@ -21,6 +21,7 @@ export default {
       required: true,
     },
   },
+  emits: [ 'update:modelValue' ],
   methods: {
     handleValue ( event ) {
       const isChecked = event.target.checked

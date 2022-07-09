@@ -54,15 +54,12 @@ export default {
         }, 0 )
       }
     },
-    onResizeHandler ( event ) {
-      this.updateTranslateDelta()
-    },
-    setResizeEvent ( callback ) {
-      window.addEventListener( 'resize', callback )
-    },
-    removeResizeEvent ( callback ) {
-      window.removeEventListener( 'resize', callback )
-    }
+  },
+  setResizeEvent ( callback ) {
+    window.addEventListener( 'resize', callback )
+  },
+  removeResizeEvent ( callback ) {
+    window.removeEventListener( 'resize', callback )
   }
 }
 </script>

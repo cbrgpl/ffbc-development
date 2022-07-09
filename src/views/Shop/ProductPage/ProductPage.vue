@@ -10,7 +10,7 @@
     </div>
     <div
       v-if="product !== null"
-      class="flex flex-col lg:flex-row lg:h-full shop-main_padding" >
+      class="flex flex-col lg:flex-row lg:h-full shop-main-padding" >
       <zProductSlider
         class="w-full lg:w-2/5 flex-shrink-0 h-96 lg:h-full"
         :media="product.media" />
@@ -47,6 +47,11 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'ProductPage',
+  components: {
+    zProductSlider,
+    AvailableFeatures,
+    Description,
+  },
   props: {
     productId: {
       type: String,
@@ -67,9 +72,6 @@ export default {
 
     }
   },
-  created () {
-    this.fetchProduct()
-  },
   computed: {
     ...mapGetters( {
       getProductType: 'product/productType',
@@ -85,6 +87,9 @@ export default {
       return this.inPageNavigation.activeTab.replace( ' ', '' )
     }
   },
+  created () {
+    this.fetchProduct()
+  },
   methods: {
     async fetchProduct () {
       this.loading = true
@@ -96,11 +101,6 @@ export default {
       this.dialog$.show( 'addToCart', { product: this.product } )
     }
   },
-  components: {
-    zProductSlider,
-    AvailableFeatures,
-    Description,
-  }
 }
 </script>
 

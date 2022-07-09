@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-v-html -->
 <template >
   <svg
     v-if="iconLoaded"

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { ErrorWithDescription } from '@errors'
 
 export default class CartStrategy {

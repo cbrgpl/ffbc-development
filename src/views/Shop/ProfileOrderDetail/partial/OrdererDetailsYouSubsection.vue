@@ -26,7 +26,7 @@ export default {
       required: true,
     },
     info: {
-      tiype: Array,
+      type: Array,
       required: true,
     }
   }

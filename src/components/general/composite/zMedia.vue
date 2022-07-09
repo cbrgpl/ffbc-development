@@ -88,7 +88,7 @@ export default {
     makeWatcher () {
       this.$watch(
         'showOriginal',
-        async ( showOriginal ) => {
+        async () => {
           await this.loadImage( this.preview )
 
           this.loadOriginal()
@@ -124,6 +124,7 @@ export default {
       } )
     },
     loadVideo ( src ) {
+      console.log( src )
       // TODO Complete video src loading
     },
     showInOverlay () {

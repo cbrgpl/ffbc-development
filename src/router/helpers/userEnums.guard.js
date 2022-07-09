@@ -4,6 +4,6 @@ const actions = [
   'contacts/getContactTypes'
 ]
 
-export default async ( to, from ) => {
+export default async () => {
   await waiterOfActions.executeActions( actions )
 }

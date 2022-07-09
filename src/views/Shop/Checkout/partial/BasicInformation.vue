@@ -1,6 +1,6 @@
 <template >
   <div >
-    <UserForm @form-submitted="emitSectionComplete" >
+    <UserForm @formSubmitted="emitSectionComplete" >
       <template #actions >
         <SectionActions />
       </template>
@@ -18,10 +18,10 @@ export default {
     SectionActions,
     UserForm
   },
-  emits: [ 'section-complete' ],
+  emits: [ 'sectionComplete' ],
   methods: {
     emitSectionComplete ( userData ) {
-      this.$emit( 'section-complete', {
+      this.$emit( 'sectionComplete', {
         sectionName: this.$options.name,
         payload: userData
       } )

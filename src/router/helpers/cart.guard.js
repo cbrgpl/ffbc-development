@@ -5,7 +5,7 @@ const actions = [
   'cart/initCart'
 ]
 
-export default async ( to, from ) => {
+export default async () => {
   const isAuth = store.getters[ 'auth/isAuth' ]
 
   store.dispatch( 'cart/setCartStrategy', isAuth )

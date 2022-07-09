@@ -67,6 +67,7 @@ export default {
       default: false,
     }
   },
+  emits: [ 'filesInputed' ],
   data () {
     return {
       fileNames: []

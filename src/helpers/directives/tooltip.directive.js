@@ -54,7 +54,7 @@ function unbindEvents ( el ) {
 
 function bindScrollEvents ( el ) {
   const scrollableParents = DomHandler.getScrollableParents( el )
-  el.$_scrollListener = ( event ) => onScroll( el )
+  el.$_scrollListener = () => onScroll( el )
 
   scrollableParents.forEach( parent => parent.addEventListener( 'scroll', el.$_scrollListener ) )
 }

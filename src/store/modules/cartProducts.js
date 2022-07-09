@@ -35,7 +35,7 @@ export default {
 
       commit( 'setProducts', products )
     },
-    getUniqueIds ( { commit }, cartItems ) {
+    getUniqueIds ( context, cartItems ) {
       const ids = cartItems.map( ( cartItem ) => cartItem.product )
       return [ ...new Set( ids ) ]
     },

@@ -26,7 +26,7 @@ export default {
 
       commit( 'setOrderStatusTypes', orderSpecs.parsedBody.orderStatusType )
     },
-    async outFetchOrderList ( context, filters ) {
+    async outFetchOrderList () {
       const orders = await orderService.getOrders( )
 
       if ( orders.httpResponse.status !== 200 ) {

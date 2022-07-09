@@ -1,7 +1,7 @@
 <template >
   <BackLayout
     prevent-content-extend >
-    <div class="container mx-auto user_padding" >
+    <div class="container mx-auto user-padding" >
       <UserNavigation class="mb-5 md:mb-9 w-3/4 mx-auto md:mx-0" />
 
       <div class="flex-grow" >

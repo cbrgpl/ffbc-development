@@ -44,102 +44,102 @@ export default {
   &:disabled {
     @apply bg-opacity-70 pointer-events-none cursor-default;
   }
+}
 
-  &--brick {
-    @apply bg-primary text-white duration-200;
+.z-button--brick {
+  @apply bg-primary text-white duration-200;
 
-    &:hover {
-      @apply bg-primary-darken;
-    }
-
-    &:active {
-      @apply bg-primary-darken filter brightness-90;
-    }
-
-    &:focus {
-      @apply ring-4 ring-primary-lighten ring-opacity-20;
-    }
-
-    &:disabled {
-      @apply filter grayscale text-black-lighten;
-    }
+  &:hover {
+    @apply bg-primary-darken;
   }
 
-  &--ghost {
-    @apply border-2 border-primary border-solid text-primary duration-500;
-
-    &:hover {
-      @apply bg-primary text-white;
-    }
-
-    &:active {
-      @apply bg-primary-darken border-primary-lighten text-white duration-150;
-    }
+  &:active {
+    @apply bg-primary-darken filter brightness-90;
   }
 
-  &--sky {
-    @apply text-primary transition-colors overflow-hidden relative z-10;
+  &:focus {
+    @apply ring-4 ring-primary-lighten ring-opacity-20;
+  }
+
+  &:disabled {
+    @apply filter grayscale text-black-lighten;
+  }
+}
+
+.z-button--ghost {
+  @apply border-2 border-primary border-solid text-primary duration-500;
+
+  &:hover {
+    @apply bg-primary text-white;
+  }
+
+  &:active {
+    @apply bg-primary-darken border-primary-lighten text-white duration-150;
+  }
+}
+
+.z-button--sky {
+  @apply text-primary transition-colors overflow-hidden relative z-10;
+
+  &::after {
+    @include absolute-center;
+
+    @apply block w-full h-48 origin-center bg-primary-lightest bg-opacity-10
+      -skew-y-6 -rotate-12 scale-x-0 transition-all duration-300 -z-10;
+
+    content: '';
+  }
+
+  &:hover {
+    @apply text-white;
 
     &::after {
-      @include absolute-center;
-
-      @apply block w-full h-48 origin-center bg-primary-lightest bg-opacity-10
-        -skew-y-6 -rotate-12 scale-x-0 transition-all duration-300 -z-10;
-
-      content: '';
-    }
-
-    &:hover {
-      @apply text-white;
-
-      &::after {
-        @apply scale-x-105;
-      }
-    }
-
-    &:active {
-      @apply text-white;
-
-      &::after {
-        @apply scale-x-105 bg-opacity-50;
-      }
-    }
-
-    &:disabled {
-      @apply border-2 border-primary-lighten border-solid text-opacity-0;
+      @apply scale-x-105;
     }
   }
 
-  &--danger {
-    @apply bg-danger text-black duration-200;
+  &:active {
+    @apply text-white;
 
-    &:hover {
-      @apply bg-danger-darken;
-    }
-
-    &:active {
-      @apply bg-danger-darken filter brightness-90;
-    }
-
-    &:focus {
-      @apply ring-4 ring-danger-darken ring-opacity-20;
+    &::after {
+      @apply scale-x-105 bg-opacity-50;
     }
   }
 
-  &--safety {
-    @apply bg-safety text-white duration-200;
+  &:disabled {
+    @apply border-2 border-primary-lighten border-solid text-opacity-0;
+  }
+}
 
-    &:hover {
-      @apply bg-safety-darken;
-    }
+.z-button--danger {
+  @apply bg-danger text-black duration-200;
 
-    &:active {
-      @apply bg-safety-darken filter brightness-90;
-    }
+  &:hover {
+    @apply bg-danger-darken;
+  }
 
-    &:focus {
-      @apply ring-4 ring-safety-darken ring-opacity-20;
-    }
+  &:active {
+    @apply bg-danger-darken filter brightness-90;
+  }
+
+  &:focus {
+    @apply ring-4 ring-danger-darken ring-opacity-20;
+  }
+}
+
+.z-button--safety {
+  @apply bg-safety text-white duration-200;
+
+  &:hover {
+    @apply bg-safety-darken;
+  }
+
+  &:active {
+    @apply bg-safety-darken filter brightness-90;
+  }
+
+  &:focus {
+    @apply ring-4 ring-safety-darken ring-opacity-20;
   }
 }
 

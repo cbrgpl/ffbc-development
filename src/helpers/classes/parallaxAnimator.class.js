@@ -55,7 +55,7 @@ export default class {
   }
 
   effect ( $el, $nodes ) {
-    $el.zEffectFunction = ( event ) => {
+    $el.zEffectFunction = () => {
       if ( !this.ticking ) {
         window.requestAnimationFrame( () => {
           const scrollTop = this.scrollingParent.scrollTop

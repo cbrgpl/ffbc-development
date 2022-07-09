@@ -1,7 +1,7 @@
 import Controller from './controller.js'
 
 export default {
-  install: ( app, options ) => {
+  install: ( app ) => {
     app.config.globalProperties.dialog$ = new Controller()
   }
 }

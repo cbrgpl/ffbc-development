@@ -32,7 +32,7 @@
 </template>
 
 <script >
-import useVuelidate from '@vuelidate/core'
+import { useVuelidate } from '@vuelidate/core'
 import { required, sameAs } from '@vuelidate/validators'
 import { getPasswordValidator } from '@validators'
 

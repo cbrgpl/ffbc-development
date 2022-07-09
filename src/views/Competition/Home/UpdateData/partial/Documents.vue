@@ -25,7 +25,7 @@
     <zImagesCollection
       :loader="collectionLoader"
       :images="documents"
-      class="documents_images-grid"
+      class="documents__images-grid"
       @loaded="disableCollectionLoader" >
       <zDocumentImage
         v-for="src of documents"
@@ -44,6 +44,10 @@ import zImagesCollection from '@general_components/atomic/zImagesCollection.vue'
 
 export default {
   name: 'Documents',
+  components: {
+    zDocumentImage,
+    zImagesCollection,
+  },
   data () {
     return {
       fileFormats: [ 'image/jpg', 'image/jpeg', 'image/png' ],
@@ -60,7 +64,7 @@ export default {
     images () {
       const srcs = []
 
-      const randmizeSize = ( i ) => parseInt( Math.random() * 1000 )
+      const randmizeSize = () => parseInt( Math.random() * 1000 )
       for ( let i = 0; i < 15; ++i ) {
         srcs.push( `https://picsum.photos/id/${ i }/${ randmizeSize() }/${ randmizeSize() }` )
       }
@@ -121,19 +125,16 @@ export default {
       }
     },
     async uploadRequest ( formData ) {
+      console.log( formData )
       // const response = await userService.uploadDocument( formData, this.access )
 
     }
   },
-  components: {
-    zDocumentImage,
-    zImagesCollection,
-  }
 }
 </script>
 
 <style lang="scss" scoped >
-::v-deep(.documents_images-grid) {
+::v-deep(.documents__images-grid) {
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
 

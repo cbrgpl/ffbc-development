@@ -31,6 +31,10 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'TheAddToCartDialog',
+  components: {
+    zDialog,
+    FeatureSection
+  },
   props: {
     product: {
       type: Object,
@@ -42,9 +46,6 @@ export default {
       buttonLoading: false,
     }
   },
-  beforeMount () {
-    this.initFeatureValues()
-  },
   computed: {
     ...mapGetters( {
       getFeaturesForProduct: 'product/getFeaturesForProduct',
@@ -52,6 +53,9 @@ export default {
     productFeatures () {
       return this.getFeaturesForProduct( this.product )
     },
+  },
+  beforeMount () {
+    this.initFeatureValues()
   },
   methods: {
     initFeatureValues () {
@@ -129,10 +133,7 @@ export default {
       return validationResult
     }
   },
-  components: {
-    zDialog,
-    FeatureSection
-  },
+
 }
 </script>
 

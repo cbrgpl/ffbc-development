@@ -1,5 +1,5 @@
 <template >
-  <section class="flex-col shop-main_padding" >
+  <section class="flex-col shop-main-padding" >
     <div class="flex  max-w-full overflow-x-auto py-2.5" >
       <zTabsNav
         class="profile-measures__tab-nav"
@@ -41,6 +41,7 @@ export default {
   name: 'ProfileMeasures',
   components: {
     zMeasureForm,
+    // eslint-disable-next-line vue/no-unused-components
     zMeasureFieldInput
   },
   data () {

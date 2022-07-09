@@ -2,7 +2,7 @@ import store from '@/store'
 
 import waiterOfActions from './waiterOfActions.js'
 
-export default async ( to, from ) => {
+export default async () => {
   const isAuth = store.getters[ 'auth/isAuth' ]
 
   if ( isAuth && !store.getters[ 'user/userLoaded' ] ) {

@@ -12,7 +12,7 @@
       class="h-full w-full overflow-auto" >
       <zPaginationPage
         ref="paginationPage"
-        class="flex flex-col min-h-full container shop-main_padding mx-auto"
+        class="flex flex-col min-h-full container shop-main-padding mx-auto"
         :item-count="totalProducts"
         :per-page="2"
         @setPage="loadNewPage" >

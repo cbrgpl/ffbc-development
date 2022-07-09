@@ -30,6 +30,7 @@ export default {
       return events
     },
     dirtyAttrs () {
+      // eslint-disable-next-line no-unused-vars
       const { style, class: cls, ...attrs } = this.$attrs
       return attrs
     },

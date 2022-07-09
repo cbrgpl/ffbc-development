@@ -24,7 +24,7 @@
 </template>
 
 <script >
-import useVuelidate from '@vuelidate/core'
+import { useVuelidate } from '@vuelidate/core'
 import { required, numeric } from '@vuelidate/validators'
 
 import { reactive, computed } from 'vue'
@@ -78,6 +78,7 @@ export default {
       default: ''
     },
   },
+  emits: [ 'measureSubmit' ],
   setup ( props ) {
     const { form, validations } = getFormPartials( props )
     const v$ = useVuelidate( validations, form )
@@ -92,7 +93,6 @@ export default {
       flush: 'post'
     },
   },
-
   methods: {
     submitForm () {
       this.v$.$reset()

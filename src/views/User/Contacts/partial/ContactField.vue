@@ -23,6 +23,7 @@ export default {
       type: Object,
       required: true,
     },
+    // eslint-disable-next-line vue/require-prop-types
     modelValue: {
       required: true
     },

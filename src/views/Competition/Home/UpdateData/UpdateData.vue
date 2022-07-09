@@ -19,6 +19,11 @@
 import { defineAsyncComponent } from 'vue'
 export default {
   name: 'UpdateData',
+  components: {
+    PersonalData: defineAsyncComponent( () => import( './partial/PersonalData.vue' ) ),
+    Security: defineAsyncComponent( () => import( './partial/Security.vue' ) ),
+    Documents: defineAsyncComponent( () => import( './partial/Documents.vue' ) )
+  },
   data () {
     return {
       tabs: [ 'Personal Data', 'Security', 'Documents' ],
@@ -68,11 +73,6 @@ export default {
       }
     }
   },
-  components: {
-    PersonalData: defineAsyncComponent( () => import( './partial/PersonalData.vue' ) ),
-    Security: defineAsyncComponent( () => import( './partial/Security.vue' ) ),
-    Documents: defineAsyncComponent( () => import( './partial/Documents.vue' ) )
-  }
 }
 </script>
 

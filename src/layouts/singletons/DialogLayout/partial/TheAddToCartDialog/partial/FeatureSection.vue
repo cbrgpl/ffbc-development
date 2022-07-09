@@ -38,6 +38,7 @@ export default {
       required: true,
     }
   },
+  emits: [ 'setFeatureValue' ],
   data () {
     return {
       featureValue: ''

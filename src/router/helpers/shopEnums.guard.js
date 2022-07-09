@@ -7,6 +7,6 @@ const actions = [
   'order/fetchOrderSpecs'
 ]
 
-export default async ( to, from ) => {
+export default async () => {
   await waiterOfActions.executeActions( actions )
 }

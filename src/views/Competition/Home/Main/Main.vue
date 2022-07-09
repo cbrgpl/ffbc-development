@@ -99,6 +99,12 @@ import Ticket from './partial/Ticket.vue'
 
 export default {
   name: 'Main',
+  components: {
+    zCompetetionCard: defineAsyncComponent( () => import( '@/components/competitions/composite/zCompetitionCard.vue' ) ),
+    CompetitionCardActions,
+    Ticket,
+    ServiceSection,
+  },
   data () {
     return {
       avatarTest: require( '@images/avatar.jpg' ),
@@ -117,12 +123,7 @@ export default {
       fullName: 'user/fullName',
     } )
   },
-  components: {
-    zCompetetionCard: defineAsyncComponent( () => import( '@/components/competitions/composite/zCompetitionCard.vue' ) ),
-    CompetitionCardActions,
-    Ticket,
-    ServiceSection,
-  }
+ 
 }
 </script>
 

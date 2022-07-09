@@ -43,6 +43,9 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'TheStaticSidebar',
+  components: {
+    UserNavigation
+  },
   data () {
     return {
       siteNav: siteNavOptions,
@@ -53,9 +56,6 @@ export default {
     ...mapGetters( {
       isAuth: 'auth/isAuth',
     } )
-  },
-  components: {
-    UserNavigation
   },
 }
 </script>

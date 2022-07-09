@@ -15,6 +15,7 @@ export default {
     zCheckbox,
   },
   mixins: [ preventModel ],
+  emits: [ 'update:modelValue' ],
   methods: {
     handleValue ( event ) {
       const target = event.target

@@ -46,7 +46,7 @@
 </template>
 
 <script >
-import useVuelidate from '@vuelidate/core'
+import { useVuelidate } from '@vuelidate/core'
 import logInValidation from './validations/logIn'
 
 import { mapActions } from 'vuex'
