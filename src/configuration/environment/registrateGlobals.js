@@ -1,5 +1,5 @@
 import eventBus from './eventBus'
-import { registrateConstsGlobally } from './consts/index.js'
+import { registrateConstsGlobally } from './consts'
 
 import { registrateGlobalSafely } from './_utils/registrateGlobalSafely.js'
 
