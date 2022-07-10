@@ -27,7 +27,7 @@ export default {
   expose: [ 'startMediaLoading' ],
   computed: {
     selected () {
-      return this.selectedIds.value.includes( this.cartItemId )
+      return this.selectedIds.includes( this.cartItemId )
     }
   },
   methods: {

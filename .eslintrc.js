@@ -137,6 +137,10 @@ module.exports = {
       'always'
     ],
     'vue/no-v-model-argument': 0,
+    'vue/v-on-event-hyphenation': [
+      'error',
+      'never', 
+    ]
   },
   overrides: [
     {

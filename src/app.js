@@ -13,6 +13,9 @@ registrateVueFunctionality( app )
 app.use( store ).use( router )
 app.mount( '#app' )
 
+// App config modifications
+app.config.unwrapInjectedRef = true
+
 const config = app.config
 
 export {

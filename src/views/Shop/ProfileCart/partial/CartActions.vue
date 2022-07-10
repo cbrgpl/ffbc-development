@@ -9,7 +9,7 @@
     <transition name="delete-button" >
       <zLoaderButton
         v-if="!noSelectedItems"
-        :loader="actionsDisabled.value"
+        :loader="actionsDisabled"
         variant="danger"
         class="px-6"
         @click="$emit('deleteProducts')" >

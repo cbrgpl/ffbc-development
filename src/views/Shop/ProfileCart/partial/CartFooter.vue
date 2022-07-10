@@ -22,7 +22,7 @@
     </div>
 
     <zButton
-      :disabled="actionsDisabled.value"
+      :disabled="actionsDisabled"
       class="px-12 py-3.5"
       variant="safety"
       @click="$emit('buy')" >
