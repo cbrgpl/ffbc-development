@@ -1,10 +1,12 @@
 import { createApp } from 'vue'
-import { registrateVueFunctionality } from '@/helpers/app_configuration'
+import { registrateVueFunctionality } from '@/configuration/vue'
 
 import router from './router'
 import store from './store'
 
 import App from './App.vue'
+
+
 
 const app = createApp( App )
 
