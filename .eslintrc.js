@@ -75,6 +75,9 @@ module.exports = {
       'error',
       'always'
     ],
+    'no-console': [
+      'warn',
+    ],
     'vue/html-indent': [
       'error',
       2,

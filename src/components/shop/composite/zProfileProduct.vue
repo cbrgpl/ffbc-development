@@ -48,9 +48,6 @@ export default {
       type: Array,
       required: true,
     },
-    intersected: {
-      type: Boolean,
-    }
   },
   data () {
     return {

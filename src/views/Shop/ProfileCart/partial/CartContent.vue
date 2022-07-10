@@ -8,7 +8,6 @@
       :cart-item-id="bindedCartItem.cartItem.id"
       :product="bindedCartItem.product"
       :product-features="bindedCartItem.features"
-      :intersected="$options.reactiveObserver.schema[i]"
       @VnodeMounted="showCartContent"
       @toggleSelectState="$emit('toggleSelectState', $event)" />
   </div>
@@ -53,10 +52,10 @@ export default {
     } ),
   },
   watch: {
-    bindedCartItems ( newV, oldValue ) {
-      const componentInitization = oldValue.length === 0
+    bindedCartItems () {
+      const observerInited = this.$options.reactiveObserver.inited
 
-      if ( !componentInitization ) {
+      if ( observerInited ) {
         this.$options.reactiveObserver.unobserve()
         this.contentShown = false
       }
@@ -74,14 +73,13 @@ export default {
         const products = this.$refs.products
 
         for ( const number in observerSchema ) {
-
           if ( observerSchema[ number ] ) {
             products[ number ].startMediaLoading()
           }
         }
       },
       deep: true,
-    }
+    },
   },
   beforeUnmount () {
     this.$options.reactiveObserver.unobserve()
