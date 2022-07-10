@@ -29,5 +29,5 @@ export default {
   },
   beforeUnmount () {
     this.$store.commit( 'app/removeEscCloseCaller', this.callerId )
-  }
+  },
 }
