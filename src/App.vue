@@ -58,6 +58,7 @@ export default {
     this.$store.dispatch( 'app/initWindowEscListener' )
   },
   errorCaptured ( error, vnode, info ) {
+    console.log( 'errorCaptured' )
     for ( const prop in error ) {
       console.error( prop, error[ prop ] )
     }

@@ -65,6 +65,9 @@ export default {
     setSidebarVibility ( visibilityState ) {
       this.sidebarVisiblity = visibilityState
     },
+    closeFn() {
+      this.sidebarVisiblity = false
+    }
   },
 }
 </script>
