@@ -1,7 +1,6 @@
-/* eslint-disable no-dupe-class-members */
-import { ObservableNodeSchema } from './observerBuffer'
+import { ObservableNodeSchema } from './observableNodeSchema.js'
 import { CustomObserver } from './customObserver.js'
-import { ObservableDirective } from './observableDirective'
+import { ObservableDirective } from './observableDirective.js'
 
 class ReactiveObserver {
   #observer = null

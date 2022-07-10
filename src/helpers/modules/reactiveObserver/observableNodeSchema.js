@@ -1,4 +1,3 @@
-/* eslint-disable no-dupe-class-members */
 import { reactive, watch } from 'vue'
 
 class ObservableNodeSchema {
@@ -19,7 +18,7 @@ class ObservableNodeSchema {
   }
 
   resetState () {
-    this.#schema = reactive( {} )
+    Object.keys( this.#schema ).forEach( ( key ) => delete this.#schema[ key ] )
     this.#intersections.splice( 0 )
   }
 

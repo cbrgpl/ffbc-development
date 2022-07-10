@@ -11,13 +11,13 @@
 
     <div class="flex w-full relative h-80 xl:h-72 overflow-x-auto select-none" >
       <zMediaWithTitle
-        v-for="media of media"
+        v-for="aMedia of media"
         :ref="pushMediaToBuffer"
-        :key="media.display"
+        :key="aMedia.display"
         title="A Media of product"
-        class="mr-2 flex-shrink-0 h-full w-full max-w-full w-auto last:mr-0"
-        :original="media.display"
-        :preview="media.preview"
+        class="mr-2 flex-shrink-0 h-full max-w-full w-auto last:mr-0"
+        :original="aMedia.display"
+        :preview="aMedia.preview"
         :intersected="intersected"
         :auto-loading="false"
         @VnodeMounted="createIntersectedWatcher" />
