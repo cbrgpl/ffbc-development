@@ -3,7 +3,7 @@
     <CartContentProduct
       v-for="(bindedCartItem, i) of bindedCartItems"
       :key="bindedCartItem.cartItem.id"
-      :ref="'product-' + i"
+      ref="products"
       v-observable="i"
       :cart-item-id="bindedCartItem.cartItem.id"
       :product="bindedCartItem.product"
@@ -28,6 +28,12 @@ export default {
   name: 'CartContent',
   reactiveObserver,
   productBuffer: [],
+  directives: {
+    observable: reactiveObserver.directive
+  },
+  components: {
+    CartContentProduct,
+  },
   props: {
     bindedCartItems: {
       type: Array,
@@ -39,6 +45,12 @@ export default {
     return {
       contentShown: false,
     }
+  },
+  computed: {
+    ...mapGetters( {
+      cartLoaded: 'cart/cartLoaded',
+      cartEmpty: 'cart/cartEmpty'
+    } ),
   },
   watch: {
     bindedCartItems ( newV, oldValue ) {
@@ -59,21 +71,17 @@ export default {
     },
     '$options.reactiveObserver.schema': {
       handler ( observerSchema ) {
+        const products = this.$refs.products
+
         for ( const number in observerSchema ) {
-          const ref = 'product-' + number
+
           if ( observerSchema[ number ] ) {
-            this.$refs[ ref ].startMediaLoading()
+            products[ number ].startMediaLoading()
           }
         }
       },
       deep: true,
     }
-  },
-  computed: {
-    ...mapGetters( {
-      cartLoaded: 'cart/cartLoaded',
-      cartEmpty: 'cart/cartEmpty'
-    } ),
   },
   beforeUnmount () {
     this.$options.reactiveObserver.unobserve()
@@ -96,12 +104,7 @@ export default {
     },
 
   },
-  directives: {
-    observable: reactiveObserver.directive
-  },
-  components: {
-    CartContentProduct,
-  }
+ 
 }
 </script>
 <style lang="scss" scoped >
