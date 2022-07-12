@@ -233,10 +233,10 @@ const routes = [
                 component: () => import( '@/views/Shop/Checkout/Checkout.vue' ),
                 name: 'ShopCheckout',
                 props: ( route ) => ( {
-                  bindedCartItemIds: JSON.parse( route.params.bindedCartItemIds ),
+                  cartItemIds: JSON.parse( route.params.cartItemIds ),
                 } ),
                 beforeEnter ( to, from, next ) {
-                  if ( !to.params.bindedCartItemIds ) {
+                  if ( !to.params.cartItemIds ) {
                     next( { name: 'ShopTmp' } )
                   } else {
                     next()

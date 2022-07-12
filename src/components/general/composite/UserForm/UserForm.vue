@@ -1,5 +1,6 @@
 <template >
-  <zForm
+  <ZForm
+    ref="form"
     class="lg:grid grid-cols-1 lg:grid-cols-4 lg:gap-x-20"
     :vuelidate-object="v$"
     @validate="emitFormSubmit" >
@@ -178,7 +179,9 @@
       </zSelect>
     </section>
 
-    <template #actions >
+    <template
+      v-if="button"
+      #actions >
       <div class="form-actions flex justify-end col-start-3 col-span-2" >
         <slot name="actions" >
           <zLoaderButton
@@ -190,26 +193,35 @@
         </slot>
       </div>
     </template>
-  </zForm>
+  </ZForm>
 </template>
 <script >
-import useVuelidate from '@vuelidate/core'
+import { useVuelidate } from '@vuelidate/core'
 import userFormValidation from './validations/userForm'
 
 import { getBackendFormatDate } from '@filters'
 
-import bustTypes from '@/enums/backend/bustTypes.js'
+import bustTypes from '@enums/backend/bustTypes.js'
+import ZForm from '@general_components/atomic/zForm.vue'
 
 export default {
   name: 'UserMe',
+  components: { ZForm },
+  props: {
+    button: {
+      type: Boolean,
+      default: true,
+    },
+  },
   emits: [ 'form-submitted' ],
+  expose: [ 'toggleFormValidateMethod' ],
   validations: userFormValidation(),
-  setup () {
+  setup() {
     return {
       v$: useVuelidate()
     }
   },
-  data () {
+  data() {
     return {
       userForm: {
         firstName: '',
@@ -230,24 +242,29 @@ export default {
     }
   },
   computed: {
-    bustTypes () {
+    bustTypes() {
       return Object.entries( bustTypes )
     }
   },
   methods: {
-    emitFormSubmit ( formValidationStatus ) {
+    // Public
+    toggleFormValidateMethod() {
+      this.$refs.form.validateFields()
+    },
+
+
+    // Private
+    emitFormSubmit( formValidationStatus ) {
       if ( formValidationStatus === STATUS_WORDS.ERROR ) {
         return
       }
-
       const formattedUserData = this.formatDataStruct( this.userForm )
       this.$emit( 'form-submitted', formattedUserData )
     },
-    formatDataStruct ( data ) {
+    formatDataStruct( data ) {
       const sendData = { ...data, ...data.address }
-
       delete sendData.address
-
+      
       if ( sendData.birthDate ) {
         sendData.birthDate = getBackendFormatDate( sendData.birthDate )
       } else {
@@ -255,23 +272,23 @@ export default {
       }
 
       sendData.email = this.$store.getters[ 'user/email' ]
-
+      
       this.removeEmptyProperties( sendData )
-
+      
       return sendData
     },
-    removeEmptyProperties ( data ) {
+    removeEmptyProperties( data ) {
       for ( const prop in data ) {
         if ( data[ prop ] === '' ) {
           delete data[ prop ]
         }
       }
     },
-    changeBustType ( event ) {
+    changeBustType( event ) {
       const typeEntry = Object.entries( this.bustTypes ).find( ( type ) => type[ 1 ].value === event.target.value )
       this.userForm.bustType = typeEntry[ 1 ].id
     },
-  },
+  }
 }
 </script>
 

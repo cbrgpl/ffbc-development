@@ -5,6 +5,7 @@ import setRefreshInStorage from './setRefreshInStorage'
 import isLocalStorageUsed from '@/helpers/functions/isLocalStorageUsed'
 import clearAuthInfo from './clearAuthInfo'
 import getObjectPartClone from './getObjectPartClone'
+import { throwErrorInAbstractMethod } from './throwErrorInAbstractMethod'
 
 export {
   clipboardCopy,
@@ -13,5 +14,6 @@ export {
   setRefreshInStorage,
   isLocalStorageUsed,
   clearAuthInfo,
-  getObjectPartClone
+  getObjectPartClone,
+  throwErrorInAbstractMethod
 }

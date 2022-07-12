@@ -6,6 +6,14 @@ module.exports = {
     'es2020': true,
     'node': true
   },
+  'globals': {
+    'bus': true,
+    'NOT_ERROR': true,
+    'STORAGE_NAMES': true,
+    'STATUS_WORDS': true,
+    'REDIRECT_URLS': true,
+    'TEMPLATE_IMG': true
+  },
   'parser': 'vue-eslint-parser',
   'parserOptions': {
     'ecmaVersion': 12,

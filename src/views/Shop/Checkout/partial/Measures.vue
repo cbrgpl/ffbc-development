@@ -1,39 +1,26 @@
 <template >
   <div >
     <div >
-      <zMeasureForm
-        v-for="measure of orderMeasures"
-        :key="measure.id"
-        class="mb-8 border-b border-solid border-placeholder last:border-none"
-        :title="measure.name"
-        :form-fields="measure.measureFields"
-        @measureSubmit="setMeasureData(measure.name, $event)" >
-        <template #formActions >
-          <zButton
-            class="px-2.5 py-2 my-3"
-            :variant="getButtonType(measure.name)"
-            type="submit" >
-            Submit
-          </zButton>
-        </template>
-      </zMeasureForm>
+      <zMultipleMeasures
+        ref="measureForm"
+        :measures="orderMeasures"
+        @submitted="hantdleFormSubmiting" >
+      </zMultipleMeasures>
     </div>
-
-    <SectionActions @show-next="emitSectionComplete" />
   </div>
 </template>
 
 <script >
-import SectionActions from './SectionActions.vue'
+import CheckoutSectionMix from '@mixins/CheckoutSection'
 
-import zMeasureForm from '@shop_components/composite/zMeasureForm/zMeasureForm.vue'
+import zMultipleMeasures from '@shop_components/composite/zMeasureForm/zMultipleMeasures.vue'
 
 export default {
   name: 'Measures',
   components: {
-    SectionActions,
-    zMeasureForm
+    zMultipleMeasures
   },
+  mixins: [ CheckoutSectionMix ],
   inject: [ 'orderId' ],
   props: {
     bindedCartItems: {
@@ -41,33 +28,15 @@ export default {
       required: true,
     }
   },
-  emits: [ 'section-complete' ],
+  emits: [ 'sectionCompleted' ],
   data () {
     return {
       filledMeasures: {}
     }
   },
   computed: {
-    orderProductTypeIds () {
-      const orderProductTypeIds = []
-
-      for ( const bindedCartItem of this.bindedCartItems ) {
-        if ( !orderProductTypeIds.includes( bindedCartItem.product.type ) ) {
-          orderProductTypeIds.push( bindedCartItem.product.type )
-        }
-      }
-
-      return orderProductTypeIds
-    },
-    orderProductTypes () {
-      const productTypes = this.$store.getters[ 'product/allProductTypes' ]
-      const orderProductTypes = []
-
-      for ( const productTypeId of this.orderProductTypeIds ) {
-        orderProductTypes.push( productTypes.find( ( productType ) => productType.id === productTypeId ) )
-      }
-
-      return orderProductTypes
+    orderMeasures () {
+      return this.$store.getters[ 'measure/measures' ].filter( ( measure ) => this.orderMeasureIds.includes( measure.id ) )
     },
     orderMeasureIds () {
       const orderMeasureIds = []
@@ -84,69 +53,68 @@ export default {
 
       return orderMeasureIds
     },
-    orderMeasures () {
-      return this.$store.getters[ 'measure/measures' ].filter( ( measure ) => this.orderMeasureIds.includes( measure.id ) )
-    },
-    orderMeasureNames () {
-      return this.orderMeasures.map( ( measure ) => measure.name )
-    }
-  },
-  methods: {
-    getButtonType ( measureName ) { return !this.filledMeasures[ measureName ] ? 'brick' : 'safety' },
-    emitSectionComplete () {
-      if ( !this.checkAllMeasuresFilled() ) {
-        this.toast$.warn( { summary: 'Action prevented', detail: 'Fill all forms before go to the next section', life: 5000 } )
-        return
+    orderProductTypes () {
+      const productTypes = this.$store.getters[ 'product/allProductTypes' ]
+      const orderProductTypes = []
+
+      for ( const productTypeId of this.orderProductTypeIds ) {
+        orderProductTypes.push( productTypes.find( ( productType ) => productType.id === productTypeId ) )
       }
 
-      const measureFieldArray = this.getMeasureFieldArray( this.filledMeasures )
-      this.mixOrderId( measureFieldArray )
-
-      this.$emit( 'section-complete', {
-        sectionName: this.$options.name,
-        payload: measureFieldArray
-      } )
+      return orderProductTypes
     },
-    checkAllMeasuresFilled () {
-      return this.orderMeasureNames.every( ( measureName ) => !!this.filledMeasures[ measureName ] )
+    
+
+    orderProductTypeIds () {
+      const orderProductTypeIds = []
+
+      for ( const bindedCartItem of this.bindedCartItems ) {
+        if ( !orderProductTypeIds.includes( bindedCartItem.product.type ) ) {
+          orderProductTypeIds.push( bindedCartItem.product.type )
+        }
+      }
+
+      return orderProductTypeIds
     },
-    setMeasureData ( measureName, data ) {
-      const formattedMeasure = this.formatMeasure( data )
-
-      this.filledMeasures[ measureName ] = formattedMeasure
+    
+    
+  },
+  methods: {
+    // Public
+    completeSection() {
+      this.$refs.measureForm.submit()
     },
-    formatMeasure ( measure ) {
-      const formattedMeasure = []
 
-      for ( const fieldId in measure ) {
-        const measureField = measure[ fieldId ]
 
-        formattedMeasure.push( {
+    // Private
+    handleFormSubmitting( measures ) {
+      const formattedMeasures = this.formatMeasures( measures )
+      this.emitSectionCompleted( formattedMeasures )
+    },
+    formatMeasures ( measures ) {
+      return measures.reduce( ( acc, measure ) => {
+        const formattedMeasureFields = this.formatMeasureFields( measure ) 
+
+        acc.push( ...formattedMeasureFields )
+
+        return acc
+      }, [] )
+    },
+    formatMeasureFields( measure ) {
+      const measureFields = []
+
+      for ( const measureFieldId in measure ) {
+        const measureField = measure[ measureFieldId ]
+
+        measureFields.push( {
           value: measureField.value,
+          order: this.orderId,
           measureField: measureField.id
         } )
       }
 
-      return formattedMeasure
+      return measureFields
     },
-    getMeasureFieldArray ( measures ) {
-      const measureFieldArray = []
-
-      for ( const measureName in measures ) {
-        const measure = measures[ measureName ]
-
-        for ( const measureField of measure ) {
-          measureFieldArray.push( measureField )
-        }
-      }
-
-      return measureFieldArray
-    },
-    mixOrderId ( measureFieldArray ) {
-      for ( const measureField of measureFieldArray ) {
-        measureField.order = this.orderId
-      }
-    }
   }
 
 }

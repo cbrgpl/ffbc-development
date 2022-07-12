@@ -1,4 +1,4 @@
-export default {
+const checkoutNavigation = {
   tabs: [
     {
       keyword: 'basicInformation',
@@ -35,4 +35,15 @@ export default {
     [ 0, 1 ],
     // [ 4, 4 ]
   ]
+}
+
+const checkoutSections = checkoutNavigation.tabs.reduce( ( acc, tab ) => {
+  const sectionKeyword = tab.keyword
+  acc[ sectionKeyword ] = tab
+  return acc
+}, {} )
+
+export {
+  checkoutSections,
+  checkoutNavigation
 }

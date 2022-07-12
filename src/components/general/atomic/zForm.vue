@@ -21,6 +21,7 @@
 <script >
 export default {
   name: 'ZForm',
+  expose: [ 'validateFields' ],
   props: {
     vuelidateObject: {
       type: Object,
@@ -49,7 +50,6 @@ export default {
     }
   },
   emits: [ 'validate' ],
-
   computed: {
     childInputs () {
       const htmlInputsCollection = this.form ? this.form.getElementsByClassName( 'z-input' ) : []

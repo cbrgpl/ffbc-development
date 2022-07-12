@@ -1,79 +1,45 @@
 <template >
-  <section class="px-3 py-4" >
-    <Navigation
-      v-model="currentSectionIndex"
-      class="mb-4 max-w-md md:max-w-lg mx-auto"
-      :checkout-navigation="checkoutNavigation" />
-
-    <component
-      :is="sectionName"
-      class="container mx-auto"
-      :binded-cart-items="bindedCartItems"
-      @section-complete="sendSectionData" >
-      <template #actions >
-        <zButton >
-          change
-        </zButton>
-      </template>
-    </component>
-  </section>
+  <CheckoutContent
+    ref="content"
+    :binded-cart-items="bindedCartItems"
+    @sectionCompleted="switchSectionCompletedAction"
+    @lastSectionCompleted="finishOrderCheckout" />
 </template>
 
 <script >
 import { computed } from 'vue'
-import checkoutNavigation from '@enums/nav/tabs.shopCheckout.js'
 
-import Navigation from './partial/Navigation.vue'
-
-import BasicInformation from './partial/BasicInformation.vue'
-import Measures from './partial/Measures.vue'
-
-import CheckoutStrategyWithHooks from '@classes/checkoutStrategyWithHooks'
+import CheckoutContent from './partial/CheckoutContent.vue'
 
 import { orderService } from '@services'
 import { NetworkAttemptError } from '@/helpers/errors'
 
+import { checkoutSections } from '@enums/nav/tabs.shopCheckout.js'
+
+
 export default {
   name: 'Checkout',
   components: {
-    Navigation,
-
-    BasicInformation,
-    Measures
+    CheckoutContent
   },
   provide () {
     return {
-      actionsDisabled: computed( () => this.currentSectionIndex === this.checkoutNavigation.tabs.length - 1 ),
-      actionsLoader: computed( () => this.actionsLoader ),
-      orderId: computed( () => this.orderId )
+      orderId: computed( () => this.orderId ),
     }
   },
   props: {
-    bindedCartItemIds: {
+    cartItemIds: {
       type: Array,
       required: true,
     }
   },
   data () {
     return {
-      checkoutNavigation,
-      currentSectionIndex: 0,
-      strategiesMap: [],
-      activeStrategy: null,
+      bindedCartItems: [],
       orderId: null,
-      actionsLoader: false
     }
   },
   computed: {
-    sectionKeyword () {
-      return this.checkoutNavigation.tabs[ this.currentSectionIndex ].keyword
-    },
-    sectionName () {
-      return this.sectionKeyword.slice( 0, 1 ).toUpperCase() + this.sectionKeyword.slice( 1 )
-    },
-    bindedCartItems () {
-      return this.$store.getters[ 'cart/bindedCartItems' ].filter( ( bindedCartItem ) => this.bindedCartItemIds.includes( bindedCartItem.cartItem.id ) )
-    },
     orderItems () {
       const getOrderItemTemplate = () => ( {
         order: null,
@@ -91,64 +57,44 @@ export default {
         return orderItem
       } )
     },
-    ids () {
-      const userId = this.$store.getters[ 'user/id' ] || null
-      const orderId = this.orderId
-
-      return {
-        userId,
-        orderId
-      }
-    }
+    userId() {
+      return this.$store.getters[ 'user/id' ]
+    },
   },
   created () {
-    this.initStrategies()
+    this.setBindedCartItems()
   },
   methods: {
-    initStrategies () {
-      const strategiesSchema = [
-        [
-          'BasicInformation',
-          new CheckoutStrategyWithHooks( {
-            beforeRequest: this.mixUserIdAtInit,
-            afterRequest: this.handleOrderInit
-          }, 'orderCreate' )
-        ],
-        [
-          'Measures',
-          new CheckoutStrategyWithHooks( { afterRequest: this.finishOrderCheckout }, 'orderMeasuresCreate' )
-        ],
-      ]
+    async setBindedCartItems () {
+      const allBindedCartItems = await this.$store.dispatch( 'cart/outBindedCartItems' )
+      const buyingCartItems = this.cartItemIds
 
-      this.strategiesMap = new Map( strategiesSchema )
+      this.bindedCartItems = allBindedCartItems.filter( ( bindedCartItem ) => buyingCartItems.includes( bindedCartItem.cartItem.id ) )
     },
-    async sendSectionData ( data ) {
-      this.actionsLoader = true
-      this.setStrategy( data.sectionName )
-
-      const unbindedPayload = JSON.parse( JSON.stringify( data.payload ) )
-
-      await this.activeStrategy.sendData( unbindedPayload )
-
-      this.changeSection()
-      this.actionsLoader = false
-    },
-    changeSection () {
-      if ( this.currentSectionIndex < this.checkoutNavigation.tabs.length - 1 ) {
-        this.currentSectionIndex++
+    switchSectionCompletedAction( { payload, sectionKeyword } ) {
+      switch( sectionKeyword ) {
+      case checkoutSections.basicInformation.keyword: 
+        return this.completeBasicInformation( payload )
+      case checkoutSections.measures.keyword:
+        return this.completeMeasures( payload )
+      default: 
+        throw new Error( `Unexpected sectionKeyword with value ${ sectionKeyword } have been got` )
       }
     },
-    setStrategy ( sectionName ) {
-      this.activeStrategy = this.strategiesMap.get( sectionName )
+    
+
+    async completeBasicInformation( userBasicInformation ) {
+      userBasicInformation.user = this.userId
+
+      const response = await this.doRequest( () => this.createOrder( userBasicInformation ) )
+      this.setOrderToCheckoutProccess( response.parsedBody )
     },
-    handleOrderInit ( orderCreateResponse ) {
-      this.setOrderId( orderCreateResponse.parsedBody.id )
+    createOrder( userBasicInformation ) {
+      return orderService.orderCreate( userBasicInformation )
+    },
+    setOrderToCheckoutProccess ( order ) {
+      this.orderId = order.id
       this.createOrderItems()
-    },
-    setOrderId ( orderId ) {
-      if ( this.orderId === null ) {
-        this.orderId = orderId
-      }
     },
     async createOrderItems ( ) {
       const createOrderItems = await orderService.orderItemsCreate( this.orderItems )
@@ -157,22 +103,39 @@ export default {
         throw new NetworkAttemptError( createOrderItems.httpResponse )
       }
     },
-    mixUserIdAtInit ( payload ) {
-      payload.user = this.userId
-      return [ payload ]
+
+
+    completeMeasures( measures ) {
+      this.doRequest( () => orderService.orderMeasuresCreate( measures ) )
     },
-    finishOrderCheckout ( response ) {
-      const toastDetail = this.getToastDetails( this.ids.userId )
-      this.toast$.success( { summary: `Order #${ this.orderId } created`, detail: toastDetail, life: 15000 } )
+
+    
+    async doRequest ( requestCallback ) {
+      const $content = this.$refs.content
+      
+      $content.setLoadingState( true )
+
+      const response = await requestCallback()
+
+      $content.setNextSection()
+      $content.setLoadingState( false ) 
+      return response
+    },
+
+
+    finishOrderCheckout () {
       this.$router.push( { name: 'ShopTmp' } )
-      this.$store.dispatch( 'cart/removeCartItems', this.bindedCartItemIds )
+      const toastDetail = this.getToastDetails( this.userId )
+      this.toast$.success( { summary: `Order #${ this.orderId } created`, detail: toastDetail, life: 15000 } )
+      this.$store.dispatch( 'cart/removeCartItems', this.cartItemIds )
     },
-    getToastDetails ( userId ) {
+    getToastDetails () {
       const generalPart = 'Administrator soon will contact with you.<br>'
-      const partByUserType = this.ids.userId !== null ? 'You can explore details in your profile.' : 'Unfortunately, you can\'t explore order detail.'
+      const partByUserType = this.userId !== null ? 'You can explore details in your profile.' : 'Unfortunately, you can\'t explore order details.'
 
       return generalPart + partByUserType
-    }
+    },
+    
   }
 }
 </script>

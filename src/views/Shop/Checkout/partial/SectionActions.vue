@@ -2,10 +2,9 @@
   <div class="w-full" >
     <zLoaderButton
       class="w-full max-w-xs float-right px-4.5 py-3.5"
-      type="submit"
-      :loader="actionsLoader.value"
-      @click="showNext" >
-      Next
+      :loader="loading"
+      @click="emitPressed" >
+      <slot />
     </zLoaderButton>
   </div>
 </template>
@@ -14,14 +13,16 @@
 
 export default {
   name: 'SectionActions',
-  inject: [
-    'actionsDisabled',
-    'actionsLoader'
-  ],
-  emits: [ 'show-next' ],
+  props: {
+    loading: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  emits: [ 'pressed' ],
   methods: {
-    showNext () {
-      this.$emit( 'show-next' )
+    emitPressed () {
+      this.$emit( 'pressed' )
     }
   }
 }

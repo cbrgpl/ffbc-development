@@ -28,7 +28,7 @@ export default {
       return state.userData.email
     },
     id ( state ) {
-      return state.userData.id
+      return state.userData.id || null
     }
   },
   actions: {

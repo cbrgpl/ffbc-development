@@ -1,31 +1,33 @@
 <template >
   <div >
-    <UserForm @form-submitted="emitSectionComplete" >
-      <template #actions >
-        <SectionActions />
-      </template>
+    <UserForm
+      ref="userForm"
+      :button="false"
+      @form-submitted="emitSectionCompleted" >
     </UserForm>
   </div>
 </template>
 
 <script >
 import UserForm from '@general_components/composite/UserForm/UserForm.vue'
-import SectionActions from './SectionActions.vue'
+
+import CheckoutSectionMix from '@mixins/CheckoutSection'
 
 export default {
   name: 'BasicInformation',
+  expose: [ 'completeSection' ],
   components: {
-    SectionActions,
     UserForm
   },
-  emits: [ 'section-complete' ],
+  mixins: [ CheckoutSectionMix ],
   methods: {
-    emitSectionComplete ( userData ) {
-      this.$emit( 'section-complete', {
-        sectionName: this.$options.name,
-        payload: userData
-      } )
-    }
+    // Public
+    completeSection () {
+      this.$refs.userForm.toggleFormValidateMethod()
+    },
+
+
+    // Private
   }
 
 }

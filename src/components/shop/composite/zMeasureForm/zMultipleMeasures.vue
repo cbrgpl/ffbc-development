@@ -2,14 +2,16 @@
   <div >
     <div class="mb-6" >
       <zMeasureForm
-        v-for="(measure, i ) of measures"
-        :key="i"
-        :ref="'measure-' + i"
-        :form-fields="measure"
+        v-for="measure of measures"
+        :key="measure.id"
+        ref="measures"
+        :title="measure.name"
+        :form-fields="measure.measureFields"
         @measureSubmit="collectMeasure" />
     </div>
 
     <zButton
+      v-if="button"
       class="w-full md:w-28 py-3"
       @click="submit" >
       Submit
@@ -30,7 +32,11 @@ export default {
     measures: {
       type: Array,
       required: true,
-    }
+    },
+    button: {
+      type: Boolean,
+      default: false
+    },
   },
   emits: [ 'submitted' ],
   data () {
@@ -52,9 +58,10 @@ export default {
     submit () {
       this.measureValues = []
 
-      for ( const ref in this.$refs ) {
-        this.$refs[ ref ].submitForm()
+      for( const $measure of this.$refs.measures ) {
+        $measure.submitForm()
       }
+
     },
   }
 }

@@ -24,7 +24,7 @@
 </template>
 
 <script >
-import useVuelidate from '@vuelidate/core'
+import { useVuelidate } from '@vuelidate/core'
 import { required, numeric } from '@vuelidate/validators'
 
 import { reactive, computed } from 'vue'
@@ -62,8 +62,6 @@ const createFieldValidation = () => ( {
 
 export default {
   name: 'MeasureForm',
-  emit: [ 'measureSubmit' ],
-  expose: [ 'submitForm' ],
   props: {
     formFields: {
       type: Array,
@@ -78,6 +76,8 @@ export default {
       default: ''
     },
   },
+  emits: [ 'measureSubmit' ],
+  expose: [ 'submitForm' ],
   setup ( props ) {
     const { form, validations } = getFormPartials( props )
     const v$ = useVuelidate( validations, form )
