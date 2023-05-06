@@ -14,7 +14,7 @@
         ref="paginationPage"
         class="flex flex-col min-h-full container shop-main_padding mx-auto"
         :item-count="totalProducts"
-        :per-page="2"
+        :per-page="5"
         @setPage="loadNewPage" >
         <div class="grid grid-cols-2 gap-x-2 gap-y-8 md:grid-cols-3 2xl:grid-cols-4 items-stretch mb-6" >
           <zProductCard
