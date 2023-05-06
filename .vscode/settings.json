@@ -2,4 +2,7 @@
     "stylelint.validate": [ "css", "scss", "vue" ],
     "css.validate": false,
     "scss.validate": false,
+    "marquee.widgets.npm-stats.packageNames": [
+        "template-project"
+    ],
 }
