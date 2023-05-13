@@ -2,7 +2,7 @@
   <ul >
     <li class="mb-1.5" >
       <em >Ordered Date:&nbsp;</em> <span class="font-mono" >
-        {{ formatDate(orderData.value.orderedDate) }}
+        {{ formatDate(orderData.orderedDate) }}
       </span>
     </li>
     <li class="mb-1.5" >
@@ -24,7 +24,7 @@ export default {
   inject: [ 'orderData', 'orderProducts' ],
   computed: {
     paidAmount () {
-      return this.orderProducts.value.reduce( ( sum, product ) => sum + parseFloat( product.price ), 0 )
+      return this.orderProducts.reduce( ( sum, product ) => sum + parseFloat( product.price ), 0 )
     }
   },
   methods: {

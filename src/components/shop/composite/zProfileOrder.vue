@@ -87,9 +87,9 @@ export default {
   },
   methods: {
     async setOrderMedia () {
-      await this.$store.dispatch( 'cart/addProductsByIds', this.productIds )
+      await this.$store.dispatch( 'cart/products/loadProducts', this.productIds )
 
-      const productBuffer = this.$store.getters[ 'cart/productBuffer' ]
+      const productBuffer = this.$store.getters[ 'cart/products/buffer' ]
       this.media = productBuffer.filter( ( product ) => this.productIds.includes( product.id ) )
         .reduce( ( accumulator, product ) => {
           if ( product.media.length ) {

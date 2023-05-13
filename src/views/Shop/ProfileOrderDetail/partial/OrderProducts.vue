@@ -40,14 +40,14 @@ export default {
     bindedOrderItems () {
       const bindedOrderItems = []
 
-      if ( this.orderData.value.orderItems ) {
-        for ( const orderItem of this.orderData.value.orderItems ) {
+      if ( this.orderData.orderItems ) {
+        for ( const orderItem of this.orderData.orderItems ) {
           const bindedOrderItem = {
             orderItem,
             product: null
           }
 
-          bindedOrderItem.product = this.orderProducts.value.find( ( product ) => product.id === orderItem.product ) || null
+          bindedOrderItem.product = this.orderProducts.find( ( product ) => product.id === orderItem.product ) || null
 
           bindedOrderItems.push( bindedOrderItem )
         }

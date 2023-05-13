@@ -7,8 +7,8 @@
         <li >
           <strong >Instagram:&nbsp;</strong> <zLink
             external-link
-            :url="order.instagramUrl" >
-            {{ order.instagramUrl }}
+            :url="orderData.instagramUrl" >
+            {{ orderData.instagramUrl }}
           </zLink>
         </li>
       </template>
@@ -38,9 +38,6 @@ export default {
   },
   inject: [ 'orderData' ],
   computed: {
-    order () {
-      return this.orderData.value
-    },
     contactServices () {
       const contactServices = [
         {
@@ -59,11 +56,11 @@ export default {
       return [
         {
           label: 'email',
-          value: this.order.email
+          value: this.orderData.email
         },
         {
           label: 'Phone number',
-          value: this.order.phoneNumber
+          value: this.orderData.phoneNumber
         },
       ]
     },
@@ -75,14 +72,14 @@ export default {
         },
         {
           label: 'Zipcode',
-          value: this.order.zipCode
+          value: this.orderData.zipCode
         }
       ]
     },
     address () {
       const statePlacement = '$_there is state_$'
-      const address = `${ this.order.country }, ${ statePlacement }${ this.order.city }, ${ this.order.street }`
-      const state = this.order.state === null ? '' : `${ this.order.state }, `
+      const address = `${ this.orderData.country }, ${ statePlacement }${ this.orderData.city }, ${ this.orderData.street }`
+      const state = this.orderData.state === null ? '' : `${ this.orderData.state }, `
 
       return address.replace( statePlacement, state )
     },
@@ -90,11 +87,11 @@ export default {
       return [
         {
           label: 'Height',
-          value: this.order.height
+          value: this.orderData.height
         },
         {
           label: 'Weight',
-          value: this.order.weight
+          value: this.orderData.weight
         }
       ]
     }

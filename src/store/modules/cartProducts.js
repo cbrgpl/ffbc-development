@@ -20,8 +20,8 @@ export default {
     }
   },
   actions: {
-    async loadProducts ( { commit, dispatch }, cartItems ) {
-      const idsToFetch = await dispatch( 'getUniqueIds', cartItems )
+    async loadProducts ( { commit }, cartItems ) {
+      const idsToFetch = [ ...new Set( cartItems ) ]
       const requests = []
 
       for ( const id of idsToFetch ) {
@@ -34,10 +34,6 @@ export default {
       const products = results.map( ( result ) => result.value.parsedBody )
 
       commit( 'setProducts', products )
-    },
-    getUniqueIds ( { commit }, cartItems ) {
-      const ids = cartItems.map( ( cartItem ) => cartItem.product )
-      return [ ...new Set( ids ) ]
     },
   },
 }
