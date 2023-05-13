@@ -115,7 +115,7 @@ export default {
       this.$router.push( {
         name: 'ShopCheckout',
         params: {
-          cartItemIds: JSON.stringify( this.selectedIds )
+          bindedCartItemIds: JSON.stringify( this.selectedIds )
         }
       } )
     }

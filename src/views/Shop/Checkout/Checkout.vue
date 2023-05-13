@@ -9,7 +9,7 @@
       :is="sectionName"
       class="container mx-auto"
       :binded-cart-items="bindedCartItems"
-      @section-complete="sendSectionData" >
+      @sectionComplete="sendSectionData" >
       <template #actions >
         <zButton >
           change
@@ -61,7 +61,8 @@ export default {
       strategiesMap: [],
       activeStrategy: null,
       orderId: null,
-      actionsLoader: false
+      actionsLoader: false,
+      bindedCartItems: [],
     }
   },
   computed: {
@@ -70,9 +71,6 @@ export default {
     },
     sectionName () {
       return this.sectionKeyword.slice( 0, 1 ).toUpperCase() + this.sectionKeyword.slice( 1 )
-    },
-    bindedCartItems () {
-      return this.$store.getters[ 'cart/bindedCartItems' ].filter( ( bindedCartItem ) => this.bindedCartItemIds.includes( bindedCartItem.cartItem.id ) )
     },
     orderItems () {
       const getOrderItemTemplate = () => ( {
@@ -101,8 +99,11 @@ export default {
       }
     }
   },
-  created () {
+  async created () {
     this.initStrategies()
+
+    this.bindedCartItems = ( await this.$store.dispatch( 'cart/outBindedCartItems' ) )
+      .filter( ( bindedCartItem ) => this.bindedCartItemIds.includes( bindedCartItem.cartItem.id ) )
   },
   methods: {
     initStrategies () {
@@ -158,7 +159,7 @@ export default {
       }
     },
     mixUserIdAtInit ( payload ) {
-      payload.user = this.userId
+      payload.user = this.ids.userId
       return [ payload ]
     },
     finishOrderCheckout ( response ) {
@@ -167,7 +168,7 @@ export default {
       this.$router.push( { name: 'ShopTmp' } )
       this.$store.dispatch( 'cart/removeCartItems', this.bindedCartItemIds )
     },
-    getToastDetails ( userId ) {
+    getToastDetails () {
       const generalPart = 'Administrator soon will contact with you.<br>'
       const partByUserType = this.ids.userId !== null ? 'You can explore details in your profile.' : 'Unfortunately, you can\'t explore order detail.'
 
