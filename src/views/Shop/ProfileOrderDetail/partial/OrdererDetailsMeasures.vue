@@ -19,7 +19,7 @@ export default {
   inject: [ 'orderMeasures' ],
   computed: {
     measureGroups () {
-      return this.$store.getters[ 'measure/groupMeasureFields' ]( this.orderMeasures.value, ( measureField ) => measureField.measureField )
+      return this.$store.getters[ 'measure/groupMeasureFields' ]( this.orderMeasures, ( measureField ) => measureField.measureField )
     },
   }
 
