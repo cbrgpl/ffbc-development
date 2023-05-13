@@ -84,6 +84,7 @@ export default {
     },
     async updateMeasureForm ( form ) {
       this.loading = true
+      Object.keys( form ).forEach( ( obj ) => form[ obj ].value = +form[ obj ].value )
       const apiForm = this.getAPIedMeasureField( form )
       await this.$store.dispatch( 'measure/setUserMeasures', apiForm )
 
