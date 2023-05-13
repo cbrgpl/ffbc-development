@@ -72,9 +72,14 @@ export default {
       return !!this.$slots.actions
     },
   },
-  mounted () {
-    if ( this.autoLoading ) {
-      this.startLoading()
+  watch: {
+    original: {
+      handler() {
+        if ( this.autoLoading ) {
+          this.startLoading()
+        }
+      },
+      immediate: true
     }
   },
   methods: {
@@ -113,7 +118,6 @@ export default {
     async loadImage ( src ) {
       return new Promise( ( resolve ) => {
         const displayImage = new Image()
-
         displayImage.onload = () => {
           this.src = src
           this.$emit( 'loaded' )

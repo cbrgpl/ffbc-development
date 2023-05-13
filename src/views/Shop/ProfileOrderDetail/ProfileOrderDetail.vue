@@ -102,9 +102,9 @@ export default {
       this.fetchOrderProducts()
     },
     async fetchOrderProducts () {
-      await this.$store.dispatch( 'cart/addProductsByIds', this.orderProductIds )
+      await this.$store.dispatch( 'cart/products/loadProducts', this.orderProductIds )
 
-      const productBuffer = this.$store.getters[ 'cart/productBuffer' ]
+      const productBuffer = this.$store.getters[ 'cart/products/buffer' ]
       this.order.products = productBuffer.filter( ( product ) => this.orderProductIds.includes( product.id ) )
     },
 
