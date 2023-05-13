@@ -10,7 +10,14 @@ export default [
     urn: 'shoes',
     name: 'Shoes',
     filters: {
+      productType: 2
+    }
+  },
+  {
+    urn: 'pants',
+    name: 'Pants',
+    filters: {
       productType: 3
     }
-  }
+  },
 ]

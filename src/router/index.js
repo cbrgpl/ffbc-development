@@ -161,6 +161,7 @@ const routes = [
               {
                 path: '',
                 component: () => import( '@/views/Preview.vue' ),
+                redirect: { name: 'ShopProductCatalog', params: { urn: 'evening-gown' } },
                 name: 'ShopTmp',
               },
               {
