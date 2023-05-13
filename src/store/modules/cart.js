@@ -108,7 +108,7 @@ export default {
     async outBindedCartItems ( { dispatch, rootGetters } ) {
       const cartItems = rootGetters[ 'cart/cartItems' ]
 
-      await dispatch( 'products/loadProducts', cartItems )
+      await dispatch( 'products/loadProducts', cartItems.map( ( item ) => item.id ) )
 
       const products = rootGetters[ 'cart/products/buffer' ]
       const getFeaturesWithField = rootGetters[ 'product/getFeaturesAndFields' ]
