@@ -49,6 +49,7 @@ export default class ArrayApiSender {
     const rejectedRequests = resultOfRequests.filter( ( requestResult ) => requestResult.status === 'rejected' )
     if ( rejectedRequests.length !== 0 ) {
       const errors = rejectedRequests.map( ( rejectedRequest ) => new NetworkAttemptError( rejectedRequest.reason.httpResponse ) )
+      // eslint-disable-next-line no-undef
       throw new AggregateError( errors, 'One of request while setting user contacts has been rejected' )
     }
   }
