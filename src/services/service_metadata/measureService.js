@@ -34,7 +34,7 @@ const measureApiModule = [
       required: [ 'value', 'user', 'measureField' ],
       properties: {
         value: {
-          type: 'string'
+          type: 'number'
         },
         user: {
           type: 'number'
@@ -60,7 +60,7 @@ const measureApiModule = [
       required: [ 'value', 'user', 'measureField' ],
       properties: {
         value: {
-          type: 'string'
+          type: 'number'
         },
         user: {
           type: 'number'
