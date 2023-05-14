@@ -11,7 +11,7 @@ export const getBindedCartItem = ( cartItems, products, getFeaturesWithField ) =
     const bindedItem = getBindedItemTemplate()
 
     bindedItem.cartItem = cartItem
-    bindedItem.product = products.find( ( product ) => product.type === cartItem.product )
+    bindedItem.product = products.find( ( product ) => product.id === cartItem.product )
     bindedItem.features = getFeaturesWithField( cartItem.featureFields )
 
     bindedItems.push( bindedItem )
