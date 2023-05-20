@@ -1,7 +1,8 @@
 <template >
   <div class="relative select-none" >
     <div
-      class="border-2 border-primary-darkest border-solid bg-black-lighten rounded-md p-1 cursor-pointer"
+      class="select border-2 border-primary-darkest border-solid bg-black-lighten rounded-md p-1 cursor-pointer"
+      :data-error-state="errorState"
       @click="toggleListVisible" >
       <slot
         name="visible"
@@ -9,6 +10,16 @@
         {{ visibleValue }}
       </slot>
     </div>
+    <slot
+      name="error-label"
+      :error-state="errorState"
+      :on-error="onError" >
+      <small
+        v-show="errorState"
+        class="inline-block text-danger text-sm mt-2.5" >
+        {{ onError }}
+      </small>
+    </slot>
     <Transition name="list-appear" >
       <ul
         v-if="listVisible"
@@ -45,6 +56,14 @@ export default {
     itemAccesser: {
       type: Function,
       default: ( val ) => val
+    },
+    errorState: {
+      type: Boolean,
+      default: false,
+    },
+    onError: {
+      type: String,
+      default: ''
     },
     modelValue: {
       type: [ String, Object, Number ],
@@ -93,6 +112,10 @@ export default {
 </script>
 
 <style lang="scss" scoped >
+.select[data-error-state='true'] {
+  @apply border-danger-darken border-opacity-80;
+}
+
 .list {
   position: absolute;
   top: calc(100% + 5px);
