@@ -41,6 +41,9 @@ export default function () {
         numeric,
         between: between( 18, 99 )
       },
+      bustType: {
+        required
+      }
     }
   }
 }

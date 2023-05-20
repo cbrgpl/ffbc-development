@@ -19,7 +19,7 @@
       </zMeasureForm>
     </div>
 
-    <SectionActions @show-next="emitSectionComplete" />
+    <SectionActions @showNext="emitSectionComplete" />
   </div>
 </template>
 

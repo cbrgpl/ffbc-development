@@ -162,6 +162,8 @@
       <zSelect
         v-model="userForm.bustType"
         class="form-field"
+        :error-state="v$.userForm.bustType.$error"
+        on-error="required"
         :list="bustTypes"
         :item-accesser="(bustType) => bustType[1].id" >
         <template #visible="{ value }" >

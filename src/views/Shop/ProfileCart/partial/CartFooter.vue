@@ -54,6 +54,8 @@ export default {
         cartCalculation.price += parseFloat( cartItem.price )
       }
 
+      cartCalculation.price = cartCalculation.price.toFixed( 2 )
+
       return cartCalculation
     },
   }
