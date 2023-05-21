@@ -2,25 +2,11 @@
   <div >
     <OrdererDetailsYouSubsection
       title="General Info:"
-      :info="generalInfo" >
-      <template #sectionListEnd >
-        <li >
-          <strong >Instagram:&nbsp;</strong> <zLink
-            external-link
-            :url="orderData.instagramUrl" >
-            {{ orderData.instagramUrl }}
-          </zLink>
-        </li>
-      </template>
-    </OrdererDetailsYouSubsection>
+      :info="generalInfo" />
 
     <OrdererDetailsYouSubsection
       title="Delivery Info:"
       :info="deliveryInfo" />
-
-    <OrdererDetailsYouSubsection
-      title="Contact Services:"
-      :info="contactServices" />
 
     <OrdererDetailsYouSubsection
       title="Physical Info:"

@@ -7,14 +7,7 @@
         class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12"
         icon="menu" />
     </div>
-    <router-link
-      class="hidden xl:block"
-      :to="{name: 'ShopTmp'}" >
-      <img
-        width="60"
-        height="auto"
-        :src="require('@images/shop/logo.jpg')" >
-    </router-link>
+    <div ></div>
 
     <div
       v-if="isAuth"

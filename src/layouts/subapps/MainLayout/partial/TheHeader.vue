@@ -10,16 +10,6 @@
 
           @click="$emit('toggleSidebar')" />
       </div>
-      <router-link
-        class="h-full"
-        :to="{name: 'Main'}" >
-        <img
-          class="header__logo"
-          height="150"
-          width="250"
-          :src="require( '@images/logo.png' )"
-          alt="" >
-      </router-link>
     </div>
 
     <!-- <div  > -->
