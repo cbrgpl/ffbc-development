@@ -10,6 +10,11 @@ export default {
       icon: 'straighten',
       title: 'Measures',
     },
+    {
+      keyword: 'paypalPayment',
+      icon: 'payment',
+      title: 'Payment',
+    },
     // {
     //   keyword: 'contactServices',
     //   icon: 'connectWithoutContact',
@@ -20,19 +25,10 @@ export default {
     //   icon: 'fileUpload',
     //   title: 'Additional Photos',
     // },
-    // {
-    //   keyword: 'measures',
-    //   icon: 'straighten',
-    //   title: 'Measures',
-    // },
-    // {
-    //   keyword: 'payment',
-    //   icon: 'payment',
-    //   title: 'Payment',
-    // },
   ],
   blocks: [
     [ 0, 1 ],
+    [ 2, 2 ]
     // [ 4, 4 ]
   ]
 }

@@ -1,13 +1,15 @@
 <template >
-  <section class="px-3 py-4" >
+  <section class="px-3 py-4 flex flex-col flex-grow" >
     <Navigation
       v-model="currentSectionIndex"
-      class="mb-4 max-w-md md:max-w-lg mx-auto"
+      class="mb-4 max-w-md md:max-w-lg mx-auto w-full"
       :checkout-navigation="checkoutNavigation" />
 
     <component
       :is="sectionName"
-      class="container mx-auto"
+      class="container mx-auto flex-grow"
+      :user-id="ids.userId"
+      :order-id="orderId"
       :binded-cart-items="bindedCartItems"
       @sectionComplete="sendSectionData" >
       <template #actions >
@@ -27,6 +29,7 @@ import Navigation from './partial/Navigation.vue'
 
 import BasicInformation from './partial/BasicInformation.vue'
 import Measures from './partial/Measures.vue'
+import PaypalPayment from './partial/PaypalPayment.vue'
 
 import CheckoutStrategyWithHooks from '@classes/checkoutStrategyWithHooks'
 
@@ -39,7 +42,8 @@ export default {
     Navigation,
 
     BasicInformation,
-    Measures
+    Measures,
+    PaypalPayment
   },
   provide () {
     return {
@@ -117,7 +121,11 @@ export default {
         ],
         [
           'Measures',
-          new CheckoutStrategyWithHooks( { afterRequest: this.finishOrderCheckout }, 'orderMeasuresCreate' )
+          new CheckoutStrategyWithHooks( {}, 'orderMeasuresCreate' )
+        ],
+        [
+          'PaypalPayment',
+          new CheckoutStrategyWithHooks( { afterRequest: this.finishOrderCheckout } )
         ],
       ]
 
@@ -127,8 +135,7 @@ export default {
       this.actionsLoader = true
       this.setStrategy( data.sectionName )
 
-      const unbindedPayload = JSON.parse( JSON.stringify( data.payload ) )
-
+      const unbindedPayload =data.payload ? JSON.parse( JSON.stringify( data.payload ) ) : null
       await this.activeStrategy.sendData( unbindedPayload )
 
       this.changeSection()
@@ -163,17 +170,9 @@ export default {
       return [ payload ]
     },
     finishOrderCheckout ( response ) {
-      const toastDetail = this.getToastDetails( this.ids.userId )
-      this.toast$.success( { summary: `Order #${ this.orderId } created`, detail: toastDetail, life: 15000 } )
       this.$router.push( { name: 'ShopTmp' } )
       this.$store.dispatch( 'cart/removeCartItems', this.bindedCartItemIds )
     },
-    getToastDetails () {
-      const generalPart = 'Administrator soon will contact with you.<br>'
-      const partByUserType = this.ids.userId !== null ? 'You can explore details in your profile.' : 'Unfortunately, you can\'t explore order detail.'
-
-      return generalPart + partByUserType
-    }
   }
 }
 </script>
