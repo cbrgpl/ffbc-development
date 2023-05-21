@@ -19,12 +19,13 @@ import escCloseMix from '@mixins/escClose.mixin'
 
 export default {
   name: 'DialogLayout',
-  
+
   components: {
     TheVerificationDialog: defineAsyncComponent( () => import( './partial/TheVerificationDialog.vue' ) ),
     TheResetPasswordDialog: defineAsyncComponent( () => import( './partial/TheResetPasswordDialog.vue' ) ),
     TheAuthDialog: defineAsyncComponent( () => import( './partial/TheAuthDialog/TheAuthDialog.vue' ) ),
-    TheAddToCartDialog: defineAsyncComponent( () => import( './partial/TheAddToCartDialog/TheAddToCartDialog.vue' ) )
+    TheAddToCartDialog: defineAsyncComponent( () => import( './partial/TheAddToCartDialog/TheAddToCartDialog.vue' ) ),
+    TheCheckoutOrderDialog: defineAsyncComponent( () => import( '@/views/Shop/ProfileOrderDetail/partial/CheckoutOrderDialog.vue' ) )
   },
   mixins: [ escCloseMix ],
   inheritAttrs: false,
@@ -67,7 +68,7 @@ export default {
       return this.shownDialogs.length !== 0
     }
   },
- 
+
 
 }
 </script>
