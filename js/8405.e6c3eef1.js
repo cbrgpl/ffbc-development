@@ -1,0 +1,1 @@
+"use strict";(self["webpackChunktemplate_project"]=self["webpackChunktemplate_project"]||[]).push([[8405],{8405:function(e,t,h){h.r(t),t["default"]={path:'\n  <path\n    d="M0 0h24v24H0z"\n    fill="none" />\n  <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />\n  ',viewBox:"0 0 24 24"}}}]);

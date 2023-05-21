@@ -1,0 +1,1 @@
+"use strict";(self["webpackChunktemplate_project"]=self["webpackChunktemplate_project"]||[]).push([[5619],{5619:function(e,t,n){n.r(t),n.d(t,{default:function(){return p}});var r=n(821);function c(e,t,n,c,a,u){const o=(0,r.up)("zIconBase");return(0,r.wg)(),(0,r.j4)(o,{height:"25",width:"25"})}var a={name:"ZBrandIcon"},u=n(3744);const o=(0,u.Z)(a,[["render",c]]);var p=o}}]);
