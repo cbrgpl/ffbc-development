@@ -14,7 +14,12 @@
       <h4 class="font-mono mr-5 leading-tight" >
         № {{ order.data.id }}
       </h4>
-      <zOrderStatus :status-value="order.data.orderStatus" />
+      <zOrderStatus
+        show-checkout-btn
+        :binded-cart-items="bindedCartItems"
+        :order-id="order.data.id"
+        :user-id="order.data.user"
+        :status-value="order.data.orderStatus" />
     </header>
 
     <zDivider class="my-3" />
@@ -90,6 +95,15 @@ export default {
 
       return productIds
     },
+    bindedCartItems() {
+      if( !this.loader ) {
+        const cartItems = this.order.data.orderItems
+        const products = this.order.products
+        return cartItems.map( ( cartItem ) => ( { cartItem, product: products.find( ( product ) => product.id === cartItem.product ) } ) )
+      }
+
+      return []
+    }
   },
   created () {
     this.fetchOrder()
@@ -98,8 +112,8 @@ export default {
     async fetchOrder () {
       const order = await this.$store.dispatch( 'order/outFetchOrderById', this.orderId )
       this.order.data = order
+      await this.fetchOrderProducts()
       this.loader = false
-      this.fetchOrderProducts()
     },
     async fetchOrderProducts () {
       await this.$store.dispatch( 'cart/products/loadProducts', this.orderProductIds )
