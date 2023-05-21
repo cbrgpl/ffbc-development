@@ -9,7 +9,9 @@
       Back
     </div>
 
-    <div :class="contentWrapperClasses" >
+    <div
+      :class="contentWrapperClasses"
+      class="flex flex-col" >
       <slot />
     </div>
   </div>

@@ -7,6 +7,8 @@ export default class CheckoutStrategy {
   }
 
   sendData ( payload ) {
-    return this.orderService[ this.serviceMethodName ]( payload )
+    if( this.serviceMethodName ) {
+      return this.orderService[ this.serviceMethodName ]( payload )
+    }
   }
 }
