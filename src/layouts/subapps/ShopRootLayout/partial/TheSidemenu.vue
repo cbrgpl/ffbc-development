@@ -1,22 +1,6 @@
 <template >
   <aside :class="['z-100 absolute w-full xl:static h-full bg-black-lighten overflow-auto xl:w-auto flex-shrink-0 pt-4 transform transition-transform duration-500 ease-in-out', sidebarVisibilityClasses]" >
     <h3 class="sidemenu-list-title" >
-      Site Navigation:
-    </h3>
-    <SidemenuNavigationList :navigation-options="subsystemNavigation" >
-      <template #default="{ value: route }" >
-        <router-link
-          exact-active-class="text-primary border-primary"
-          class="sidemenu-list-link"
-          :to="{ name: route.routeName }" >
-          {{ route.name }}
-        </router-link>
-      </template>
-    </SidemenuNavigationList>
-
-    <zDivider class="my-6" />
-
-    <h3 class="sidemenu-list-title" >
       Goods Navigation:
     </h3>
     <SidemenuNavigationList :navigation-options="productSections" >

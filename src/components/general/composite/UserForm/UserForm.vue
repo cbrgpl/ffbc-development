@@ -139,23 +139,10 @@
         :error-state="v$.userForm.phoneNumber.$error"
         on-error="required" />
 
-      <div class="form-field" >
-        <zInput
-          v-model.trim="userForm.instagramUrl"
-          label="Instagram Url"
-          :error-state="v$.userForm.instagramUrl.$error"
-          on-error="required"
-          class="mb-0.5" />
-
-        <small class="text-placeholder font-semibold" >
-          Field is required
-        </small>
-      </div>
-
       <zInput
         v-model="userForm.birthDate"
         class="form-field"
-        mask="99.99.9999"
+        type="date"
         label="Birth date mm.dd.yyyy"
         on-error="required" />
 
@@ -222,7 +209,7 @@ export default {
         state: '',
         zipCode: '',
         phoneNumber: '',
-        instagramUrl: '',
+        instagramUrl: 'https://instagram.com',
         birthDate: '',
         height: '',
         age: '',
